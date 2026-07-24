@@ -1,0 +1,48 @@
+{
+  "slug": "population-size-living-costs",
+  "title": "Population Size and Living Costs",
+  "description": "Simulates a population of resource users utilizing a shared natural resource (a forest). Explores relationships between population size (number of foresters), tree growth rate, forester harvest rate, and cost of living.",
+  "concepts": [
+    "Common Pool Resource",
+    "Population dynamics",
+    "Sustainable resource use"
+  ],
+  "subjects": [
+    "Biology",
+    "Computer Science",
+    "Economics",
+    "ESD",
+    "Geography",
+    "History",
+    "Interdisciplinary",
+    "Politics",
+    "Social Studies",
+    "STEM"
+  ],
+  "grades": [
+    "6-8",
+    "9-12",
+    "Teacher education"
+  ],
+  "materialTypes": [
+    "Computer Model"
+  ],
+  "notes": null,
+  "files": {
+    "htmlApp": "app.html",
+    "nlogoSource": "model.nlogo"
+  },
+  "teachingMaterials": {
+    "uiOverview": "https://docs.google.com/presentation/d/e/2PACX-1vT4wXJI6UUhdnr-_-QnLbqInV0bnBFIElWhgN9hhTFu73_5Yww13z-AkqOtBWqVPcZz9Uw7Wr0j_CyV/pub",
+    "lessonPlan": "https://docs.google.com/document/d/1xyE6yQidMVKwD_IvQ7pKE2qk2YPbnK5ym6TqAQ9X24M",
+    "related": []
+  },
+  "lpmStrand": "lpm-strands/population-size-living-costs.md",
+  "source": {
+    "page": "https://openevo.eva.mpg.de/teachingbase/netlogo-population-size/",
+    "htmlExport": "https://openevo.eva.mpg.de/wp-content/uploads/population-size-living-costs-forest-use.html",
+    "attribution": "OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

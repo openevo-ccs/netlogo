@@ -1,0 +1,47 @@
+{
+  "slug": "two-foresters",
+  "title": "Two Foresters",
+  "description": "An interactive introduction into concepts of ecology, behavioral ecology, and sustainability with a computer simulation of a simple social-ecological system consisting of just two individuals and a regrowing resource (trees). Learners observe how outcomes vary based on harvest levels, resource regrowth rates, carrying capacity, and whether resources are shared or private.",
+  "concepts": [
+    "Complex systems",
+    "Cooperation",
+    "Social dilemma",
+    "Sustainable resource use"
+  ],
+  "subjects": [
+    "Economics",
+    "Ethics",
+    "Math",
+    "Social Studies"
+  ],
+  "grades": [
+    "3-5",
+    "6-8",
+    "9-12"
+  ],
+  "materialTypes": [
+    "Analogy mapping",
+    "Causal map",
+    "Computer Model",
+    "Full lesson plan",
+    "Payoff Matrix"
+  ],
+  "notes": null,
+  "files": {
+    "htmlApp": "app.html",
+    "nlogoSource": "model.nlogo"
+  },
+  "teachingMaterials": {
+    "uiOverview": "https://docs.google.com/presentation/d/e/2PACX-1vQgBcJBpLep4rrv5jDuLYgjU0tRqd8750nyjd0l3pjId-x-Sfrx5Oh5Ri9QMDfM5oMtsHk1EAPHK5SK/pub?start=false&loop=false&delayms=3000",
+    "lessonPlan": "https://docs.google.com/document/d/1JeW5GraAmSUWvouC6qDYFYbOqy9l5iAhUEYlD1sRW8Y/edit?usp=sharing",
+    "related": []
+  },
+  "lpmStrand": "lpm-strands/two-foresters.md",
+  "source": {
+    "page": "https://openevo.eva.mpg.de/teachingbase/netlogo-2-foresters/",
+    "htmlExport": "https://openevo.eva.mpg.de/wp-content/uploads/Two_Foresters.html",
+    "attribution": "OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

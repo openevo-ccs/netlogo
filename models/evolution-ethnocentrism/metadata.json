@@ -1,0 +1,51 @@
+{
+  "slug": "evolution-ethnocentrism",
+  "title": "Evolution of Ethnocentrism",
+  "description": "Simulates the biological evolution of ethnocentrism in a population made up of multiple ethnicities. Kin selection, frequency-dependent selection, and multilevel selection help explain observable outcomes. Invites reflection on the evolutionary origins of human ethnocentric tendencies, their role in human history, negative impacts in today's globalized world, and ways to overcome them.",
+  "concepts": [
+    "Altruism",
+    "Cognitive Biases",
+    "Cooperation",
+    "Ethnocentrism",
+    "Frequency-dependent selection",
+    "Kin selection",
+    "Multilevel Selection",
+    "Social cognition"
+  ],
+  "subjects": [
+    "Biology",
+    "Civics",
+    "Computer Science",
+    "Ethics",
+    "History",
+    "Human Evolution",
+    "Math",
+    "Philosophy",
+    "Politics",
+    "Social Studies"
+  ],
+  "grades": [
+    "9-12"
+  ],
+  "materialTypes": [
+    "Computer Model"
+  ],
+  "notes": null,
+  "files": {
+    "htmlApp": "app.html",
+    "nlogoSource": "model.nlogo"
+  },
+  "teachingMaterials": {
+    "uiOverview": "https://docs.google.com/presentation/d/e/2PACX-1vR_0rLeotSL0i__gffPv1DBS7SENeRtedsqNIjKmQilVKB1URJFt6fY3bdv2kaxKCSQIeXQY7TBeEve/pub",
+    "lessonPlan": "https://docs.google.com/document/d/1aRLFh0ZWiiLDmLtFkSXpNjlpkN2OG0vi5xdjQ8If9WY/edit",
+    "related": []
+  },
+  "lpmStrand": "lpm-strands/evolution-ethnocentrism.md",
+  "source": {
+    "page": "https://openevo.eva.mpg.de/teachingbase/netlogo-evolution-of-ethnocentrism/",
+    "htmlExport": "https://openevo.eva.mpg.de/wp-content/uploads/Ethnocentrism.html",
+    "attribution": "OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

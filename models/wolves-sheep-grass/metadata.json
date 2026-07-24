@@ -1,0 +1,41 @@
+{
+  "slug": "wolves-sheep-grass",
+  "title": "Wolves-Sheep-Grass",
+  "description": "Explores the interactions between three species in an ecosystem (wolves, sheep, and grass), a classic predator-prey-resource dynamics model.",
+  "concepts": [
+    "Predator-prey dynamics",
+    "Ecosystem dynamics",
+    "Population cycles"
+  ],
+  "subjects": [
+    "Biology",
+    "Computer Science",
+    "STEM"
+  ],
+  "grades": [
+    "6-8",
+    "9-12",
+    "Teacher education"
+  ],
+  "materialTypes": [
+    "Computer Model"
+  ],
+  "notes": "Teaching materials listed as in preparation on the source site.",
+  "files": {
+    "htmlApp": "app.html",
+    "nlogoSource": "model.nlogo"
+  },
+  "teachingMaterials": {
+    "uiOverview": null,
+    "lessonPlan": null,
+    "related": []
+  },
+  "lpmStrand": "lpm-strands/wolves-sheep-grass.md",
+  "source": {
+    "page": "https://openevo.eva.mpg.de/teachingbase/netlogo-wolves-sheep-grass/",
+    "htmlExport": "https://openevo.eva.mpg.de/wp-content/uploads/Wolves-Sheep-Grass.html",
+    "attribution": "OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenEvo NetLogo Models — Explorer</title>
+<meta name="description" content="Browse and run the OpenEvo collection of NetLogo agent-based models on evolution, cooperation, and sustainability, and connect to their Learning Progression Map strands.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <h1>OpenEvo NetLogo Models</h1>
+      <p class="tagline">Agent-based models of evolution, cooperation &amp; sustainability — explore, run, and connect to their LPM strands.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar" aria-label="Model list">
+      <div class="filters">
+        <input id="search" type="search" placeholder="Search models…" aria-label="Search models">
+        <select id="filter-concept" aria-label="Filter by concept">
+          <option value="">All concepts</option>
+        </select>
+        <select id="filter-grade" aria-label="Filter by grade level">
+          <option value="">All grade levels</option>
+        </select>
+      </div>
+      <ul id="model-list" class="model-list"></ul>
+    </aside>
+
+    <section class="viewer" aria-label="Model viewer">
+      <div id="model-frame-wrap" class="frame-wrap">
+        <iframe id="model-frame" title="NetLogo model" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <aside class="details" aria-label="Model details">
+      <div id="details-content"></div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <p>
+      Models sourced from <a href="https://openevo.eva.mpg.de/teachingbase/netlogo/" target="_blank" rel="noopener">OpenEvo TeachingBase</a>,
+      Max Planck Institute for Evolutionary Anthropology — CC BY-SA.
+      Repository: <a href="https://github.com/openevo-ccs/netlogo" target="_blank" rel="noopener">github.com/openevo-ccs/netlogo</a>.
+    </p>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

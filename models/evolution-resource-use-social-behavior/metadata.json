@@ -1,0 +1,49 @@
+{
+  "slug": "evolution-resource-use-social-behavior",
+  "title": "Evolution of Resource Use and Social Behavior (Monitoring and Punishment)",
+  "description": "Simulates renewable resource use and population evolution with two traits: harvest behavior (sustainable vs. greedy) and perception/punishment ability. Punishing agents can perceive others' behaviors and respond by killing greedy harvesters, blocking resource access, or imposing penalties distributed to neighbors, illustrating monitoring and sanctioning as mechanisms for cooperation and sustainable resource management.",
+  "concepts": [
+    "Common pool resources",
+    "Complex systems",
+    "Cooperation",
+    "Group selection",
+    "Multilevel selection",
+    "Social cognition",
+    "Sustainable resource use"
+  ],
+  "subjects": [
+    "Biology",
+    "Civics",
+    "Computer Science",
+    "Economics",
+    "Ethics",
+    "Math",
+    "Politics",
+    "Social Studies"
+  ],
+  "grades": [
+    "9-12"
+  ],
+  "materialTypes": [
+    "Computer Model",
+    "Full lesson plan"
+  ],
+  "notes": null,
+  "files": {
+    "htmlApp": "app.html",
+    "nlogoSource": "model.nlogo"
+  },
+  "teachingMaterials": {
+    "uiOverview": null,
+    "lessonPlan": null,
+    "related": []
+  },
+  "lpmStrand": "lpm-strands/evolution-resource-use-social-behavior.md",
+  "source": {
+    "page": "https://openevo.eva.mpg.de/teachingbase/netlogo-evolution-of-resource-use-and-social-behavior-monitoring-and-punishment/",
+    "htmlExport": "https://openevo.eva.mpg.de/wp-content/uploads/Evolution_Resources_Monitoring_Punishment-smallerworld.html",
+    "attribution": "OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

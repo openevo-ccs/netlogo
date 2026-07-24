@@ -1,0 +1,42 @@
+{
+  "slug": "evolution-competition-forest-resources",
+  "title": "Evolution and Competition for Forest Resources",
+  "description": "Simulates a social-ecological system with various numbers of individuals and a regrowing resource (trees). Agents are modest (green) or greedy (red) and harvest at different rates; offspring inherit their parent's type with a mutation parameter. Students observe how population and resources fluctuate based on harvest level, living costs, mutation rate, resource regrowth, and carrying capacity.",
+  "concepts": [
+    "Evolution",
+    "Natural selection",
+    "Sustainable resource use"
+  ],
+  "subjects": [
+    "Biology",
+    "Computer Science",
+    "Math"
+  ],
+  "grades": [
+    "6-8",
+    "9-12"
+  ],
+  "materialTypes": [
+    "Analogy mapping",
+    "Causal map",
+    "Computer Model"
+  ],
+  "notes": null,
+  "files": {
+    "htmlApp": "app.html",
+    "nlogoSource": "model.nlogo"
+  },
+  "teachingMaterials": {
+    "uiOverview": null,
+    "lessonPlan": null,
+    "related": []
+  },
+  "lpmStrand": "lpm-strands/evolution-competition-forest-resources.md",
+  "source": {
+    "page": "https://openevo.eva.mpg.de/teachingbase/netlogo-evolution-and-competition-for-forest-resources/",
+    "htmlExport": "https://openevo.eva.mpg.de/wp-content/uploads/Evolution_Forest.html",
+    "attribution": "OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

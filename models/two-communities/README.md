@@ -1,0 +1,25 @@
+# Two Communities
+
+A social-ecological system model featuring foresters divided into two communities harvesting from regrowing trees. Demonstrates how outcomes for individuals and communities are influenced by the composition of modest and greedy foresters, and the tension between individual short-term gains and collective long-term welfare.
+
+## Try it
+- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
+
+## Metadata
+- **Concepts:** Common Pool Resource, Cooperation, Social dilemma, Sustainable resource use
+- **Subject areas:** Civics, ESD, Math, Social Studies
+- **Grade levels:** 6-8, 9-12, Undergraduate
+- **Material types:** Computer Model
+
+## OpenEvo teaching materials
+- [Model user-interface overview](https://docs.google.com/presentation/d/e/2PACX-1vQGSAgZlgVCVHYjdhwfuzc_27-TklqA9px2fnhWeKzfWKHl-RkjvgxPDaxBqg3fsrcssIinWkecCbft/pub?start=false&loop=false&delayms=3000)
+- [Teaching materials / lesson plan](https://docs.google.com/document/d/1Kip-HnEJE9523PhStvLPeyQ5GAStjdX1OWJnOHG70Eo/edit?usp=sharing)
+
+## LPM strand
+This model doesn't yet have a dedicated Learning Progression Map (LPM) strand in this repo. See [`lpm-strands/two-communities.md`](../../lpm-strands/two-communities.md) to start one, and the [LPM strands overview](../../lpm-strands/README.md) for the development process.
+
+## Source
+- Original page: https://openevo.eva.mpg.de/teachingbase/netlogo-two-communities/
+- Original HTML export: https://openevo.eva.mpg.de/wp-content/uploads/Two_Communities_Forest.html
+- Attribution: OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/), licensed CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)

@@ -1,0 +1,25 @@
+# Evolution of Resource Use with Harvest Efficiency
+
+Extends the resource-competition framework: agents harvest resources and reproduce based on the amount harvested. Features evolving harvesting behavior and adjustable harvesting costs, letting students observe how costs influence agent evolution and system dynamics.
+
+## Try it
+- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
+
+## Metadata
+- **Concepts:** Evolution, Interdependence, Sustainable resource use
+- **Subject areas:** Biology, Computer Science, Economics, History, Human Evolution, Math, STEM
+- **Grade levels:** 9-12
+- **Material types:** Analogy mapping, Causal map, Computer Model, Full lesson plan
+
+## OpenEvo teaching materials
+- [Model user-interface overview](https://docs.google.com/presentation/d/e/2PACX-1vQz-oiLWn1fp-CzcrUkqoR5kE6tPNWtmNQO4Fg2D6UPlWDhZMAC1-ZZDAWaOGMgTW-KHzfoRMTtgQeP/pub?start=false&loop=false&delayms=3000)
+- [Teaching materials / lesson plan](https://docs.google.com/document/d/1MsaUu3s7zfMZcLVSsZP8g6v0p46OAfOgx3HnyenSb0Q/edit?usp=sharing)
+
+## LPM strand
+This model doesn't yet have a dedicated Learning Progression Map (LPM) strand in this repo. See [`lpm-strands/evolution-resource-use-harvest-efficiency.md`](../../lpm-strands/evolution-resource-use-harvest-efficiency.md) to start one, and the [LPM strands overview](../../lpm-strands/README.md) for the development process.
+
+## Source
+- Original page: https://openevo.eva.mpg.de/teachingbase/netlogo-evolution-of-resource-and-harvest-efficiency/
+- Original HTML export: https://openevo.eva.mpg.de/wp-content/uploads/Evolution-of-harvest-rate_with-harvesting-cost.html
+- Attribution: OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/), licensed CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)

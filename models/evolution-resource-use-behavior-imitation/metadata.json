@@ -1,0 +1,58 @@
+{
+  "slug": "evolution-resource-use-behavior-imitation",
+  "title": "Evolution of Resource Use Through Behavior Imitation",
+  "description": "Adds cultural evolutionary dynamics through behavior imitation to the evolution of resource-use behavior. Simulates several imitation biases (majority, minority, most successful, most experienced, parents), showing how norms and traditions of sustainable or unsustainable resource use can emerge based on imitation bias, innovation rate, and agent mobility.",
+  "concepts": [
+    "Cultural evolution",
+    "Norm psychology",
+    "Social norms",
+    "Sustainable resource use"
+  ],
+  "subjects": [
+    "Biology",
+    "Civics",
+    "Computer Science",
+    "ESD",
+    "Human Evolution",
+    "Interdisciplinary",
+    "Math",
+    "Social Studies"
+  ],
+  "grades": [
+    "9-12",
+    "Undergraduate"
+  ],
+  "materialTypes": [
+    "Analogy mapping",
+    "Computer Model",
+    "Full lesson plan",
+    "Worksheet"
+  ],
+  "notes": null,
+  "files": {
+    "htmlApp": "app.html",
+    "nlogoSource": "model.nlogo"
+  },
+  "teachingMaterials": {
+    "uiOverview": null,
+    "lessonPlan": null,
+    "related": [
+      {
+        "title": "Cultural evolution vs. gene-focused evolution (lesson plan)",
+        "url": "https://openevo.eva.mpg.de/teachingbase/cultural-evolution-vs-gene-focused-evolution/"
+      },
+      {
+        "title": "What motivates people to save energy",
+        "url": "https://openevo.eva.mpg.de/teachingbase/what-motivates-people-to-save-energy/"
+      }
+    ]
+  },
+  "lpmStrand": "lpm-strands/evolution-resource-use-behavior-imitation.md",
+  "source": {
+    "page": "https://openevo.eva.mpg.de/teachingbase/evolution-of-resource-use-through-behavior-imitation/",
+    "htmlExport": "https://openevo.eva.mpg.de/wp-content/uploads/Evolution_Resource_use-behavior-imitation.html",
+    "attribution": "OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

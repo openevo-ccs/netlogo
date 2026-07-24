@@ -1,0 +1,37 @@
+{
+  "slug": "swarming",
+  "title": "Swarming",
+  "description": "Simulates animal swarming behavior (birds, fish) with no individual leader: each animal follows the same simple local rules, from which the swarm emerges. Demonstrates emergence in complex systems.",
+  "concepts": [
+    "Complex systems",
+    "Emergence",
+    "Collective behavior"
+  ],
+  "subjects": [
+    "Biology"
+  ],
+  "grades": [
+    "9-12"
+  ],
+  "materialTypes": [
+    "Computer Model"
+  ],
+  "notes": "Teaching materials listed as in preparation on the source site.",
+  "files": {
+    "htmlApp": "app.html",
+    "nlogoSource": "model.nlogo"
+  },
+  "teachingMaterials": {
+    "uiOverview": null,
+    "lessonPlan": null,
+    "related": []
+  },
+  "lpmStrand": "lpm-strands/swarming.md",
+  "source": {
+    "page": "https://openevo.eva.mpg.de/teachingbase/netlogo-swarming/",
+    "htmlExport": "https://openevo.eva.mpg.de/wp-content/uploads/Swarming.html",
+    "attribution": "OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "island-world",
+  "title": "Island World",
+  "description": "Simulates evolution in spatially structured environments where resources and populations are unevenly distributed. Agents occupy resource areas and can migrate away from poor regions, demonstrating how natural selection, migration, founder effects, and isolation interact to produce sustainable local populations. Extends to human evolutionary history and pathogen virulence evolution.",
+  "concepts": [
+    "Evolution",
+    "Founder effect",
+    "Multilevel Selection"
+  ],
+  "subjects": [
+    "Biology",
+    "Computer Science",
+    "Geography",
+    "Health",
+    "Human Evolution",
+    "Math"
+  ],
+  "grades": [
+    "9-12",
+    "Undergraduate"
+  ],
+  "materialTypes": [
+    "Analogy mapping",
+    "Computer Model",
+    "Full lesson plan"
+  ],
+  "notes": null,
+  "files": {
+    "htmlApp": "app.html",
+    "nlogoSource": "model.nlogo"
+  },
+  "teachingMaterials": {
+    "uiOverview": null,
+    "lessonPlan": null,
+    "related": []
+  },
+  "lpmStrand": "lpm-strands/island-world.md",
+  "source": {
+    "page": "https://openevo.eva.mpg.de/teachingbase/netlogo-island-world/",
+    "htmlExport": "https://openevo.eva.mpg.de/wp-content/uploads/Evolution_island-world.html",
+    "attribution": "OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

@@ -1,0 +1,425 @@
+[
+  {
+    "slug": "two-foresters",
+    "title": "Two Foresters",
+    "description": "An interactive introduction into concepts of ecology, behavioral ecology, and sustainability with a computer simulation of a simple social-ecological system consisting of just two individuals and a regrowing resource (trees). Learners observe how outcomes vary based on harvest levels, resource regrowth rates, carrying capacity, and whether resources are shared or private.",
+    "concepts": [
+      "Complex systems",
+      "Cooperation",
+      "Social dilemma",
+      "Sustainable resource use"
+    ],
+    "subjects": [
+      "Economics",
+      "Ethics",
+      "Math",
+      "Social Studies"
+    ],
+    "grades": [
+      "3-5",
+      "6-8",
+      "9-12"
+    ],
+    "materialTypes": [
+      "Analogy mapping",
+      "Causal map",
+      "Computer Model",
+      "Full lesson plan",
+      "Payoff Matrix"
+    ],
+    "htmlApp": "models/two-foresters/app.html",
+    "nlogoSource": "models/two-foresters/model.nlogo",
+    "modelPage": "models/two-foresters/",
+    "lpmStrand": "lpm-strands/two-foresters.md"
+  },
+  {
+    "slug": "two-communities",
+    "title": "Two Communities",
+    "description": "A social-ecological system model featuring foresters divided into two communities harvesting from regrowing trees. Demonstrates how outcomes for individuals and communities are influenced by the composition of modest and greedy foresters, and the tension between individual short-term gains and collective long-term welfare.",
+    "concepts": [
+      "Common Pool Resource",
+      "Cooperation",
+      "Social dilemma",
+      "Sustainable resource use"
+    ],
+    "subjects": [
+      "Civics",
+      "ESD",
+      "Math",
+      "Social Studies"
+    ],
+    "grades": [
+      "6-8",
+      "9-12",
+      "Undergraduate"
+    ],
+    "materialTypes": [
+      "Computer Model"
+    ],
+    "htmlApp": "models/two-communities/app.html",
+    "nlogoSource": "models/two-communities/model.nlogo",
+    "modelPage": "models/two-communities/",
+    "lpmStrand": "lpm-strands/two-communities.md"
+  },
+  {
+    "slug": "population-size-living-costs",
+    "title": "Population Size and Living Costs",
+    "description": "Simulates a population of resource users utilizing a shared natural resource (a forest). Explores relationships between population size (number of foresters), tree growth rate, forester harvest rate, and cost of living.",
+    "concepts": [
+      "Common Pool Resource",
+      "Population dynamics",
+      "Sustainable resource use"
+    ],
+    "subjects": [
+      "Biology",
+      "Computer Science",
+      "Economics",
+      "ESD",
+      "Geography",
+      "History",
+      "Interdisciplinary",
+      "Politics",
+      "Social Studies",
+      "STEM"
+    ],
+    "grades": [
+      "6-8",
+      "9-12",
+      "Teacher education"
+    ],
+    "materialTypes": [
+      "Computer Model"
+    ],
+    "htmlApp": "models/population-size-living-costs/app.html",
+    "nlogoSource": "models/population-size-living-costs/model.nlogo",
+    "modelPage": "models/population-size-living-costs/",
+    "lpmStrand": "lpm-strands/population-size-living-costs.md"
+  },
+  {
+    "slug": "evolution-competition-forest-resources",
+    "title": "Evolution and Competition for Forest Resources",
+    "description": "Simulates a social-ecological system with various numbers of individuals and a regrowing resource (trees). Agents are modest (green) or greedy (red) and harvest at different rates; offspring inherit their parent's type with a mutation parameter. Students observe how population and resources fluctuate based on harvest level, living costs, mutation rate, resource regrowth, and carrying capacity.",
+    "concepts": [
+      "Evolution",
+      "Natural selection",
+      "Sustainable resource use"
+    ],
+    "subjects": [
+      "Biology",
+      "Computer Science",
+      "Math"
+    ],
+    "grades": [
+      "6-8",
+      "9-12"
+    ],
+    "materialTypes": [
+      "Analogy mapping",
+      "Causal map",
+      "Computer Model"
+    ],
+    "htmlApp": "models/evolution-competition-forest-resources/app.html",
+    "nlogoSource": "models/evolution-competition-forest-resources/model.nlogo",
+    "modelPage": "models/evolution-competition-forest-resources/",
+    "lpmStrand": "lpm-strands/evolution-competition-forest-resources.md"
+  },
+  {
+    "slug": "evolution-competition-resources-abstract",
+    "title": "Evolution and Competition for Resources (Abstract)",
+    "description": "An abstracted model exploring how resource competition influences population evolution and can lead to overuse. Agents have different resource-consumption traits (sustainable/low harvest or greedy/high harvest), seek resource-rich patches, harvest for energy, expend energy to survive, and reproduce asexually with possible mutations.",
+    "concepts": [
+      "Behavior",
+      "Complex systems",
+      "Evolution",
+      "Sustainable resource use"
+    ],
+    "subjects": [
+      "Biology",
+      "Computer Science",
+      "Math"
+    ],
+    "grades": [
+      "6-8",
+      "9-12"
+    ],
+    "materialTypes": [
+      "Analogy mapping",
+      "Causal map",
+      "Computer Model",
+      "Full lesson plan"
+    ],
+    "htmlApp": "models/evolution-competition-resources-abstract/app.html",
+    "nlogoSource": "models/evolution-competition-resources-abstract/model.nlogo",
+    "modelPage": "models/evolution-competition-resources-abstract/",
+    "lpmStrand": "lpm-strands/evolution-competition-resources-abstract.md"
+  },
+  {
+    "slug": "evolution-resource-use-harvest-efficiency",
+    "title": "Evolution of Resource Use with Harvest Efficiency",
+    "description": "Extends the resource-competition framework: agents harvest resources and reproduce based on the amount harvested. Features evolving harvesting behavior and adjustable harvesting costs, letting students observe how costs influence agent evolution and system dynamics.",
+    "concepts": [
+      "Evolution",
+      "Interdependence",
+      "Sustainable resource use"
+    ],
+    "subjects": [
+      "Biology",
+      "Computer Science",
+      "Economics",
+      "History",
+      "Human Evolution",
+      "Math",
+      "STEM"
+    ],
+    "grades": [
+      "9-12"
+    ],
+    "materialTypes": [
+      "Analogy mapping",
+      "Causal map",
+      "Computer Model",
+      "Full lesson plan"
+    ],
+    "htmlApp": "models/evolution-resource-use-harvest-efficiency/app.html",
+    "nlogoSource": "models/evolution-resource-use-harvest-efficiency/model.nlogo",
+    "modelPage": "models/evolution-resource-use-harvest-efficiency/",
+    "lpmStrand": "lpm-strands/evolution-resource-use-harvest-efficiency.md"
+  },
+  {
+    "slug": "evolution-resource-use-social-behavior",
+    "title": "Evolution of Resource Use and Social Behavior (Monitoring and Punishment)",
+    "description": "Simulates renewable resource use and population evolution with two traits: harvest behavior (sustainable vs. greedy) and perception/punishment ability. Punishing agents can perceive others' behaviors and respond by killing greedy harvesters, blocking resource access, or imposing penalties distributed to neighbors, illustrating monitoring and sanctioning as mechanisms for cooperation and sustainable resource management.",
+    "concepts": [
+      "Common pool resources",
+      "Complex systems",
+      "Cooperation",
+      "Group selection",
+      "Multilevel selection",
+      "Social cognition",
+      "Sustainable resource use"
+    ],
+    "subjects": [
+      "Biology",
+      "Civics",
+      "Computer Science",
+      "Economics",
+      "Ethics",
+      "Math",
+      "Politics",
+      "Social Studies"
+    ],
+    "grades": [
+      "9-12"
+    ],
+    "materialTypes": [
+      "Computer Model",
+      "Full lesson plan"
+    ],
+    "htmlApp": "models/evolution-resource-use-social-behavior/app.html",
+    "nlogoSource": "models/evolution-resource-use-social-behavior/model.nlogo",
+    "modelPage": "models/evolution-resource-use-social-behavior/",
+    "lpmStrand": "lpm-strands/evolution-resource-use-social-behavior.md"
+  },
+  {
+    "slug": "evolution-resource-use-behavior-imitation",
+    "title": "Evolution of Resource Use Through Behavior Imitation",
+    "description": "Adds cultural evolutionary dynamics through behavior imitation to the evolution of resource-use behavior. Simulates several imitation biases (majority, minority, most successful, most experienced, parents), showing how norms and traditions of sustainable or unsustainable resource use can emerge based on imitation bias, innovation rate, and agent mobility.",
+    "concepts": [
+      "Cultural evolution",
+      "Norm psychology",
+      "Social norms",
+      "Sustainable resource use"
+    ],
+    "subjects": [
+      "Biology",
+      "Civics",
+      "Computer Science",
+      "ESD",
+      "Human Evolution",
+      "Interdisciplinary",
+      "Math",
+      "Social Studies"
+    ],
+    "grades": [
+      "9-12",
+      "Undergraduate"
+    ],
+    "materialTypes": [
+      "Analogy mapping",
+      "Computer Model",
+      "Full lesson plan",
+      "Worksheet"
+    ],
+    "htmlApp": "models/evolution-resource-use-behavior-imitation/app.html",
+    "nlogoSource": "models/evolution-resource-use-behavior-imitation/model.nlogo",
+    "modelPage": "models/evolution-resource-use-behavior-imitation/",
+    "lpmStrand": "lpm-strands/evolution-resource-use-behavior-imitation.md"
+  },
+  {
+    "slug": "island-world",
+    "title": "Island World",
+    "description": "Simulates evolution in spatially structured environments where resources and populations are unevenly distributed. Agents occupy resource areas and can migrate away from poor regions, demonstrating how natural selection, migration, founder effects, and isolation interact to produce sustainable local populations. Extends to human evolutionary history and pathogen virulence evolution.",
+    "concepts": [
+      "Evolution",
+      "Founder effect",
+      "Multilevel Selection"
+    ],
+    "subjects": [
+      "Biology",
+      "Computer Science",
+      "Geography",
+      "Health",
+      "Human Evolution",
+      "Math"
+    ],
+    "grades": [
+      "9-12",
+      "Undergraduate"
+    ],
+    "materialTypes": [
+      "Analogy mapping",
+      "Computer Model",
+      "Full lesson plan"
+    ],
+    "htmlApp": "models/island-world/app.html",
+    "nlogoSource": "models/island-world/model.nlogo",
+    "modelPage": "models/island-world/",
+    "lpmStrand": "lpm-strands/island-world.md"
+  },
+  {
+    "slug": "evolution-ethnocentrism",
+    "title": "Evolution of Ethnocentrism",
+    "description": "Simulates the biological evolution of ethnocentrism in a population made up of multiple ethnicities. Kin selection, frequency-dependent selection, and multilevel selection help explain observable outcomes. Invites reflection on the evolutionary origins of human ethnocentric tendencies, their role in human history, negative impacts in today's globalized world, and ways to overcome them.",
+    "concepts": [
+      "Altruism",
+      "Cognitive Biases",
+      "Cooperation",
+      "Ethnocentrism",
+      "Frequency-dependent selection",
+      "Kin selection",
+      "Multilevel Selection",
+      "Social cognition"
+    ],
+    "subjects": [
+      "Biology",
+      "Civics",
+      "Computer Science",
+      "Ethics",
+      "History",
+      "Human Evolution",
+      "Math",
+      "Philosophy",
+      "Politics",
+      "Social Studies"
+    ],
+    "grades": [
+      "9-12"
+    ],
+    "materialTypes": [
+      "Computer Model"
+    ],
+    "htmlApp": "models/evolution-ethnocentrism/app.html",
+    "nlogoSource": "models/evolution-ethnocentrism/model.nlogo",
+    "modelPage": "models/evolution-ethnocentrism/",
+    "lpmStrand": "lpm-strands/evolution-ethnocentrism.md"
+  },
+  {
+    "slug": "bug-evolution",
+    "title": "Bug Evolution",
+    "description": "Investigates the evolution of running speed in a beetle population. Beetles are eaten by predators (birds or spiders); depending on predator species, there is varying selective pressure on the beetles' speed.",
+    "concepts": [
+      "Evolution",
+      "Natural selection",
+      "Predator-prey dynamics"
+    ],
+    "subjects": [
+      "Biology"
+    ],
+    "grades": [
+      "6-8",
+      "9-12"
+    ],
+    "materialTypes": [
+      "Computer Model"
+    ],
+    "htmlApp": "models/bug-evolution/app.html",
+    "nlogoSource": "models/bug-evolution/model.nlogo",
+    "modelPage": "models/bug-evolution/",
+    "lpmStrand": "lpm-strands/bug-evolution.md"
+  },
+  {
+    "slug": "swarming",
+    "title": "Swarming",
+    "description": "Simulates animal swarming behavior (birds, fish) with no individual leader: each animal follows the same simple local rules, from which the swarm emerges. Demonstrates emergence in complex systems.",
+    "concepts": [
+      "Complex systems",
+      "Emergence",
+      "Collective behavior"
+    ],
+    "subjects": [
+      "Biology"
+    ],
+    "grades": [
+      "9-12"
+    ],
+    "materialTypes": [
+      "Computer Model"
+    ],
+    "htmlApp": "models/swarming/app.html",
+    "nlogoSource": "models/swarming/model.nlogo",
+    "modelPage": "models/swarming/",
+    "lpmStrand": "lpm-strands/swarming.md"
+  },
+  {
+    "slug": "virus-epidemic",
+    "title": "Virus Epidemic",
+    "description": "Simulates the spread of a viral infection within a population. Several factors related to the virus, the course of the disease, and measures implemented by the healthcare system influence the spread of the virus.",
+    "concepts": [
+      "Epidemiology",
+      "Complex systems",
+      "Public health"
+    ],
+    "subjects": [
+      "Biology",
+      "Health"
+    ],
+    "grades": [
+      "6-8",
+      "9-12"
+    ],
+    "materialTypes": [
+      "Computer Model"
+    ],
+    "htmlApp": "models/virus-epidemic/app.html",
+    "nlogoSource": "models/virus-epidemic/model.nlogo",
+    "modelPage": "models/virus-epidemic/",
+    "lpmStrand": "lpm-strands/virus-epidemic.md"
+  },
+  {
+    "slug": "wolves-sheep-grass",
+    "title": "Wolves-Sheep-Grass",
+    "description": "Explores the interactions between three species in an ecosystem (wolves, sheep, and grass), a classic predator-prey-resource dynamics model.",
+    "concepts": [
+      "Predator-prey dynamics",
+      "Ecosystem dynamics",
+      "Population cycles"
+    ],
+    "subjects": [
+      "Biology",
+      "Computer Science",
+      "STEM"
+    ],
+    "grades": [
+      "6-8",
+      "9-12",
+      "Teacher education"
+    ],
+    "materialTypes": [
+      "Computer Model"
+    ],
+    "htmlApp": "models/wolves-sheep-grass/app.html",
+    "nlogoSource": "models/wolves-sheep-grass/model.nlogo",
+    "modelPage": "models/wolves-sheep-grass/",
+    "lpmStrand": "lpm-strands/wolves-sheep-grass.md"
+  }
+]

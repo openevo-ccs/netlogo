@@ -1,0 +1,43 @@
+{
+  "slug": "two-communities",
+  "title": "Two Communities",
+  "description": "A social-ecological system model featuring foresters divided into two communities harvesting from regrowing trees. Demonstrates how outcomes for individuals and communities are influenced by the composition of modest and greedy foresters, and the tension between individual short-term gains and collective long-term welfare.",
+  "concepts": [
+    "Common Pool Resource",
+    "Cooperation",
+    "Social dilemma",
+    "Sustainable resource use"
+  ],
+  "subjects": [
+    "Civics",
+    "ESD",
+    "Math",
+    "Social Studies"
+  ],
+  "grades": [
+    "6-8",
+    "9-12",
+    "Undergraduate"
+  ],
+  "materialTypes": [
+    "Computer Model"
+  ],
+  "notes": null,
+  "files": {
+    "htmlApp": "app.html",
+    "nlogoSource": "model.nlogo"
+  },
+  "teachingMaterials": {
+    "uiOverview": "https://docs.google.com/presentation/d/e/2PACX-1vQGSAgZlgVCVHYjdhwfuzc_27-TklqA9px2fnhWeKzfWKHl-RkjvgxPDaxBqg3fsrcssIinWkecCbft/pub?start=false&loop=false&delayms=3000",
+    "lessonPlan": "https://docs.google.com/document/d/1Kip-HnEJE9523PhStvLPeyQ5GAStjdX1OWJnOHG70Eo/edit?usp=sharing",
+    "related": []
+  },
+  "lpmStrand": "lpm-strands/two-communities.md",
+  "source": {
+    "page": "https://openevo.eva.mpg.de/teachingbase/netlogo-two-communities/",
+    "htmlExport": "https://openevo.eva.mpg.de/wp-content/uploads/Two_Communities_Forest.html",
+    "attribution": "OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}
