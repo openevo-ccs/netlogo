@@ -58,6 +58,30 @@ strands tied to each model — see [`lpm-strands/README.md`](lpm-strands/README.
 involves and the current status of each strand (all start as stubs). It's also where
 cross-model/extended-learning material goes as it's developed.
 
+## Building & designing new models
+
+Model design, editing, and curriculum integration for this collection are
+supported by dedicated agents/skills in the sibling
+[`curriculum-agents`](https://github.com/openevo-ccs/curriculum-agents)
+repo:
+
+- **`netlogo-modeler`** — designs, builds, and edits models in this repo
+  (interface widgets, breeds/patches/procedures, BehaviorSpace
+  experiments, keeping `model.nlogo` and `app.html` in sync). See
+  `skills/netlogo-model-design`.
+- **`netlogo-lpm-integrator`** — turns a model into a real
+  [`lpm-strands/`](lpm-strands/) entry (grade-band progression, content
+  anchor/thinking-tool alignment, competencies, assessment, schema-ready
+  contribution). See `skills/netlogo-lpm-integration`.
+- **`skills/netlogo-interactive-embedding`** — patterns for embedding a
+  model's `app.html` in something bigger than a single page (a "digital
+  lab notebook," multi-model comparisons extending this repo's own
+  `index.html` explorer, assessment stimulus material).
+- **`tools/netlogo-mcp`** — optional live NetLogo control (create/run/
+  inspect/export) via the third-party
+  [NetLogo-MCP](https://github.com/Razee4315/NetLogo-MCP) server, for
+  anyone with a local NetLogo + JDK install.
+
 ## Running a model locally
 
 Every model works two ways:
