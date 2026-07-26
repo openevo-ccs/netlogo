@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<experiments>
+  <experiment name="Bug Evolution: Predation Pressure vs Speed" repetitions="10" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="1000"/>
+    <exitCondition>count bugs = 0</exitCondition>
+    <metric>count bugs</metric>
+    <metric>mean [speed] of bugs</metric>
+    <metric>count bugs with [speed > 5]</metric>
+    <metric>count bugs with [speed < 3]</metric>
+    
+    <!-- Vary predation pressure -->
+    <steppedValueSet var="predation-rate" first="0.01" step="0.01" last="0.05"/>
+    
+    <!-- Vary energy cost of speed -->
+    <steppedValueSet var="speed-cost" first="0.5" step="0.5" last="2.0"/>
+    
+    <!-- Vary food availability -->
+    <enumeratedValueSet variable="food-availability">
+      <value value="low"/>
+      <value value="medium"/>
+      <value value="high"/>
+    </enumeratedValueSet>
+    
+    <!-- Vary initial speed distribution -->
+    <enumeratedValueSet variable="initial-speed-mean">
+      <value value="3"/>
+      <value value="5"/>
+      <value value="7"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>

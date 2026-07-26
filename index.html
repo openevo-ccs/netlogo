@@ -4,14 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OpenEvo NetLogo Models — Explorer</title>
-<meta name="description" content="Browse and run the OpenEvo collection of NetLogo agent-based models on evolution, cooperation, and sustainability, and connect to their Learning Progression Map strands.">
+<meta name="description" content="Browse and run the OpenEvo collection of NetLogo agent-based models on evolution, cooperation, and sustainability, with integrated assessments, thinking tools, and learning progressions.">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/enhanced-style.css">
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-inner">
       <h1>OpenEvo NetLogo Models</h1>
-      <p class="tagline">Agent-based models of evolution, cooperation &amp; sustainability — explore, run, and connect to their LPM strands.</p>
+      <p class="tagline">Agent-based models of evolution, cooperation &amp; sustainability — explore, run, assess, and connect to LPM strands.</p>
     </div>
   </header>
 
@@ -26,6 +27,13 @@
           <option value="">All grade levels</option>
         </select>
       </div>
+      
+      <div class="mode-selector">
+        <button class="mode-btn active" data-mode="explore" onclick="setMode('explore')">🔍 Explore Models</button>
+        <button class="mode-btn" data-mode="compare" onclick="setMode('compare')">⚖️ Compare Models</button>
+        <button class="mode-btn" data-mode="assessment" onclick="setMode('assessment')">📝 Take Assessment</button>
+      </div>
+      
       <ul id="model-list" class="model-list"></ul>
     </aside>
 
@@ -33,10 +41,96 @@
       <div id="model-frame-wrap" class="frame-wrap">
         <iframe id="model-frame" title="NetLogo model" loading="lazy"></iframe>
       </div>
+      
+      <!-- Comparison Mode -->
+      <div id="comparison-mode" class="comparison-mode" style="display:none;">
+        <div class="comparison-header">
+          <h2>Compare Models</h2>
+          <p>Select a comparison sequence to explore related models side-by-side.</p>
+        </div>
+        <div class="comparison-selector">
+          <select id="comparison-sequence" onchange="loadComparison()">
+            <option value="">-- Choose a comparison sequence --</option>
+            <option value="cooperation">Cooperation Progression</option>
+            <option value="evolution">Evolution Mechanisms</option>
+            <option value="resources">Resource Management</option>
+          </select>
+        </div>
+        <div id="comparison-content"></div>
+      </div>
+      
+      <!-- Assessment Mode -->
+      <div id="assessment-mode" class="assessment-container" style="display:none;">
+        <div class="assessment-header">
+          <h2>Integrated Causal Reasoning Assessments</h2>
+          <p>Select an assessment to test your understanding of model concepts.</p>
+        </div>
+        <div class="assessment-selector">
+          <select id="assessment-select" onchange="loadAssessment()">
+            <option value="">-- Choose an assessment --</option>
+            <option value="assessments/evolution-ethnocentrism.json">Evolution of Ethnocentrism</option>
+            <option value="assessments/two-foresters.json">Two Foresters</option>
+            <option value="assessments/bug-evolution.json">Bug Evolution</option>
+          </select>
+        </div>
+        <div id="assessment-content"></div>
+      </div>
     </section>
 
     <aside class="details" aria-label="Model details">
       <div id="details-content"></div>
+      
+      <!-- Lab Notebook Panel -->
+      <div id="lab-notebook-panel" class="lab-notebook-panel" style="display:none;">
+        <div class="lab-notebook-header">
+          <h3>📓 Digital Lab Notebook</h3>
+          <button class="btn btn-secondary" onclick="toggleLabNotebook()">Close</button>
+        </div>
+        
+        <div class="notebook-tabs">
+          <button class="notebook-tab active" onclick="showNotebookTab('observations')">Observations</button>
+          <button class="notebook-tab" onclick="showNotebookTab('reflections')">Reflections</button>
+          <button class="notebook-tab" onclick="showNotebookTab('thinking-tools')">Thinking Tools</button>
+        </div>
+        
+        <div id="notebook-observations" class="notebook-section active">
+          <textarea id="observation-input" class="observation-input" placeholder="What do you observe? What patterns do you notice?"></textarea>
+          <button class="btn" onclick="addObservation()">Add Observation</button>
+          <div id="observations-list" class="observations-list"></div>
+        </div>
+        
+        <div id="notebook-reflections" class="notebook-section">
+          <div class="reflection-section">
+            <h4>🔍 Patterns</h4>
+            <textarea id="reflection-patterns" class="reflection-input" placeholder="What patterns do you notice?"></textarea>
+          </div>
+          <div class="reflection-section">
+            <h4>😲 Surprises</h4>
+            <textarea id="reflection-surprises" class="reflection-input" placeholder="What surprised you?"></textarea>
+          </div>
+          <div class="reflection-section">
+            <h4>❓ Questions</h4>
+            <textarea id="reflection-questions" class="reflection-input" placeholder="What questions do you have?"></textarea>
+          </div>
+          <div class="reflection-section">
+            <h4>🔗 Connections</h4>
+            <textarea id="reflection-connections" class="reflection-input" placeholder="How does this connect to other things you know?"></textarea>
+          </div>
+          <button class="btn" onclick="saveReflections()">Save Reflections</button>
+        </div>
+        
+        <div id="notebook-thinking-tools" class="notebook-section">
+          <p>Select a thinking tool to use:</p>
+          <button class="btn" onclick="openThinkingTool('tinbergen')">Tinbergen's Questions</button>
+          <button class="btn" onclick="openThinkingTool('causal-mapping')">Causal Mapping</button>
+          <button class="btn" onclick="openThinkingTool('payoff-matrix')">Payoff Matrix</button>
+        </div>
+        
+        <div class="notebook-actions">
+          <button class="btn btn-secondary" onclick="clearNotebook()">Clear All</button>
+          <button class="btn" onclick="exportNotebook()">Export Notebook</button>
+        </div>
+      </div>
     </aside>
   </main>
 
@@ -49,5 +143,8 @@
   </footer>
 
   <script src="assets/app.js"></script>
+  <script src="assets/lab-notebook.js"></script>
+  <script src="assets/assessment.js"></script>
+  <script src="assets/enhanced-app.js"></script>
 </body>
 </html>

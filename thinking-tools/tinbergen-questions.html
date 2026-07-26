@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tinbergen's Questions - Thinking Tool</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+      background: #f5f5f5;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      margin: 0 0 10px 0;
+    }
+    .header p {
+      margin: 0;
+      opacity: 0.9;
+    }
+    .question-card {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-left: 5px solid #667eea;
+    }
+    .question-card.function { border-left-color: #e74c3c; }
+    .question-card.mechanism { border-left-color: #3498db; }
+    .question-card.development { border-left-color: #2ecc71; }
+    .question-card.evolution { border-left-color: #f39c12; }
+    
+    .question-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    .question-icon {
+      font-size: 1.5em;
+      margin-right: 10px;
+    }
+    .question-prompt {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1em;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    .model-selector {
+      margin-bottom: 20px;
+    }
+    select {
+      padding: 10px 15px;
+      font-size: 1em;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+    }
+    .actions {
+      margin-top: 20px;
+      text-align: right;
+    }
+    .btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #5568d3;
+    }
+    .btn-secondary {
+      background: #95a5a6;
+      margin-right: 10px;
+    }
+    .btn-secondary:hover {
+      background: #7f8c8d;
+    }
+    .example-box {
+      background: #f8f9fa;
+      border-left: 4px solid #17a2b8;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 5px;
+    }
+    .example-title {
+      font-weight: bold;
+      color: #17a2b8;
+      margin-bottom: 8px;
+    }
+    .saved-responses {
+      margin-top: 30px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .response-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    .response-item:last-child {
+      border-bottom: none;
+    }
+    .response-meta {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🔬 Tinbergen's Questions</h1>
+    <p>A comprehensive framework for understanding behavior in biological and social systems</p>
+  </div>
+
+  <div class="model-selector">
+    <label for="modelSelect"><strong>Select a model to analyze:</strong></label>
+    <select id="modelSelect">
+      <option value="">-- Choose a model --</option>
+      <option value="evolution-ethnocentrism">Evolution of Ethnocentrism</option>
+      <option value="bug-evolution">Bug Evolution</option>
+      <option value="two-foresters">Two Foresters</option>
+      <option value="two-communities">Two Communities</option>
+      <option value="island-world">Island World</option>
+      <option value="wolves-sheep-grass">Wolves-Sheep-Grass</option>
+    </select>
+  </div>
+
+  <div class="question-card function">
+    <div class="question-title">
+      <span class="question-icon">🎯</span>
+      Function (Adaptation)
+    </div>
+    <div class="question-prompt">What problem does this behavior solve? How does it help the organism or system survive and reproduce?</div>
+    <textarea id="function-response" placeholder="Describe the adaptive function..."></textarea>
+    <div class="example-box" id="function-example" style="display:none;">
+      <div class="example-title">Example for Evolution of Ethnocentrism:</div>
+      <p>Ethnocentric cooperation may help groups compete more effectively against other groups, providing survival and reproductive advantages to group members. It can solve the problem of free-riding within groups by creating clear in-group/out-group boundaries.</p>
+    </div>
+  </div>
+
+  <div class="question-card mechanism">
+    <div class="question-title">
+      <span class="question-icon">⚙️</span>
+      Mechanism (Causation)
+    </div>
+    <div class="question-prompt">How does the behavior work? What are the immediate causes and processes that produce it?</div>
+    <textarea id="mechanism-response" placeholder="Describe the mechanism..."></textarea>
+    <div class="example-box" id="mechanism-example" style="display:none;">
+      <div class="example-title">Example for Evolution of Ethnocentrism:</div>
+      <p>Ethnocentric behavior works through simple rules: cooperate with those who share your ethnic marker, defect with those who don't. In the model, this is implemented as conditional cooperation based on agent shape/color. The mechanism involves recognizing ethnic markers and applying different cooperation strategies accordingly.</p>
+    </div>
+  </div>
+
+  <div class="question-card development">
+    <div class="question-title">
+      <span class="question-icon">🌱</span>
+      Development (Ontogeny)
+    </div>
+    <div class="question-prompt">How does the behavior develop over an individual's lifetime? What experiences or learning shape it?</div>
+    <textarea id="development-response" placeholder="Describe the development..."></textarea>
+    <div class="example-box" id="development-example" style="display:none;">
+      <div class="example-title">Example for Evolution of Ethnocentrism:</div>
+      <p>In humans, ethnocentric tendencies develop through socialization, cultural learning, and experience with in-group and out-group members. Children learn ethnic categories and associated attitudes from family, peers, and media. In the model, strategies are inherited at "birth" but can mutate, representing cultural transmission with variation.</p>
+    </div>
+  </div>
+
+  <div class="question-card evolution">
+    <div class="question-title">
+      <span class="question-icon">🧬</span>
+      Evolution (Phylogeny)
+    </div>
+    <div class="question-prompt">How did this behavior evolve over evolutionary time? What selective pressures shaped it?</div>
+    <textarea id="evolution-response" placeholder="Describe the evolution..."></textarea>
+    <div class="example-box" id="evolution-example" style="display:none;">
+      <div class="example-title">Example for Evolution of Ethnocentrism:</div>
+      <p>Ethnocentrism likely evolved through multilevel selection: groups with strong in-group cooperation may have outcompeted other groups, even if within-group selection favored selfishness. Kin selection and frequency-dependent selection also play roles. The model shows how local interaction and offspring placement can favor ethnocentric strategies.</p>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-secondary" onclick="clearResponses()">Clear All</button>
+    <button class="btn" onclick="saveResponses()">Save Responses</button>
+  </div>
+
+  <div class="saved-responses" id="saved-responses" style="display:none;">
+    <h3>💾 Saved Responses</h3>
+    <div id="responses-list"></div>
+  </div>
+
+  <script>
+    const modelExamples = {
+      'evolution-ethnocentrism': {
+        function: 'Ethnocentric cooperation may help groups compete more effectively against other groups, providing survival and reproductive advantages to group members. It can solve the problem of free-riding within groups by creating clear in-group/out-group boundaries.',
+        mechanism: 'Ethnocentric behavior works through simple rules: cooperate with those who share your ethnic marker, defect with those who don\'t. In the model, this is implemented as conditional cooperation based on agent shape/color. The mechanism involves recognizing ethnic markers and applying different cooperation strategies accordingly.',
+        development: 'In humans, ethnocentric tendencies develop through socialization, cultural learning, and experience with in-group and out-group members. Children learn ethnic categories and associated attitudes from family, peers, and media. In the model, strategies are inherited at "birth" but can mutate, representing cultural transmission with variation.',
+        evolution: 'Ethnocentrism likely evolved through multilevel selection: groups with strong in-group cooperation may have outcompeted other groups, even if within-group selection favored selfishness. Kin selection and frequency-dependent selection also play roles. The model shows how local interaction and offspring placement can favor ethnocentric strategies.'
+      },
+      'bug-evolution': {
+        function: 'Fast running speed helps beetles escape from bird predators, increasing their chances of survival and reproduction. However, being fast also has costs (more energy required), creating a trade-off.',
+        mechanism: 'Speed is determined by physiological traits (muscle structure, metabolism) that vary among beetles. Faster beetles are more likely to escape when attacked by birds. The mechanism involves the interaction between beetle speed, bird hunting behavior, and energy requirements.',
+        development: 'In real beetles, running speed develops through growth and maturation. Genetic factors influence maximum potential speed, while nutrition and environment affect actual development. In the model, speed is an inherited trait that doesn\'t change during an individual\'s lifetime.',
+        evolution: 'Speed evolved through natural selection: beetles with traits that enabled faster running had higher survival when bird predation was strong. The optimal speed depends on the balance between predation pressure and energy costs. Different environments favor different speeds.'
+      },
+      'two-foresters': {
+        function: 'Cooperation helps both foresters maintain sustainable forest resources over time. However, individual harvesting provides immediate benefits, creating a tension between individual and collective interests.',
+        mechanism: 'The mechanism involves decisions about how many trees to harvest, the regrowth rate of trees, and the communication/agreements between foresters. Each forester\'s decision affects the shared resource.',
+        development: 'Cooperation develops through repeated interactions, communication, trust-building, and learning from experience. Foresters may develop norms and expectations about appropriate harvest levels.',
+        evolution: 'Cooperation can evolve through mechanisms like reciprocal altruism, reputation systems, and group selection. In human societies, cultural evolution and institutions shape cooperation norms. The model shows how payoff structures affect cooperation stability.'
+      }
+    };
+
+    let savedResponses = JSON.parse(localStorage.getItem('tinbergenResponses') || '[]');
+
+    document.getElementById('modelSelect').addEventListener('change', function() {
+      const model = this.value;
+      const examples = modelExamples[model];
+      
+      // Show/hide examples
+      document.getElementById('function-example').style.display = examples ? 'block' : 'none';
+      document.getElementById('mechanism-example').style.display = examples ? 'block' : 'none';
+      document.getElementById('development-example').style.display = examples ? 'block' : 'none';
+      document.getElementById('evolution-example').style.display = examples ? 'block' : 'none';
+      
+      if (examples) {
+        document.getElementById('function-example').querySelector('p').textContent = examples.function;
+        document.getElementById('mechanism-example').querySelector('p').textContent = examples.mechanism;
+        document.getElementById('development-example').querySelector('p').textContent = examples.development;
+        document.getElementById('evolution-example').querySelector('p').textContent = examples.evolution;
+      }
+    });
+
+    function saveResponses() {
+      const model = document.getElementById('modelSelect').value;
+      if (!model) {
+        alert('Please select a model first');
+        return;
+      }
+
+      const response = {
+        id: Date.now(),
+        model: model,
+        timestamp: new Date().toISOString(),
+        function: document.getElementById('function-response').value,
+        mechanism: document.getElementById('mechanism-response').value,
+        development: document.getElementById('development-response').value,
+        evolution: document.getElementById('evolution-response').value
+      };
+
+      savedResponses.push(response);
+      localStorage.setItem('tinbergenResponses', JSON.stringify(savedResponses));
+      displaySavedResponses();
+      alert('Responses saved!');
+    }
+
+    function clearResponses() {
+      document.getElementById('function-response').value = '';
+      document.getElementById('mechanism-response').value = '';
+      document.getElementById('development-response').value = '';
+      document.getElementById('evolution-response').value = '';
+    }
+
+    function displaySavedResponses() {
+      const container = document.getElementById('saved-responses');
+      const list = document.getElementById('responses-list');
+      
+      if (savedResponses.length === 0) {
+        container.style.display = 'none';
+        return;
+      }
+
+      container.style.display = 'block';
+      list.innerHTML = savedResponses.map(r => `
+        <div class="response-item">
+          <div class="response-meta">
+            <strong>${r.model}</strong> - ${new Date(r.timestamp).toLocaleString()}
+          </div>
+          <p><strong>Function:</strong> ${r.function || '(empty)'}</p>
+          <p><strong>Mechanism:</strong> ${r.mechanism || '(empty)'}</p>
+          <p><strong>Development:</strong> ${r.development || '(empty)'}</p>
+          <p><strong>Evolution:</strong> ${r.evolution || '(empty)'}</p>
+        </div>
+      `).join('');
+    }
+
+    // Load saved responses on page load
+    displaySavedResponses();
+  </script>
+</body>
+</html>

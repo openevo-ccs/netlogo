@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<experiments>
+  <experiment name="Ethnocentrism: Effect of Ethnicity Diversity" repetitions="10" runMetricsEveryStep="false">
+    <setup>setup-full</setup>
+    <go>go</go>
+    <timeLimit steps="1000"/>
+    <exitCondition>count turtles = 0</exitCondition>
+    <metric>count turtles with [color = green] / count turtles</metric>
+    <metric>count turtles with [color = orange] / count turtles</metric>
+    <metric>count turtles with [color = turquoise] / count turtles</metric>
+    <metric>count turtles with [color = red] / count turtles</metric>
+    <metric>count turtles</metric>
+    <metric>count turtles with [shape = "circle"] / count turtles</metric>
+    <metric>count turtles with [shape = "x"] / count turtles</metric>
+    <metric>count turtles with [shape = "square"] / count turtles</metric>
+    <metric>count turtles with [shape = "triangle"] / count turtles</metric>
+    
+    <enumeratedValueSet variable="interaction">
+      <value value="local"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="offspring-placement">
+      <value value="local"/>
+    </enumeratedValueSet>
+    
+    <!-- Vary the number of ethnicities -->
+    <enumeratedValueSet variable="Number-ethnicities">
+      <value value="1"/>
+      <value value="2"/>
+      <value value="3"/>
+      <value value="4"/>
+      <value value="6"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="Percent-cooperate-with-same">
+      <value value="50"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="Percent-cooperate-with-different">
+      <value value="50"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="Living-costs">
+      <value value="2"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="Mutation-rate">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="Death-rate">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="A">
+      <value value="3"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="B">
+      <value value="5"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="C">
+      <value value="0"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="D">
+      <value value="1"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<experiments>
+  <experiment name="Ethnocentrism: Local vs Global Interaction" repetitions="10" runMetricsEveryStep="false">
+    <setup>setup-full</setup>
+    <go>go</go>
+    <timeLimit steps="1000"/>
+    <exitCondition>count turtles = 0</exitCondition>
+    <metric>count turtles with [color = green] / count turtles</metric>
+    <metric>count turtles with [color = orange] / count turtles</metric>
+    <metric>count turtles with [color = turquoise] / count turtles</metric>
+    <metric>count turtles with [color = red] / count turtles</metric>
+    <metric>count turtles</metric>
+    
+    <enumeratedValueSet variable="interaction">
+      <value value="local"/>
+      <value value="anywhere"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="offspring-placement">
+      <value value="local"/>
+      <value value="anywhere"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="Number-ethnicities">
+      <value value="2"/>
+      <value value="4"/>
+    </enumeratedValueSet>
+    
+    <steppedValueSet var="Percent-cooperate-with-same" first="30" step="20" last="70"/>
+    <steppedValueSet var="Percent-cooperate-with-different" first="30" step="20" last="70"/>
+    
+    <enumeratedValueSet variable="Living-costs">
+      <value value="2"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="Mutation-rate">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="Death-rate">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="A">
+      <value value="3"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="B">
+      <value value="5"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="C">
+      <value value="0"/>
+    </enumeratedValueSet>
+    
+    <enumeratedValueSet variable="D">
+      <value value="1"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>
