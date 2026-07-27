@@ -16,10 +16,19 @@
     </div>
   </header>
 
+  <!-- Breadcrumb Navigation -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="#" onclick="navigateTo('home')">Home</a>
+    <span class="separator">›</span>
+    <a href="#" onclick="navigateTo('models')">Models</a>
+    <span class="separator">›</span>
+    <span id="breadcrumb-current">Explore</span>
+  </nav>
+
   <main class="layout">
     <aside class="sidebar" aria-label="Model list">
       <div class="filters">
-        <input id="search" type="search" placeholder="Search models…" aria-label="Search models">
+        <input id="search" type="search" placeholder="🔍 Search models..." aria-label="Search models">
         <select id="filter-concept" aria-label="Filter by concept">
           <option value="">All concepts</option>
         </select>
@@ -29,9 +38,9 @@
       </div>
       
       <div class="mode-selector">
-        <button class="mode-btn active" data-mode="explore" onclick="setMode('explore')">🔍 Explore Models</button>
-        <button class="mode-btn" data-mode="compare" onclick="setMode('compare')">⚖️ Compare Models</button>
-        <button class="mode-btn" data-mode="assessment" onclick="setMode('assessment')">📝 Take Assessment</button>
+        <button class="mode-btn active" data-mode="explore" onclick="setMode('explore')">🔍 Explore</button>
+        <button class="mode-btn" data-mode="compare" onclick="setMode('compare')">⚖️ Compare</button>
+        <button class="mode-btn" data-mode="assessment" onclick="setMode('assessment')">📝 Assess</button>
       </div>
       
       <ul id="model-list" class="model-list"></ul>
@@ -71,6 +80,8 @@
             <option value="assessments/evolution-ethnocentrism.json">Evolution of Ethnocentrism</option>
             <option value="assessments/two-foresters.json">Two Foresters</option>
             <option value="assessments/bug-evolution.json">Bug Evolution</option>
+            <option value="assessments/two-communities.json">Two Communities</option>
+            <option value="assessments/island-world.json">Island World</option>
           </select>
         </div>
         <div id="assessment-content"></div>
@@ -95,7 +106,10 @@
         
         <div id="notebook-observations" class="notebook-section active">
           <textarea id="observation-input" class="observation-input" placeholder="What do you observe? What patterns do you notice?"></textarea>
-          <button class="btn" onclick="addObservation()">Add Observation</button>
+          <div class="notebook-actions">
+            <button class="btn" onclick="addObservation()">Add Observation</button>
+            <button class="btn btn-outline" onclick="captureModelScreenshot()">📷 Capture Screenshot</button>
+          </div>
           <div id="observations-list" class="observations-list"></div>
         </div>
         
@@ -143,6 +157,7 @@
   </footer>
 
   <script src="assets/app.js"></script>
+  <script src="assets/model-bridge.js"></script>
   <script src="assets/lab-notebook.js"></script>
   <script src="assets/assessment.js"></script>
   <script src="assets/enhanced-app.js"></script>

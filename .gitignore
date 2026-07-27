@@ -1,0 +1,14 @@
+# NetLogo models and curriculum content - no build system, just editor/OS noise
+.vscode/
+.idea/
+.continue/
+*.swp
+.DS_Store
+Thumbs.db
+
+# NetLogo-specific
+*.nlogo~
+
+# Defense in depth
+.env
+.env.*

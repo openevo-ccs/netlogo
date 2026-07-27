@@ -307,8 +307,97 @@
   window.exportNotebook = exportNotebook;
   window.openThinkingTool = openThinkingTool;
 
+  // Model Bridge Integration
+  var modelBridge = null;
+
+  function initModelBridge() {
+    var iframe = document.getElementById('model-frame');
+    if (iframe && window.ModelBridge) {
+      modelBridge = new ModelBridge(iframe);
+      console.log('Model bridge initialized');
+    }
+  }
+
+  /**
+   * Capture a screenshot from the active model
+   */
+  async function captureModelScreenshot() {
+    if (!modelBridge) {
+      alert('Model not loaded yet. Please wait for the model to load.');
+      return;
+    }
+
+    try {
+      // Check if screenshot capture is supported
+      var supported = await modelBridge.supportsFeature('screenshot');
+      if (!supported) {
+        alert('Screenshot capture is not supported by this model. You can use your browser\'s screenshot function instead (Ctrl+Shift+S on Windows/Linux, Cmd+Shift+4 on Mac).');
+        return;
+      }
+
+      var screenshot = await modelBridge.captureScreenshot();
+      if (screenshot && screenshot.data) {
+        window.LabNotebook.addScreenshot(screenshot.data, 'Model screenshot');
+        displayObservations();
+        alert('Screenshot captured and added to notebook!');
+      } else {
+        alert('Failed to capture screenshot. Please try again.');
+      }
+    } catch (error) {
+      console.error('Failed to capture screenshot:', error);
+      alert('Failed to capture screenshot. The model may not support this feature. You can use your browser\'s screenshot function instead.');
+    }
+  }
+
+  /**
+   * Get current model state and add to notebook
+   */
+  async function captureModelState() {
+    if (!modelBridge) {
+      alert('Model not loaded yet. Please wait for the model to load.');
+      return;
+    }
+
+    try {
+      var modelState = await modelBridge.getState();
+      if (modelState) {
+        var stateText = 'Tick: ' + (modelState.tick || 'N/A') + 
+                       ', Agents: ' + (modelState.agentCount || 'N/A');
+        
+        window.LabNotebook.addDataPoint(modelState);
+        
+        if (!labNotebookEntry) {
+          if (currentModel) {
+            labNotebookEntry = window.LabNotebook.startEntry(currentModel.slug, currentModel.title);
+          }
+        }
+        
+        window.LabNotebook.addObservation('Model state: ' + stateText, {
+          model: currentModel ? currentModel.slug : null,
+          timestamp: new Date().toISOString(),
+          state: modelState
+        });
+        
+        displayObservations();
+        alert('Model state captured: ' + stateText);
+      }
+    } catch (error) {
+      console.error('Failed to capture model state:', error);
+      alert('Failed to capture model state. The model may not support this feature.');
+    }
+  }
+
+  // Initialize model bridge when page loads
+  window.addEventListener('load', function() {
+    setTimeout(initModelBridge, 1000); // Wait for iframe to load
+  });
+
+  // Make functions globally available
+  window.captureModelScreenshot = captureModelScreenshot;
+  window.captureModelState = captureModelState;
+
   // Initialize
   console.log('Enhanced NetLogo Explorer loaded');
-  console.log('Features: Comparison mode, Assessment integration, Lab notebook, Thinking tools');
+  console.log('Features: Comparison mode, Assessment integration, Lab notebook, Thinking tools, Model bridge');
 
 })();
