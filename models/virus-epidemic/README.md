@@ -19,4 +19,4 @@ This model doesn't yet have a dedicated Learning Progression Map (LPM) strand in
 ## Source
 - Original page: https://openevo.eva.mpg.de/teachingbase/netlogo-virus-epidemic/
 - Original HTML export: https://openevo.eva.mpg.de/wp-content/uploads/Virus-epidemic.html
-- Attribution: OpenEvo / TeachingBase, Max Planck Institute for Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/), licensed CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+- Attribution: OpenEvo / TeachingBase, OpenEvo CCS Lab (https://openevo.eva.mpg.de/teachingbase/netlogo/), licensed CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)

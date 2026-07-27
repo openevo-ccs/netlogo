@@ -94,7 +94,7 @@ Every model works two ways:
 
 ## Attribution & license
 
-Models and their descriptions originate from OpenEvo / TeachingBase, Max Planck Institute for
-Evolutionary Anthropology (https://openevo.eva.mpg.de/teachingbase/netlogo/), licensed
+Models and their descriptions originate from OpenEvo / TeachingBase, OpenEvo CCS Lab
+(https://openevo.eva.mpg.de/teachingbase/netlogo/), licensed
 CC BY-SA. This repository's structure, LPM strands, and explorer app are original contributions
 of the OpenEvo CCS Lab under the same license. See [LICENSE](LICENSE).
