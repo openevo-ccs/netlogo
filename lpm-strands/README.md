@@ -46,7 +46,7 @@ against any of the strands below — the status table is still accurate.
 | [Evolution of Resource Use Through Behavior Imitation](../models/evolution-resource-use-behavior-imitation/) | not started — [stub](evolution-resource-use-behavior-imitation.md) |
 | [Island World](../models/island-world/) | not started — [stub](island-world.md) |
 | [Evolution of Ethnocentrism](../models/evolution-ethnocentrism/) | not started — [stub](evolution-ethnocentrism.md) |
-| [Bug Evolution](../models/bug-evolution/) | not started — [stub](bug-evolution.md) |
+| [Bug Evolution](../models/bug-evolution/) | in progress — grade-band/content-anchor/competency/assessment drafted, schema contribution pending — [strand](bug-evolution.md) |
 | [Swarming](../models/swarming/) | not started — [stub](swarming.md) |
 | [Virus Epidemic](../models/virus-epidemic/) | not started — [stub](virus-epidemic.md) |
 | [Wolves-Sheep-Grass](../models/wolves-sheep-grass/) | not started — [stub](wolves-sheep-grass.md) |

@@ -1,5 +1,13 @@
 # LPM Strand: Bug Evolution
 
+> **Superseded (2026-08-07)**: this file was never linked from `models/bug-evolution/metadata.json`'s
+> `lpmStrand` pointer (which points at `bug-evolution.md`) and was not, in fact, the ecosystem's real
+> strand for this model — the git-health/status tooling correctly reported "not started" throughout.
+> Its well-developed grade-band/content-anchor/competency content (independently verified accurate
+> against the real ConceptBase registry) has been incorporated into the real, linked strand at
+> [bug-evolution.md](bug-evolution.md), which adds the restructuration-theory rationale this draft
+> predates. Left in place rather than deleted, per this ecosystem's general never-delete discipline.
+
 > Status: **Complete** - This strand is fully developed with grade-band progression, content anchor alignment, competency mapping, and assessment.
 
 ## Model
