@@ -216,17 +216,17 @@ unpublished OpenEvo teachingbase page that motivated the search for this literat
 
 - Wilensky, U., & Papert, S. (2010). Restructurations: Reformulations of knowledge disciplines
   through new representational forms. Proceedings of the Constructionism 2010 Conference.
-  (`lit:wilensky-papert-2010`)
+  (`OE-LITERATURE-wilensky-papert-2010`)
 - Goldstone, R. L., & Wilensky, U. (2008). Promoting transfer by grounding complex systems
-  principles. Journal of the Learning Sciences, 17(4), 465-516. (`lit:doi-10-1080-10508400802394898`)
+  principles. Journal of the Learning Sciences, 17(4), 465-516. (`OE-LITERATURE-goldstone-wilensky-2008`)
 - Aslan, Ü., & Wilensky, U. (2016). Restructuration in practice: Challenging a pop-culture
   evolutionary theory through agent based modeling. Proceedings of Constructionism 2016, 230-238.
-  (`lit:aslan-wilensky-2016`)
+  (`OE-LITERATURE-aslan-wilensky-2016`)
 - Hanisch, S., Eirdosh, D., González Galli, L., Hartelt, T., Pérez, G., & Cupo, B. (2026).
   Understanding agency in evolutionary explanations: an assessment tool for biology education.
-  Journal of Biological Education, 60(3), 341-370. (`lit:doi-10-1080-00219266-2025-2486963`) — the
+  Journal of Biological Education, 60(3), 341-370. (`OE-LITERATURE-hanisch-2026`) — the
   assessment pattern `assessments/bug-evolution.json` is based on.
-- Darwin, C. (1859). On the Origin of Species. (`lit:darwin-1859`)
+- Darwin, C. (1859). On the Origin of Species. (`OE-LITERATURE-darwin-1859`)
 
 ## Schema-Ready Contribution
 
