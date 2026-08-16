@@ -158,7 +158,7 @@ This strand explores the biological evolution of ethnocentric behavior through a
 
 ## Competency Alignment
 
-### OE-CONCEPT-000207: Cooperation
+### OE-CONCEPT-oe-interdisciplinary-cooperation: Cooperation
 - **Definition:** Coordinated behavior among individuals or groups that produces a mutual benefit not achievable, or less efficiently achieved, alone.
 - **Connection:** Model shows how cooperation can evolve despite temptation to defect
 - **Performance Indicators:**
@@ -166,7 +166,7 @@ This strand explores the biological evolution of ethnocentric behavior through a
   - Analyze how cooperation strategies spread
   - Evaluate trade-offs between individual and group benefits
 
-### OE-CONCEPT-000211: Agency
+### OE-CONCEPT-oe-interdisciplinary-agency: Agency
 - **Definition:** The capacity of an individual or system to act intentionally and make choices that influence outcomes, rather than responding passively to external forces.
 - **Connection:** Agents make strategic choices (cooperate/defect) that affect outcomes
 - **Performance Indicators:**
@@ -174,7 +174,7 @@ This strand explores the biological evolution of ethnocentric behavior through a
   - Distinguish agent-level behavior from population-level outcomes
   - Understand how simple rules produce complex patterns
 
-### OE-CONCEPT-000102: Natural Selection
+### OE-CONCEPT-bio-core-natural-selection: Natural Selection
 - **Definition:** Differential reproductive success among heritable variants within a population, resulting from their interaction with the environment.
 - **Connection:** Strategies with higher fitness (energy) reproduce more
 - **Performance Indicators:**
@@ -182,7 +182,7 @@ This strand explores the biological evolution of ethnocentric behavior through a
   - Identify heritable variation, differential fitness, and inheritance
   - Predict how selection pressures affect strategy frequencies
 
-### OE-CONCEPT-000104: Adaptation
+### OE-CONCEPT-bio-core-adaptation: Adaptation
 - **Definition:** A heritable trait that increases an organism's fitness within a given environment, shaped by natural selection over generations.
 - **Connection:** Ethnocentrism can be adaptive in certain environments
 - **Performance Indicators:**

@@ -160,7 +160,7 @@ This strand explores natural selection through a simple, intuitive model: beetle
 
 ## Competency Alignment
 
-### OE-CONCEPT-000102: Natural Selection
+### OE-CONCEPT-bio-core-natural-selection: Natural Selection
 - **Definition:** Differential reproductive success among heritable variants within a population, resulting from their interaction with the environment.
 - **Connection:** Model shows all four components of natural selection
 - **Performance Indicators:**
@@ -168,7 +168,7 @@ This strand explores natural selection through a simple, intuitive model: beetle
   - Identify variation, differential survival, inheritance, and time
   - Predict how selection pressures affect trait frequencies
 
-### OE-CONCEPT-000104: Adaptation
+### OE-CONCEPT-bio-core-adaptation: Adaptation
 - **Definition:** A heritable trait that increases an organism's fitness within a given environment, shaped by natural selection over generations.
 - **Connection:** Speed can be adaptive in high-predation environments
 - **Performance Indicators:**
@@ -176,7 +176,7 @@ This strand explores natural selection through a simple, intuitive model: beetle
   - Recognize context-dependence of adaptation
   - Avoid assuming adaptations are "good" or "progressive"
 
-### OE-CONCEPT-000211: Agency
+### OE-CONCEPT-oe-interdisciplinary-agency: Agency
 - **Definition:** The capacity of an individual or system to act intentionally and make choices that influence outcomes.
 - **Connection:** Beetles don't "choose" to evolve - evolution is a population-level process
 - **Performance Indicators:**

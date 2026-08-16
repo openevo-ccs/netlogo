@@ -171,17 +171,17 @@ Choose a real-world evolutionary phenomenon and:
 
 ## Competency Development
 
-**OE-CONCEPT-000102: Natural Selection**
+**OE-CONCEPT-bio-core-natural-selection: Natural Selection**
 - Progression from simple to complex selection mechanisms
 - Understanding variation, differential survival, inheritance, and time
 - Recognizing context-dependence of selection
 
-**OE-CONCEPT-000104: Adaptation**
+**OE-CONCEPT-bio-core-adaptation: Adaptation**
 - How different environments favor different traits
 - Trade-offs in adaptation
 - Local vs. general adaptation
 
-**OE-CONCEPT-000211: Agency**
+**OE-CONCEPT-oe-interdisciplinary-agency: Agency**
 - Distinguishing individual agency from population-level evolution
 - Understanding that evolution has no goals or purposes
 - Avoiding anthropomorphism

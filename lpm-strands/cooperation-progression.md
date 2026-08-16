@@ -188,17 +188,17 @@ Choose a real-world cooperation problem (climate change, fisheries, public healt
 
 ## Competency Development
 
-**OE-CONCEPT-000207: Cooperation**
+**OE-CONCEPT-oe-interdisciplinary-cooperation: Cooperation**
 - Progression from simple to complex cooperation mechanisms
 - Understanding conditions that favor cooperation
 - Analyzing trade-offs between individual and collective benefits
 
-**OE-CONCEPT-000211: Agency**
+**OE-CONCEPT-oe-interdisciplinary-agency: Agency**
 - Agent decision-making across all models
 - How simple rules produce complex patterns
 - Human agency in shaping cooperation norms
 
-**OE-CONCEPT-000102: Natural Selection**
+**OE-CONCEPT-bio-core-natural-selection: Natural Selection**
 - Evolution of cooperation strategies
 - Differential reproduction of strategies
 - Context-dependence of adaptive value

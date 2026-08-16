@@ -163,13 +163,13 @@ limitations; applications to medicine, agriculture, conservation.
 
 Verified against the real ConceptBase registry (`conceptbase_search`, 2026-08-07):
 
-- **OE-CONCEPT-000102 (Natural Selection, BIO-CORE-v1.0.0)** — model shows all four components of
+- **OE-CONCEPT-bio-core-natural-selection (Natural Selection, BIO-CORE-v1.0.0)** — model shows all four components of
   natural selection; performance indicators: explain using proper terminology, identify variation/
   differential-survival/inheritance/time, predict how selection pressures affect trait frequencies.
-- **OE-CONCEPT-000104 (Adaptation, BIO-CORE-v1.0.0)** — speed can be adaptive in high-predation
+- **OE-CONCEPT-bio-core-adaptation (Adaptation, BIO-CORE-v1.0.0)** — speed can be adaptive in high-predation
   environments; performance indicators: explain why speed might be adaptive, recognize context-
   dependence, avoid assuming adaptations are "good" or "progressive."
-- **OE-CONCEPT-000211 (Agency, OE-INTERDISCIPLINARY-v1.0.0)** — beetles don't "choose" to evolve;
+- **OE-CONCEPT-oe-interdisciplinary-agency (Agency, OE-INTERDISCIPLINARY-v1.0.0)** — beetles don't "choose" to evolve;
   performance indicators: distinguish individual agency from population-level evolution, avoid
   anthropomorphizing beetles, understand evolution has no goals.
 - **OE-SANDBOX-CONCEPT-000007 (Restructuration, OE-INTERDISCIPLINARY-v1.0.0)** — new this pass:

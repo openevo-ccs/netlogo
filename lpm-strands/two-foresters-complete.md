@@ -152,7 +152,7 @@ This strand explores the fundamental social dilemma of cooperation through the s
 
 ## Competency Alignment
 
-### OE-CONCEPT-000207: Cooperation
+### OE-CONCEPT-oe-interdisciplinary-cooperation: Cooperation
 - **Definition:** Coordinated behavior among individuals or groups that produces a mutual benefit not achievable, or less efficiently achieved, alone.
 - **Connection:** Model shows the tension between individual and collective benefits
 - **Performance Indicators:**
@@ -160,7 +160,7 @@ This strand explores the fundamental social dilemma of cooperation through the s
   - Analyze conditions that favor cooperation
   - Evaluate solutions to cooperation problems
 
-### OE-CONCEPT-000211: Agency
+### OE-CONCEPT-oe-interdisciplinary-agency: Agency
 - **Definition:** The capacity of an individual or system to act intentionally and make choices that influence outcomes.
 - **Connection:** Foresters make strategic choices that affect outcomes
 - **Performance Indicators:**

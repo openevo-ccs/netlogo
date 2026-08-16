@@ -144,10 +144,10 @@ This document summarizes the comprehensive improvements made to the OpenEvo NetL
    - Payoff Matrices, Causal Mapping, Tinbergen's Questions, Noticing Tool, Analogies, Structure of Knowledge
 
 4. **Competency Alignment**
-   - OE-CONCEPT-000207: Cooperation
-   - OE-CONCEPT-000211: Agency
-   - OE-CONCEPT-000102: Natural Selection
-   - OE-CONCEPT-000104: Adaptation
+   - OE-CONCEPT-oe-interdisciplinary-cooperation: Cooperation
+   - OE-CONCEPT-oe-interdisciplinary-agency: Agency
+   - OE-CONCEPT-bio-core-natural-selection: Natural Selection
+   - OE-CONCEPT-bio-core-adaptation: Adaptation
 
 5. **Assessment**
    - Integrated causal reasoning assessment
@@ -287,7 +287,7 @@ netlogo/
 ## Integration with OpenEvo Ecosystem
 
 ### ConceptBase Integration
-- Competencies mapped to OECB concepts (OE-CONCEPT-000207, OE-CONCEPT-000211, etc.)
+- Competencies mapped to OECB concepts (OE-CONCEPT-oe-interdisciplinary-cooperation, OE-CONCEPT-oe-interdisciplinary-agency, etc.)
 - Assessment items aligned to concept definitions
 - LPM strands reference concept IDs
 
