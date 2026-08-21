@@ -19,11 +19,18 @@ netlogo/
 ├── assets/                  # explorer app's JS/CSS + generated models.json index
 ├── models/
 │   └── <model-slug>/
-│       ├── app.html         # self-contained NetLogo Web HTML export — runs in any browser
-│       ├── model.nlogo      # the model's source, extracted from the HTML export —
-│       │                    #   open with desktop NetLogo (https://ccl.northwestern.edu/netlogo/)
-│       ├── metadata.json    # structured metadata: concepts, subjects, grades, links
+│       ├── app.html               # self-contained NetLogo Web HTML export — runs in any browser
+│       ├── model.nlogo            # the model's source, extracted from the HTML export —
+│       │                          #   open with desktop NetLogo (https://ccl.northwestern.edu/netlogo/)
+│       ├── <model-slug>.nlogox    # NetLogo 7 XML export, converted from model.nlogo
+│       ├── model-card.json        # full structural decomposition (globals, breeds, procedures +
+│       │                          #   call graph, parameters, outputs, controls, info sections)
+│       ├── agent-manifest.json    # AI-agent control-surface manifest (sliders/switches/buttons,
+│       │                          #   available monitor reporters) — see netlogo-agent-toolkit/
+│       ├── metadata.json          # structured metadata: concepts, subjects, grades, links
 │       └── README.md
+├── netlogo-agent-toolkit/   # generates the three machine-readable files above, for every model
+│                            #   (see netlogo-agent-toolkit/README.md)
 └── lpm-strands/
     ├── README.md             # what an LPM strand needs, and the extended-learning space
     └── <model-slug>.md       # one strand file per model (currently stubs, see below)

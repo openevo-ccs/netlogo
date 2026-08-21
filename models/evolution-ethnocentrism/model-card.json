@@ -1,0 +1,400 @@
+{
+  "slug": "evolution-ethnocentrism",
+  "world": {
+    "minPxcor": 0,
+    "maxPxcor": 49,
+    "minPycor": 0,
+    "maxPycor": 49,
+    "patchSize": 10.0,
+    "updateMode": 1,
+    "wrappingAllowedX": true,
+    "wrappingAllowedY": true
+  },
+  "globals": [],
+  "breeds": {
+    "turtles": {
+      "singular": "turtle",
+      "own": [
+        "energy",
+        "cooperate-with-same?",
+        "cooperate-with-different?"
+      ],
+      "builtin": true
+    }
+  },
+  "procedures": {
+    "setup-full": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "create-turtle"
+      ]
+    },
+    "create-turtle": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "random-shape",
+        "update-color1",
+        "update-color2"
+      ]
+    },
+    "random-shape": {
+      "kind": "reporter",
+      "params": [],
+      "calls": []
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "death",
+        "expand-energy",
+        "interact-anywhere",
+        "interact-local",
+        "reproduce"
+      ]
+    },
+    "interact-local": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "interact-anywhere": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "reproduce": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "mutate"
+      ]
+    },
+    "mutate": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "random-shape",
+        "update-color1",
+        "update-color2"
+      ]
+    },
+    "expand-energy": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "death": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "update-color1": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "update-color2": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    }
+  },
+  "entry_points": [
+    "go",
+    "setup-full"
+  ],
+  "parameters": [
+    {
+      "widget": "chooser",
+      "variable": "Number-ethnicities",
+      "display": "Number-ethnicities",
+      "values": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0
+      ],
+      "default": 3.0
+    },
+    {
+      "widget": "chooser",
+      "variable": "offspring-placement",
+      "display": "offspring-placement",
+      "values": [
+        "local",
+        "anywhere"
+      ],
+      "default": "local"
+    },
+    {
+      "widget": "chooser",
+      "variable": "interaction",
+      "display": "interaction",
+      "values": [
+        "local",
+        "anywhere"
+      ],
+      "default": "local"
+    },
+    {
+      "widget": "slider",
+      "variable": "Living-costs",
+      "display": "Living-costs",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 2.5,
+      "step": 0.5,
+      "units": null
+    },
+    {
+      "widget": "input",
+      "variable": "A",
+      "display": null,
+      "type": "number",
+      "default": "3.0"
+    },
+    {
+      "widget": "input",
+      "variable": "C",
+      "display": null,
+      "type": "number",
+      "default": "0.0"
+    },
+    {
+      "widget": "input",
+      "variable": "B",
+      "display": null,
+      "type": "number",
+      "default": "5.0"
+    },
+    {
+      "widget": "input",
+      "variable": "D",
+      "display": null,
+      "type": "number",
+      "default": "1.0"
+    },
+    {
+      "widget": "slider",
+      "variable": "Mutation-rate",
+      "display": "Mutation-rate",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 0.5,
+      "step": 0.5,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Death-rate",
+      "display": "Death-rate",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 0.5,
+      "step": 0.5,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Percent-cooperate-with-same",
+      "display": "Percent-cooperate-with-same",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 50.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Percent-cooperate-with-different",
+      "display": "Percent-cooperate-with-different",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 50.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "input",
+      "variable": "A",
+      "display": null,
+      "type": "number",
+      "default": "3.0"
+    },
+    {
+      "widget": "input",
+      "variable": "D",
+      "display": null,
+      "type": "number",
+      "default": "1.0"
+    },
+    {
+      "widget": "input",
+      "variable": "B",
+      "display": null,
+      "type": "number",
+      "default": "5.0"
+    },
+    {
+      "widget": "input",
+      "variable": "C",
+      "display": null,
+      "type": "number",
+      "default": "0.0"
+    }
+  ],
+  "outputs": [
+    {
+      "widget": "plot",
+      "display": "Frequency of strategies",
+      "xAxis": "Iterations",
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 1.0,
+      "pens": [
+        {
+          "display": "Altruists",
+          "setup": "",
+          "update": "plotxy ticks count turtles with [color = green] / count turtles"
+        },
+        {
+          "display": "Ethnocentrists",
+          "setup": "",
+          "update": "if Number-ethnicities > 1 [plotxy ticks count turtles with [color = orange] / count turtles]"
+        },
+        {
+          "display": "Cosmopolitans",
+          "setup": "",
+          "update": "if Number-ethnicities > 1 [plotxy ticks count turtles with [color = turquoise] / count turtles]"
+        },
+        {
+          "display": "Selfish",
+          "setup": "",
+          "update": "plotxy ticks count turtles with [color = red] / count turtles"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Average energy per strategy",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Altruists",
+          "setup": "",
+          "update": "carefully [plot sum [energy] of turtles with [color = green ] / count turtles with [color = green]][plot 0]"
+        },
+        {
+          "display": "Ethnocentrists",
+          "setup": "",
+          "update": "if Number-ethnicities > 1 [carefully [plot sum [energy] of turtles with [color = orange ] / count turtles with [color = orange ]][plot 0]]"
+        },
+        {
+          "display": "Cosmopolitans",
+          "setup": "",
+          "update": "if Number-ethnicities > 1 [carefully [plot sum [energy] of turtles with [ color = turquoise ] / count turtles with [ color = turquoise ]][plot 0]]"
+        },
+        {
+          "display": "Selfish",
+          "setup": "",
+          "update": "carefully [plot sum [energy] of turtles with [color = red ] / count turtles with [color = red]][plot 0]"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Frequency of ethnicities",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 1.0,
+      "pens": [
+        {
+          "display": "Circles",
+          "setup": "",
+          "update": "plot count turtles with [shape = \\"
+        },
+        {
+          "display": "X",
+          "setup": "",
+          "update": "plot count turtles with [shape = \\"
+        },
+        {
+          "display": "Square",
+          "setup": "",
+          "update": "plot count turtles with [shape = \\"
+        },
+        {
+          "display": "Triangle",
+          "setup": "",
+          "update": "plot count turtles with [shape = \\"
+        },
+        {
+          "display": "Empty circle",
+          "setup": "",
+          "update": "plot count turtles with [shape = \\"
+        },
+        {
+          "display": "Empty square",
+          "setup": "",
+          "update": "plot count turtles with [shape = \\"
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "display": "Start",
+      "kind": "observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "Setup",
+      "kind": "observer",
+      "forever": false,
+      "code": "setup-full"
+    },
+    {
+      "display": "One round",
+      "kind": "observer",
+      "forever": false,
+      "code": "go"
+    }
+  ],
+  "info_sections": {
+    "Model purpose": "What is the purpose of the model?\n\nThis model simulates the biological evolution of cooperators and cheaters in the world. Agents are also part of ethnicities, and their behaviors depend also on whether the agent they interact with is of their own or a different ethnicity. \n\nOutcomes of behaviors are represented in a payoff matrix and one can observe how different payoff structures affect the evolution of the population.\n\nFurthermore, one can observe the role of assortment and population structure in the evolution of the population. Agents either interact with one of their neighbors, or interact randomly with anyone in the world. Agents can either place their offspring on a neighboring empty patch, or anywhere in the world. Local interaction and offspring placement is advantageous for cooperators, highlighting the role of kin selection and frequency-dependent selection.\n\nThe model is based on Robert Axelrod and Ross A. Hammond and it suggests that \u201cethnocentric\u201d behavior can be adaptive compared to selfish or altruistic behavior in a structured population with social markers.",
+    "Entities and variables": "What kinds of entities are in the model? By what state variables, or attributes, are these entities characterized? What are the temporal and spatial resolutions and extents of the model?\n\n## General environment\n\n### Changeable variables\n\n* _Living-costs_: the costs that each agent has to deduct from his energy per iteration for basic survival\n* _Mutation-rate_: The probability with which offspring agents have other traits than their parents\n* _Death-rate_: The probability with which agents die independent of their energy level\n* Payoffs for strategies (variables A, B, C, D): the different payoffs in energy units that agents get from interacting with other agents..\n(these variables could be considered both a factor of the environment and a variable of the agents, but we list them here since they do not vary among agents and are rather \u201cimposed\u201d from the environment)\n\n## Patches\n \nThere are 50*50 patches in the world. Patches do not have any variables.\n\n\n## Agents\n\nThere can be a maximum of 2500 agents in the world (1 per patch).\n\n### Constant agent variables and behaviors\n(these variables and behaviors are always the same for all of the agents of this type and in each iteration)\n\n* ethnicity / shape: the shape of the agent, representing its \u201cethnicity\u201d. Up to six ethnicities/shapes can be included in the total population.\n* _cooperate-with-same_: whether agents cooperate with those of the same ethnicity, true or false\n* _cooperate-with-different_: whether agents cooperate with those of other ethnicities, true or false \n* color: based on the combination of cooperate-with-same and cooperate-with-different the agent is given a color (green, orange, turquoise, red)\n* In each iteration, each agent attempts to interact with another agent.\n\n### Changeable agent variables\n(variables that are changeable by the user on the interface): \n\n* _Number of ethnicities_: The number of ethnicities in the population\n* _percent-cooperate-with-same_: The percentage of agents that cooperate with other agents of the same ethnicity\n* _percent-cooperate-with-different_: The percentage of agents that cooperate with other agents of different ethnicities\n* _Interaction_: local or anywhere - if local, then agents interact with one of the agents on a neighboring patch; if anywhere, then agents interact with one of the agents anywhere in the world\n* _Placement of offspring_: local or anywhere, if local, then agents place offspring on one of the unoccupied patches in the neighborhood; if anywhere, then agents place offspring on any unoccupied patch in the world\n\n\n### Changing variables during a simulation\n(variables that change as a result of the simulation)\n\n* _Energy_: the energy level of an agent in units \n* Offspring have a different traits from their parents with a probability of _Mutation-rate_.",
+    "Model Setup": "What is the initial state of the model world when one clicks on Setup? Is initialization always the same, or does it vary among simulations?\n\n* A world with 2500 patches is created.\n* Each patch creates one agent. Each agent is randomly assigned one of the ethnicities (shapes).\n* A fraction of agents, set by the parameter _Percent-cooperate-with-same_, gets the variable _cooperate-with-same_ set to true, the rest get the the variable _cooperate-with-same_ set to false\n* A fraction of agents, set by the parameter _Percent-cooperate-with-different_, gets the _cooperate-with-different_ set to true, the rest get the the variable _cooperate-with-different_ set to false\n* The agents are assigned colors based on their combination of traits:\n    * green (altruists): cooperate-with-same = true; cooperate-with-different = true\n    * orange (ethnocentrists):  cooperate-with-same = true; cooperate-with-different = false\n    * turquoise (cosmopolitans):  cooperate-with-same = false; cooperate-with-different = true\n    * red (selfish):  cooperate-with-same = false; cooperate-with-different = false\n* The initial level of energy of agents is set at 50.",
+    "Model Processes": "What happens in each iteration? Which entities do what, and in what order? When are state variables updated?\n\n![Model processes image](https://openevo.eva.mpg.de/wp-content/uploads/NetLogo-model-Ethnocentrism-procedures-overview.png)",
+    "Outputs": "What kinds of model outcomes can be observed on the interface? How do they emerge from model parameters, agent behaviors, and interactions?\n\n\n## In the world\nAgents reproduce and die. The spread of different strategies and ethnicities can be observed. If agents interact locally and/or place offspring on neighboring patches, clusters of \u201crelated\u201d agents tend to form. \n \n\n## Output diagrams and monitors\n\n### Frequencies of strategies\nThe relative frequencies of agents in the population by strategy, resulting from mutations, different reproduction rates, and death.\n\n### Average energy of agents per strategy\nAverage energy levels of agents by strategy, resulting from payoffs, minus living costs and reproduction.\n\n### Frequencies of ethnicities\nThe relative frequencies of agents in the population by ethnicity.",
+    "Concepts and Principles": "Which important concepts or principles are represented in the model?\n\n\n**Trait variation**\nThree types of traits vary in the population: ethnicity, _cooperate-with-same_ (true or false), _cooperate-with-different_ (true or false). Four strategies emerge from the combinations of _cooperate-with-same_ (true or false), _cooperate-with-different_ (true or false). Traits can vary randomly in the population through the parameter _mutation rate_.\n\n**Reproductive fitness**\nAgents that have higher energy levels have higher chances of producing offspring. They have higher fitness relative to agents with lower energy levels.\n\n**Inheritance**\nAgents create offspring and inherit their trait variants (ethnicity, strategy) to their offspring (with some variability based on _mutation rate_)\n\n**Natural selection**\nThe frequency of traits in the agent population changes as a result of trait variation, differential reproduction (fitness), and inheritance of traits. \n\n**Kin selection, multi-level selection, frequency-dependent selection, altruism**\nIf placement of offspring is local, then clusters of related or similar agents in terms of ethnicity as well as strategy can form. If interaction is local, then altruists and ethnocentrists benefit from having similar agents in their neighborhood, depending on settings in the payoff matrix. \nIf placement of offspring is anywhere in the world, then clusters of related or similar agents do not form. Similarly, if interaction is with other agents anywhere in the world, agents are less likely to interact with other agents from the same ethnicity or strategy. Depending on settings in the payoff matrix, this can result in altruists or ethnocentrists having lower fitness compared to selfish agents.\n\n\n**Sensing and Information Processing** \nAgents sense the ethnicity and strategy of other agents.\nAgents do not store any information (i.e. have no memory).\n\n**Objectives and goal-directed behavior**\nAgents attempt to interact with other agents. \n\n**Learning and Adaptation**\nAgents do not learn and do not adapt their behavior over their lifetimes.\n\n**Interactions** \n\n* Agents interact directly through noticing each other and cooperating or defecting in direct interactions.\n* Agents interact indirectly through competition for limited space for the placing of offspring.\n\n\n**Role of randomness** \n\n* Agents take on a randomly chosen ethnicity at the beginning of the simulation.\n* Agents take on their strategy traits randomly based on the probability _Percent-cooperate-with-same_ and _Percent-cooperate-with-different_.\n* The order in which agents interact within one iteration is random.\n* Agents randomly choose another agent to interact with (from a neighboring patch or from anywhere in the world). \n* The order in which agents produce offspring within one iteration is random.\n* Agents reproduce with a probability of 0.001 * Energy.\n* Agents place offspring on a randomly selected unoccupied patch (in the neighborhood or anywhere in the world).\n* Offspring mutate with a probability of _Mutation-rate_.\n* Agents die with a probability of _Death-rate_.",
+    "Model Teaching Materials": "Teaching materials for the model: https://openevo.eva.mpg.de/teachingbase/netlogo-evolution-of-ethnocentrism/",
+    "References and citation": "Axelrod, R., & Hammond, R. A. (2003). The Evolution of Ethnocentric Behavior. In: Midwest Political Science Convention April 3-6, 2003. Chicago, USA. http://www-personal.umich.edu/~axe/research/AxHamm_Ethno.pdf \n\nHammond, R. A., & Axelrod, R. (2006). The Evolution of Ethnocentrism. Journal of Conflict Resolution, 50(6), 926\u2013936. http://doi.org/10.1177/0022002706293470\n\n\nIf you mention this model or the NetLogo software in a publication, we ask that you include the citations below.\n\nFor the model itself:\n\n* Hanisch, S. (2022). Ethnocentrism with customizable payoff matrix. OpenEvo NetLogo Models.  https://openevo.eva.mpg.de/teachingbase/netlogo/\n \n* Adapted from: Wilensky, U. (2003).  NetLogo Ethnocentrism model.  http://ccl.northwestern.edu/netlogo/models/Ethnocentrism.  Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.\n\nPlease cite the NetLogo software as:\n\n* Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.",
+    "Licence": "![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)\n\nThis work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. http://creativecommons.org/licenses/by-nc-sa/4.0/"
+  },
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'a' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'b' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'c' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'd' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'death-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'interaction' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'living-costs' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'mutation-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'number-ethnicities' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'offspring-placement' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'percent-cooperate-with-different' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'percent-cooperate-with-same' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

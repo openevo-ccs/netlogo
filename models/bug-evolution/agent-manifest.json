@@ -1,0 +1,93 @@
+{
+  "id": "bug-evolution",
+  "title": "Bug Evolution",
+  "entry_points": {
+    "setup": "setup",
+    "step": "go",
+    "forever_button_display": "Start"
+  },
+  "controls": {
+    "sliders": [
+      {
+        "name": "number-bugs-per-speed",
+        "min": 1.0,
+        "max": 50.0,
+        "step": 1.0,
+        "default": 50.0
+      }
+    ],
+    "switches": [
+      {
+        "name": "bugs-waggle?",
+        "default": false
+      }
+    ],
+    "choosers": [
+      {
+        "name": "Predator",
+        "values": [
+          "Bird",
+          "Spider"
+        ],
+        "default": "Spider"
+      }
+    ],
+    "buttons": [
+      {
+        "display": "Setup",
+        "code": "setup",
+        "forever": false
+      },
+      {
+        "display": "Start",
+        "code": "go",
+        "forever": true
+      },
+      {
+        "display": "One round",
+        "code": "go",
+        "forever": false
+      }
+    ]
+  },
+  "available_reporters": {
+    "total_number_of_caught_bugs": "sum catches-by-speed"
+  },
+  "plot_pens": [
+    {
+      "plot": "Average bug speed",
+      "pen": "default",
+      "update_code": "plotxy ticks mean [speed] of bugs"
+    },
+    {
+      "plot": "Evolution of the bug population",
+      "pen": "Speed level 1",
+      "update_code": "plot count bugs with [speed = 1]"
+    },
+    {
+      "plot": "Evolution of the bug population",
+      "pen": "Speed level 2",
+      "update_code": "plot count bugs with [speed = 2]"
+    },
+    {
+      "plot": "Evolution of the bug population",
+      "pen": "Speed level 3",
+      "update_code": "plot count bugs with [speed = 3]"
+    },
+    {
+      "plot": "Evolution of the bug population",
+      "pen": "Speed level 4",
+      "update_code": "plot count bugs with [speed = 4]"
+    },
+    {
+      "plot": "Evolution of the bug population",
+      "pen": "Speed level 5",
+      "update_code": "plot count bugs with [speed = 5]"
+    },
+    {
+      "plot": "Evolution of the bug population",
+      "pen": "Speed level 6",
+      "update_code": "plot count bugs with [speed = 6]"
+    }
+  ]
+}

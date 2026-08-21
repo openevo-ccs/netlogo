@@ -1,0 +1,168 @@
+{
+  "id": "evolution-resource-use-behavior-imitation",
+  "title": "Evolution of Resource Use Through Behavior Imitation",
+  "entry_points": {
+    "setup": "setup",
+    "step": "go",
+    "forever_button_display": "Start"
+  },
+  "controls": {
+    "sliders": [
+      {
+        "name": "Harvest-sustainables",
+        "min": 0.0,
+        "max": 20.0,
+        "step": 0.5,
+        "default": 7.5
+      },
+      {
+        "name": "Harvest-greedy",
+        "min": "harvest-sustainables",
+        "max": 100.0,
+        "step": 0.5,
+        "default": 10.0
+      },
+      {
+        "name": "Living-costs",
+        "min": 0.0,
+        "max": "Harvest-sustainables - 1",
+        "step": 0.1,
+        "default": 3.0
+      },
+      {
+        "name": "behavior-innovation-rate",
+        "min": 0.0,
+        "max": 10.0,
+        "step": 0.1,
+        "default": 0.0
+      },
+      {
+        "name": "Sustainables",
+        "min": 0.0,
+        "max": "initial-number-agents",
+        "step": 1.0,
+        "default": 1.0
+      },
+      {
+        "name": "Death-rate",
+        "min": 0.0,
+        "max": 10.0,
+        "step": 0.5,
+        "default": 1.0
+      },
+      {
+        "name": "Initial-Number-Agents",
+        "min": 1.0,
+        "max": "count patches",
+        "step": 1.0,
+        "default": 2.0
+      },
+      {
+        "name": "imitation-likelihood",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 100.0
+      },
+      {
+        "name": "chance-agents-move",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 100.0
+      }
+    ],
+    "switches": [
+      {
+        "name": "Reproduction",
+        "default": true
+      }
+    ],
+    "choosers": [
+      {
+        "name": "Imitation-bias",
+        "values": [
+          "most successful",
+          "majority",
+          "minority",
+          "most experienced",
+          "parents"
+        ],
+        "default": "parents"
+      }
+    ],
+    "buttons": [
+      {
+        "display": "Setup",
+        "code": "setup",
+        "forever": false
+      },
+      {
+        "display": "Start",
+        "code": "go",
+        "forever": true
+      },
+      {
+        "display": "Once",
+        "code": "go",
+        "forever": false
+      }
+    ]
+  },
+  "available_reporters": {
+    "average_energy_of_sustainable_agents": "average-energy-sustainables",
+    "average_energy_of_greedy_agents": "average-energy-greedys",
+    "total": "count turtles",
+    "sustainables": "count turtles with [harvest-type = \\\"sustainable\\\"]",
+    "greedy": "count turtles with [harvest-type = \\\"greedy\\\"]",
+    "sustainables_2": "(count turtles with [harvest-type = \\\"sustainable\\\"] / count turtles) * 100",
+    "greedy_2": "(count turtles with [harvest-type = \\\"greedy\\\"] / count turtles) * 100"
+  },
+  "plot_pens": [
+    {
+      "plot": "Populations (% of carrying capacity)",
+      "pen": "Resource",
+      "update_code": "plot (sum [resource] of patches / (carryingcap * count patches)) * 100"
+    },
+    {
+      "plot": "Populations (% of carrying capacity)",
+      "pen": "Agents",
+      "update_code": "plot ( count turtles / count patches ) * 100"
+    },
+    {
+      "plot": "Average energy of agents",
+      "pen": "Sustainables",
+      "update_code": "carefully [plot average-energy-sustainables] [plot 0]"
+    },
+    {
+      "plot": "Average energy of agents",
+      "pen": "Greedy",
+      "update_code": "carefully [plot average-energy-greedys] [plot 0]"
+    },
+    {
+      "plot": "Trait Frequencies (%)",
+      "pen": "Sustainables",
+      "update_code": "if count turtles > 0 [plot (count turtles with [harvest-type = \\"
+    },
+    {
+      "plot": "Trait Frequencies (%)",
+      "pen": "Greedy",
+      "update_code": "if count turtles > 0 [plot (count turtles with [harvest-type = \\"
+    },
+    {
+      "plot": "Agent Population",
+      "pen": "Total",
+      "update_code": "plot count turtles"
+    },
+    {
+      "plot": "Agent Population",
+      "pen": "Sustainables",
+      "update_code": "plot count turtles with [harvest-type = \\"
+    },
+    {
+      "plot": "Agent Population",
+      "pen": "Greedy",
+      "update_code": "plot count turtles with [harvest-type = \\"
+    }
+  ]
+}

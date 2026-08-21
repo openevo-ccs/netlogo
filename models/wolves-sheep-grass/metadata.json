@@ -23,7 +23,10 @@
   "notes": "Teaching materials listed as in preparation on the source site.",
   "files": {
     "htmlApp": "app.html",
-    "nlogoSource": "model.nlogo"
+    "nlogoSource": "model.nlogo",
+    "nlogox": "wolves-sheep-grass.nlogox",
+    "modelCard": "model-card.json",
+    "agentManifest": "agent-manifest.json"
   },
   "teachingMaterials": {
     "uiOverview": null,

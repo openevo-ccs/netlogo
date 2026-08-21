@@ -30,7 +30,10 @@
   "notes": null,
   "files": {
     "htmlApp": "app.html",
-    "nlogoSource": "model.nlogo"
+    "nlogoSource": "model.nlogo",
+    "nlogox": "population-size-living-costs.nlogox",
+    "modelCard": "model-card.json",
+    "agentManifest": "agent-manifest.json"
   },
   "teachingMaterials": {
     "uiOverview": "https://docs.google.com/presentation/d/e/2PACX-1vT4wXJI6UUhdnr-_-QnLbqInV0bnBFIElWhgN9hhTFu73_5Yww13z-AkqOtBWqVPcZz9Uw7Wr0j_CyV/pub",

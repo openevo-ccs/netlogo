@@ -1,0 +1,252 @@
+{
+  "slug": "bug-evolution",
+  "world": {
+    "minPxcor": -11,
+    "maxPxcor": 11,
+    "minPycor": -11,
+    "maxPycor": 11,
+    "patchSize": 23.0,
+    "updateMode": 1,
+    "wrappingAllowedX": true,
+    "wrappingAllowedY": true
+  },
+  "globals": [
+    "catches-by-speed",
+    ";;",
+    "a",
+    "list",
+    "of",
+    "total",
+    "bugs",
+    "caught,",
+    "where",
+    "the",
+    "list",
+    "index",
+    "is",
+    "the",
+    "speed",
+    "minus",
+    "one"
+  ],
+  "breeds": {
+    "preds": {
+      "singular": "Pred",
+      "own": [
+        "nearest-bug"
+      ]
+    },
+    "bugs": {
+      "singular": "bug",
+      "own": [
+        "speed",
+        ";;",
+        "either",
+        "1,",
+        "2,",
+        "3,",
+        "4,",
+        "5,",
+        "or",
+        "6"
+      ]
+    }
+  },
+  "procedures": {
+    "setup": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "set-color"
+      ]
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "check-caught",
+        "move-bug",
+        "move-predator",
+        "set-color"
+      ]
+    },
+    "move-predator": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "find-nearest-bug"
+      ]
+    },
+    "move-bug": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "find-nearest-bug": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "check-caught": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "colors-by-speed": {
+      "kind": "reporter",
+      "params": [],
+      "calls": []
+    },
+    "set-color": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "colors-by-speed"
+      ]
+    }
+  },
+  "entry_points": [
+    "go",
+    "setup"
+  ],
+  "parameters": [
+    {
+      "widget": "slider",
+      "variable": "number-bugs-per-speed",
+      "display": "number-bugs-per-speed",
+      "min": 1.0,
+      "max": 50.0,
+      "default": 50.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "switch",
+      "variable": "bugs-waggle?",
+      "display": "bugs-waggle?",
+      "default": false,
+      "values": [
+        true,
+        false
+      ]
+    },
+    {
+      "widget": "chooser",
+      "variable": "Predator",
+      "display": "Predator",
+      "values": [
+        "Bird",
+        "Spider"
+      ],
+      "default": "Spider"
+    }
+  ],
+  "outputs": [
+    {
+      "widget": "monitor",
+      "display": "Total number of caught bugs",
+      "reporter": "sum catches-by-speed"
+    },
+    {
+      "widget": "plot",
+      "display": "Histogram of the bug population",
+      "xAxis": "Speed",
+      "yAxis": "Number of bugs",
+      "yMin": 0.0,
+      "yMax": 50.0,
+      "pens": []
+    },
+    {
+      "widget": "plot",
+      "display": "Average bug speed",
+      "xAxis": "Model round",
+      "yAxis": "Speed",
+      "yMin": 0.0,
+      "yMax": 0.5,
+      "pens": [
+        {
+          "display": "default",
+          "setup": "",
+          "update": "plotxy ticks mean [speed] of bugs"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Caught bugs by speed",
+      "xAxis": "Speed",
+      "yAxis": "Number of bugs",
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": []
+    },
+    {
+      "widget": "plot",
+      "display": "Evolution of the bug population",
+      "xAxis": "Model round",
+      "yAxis": "Number of bugs",
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Speed level 1",
+          "setup": "",
+          "update": "plot count bugs with [speed = 1]"
+        },
+        {
+          "display": "Speed level 2",
+          "setup": "",
+          "update": "plot count bugs with [speed = 2]"
+        },
+        {
+          "display": "Speed level 3",
+          "setup": "",
+          "update": "plot count bugs with [speed = 3]"
+        },
+        {
+          "display": "Speed level 4",
+          "setup": "",
+          "update": "plot count bugs with [speed = 4]"
+        },
+        {
+          "display": "Speed level 5",
+          "setup": "",
+          "update": "plot count bugs with [speed = 5]"
+        },
+        {
+          "display": "Speed level 6",
+          "setup": "",
+          "update": "plot count bugs with [speed = 6]"
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "display": "Setup",
+      "kind": "observer",
+      "forever": false,
+      "code": "setup"
+    },
+    {
+      "display": "Start",
+      "kind": "observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "One round",
+      "kind": "observer",
+      "forever": false,
+      "code": "go"
+    }
+  ],
+  "info_sections": {},
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'bugs-waggle?' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'number-bugs-per-speed' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'predator' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

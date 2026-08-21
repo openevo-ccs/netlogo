@@ -28,7 +28,10 @@
   "notes": null,
   "files": {
     "htmlApp": "app.html",
-    "nlogoSource": "model.nlogo"
+    "nlogoSource": "model.nlogo",
+    "nlogox": "evolution-resource-use-harvest-efficiency.nlogox",
+    "modelCard": "model-card.json",
+    "agentManifest": "agent-manifest.json"
   },
   "teachingMaterials": {
     "uiOverview": "https://docs.google.com/presentation/d/e/2PACX-1vQz-oiLWn1fp-CzcrUkqoR5kE6tPNWtmNQO4Fg2D6UPlWDhZMAC1-ZZDAWaOGMgTW-KHzfoRMTtgQeP/pub?start=false&loop=false&delayms=3000",

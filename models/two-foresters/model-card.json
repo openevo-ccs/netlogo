@@ -1,0 +1,301 @@
+{
+  "slug": "two-foresters",
+  "world": {
+    "minPxcor": 0,
+    "maxPxcor": 9,
+    "minPycor": 0,
+    "maxPycor": 4,
+    "patchSize": 45.0,
+    "updateMode": 1,
+    "wrappingAllowedX": false,
+    "wrappingAllowedY": false
+  },
+  "globals": [
+    "forest1",
+    "forest2",
+    "farmers1",
+    "farmers2"
+  ],
+  "breeds": {
+    "trees": {
+      "singular": "tree",
+      "own": [
+        "height"
+      ]
+    },
+    "foresters": {
+      "singular": "forester",
+      "own": [
+        "amount",
+        "harvest",
+        "wealth"
+      ]
+    },
+    "fences": {
+      "singular": "fence",
+      "own": []
+    }
+  },
+  "procedures": {
+    "setup": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "setup-farmers",
+        "setup-fence",
+        "setup-forests",
+        "setup-trees"
+      ]
+    },
+    "setup-forests": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "setup-trees": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "setup-fence": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "setup-farmers": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "cut-trees",
+        "regrow",
+        "setup-fence"
+      ]
+    },
+    "cut-trees": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "harvest-commons",
+        "harvest-private"
+      ]
+    },
+    "harvest-private": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "harvest-commons": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "regrow": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    }
+  },
+  "entry_points": [
+    "go",
+    "setup"
+  ],
+  "parameters": [
+    {
+      "widget": "slider",
+      "variable": "Percent-cut1",
+      "display": "Percent-cut1",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 50.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Growth-Rate",
+      "display": "Growth-Rate",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.1,
+      "step": 0.01,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Max-Treeheight",
+      "display": "Max-Treeheight",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 100.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Percent-cut2",
+      "display": "Percent-cut2",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 90.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "switch",
+      "variable": "Private-forest?",
+      "display": "Private-forest?",
+      "default": true,
+      "values": [
+        true,
+        false
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "widget": "plot",
+      "display": "Forest stock (% of maximum)",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 100.0,
+      "pens": [
+        {
+          "display": "Forest 1",
+          "setup": "",
+          "update": "if Private-forest? [plotxy ticks (sum [height] of trees-on forest1 / ( (Max-Treeheight ) * count forest1)) * 100]"
+        },
+        {
+          "display": "Forest 2",
+          "setup": "",
+          "update": "if Private-forest? [plotxy ticks (sum [height] of trees-on forest2 / ((Max-Treeheight ) * count forest2)) * 100]"
+        },
+        {
+          "display": "Total average",
+          "setup": "",
+          "update": "if Private-forest? = false [plotxy ticks (sum [height] of trees / ((Max-Treeheight ) * count patches)) * 100]"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Accumulated harvest amount",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Forester 1",
+          "setup": "",
+          "update": "plot sum [wealth] of farmers1"
+        },
+        {
+          "display": "Forester 2",
+          "setup": "",
+          "update": "plot sum [wealth] of farmers2"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Harvest amount per iteration",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 1.0,
+      "pens": [
+        {
+          "display": "Forester 1",
+          "setup": "",
+          "update": "plot sum [harvest] of farmers1"
+        },
+        {
+          "display": "Forester 2",
+          "setup": "",
+          "update": "plot sum [harvest] of farmers2"
+        }
+      ]
+    },
+    {
+      "widget": "monitor",
+      "display": "Forester 1",
+      "reporter": "sum [wealth] of farmers1"
+    },
+    {
+      "widget": "monitor",
+      "display": "Forester 2",
+      "reporter": "sum [wealth] of farmers2"
+    },
+    {
+      "widget": "monitor",
+      "display": "Forester 1",
+      "reporter": "sum [harvest] of farmers1"
+    },
+    {
+      "widget": "monitor",
+      "display": "Forester 2",
+      "reporter": "sum [harvest] of farmers2"
+    },
+    {
+      "widget": "monitor",
+      "display": "Forest 1",
+      "reporter": "sum [height] of trees-on forest1 / ( (Max-Treeheight ) * count forest1) * 100"
+    },
+    {
+      "widget": "monitor",
+      "display": "Forest 2",
+      "reporter": "sum [height] of trees-on forest2 / ( (Max-Treeheight) * count forest2) * 100"
+    },
+    {
+      "widget": "monitor",
+      "display": "Total",
+      "reporter": "sum [height] of trees / (Max-Treeheight * count patches) * 100"
+    }
+  ],
+  "controls": [
+    {
+      "display": "Setup",
+      "kind": "observer",
+      "forever": false,
+      "code": "setup"
+    },
+    {
+      "display": "Start",
+      "kind": "observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "One round",
+      "kind": "observer",
+      "forever": false,
+      "code": "go"
+    }
+  ],
+  "info_sections": {
+    "Model purpose": "What is the purpose of the model?\n\nThis model serves to illustrate a number of key concepts and processes in ecology, behavioral science and sustainability. In particular, it shows the social dilemma that can emerge when individuals have to share a limited common-pool resource.",
+    "Entities and variables": "What kinds of entities are in the model? By what state variables, or attributes, are these entities characterized? What are the temporal and spatial resolutions and extents of the model?\n\n## General environment\n### Changeable variables\n_Private forest_: This setting determines if the world is divided into two by a fence or not.\n\n## Patches\nThere are 5*10 brown-colored patches in the world, representing an area of forest, e.g. one hectare per patch.\nPatches belong to Forest 1 (left side of the world) or Forest 2 (right side of the world).\n\n## Trees\nThere are 50 trees in the world (one per patch). The trees could represent actual individual trees, or a collection of several trees, e.g. 100 trees on one hectare.\n\n### Constant tree variables and behaviors\n(these variables and behaviors are always the same for all of the agents of this type and in each iteration)\n\n* All trees regrow by a logistic growth function up to the maximum tree height: \nnew height = current height + (Growth-Rate * height) * (1 - (height /Max-Treeheight)\n\n### Changeable tree variables\n(variables that are changeable by the user on the interface): \n\n* _maximum tree height_: the maximum height in units that a tree can grow to\n* _tree growth rate_: the rate at which a tree grows per iteration\n\n### Changing variables during a simulation\n(variables that change as a result of the simulation)\n\n  * actual tree height in units\n\n## Foresters\nThere are two foresters in the world.\n\n### Constant forester variables and behaviors\n(these variables and behaviors are always the same for all of the agents of this type and in each iteration)\n\n* The forester that starts on Forest 1 is called Forester 1 and is colored green\n* The forester that starts on Forest 2 is called Forester 2 and is colored red.\n* In each iteration, each forester moves to one of the neighboring patches with the highest tree on it (if there is more than one tree with the tallest height, it chooses one of them randomly).\n\n### Changeable forester variables\n(variables that are changeable by the user on the interface): \n\n* _percent cut1_: the fraction of a tree that forester 1 harvests at each iteration from a tree\n* _percent cut2_: the fraction of a tree that forester 2 harvests at each iteration from a tree\n\n### Changing variables during a simulation\n\n* _harvested amount_: the amount  in tree units that is harvested by a forester in the current iteration\n* _Accumulated harvest_: the total accumulated harvest  in tree units that a forester is accumulating during a simulation",
+    "Model Setup": "What is the initial state of the model world when one clicks on Setup? Is initialization always the same, or does it vary among simulations?\n\n* A world with 50 patches is created.\n* There is a tree agent on each patch, and each tree has the maximum growth height.\n* If the \u201cprivate forest\u201d switch is on, a line is drawn in the middle of the world, cutting the forest into two forests with 5*5 patches.\n* In each forest, a forester agent is placed on the same patch every time, one forester in red, one forester in green.",
+    "Model Processes": "What happens in each iteration? Which entities do what, and in what order? When are state variables updated?\n\n![Model processes image](https://openevo.eva.mpg.de/wp-content/uploads/Two-foresters-procedures-overviews.png)",
+    "Outputs": "What kinds of model outcomes can be observed on the interface? How do they emerge from model parameters, agent behaviors, and interactions?\n\n\n## In the world\nTrees change in height as they are being harvested and as they regrow.\n\n## Output diagrams and monitors\n### Forest Stock (% of maximum)\nThe state of the forest in the world or of each private forest as a percentage of maximum possible stock, resulting from harvesting behavior of foresters and regrowth of trees\n\n### Harvest amount per iteration\nThe amount that each forester harvests per iteration, resulting from harvest rate and the actual tree height\n\n### Accumulated harvest amount\nThe harvest amount that each forester accumulates during the simulation. The accumulated harvests increase continuously because foresters never lose or \u201cuse up\u201d any of their harvested amounts.",
+    "Concepts and Principles": "Which important concepts or principles are represented in the model?\n\n\nThe resource is characterized by two ecologically significant parameters:\n\n* the **carrying capacity**: this is the largest possible amount of resources that can be present on a patch / in a certain area. In ecology, carrying capacity is often represented by the letter k. In this model, it is represented by the maximum growth height of the trees. In the real world, carrying capacity is influenced by biotic and abiotic factors like temperature and humidity or availability of other resources.\n* the **resource growth rate**: this is the rate at which a resource grows back from one time step to the next. It is often represented in ecology by the letter r. \n\nThe resource grows along a **logistic (S-shaped, sigmoid) population growth function** according to the following formula: \nResource state at the next point in time = current resource state + (r * current resource state) * (1 - current resource state / k) \n\n**Common-pool resources**\nCommon-pool resources are resources or goods that are accessible to all members of a community, so no one can be excluded from using them;\nreduced by the use, such that removal by one user reduces availability to others. Therefore, the resource is limited (there is not an endless amount available), and users can end up competing for the resource.\nExamples of common-pool resources for humans are fish stocks in the ocean or in a lake, public forests, groundwater, air, beach sites, busy roads, busy public parks.\n\n**Social interactions**\nIn social interactions, the behavior of one individual has outcomes for others in the group. Social interactions can be both intraspecific (between members of one species) and interspecific (between members of different species). Social interactions can be direct (such as reacting to each other, aggression, sharing resources) or indirect (such as when competing for resources or changing shared environmental conditions). \nIn this model, foresters interact indirectly (in the common forest setting) by competing for limited resources and by changing environmental conditions through resource extraction.\n\n**Perception and information processing**\nForester agents are aware of the tree heights on their neighbor patches.\nAgents do not store any information (i.e. they do not have a memory).\n\n\n**Preferences and goal-directed behavior**\nForesters move to a neighboring patch with the largest tree.\nForesters always harvest the percentage of the tree set by the percent-cut parameter.\n\n\n**Learning and Adaptation**\nAgents do not learn and do not adapt their behavior.\n\n**Randomness**\nfor the common forest: The order in which foresters move and harvest from the resource  (whether the green or the red forester goes first) within an iteration is random.\nForesters move to a random patch if multiple patches match preferences.",
+    "Model Materials": "Teaching materials for the model: https://openevo.eva.mpg.de/teachingbase/netlogo-2-foresters/",
+    "References and Citation": "For this model:\n\n* Hanisch, S. (2022). Two foresters. OpenEvo NetLogo Models.   https://openevo.eva.mpg.de/teachingbase/netlogo/\n\nFor the NetLogo-Software:\n\n* Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.",
+    "Licence": "![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)\n\nThis work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. http://creativecommons.org/licenses/by-nc-sa/4.0/"
+  },
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'growth-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'max-treeheight' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'percent-cut1' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'percent-cut2' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'private-forest?' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

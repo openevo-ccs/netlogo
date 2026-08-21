@@ -25,7 +25,10 @@
   "notes": null,
   "files": {
     "htmlApp": "app.html",
-    "nlogoSource": "model.nlogo"
+    "nlogoSource": "model.nlogo",
+    "nlogox": "two-communities.nlogox",
+    "modelCard": "model-card.json",
+    "agentManifest": "agent-manifest.json"
   },
   "teachingMaterials": {
     "uiOverview": "https://docs.google.com/presentation/d/e/2PACX-1vQGSAgZlgVCVHYjdhwfuzc_27-TklqA9px2fnhWeKzfWKHl-RkjvgxPDaxBqg3fsrcssIinWkecCbft/pub?start=false&loop=false&delayms=3000",

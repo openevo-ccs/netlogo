@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Converted from legacy .nlogo (originally saved as 'NetLogo 6.3.0') by nlogo_to_nlogox.py. Target format version: 7.0.4. See module docstring for documented conversion assumptions. -->
+<model version="7.0.4" snapToGrid="true">
+<code><source><![CDATA[turtles-own
+  [ sick?                ;; if true, the turtle is infectious
+    sick-time            ;; how long, in weeks, the turtle has been infectious
+    vaccinated?          ;; whether vaccinated
+    immunity-duration    ;; how many weeks immunity lasts?
+    remaining-immunity   ;; how many weeks of immunity the turtle has left
+    immune?
+    dying?              ;; whether dying from infection
+    age ]                 ;; how many weeks old the turtle is
+
+globals
+  [ %infected            ;; what % of the population is infectious
+    %immune              ;; what % of the population is immune
+    lifespan             ;; the lifespan of a turtle
+    chance-reproduce     ;; the probability of a turtle generating an offspring each tick
+    carrying-capacity    ;; the number of turtles that can be in the world at one time
+    chance-infection
+    number-dead ]        ;; how many died from infection
+
+;; The setup is divided into four procedures
+to setup
+  clear-all
+  setup-constants
+  setup-turtles
+  update-global-variables
+  update-display
+  reset-ticks
+end
+
+;; This sets up basic constants of the model.
+to setup-constants
+  set lifespan 80 * 52      ;; 80 times 52 weeks
+  set chance-reproduce 1
+  set carrying-capacity 500
+end
+
+;; We create a variable number of turtles of which a certain percentage are infected and a certain percentage is vaccinated,
+;; and distribute them randomly
+to setup-turtles
+  create-turtles Number-people
+    [ set shape "person"
+      setxy random-xcor random-ycor
+      set age random lifespan
+      set sick-time 0
+      set remaining-immunity 0
+      set dying? false
+      set vaccinated? false
+      set size 1.5  ;; easier to see
+      get-healthy
+      if random-float 100 < Percent-infected [ get-sick ]
+      if random-float 100 < Percent-vaccinated [set vaccinated? true]
+      ifelse vaccinated? = false
+      [set immunity-duration Duration-of-immunity
+       set immune? false]
+      [set immunity-duration 300
+       set immune? true ]]
+end
+
+to go
+  ifelse Mandatory-face-masks [set chance-infection 5][set chance-infection Chance-of-infection]
+  ask turtles [
+    get-older
+    if Lockdown = false [ move ]
+    if sick? [ recover-or-die ]
+    ifelse sick? [ infect ] [ reproduce ]
+  ]
+
+  update-vaccinated
+
+  update-global-variables
+
+  death-from-infection
+
+  update-display
+  tick
+end
+
+to get-older ;; turtle procedure
+  set age age + 1
+  if age > lifespan [ die ]  ;; Turtles die of old age once their age exceeds the lifespan (set at 80 years in this model).
+  if immune? [ set remaining-immunity remaining-immunity - 1 ]
+  if sick? [ set sick-time sick-time + 1 ]
+  if remaining-immunity < 0 [set immune? false]
+end
+
+to move ;; turtle procedure,Turtles move about at random.
+  rt random 100
+  lt random 100
+  fd 1
+end
+
+;; Once the turtle has been sick long enough, it either recovers (and becomes immune) or it dies.
+to recover-or-die ;; turtle procedure
+  if sick-time > Duration-of-illness                        ;; If the turtle has survived past the virus' duration, then
+    [ ifelse random-float 100 < Chance-of-recovery   ;; either recover or die
+      [ become-immune ]
+      [ set dying? true ] ]
+end
+
+;; If a turtle is sick, it infects other turtles in the vicinity.
+to infect ;; turtle procedure
+  ask other turtles in-radius Infection-radius with [ not sick? and not immune? ] ;; Immune turtles don't get sick.
+    [ if random-float 100 < chance-infection
+      [ get-sick ] ]
+end
+
+to get-sick ;; turtle procedure
+  set sick? true
+  set remaining-immunity 0
+end
+
+to get-healthy ;; turtle procedure
+  set sick? false
+  set dying? false
+  set remaining-immunity 0
+  set sick-time 0
+end
+
+to become-immune ;; turtle procedure
+  set sick? false
+  set immune? true
+  set sick-time 0
+  set remaining-immunity immunity-duration
+end
+
+;; If there are less turtles than the carrying-capacity then turtles can reproduce.
+to reproduce
+  if count turtles < carrying-capacity and random-float 100 < chance-reproduce
+    [ hatch 1
+      [ set age 1
+        lt 45 fd 1
+        get-healthy ] ]
+end
+
+to update-vaccinated
+  ifelse count turtles with [vaccinated?]  < (count turtles * Percent-vaccinated / 100)
+    [ask n-of (((count  turtles * Percent-vaccinated / 100) - count turtles with [vaccinated?]) * Percent-vaccinated / 100) turtles with [vaccinated? = false and sick? = false]
+      [set vaccinated? true
+       set immunity-duration 300
+       set immune? true ]]
+    [ask n-of ((count turtles with [vaccinated?]) - (count  turtles * Percent-vaccinated / 100)) turtles with [vaccinated? = true]
+      [set vaccinated? false
+       set immunity-duration Duration-of-immunity
+       ]]
+end
+
+to update-global-variables
+  if count turtles > 0
+    [ set %infected (count turtles with [ sick? ] / count turtles) * 100
+      set %immune (count turtles with [ immune? ] / count turtles) * 100
+      set number-dead number-dead + (count turtles with [ dying? ] ) ]
+end
+
+to death-from-infection
+  ask turtles with [dying?] [die]
+end
+
+to update-display
+  ask turtles
+      [ifelse sick? [ set color red] [set color green]
+       ifelse vaccinated? = false
+        [ if immune? [ set color cyan]]
+            [ set color blue ]]
+end
+
+to new-infection ;; release a new infection in the population
+  ask one-of turtles with [immune? = false and sick? = false] [ get-sick ]
+end]]></source></code>
+<widgets><view x="405" y="10" width="515" height="516" minPxcor="-19" maxPxcor="19" minPycor="-19" maxPycor="19" patchSize="13.0" wrappingAllowedX="true" wrappingAllowedY="true" fontSize="10" updateMode="1" showTickCounter="true" frameRate="30.0" tickCounterLabel="Model rounds"/><slider x="15" y="290" width="205" height="33" min="0.0" max="99.0" default="4.0" step="1.0" direction="horizontal" display="Duration-of-illness" variable="Duration-of-illness" units="weeks"/><slider x="15" y="250" width="207" height="33" min="0.0" max="99.0" default="70.0" step="1.0" direction="horizontal" display="Chance-of-recovery" variable="Chance-of-recovery" units="%"/><slider x="15" y="170" width="205" height="33" min="0.0" max="100.0" default="50.0" step="1.0" direction="horizontal" display="Chance-of-infection" variable="Chance-of-infection" units="%"/><button x="15" y="10" width="87" height="40" forever="false" kind="observer" disableUntilTicks="false" display="Setup"><source>setup</source></button><button x="205" y="10" width="71" height="40" forever="true" kind="observer" disableUntilTicks="true" display="Start"><source>go</source></button><plot x="950" y="10" width="585" height="360" xMin="0.0" xMax="0.0" yMin="0.0" yMax="100.0" autoPlotX="true" autoPlotY="false" legend="true" display="Population" xAxis="Weeks" yAxis="% of the population"><setupCode><source></source></setupCode><updateCode><source></source></updateCode><pen display="sick" interval="1.0" mode="0" color="-2674135" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count turtles with [ sick? ] / count turtles * 100</source></updateCode></pen><pen display="healthy" interval="1.0" mode="0" color="-10899396" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count turtles with [ not sick? and not immune? ]  / count turtles * 100</source></updateCode></pen><pen display="immune" interval="1.0" mode="0" color="-11221820" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count turtles with [ immune? ]  / count turtles * 100</source></updateCode></pen><pen display="vaccinated" interval="1.0" mode="0" color="-13345367" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count turtles with [vaccinated?]  / count turtles * 100</source></updateCode></pen></plot><slider x="15" y="60" width="205" height="33" min="10" max="600" default="500.0" step="1" direction="horizontal" display="Number-people" variable="Number-people"/><button x="110" y="10" width="87" height="40" forever="false" kind="observer" disableUntilTicks="false" display="One round"><source>go</source></button><slider x="15" y="330" width="202" height="33" min="0" max="300" default="16.0" step="1" direction="horizontal" display="Duration-of-immunity" variable="Duration-of-immunity" units="weeks"/><slider x="15" y="100" width="205" height="33" min="0" max="100" default="1.0" step="1" direction="horizontal" display="Percent-infected" variable="Percent-infected" units="%"/><switch x="15" y="485" width="130" height="33" on="false" display="Lockdown" variable="Lockdown"/><slider x="15" y="210" width="205" height="33" min="0" max="10" default="1.0" step="1" direction="horizontal" display="Infection-radius" variable="Infection-radius" units="m"/><slider x="15" y="525" width="172" height="33" min="0" max="100" default="0.0" step="1" direction="horizontal" display="Percent-vaccinated" variable="Percent-vaccinated"/><note x="225" y="335" width="175" height="41" fontSize="12" textColorLight="0" textColorDark="0" backgroundLight="0" backgroundDark="0" markdown="false"><text>Duration of natural immunity after an infection</text></note><note x="195" y="530" width="170" height="41" fontSize="12" textColorLight="0" textColorDark="0" backgroundLight="0" backgroundDark="0" markdown="false"><text>With vaccination, the duration of immunity is 300 weeks.</text></note><switch x="15" y="445" width="172" height="33" on="false" display="Mandatory-face-masks" variable="Mandatory-face-masks"/><note x="195" y="445" width="200" height="41" fontSize="12" textColorLight="0" textColorDark="0" backgroundLight="0" backgroundDark="0" markdown="false"><text>With mandatory face masks, the chance of infection is reduced to 5%.</text></note><note x="225" y="215" width="160" height="41" fontSize="12" textColorLight="0" textColorDark="0" backgroundLight="0" backgroundDark="0" markdown="false"><text>At which distance from others is there a threat of infection?</text></note><button x="15" y="370" width="112" height="33" forever="false" kind="observer" disableUntilTicks="false" display="New infection"><source>new-infection</source></button><note x="135" y="370" width="150" height="31" fontSize="12" textColorLight="0" textColorDark="0" backgroundLight="0" backgroundDark="0" markdown="false"><text>Creates a new infection in the population</text></note><note x="20" y="145" width="150" height="18" fontSize="14" textColorLight="0" textColorDark="0" backgroundLight="0" backgroundDark="0" markdown="false"><text>Virus parameters</text></note><note x="20" y="420" width="175" height="31" fontSize="14" textColorLight="0" textColorDark="0" backgroundLight="0" backgroundDark="0" markdown="false"><text>Public health measures</text></note><plot x="950" y="375" width="285" height="185" xMin="0.0" xMax="10.0" yMin="0.0" yMax="10.0" autoPlotX="true" autoPlotY="false" legend="false" display="Number of deaths through infection" xAxis="Weeks" yAxis="Number"><setupCode><source></source></setupCode><updateCode><source></source></updateCode><pen display="default" interval="1.0" mode="0" color="-16777216" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot number-dead</source></updateCode></pen></plot><monitor x="1255" y="375" width="95" height="57" precision="2" fontSize="14" display="Years"><source>ticks / 52</source></monitor></widgets>
+<info><text># What does this model simulate?
+
+The model simulates the spread of a viral infection in a population. Several factors related to the virus and the course of the disease, as well as measures implemented by the health system, influence the spread of the virus.
+
+# How does the model work?
+
+## The following processes occur in the model in each round:
+
+* The risk of infection is updated depending on whether a mask mandate is in effect.
+
+* Individuals age by one week. When individuals reach the age of 80, they die.
+
+* If individuals are sick or immune, they increase the duration of their illness and immunity by one week.
+
+* If there is no lockdown, individuals move one step in a random direction.
+
+* When individuals reach the specified duration of illness, they recover with a probability of recovery and become immune. If they do not recover, they die.
+
+* Sick individuals infect other individuals within a radius of infection with a probability of chance-of-infection.
+
+* Healthy individuals produce healthy offspring with a probability of 1%.
+
+* The percentage of vaccinated individuals in the population is updated (depending on the parameter "percent vaccinated").
+
+* The color of individuals is adjusted according to their status.
+
+* Clicking on "New Infection" will infect a randomly selected person who is neither immune nor currently ill.
+
+
+## Parameters:
+*  Number-people: population size
+
+*  Percent-infected: the percentage of infected people in the initial population
+
+*  Chance-of-infection: the probability that an infected person infects another person
+
+*  Infection-radius: the radius in meters within which one person can infect another person in close proximity (the larger the radius, the faster a virus can spread)
+
+*  Chance-of-recovery: the probability that an infected person will recover (if they do not recover, they will die)
+
+*  Duration-of-illness: the duration of the illness in weeks (one model round represents one week)
+
+*  Duration-of-immunity: the duration of immunity after infection
+
+*  Mandateory-face-masks: whether face masks are mandatory (in this case, the risk of infection is set to 5%)
+
+*  Lockdown: whether a lockdown is in place (in this case, people no longer move about)
+
+*  Percent-vaccinated: the proportion of vaccinated individuals in the population. With vaccination, the duration of immunity is 300 weeks.
+
+
+## Out put diagrams and monitors
+
+* Population: The percentage of infected, healthy, immune, and vaccinated individuals in the population
+
+* Number of ceaths due to infection: The total number of deaths from infection during the simulation
+
+# Possible research questions and assignments
+
+*  What influence do the parameters of the virus and the course of the disease have on the course of the epidemic?
+
+*  What influence do mandatory mask-wearing, lockdowns, and vaccination rates have on the spread of the virus?
+
+*  Under which parameter settings can one speak of herd immunity?
+
+*  Refute or confirm the following hypothesis: The higher the risk of infection, the more people will die from the virus.
+
+You are responsible for a country's health system. A novel virus is detected in 1% of the population. Your task is to advise the government on what measures should be taken to contain the spread of the virus and prevent deaths. The virus spreads through the air, and according to current research, the infection rate is 90% with an infection radius of up to 1 meter. The illness lasts 4 weeks, and 10% of those infected have died. People who recover from the infection are immune for 20 weeks.
+
+* The government wants to know how many deaths can be expected after two years if no measures are taken.
+
+*  What measures do you recommend to the government to contain the virus and prevent deaths? Explain your recommendations, also considering the further consequences of the measures.
+
+Computer Science: Change other parameters in the source code, e.g., lifespan, reproductive chances, movement, or maximum population size, and observe how this affects the development of virus epidemic.
+ 
+
+# Citation 
+
+For the model:
+
+Hanisch, S. (2025). Virus epidemic. https://openevo.eva.mpg.de/teachingbase/netlogo/. Adapted from: Wilensky, U. (1998).  NetLogo Virus - Circle Visualization model.  http://ccl.northwestern.edu/netlogo/models/Virus-CircleVisualization.  Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
+
+NetLogo-Software:
+
+Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
+
+
+## Licence
+
+
+![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)
+
+This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License.  To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</text></info>
+<turtleShapes><shape name="default" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="5"/><point x="40" y="250"/><point x="150" y="205"/><point x="260" y="250"/></polygon></shape><shape name="airplane" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="0"/><point x="135" y="15"/><point x="120" y="60"/><point x="120" y="105"/><point x="15" y="165"/><point x="15" y="195"/><point x="120" y="180"/><point x="135" y="240"/><point x="105" y="270"/><point x="120" y="285"/><point x="150" y="270"/><point x="180" y="285"/><point x="210" y="270"/><point x="165" y="240"/><point x="180" y="180"/><point x="285" y="195"/><point x="285" y="165"/><point x="180" y="105"/><point x="180" y="60"/><point x="165" y="15"/></polygon></shape><shape name="arrow" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="0"/><point x="0" y="150"/><point x="105" y="150"/><point x="105" y="293"/><point x="195" y="293"/><point x="195" y="150"/><point x="300" y="150"/></polygon></shape><shape name="box" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="285"/><point x="285" y="225"/><point x="285" y="75"/><point x="150" y="135"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="150" y="135"/><point x="15" y="75"/><point x="150" y="15"/><point x="285" y="75"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="15" y="75"/><point x="15" y="225"/><point x="150" y="285"/><point x="150" y="135"/></polygon><line color="-16777216" marked="false" startX="150" startY="285" endX="150" endY="135"/><line color="-16777216" marked="false" startX="150" startY="135" endX="15" endY="75"/><line color="-16777216" marked="false" startX="150" startY="135" endX="285" endY="75"/></shape><shape name="bug" rotatable="true" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="96" y="182" diameter="108"/><circle color="-7500403" filled="true" marked="true" x="110" y="127" diameter="80"/><circle color="-7500403" filled="true" marked="true" x="110" y="75" diameter="80"/><line color="-7500403" marked="true" startX="150" startY="100" endX="80" endY="30"/><line color="-7500403" marked="true" startX="150" startY="100" endX="220" endY="30"/></shape><shape name="butterfly" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="165"/><point x="209" y="199"/><point x="225" y="225"/><point x="225" y="255"/><point x="195" y="270"/><point x="165" y="255"/><point x="150" y="240"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="150" y="165"/><point x="89" y="198"/><point x="75" y="225"/><point x="75" y="255"/><point x="105" y="270"/><point x="135" y="255"/><point x="150" y="240"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="139" y="148"/><point x="100" y="105"/><point x="55" y="90"/><point x="25" y="90"/><point x="10" y="105"/><point x="10" y="135"/><point x="25" y="180"/><point x="40" y="195"/><point x="85" y="194"/><point x="139" y="163"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="162" y="150"/><point x="200" y="105"/><point x="245" y="90"/><point x="275" y="90"/><point x="290" y="105"/><point x="290" y="135"/><point x="275" y="180"/><point x="260" y="195"/><point x="215" y="195"/><point x="162" y="165"/></polygon><polygon color="-16777216" filled="true" marked="false"><point x="150" y="255"/><point x="135" y="225"/><point x="120" y="150"/><point x="135" y="120"/><point x="150" y="105"/><point x="165" y="120"/><point x="180" y="150"/><point x="165" y="225"/></polygon><circle color="-16777216" filled="true" marked="false" x="135" y="90" diameter="30"/><line color="-16777216" marked="false" startX="150" startY="105" endX="195" endY="60"/><line color="-16777216" marked="false" startX="150" startY="105" endX="105" endY="60"/></shape><shape name="car" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="300" y="180"/><point x="279" y="164"/><point x="261" y="144"/><point x="240" y="135"/><point x="226" y="132"/><point x="213" y="106"/><point x="203" y="84"/><point x="185" y="63"/><point x="159" y="50"/><point x="135" y="50"/><point x="75" y="60"/><point x="0" y="150"/><point x="0" y="165"/><point x="0" y="225"/><point x="300" y="225"/><point x="300" y="180"/></polygon><circle color="-16777216" filled="true" marked="false" x="180" y="180" diameter="90"/><circle color="-16777216" filled="true" marked="false" x="30" y="180" diameter="90"/><polygon color="-16777216" filled="true" marked="false"><point x="162" y="80"/><point x="132" y="78"/><point x="134" y="135"/><point x="209" y="135"/><point x="194" y="105"/><point x="189" y="96"/><point x="180" y="89"/></polygon><circle color="-7500403" filled="true" marked="true" x="47" y="195" diameter="58"/><circle color="-7500403" filled="true" marked="true" x="195" y="195" diameter="58"/></shape><shape name="circle" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/></shape><shape name="circle 2" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/><circle color="-16777216" filled="true" marked="false" x="30" y="30" diameter="240"/></shape><shape name="cow" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="200" y="193"/><point x="197" y="249"/><point x="179" y="249"/><point x="177" y="196"/><point x="166" y="187"/><point x="140" y="189"/><point x="93" y="191"/><point x="78" y="179"/><point x="72" y="211"/><point x="49" y="209"/><point x="48" y="181"/><point x="37" y="149"/><point x="25" y="120"/><point x="25" y="89"/><point x="45" y="72"/><point x="103" y="84"/><point x="179" y="75"/><point x="198" y="76"/><point x="252" y="64"/><point x="272" y="81"/><point x="293" y="103"/><point x="285" y="121"/><point x="255" y="121"/><point x="242" y="118"/><point x="224" y="167"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="73" y="210"/><point x="86" y="251"/><point x="62" y="249"/><point x="48" y="208"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="25" y="114"/><point x="16" y="195"/><point x="9" y="204"/><point x="23" y="213"/><point x="25" y="200"/><point x="39" y="123"/></polygon></shape><shape name="cylinder" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/></shape><shape name="dot" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="90" y="90" diameter="120"/></shape><shape name="face happy" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="8" y="8" diameter="285"/><circle color="-16777216" filled="true" marked="false" x="60" y="75" diameter="60"/><circle color="-16777216" filled="true" marked="false" x="180" y="75" diameter="60"/><polygon color="-16777216" filled="true" marked="false"><point x="150" y="255"/><point x="90" y="239"/><point x="62" y="213"/><point x="47" y="191"/><point x="67" y="179"/><point x="90" y="203"/><point x="109" y="218"/><point x="150" y="225"/><point x="192" y="218"/><point x="210" y="203"/><point x="227" y="181"/><point x="251" y="194"/><point x="236" y="217"/><point x="212" y="240"/></polygon></shape><shape name="face neutral" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="8" y="7" diameter="285"/><circle color="-16777216" filled="true" marked="false" x="60" y="75" diameter="60"/><circle color="-16777216" filled="true" marked="false" x="180" y="75" diameter="60"/><rectangle color="-16777216" filled="true" marked="false" startX="60" startY="195" endX="240" endY="225"/></shape><shape name="face sad" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="8" y="8" diameter="285"/><circle color="-16777216" filled="true" marked="false" x="60" y="75" diameter="60"/><circle color="-16777216" filled="true" marked="false" x="180" y="75" diameter="60"/><polygon color="-16777216" filled="true" marked="false"><point x="150" y="168"/><point x="90" y="184"/><point x="62" y="210"/><point x="47" y="232"/><point x="67" y="244"/><point x="90" y="220"/><point x="109" y="205"/><point x="150" y="198"/><point x="192" y="205"/><point x="210" y="220"/><point x="227" y="242"/><point x="251" y="229"/><point x="236" y="206"/><point x="212" y="183"/></polygon></shape><shape name="fish" rotatable="false" editableColorIndex="0"><polygon color="-1" filled="true" marked="false"><point x="44" y="131"/><point x="21" y="87"/><point x="15" y="86"/><point x="0" y="120"/><point x="15" y="150"/><point x="0" y="180"/><point x="13" y="214"/><point x="20" y="212"/><point x="45" y="166"/></polygon><polygon color="-1" filled="true" marked="false"><point x="135" y="195"/><point x="119" y="235"/><point x="95" y="218"/><point x="76" y="210"/><point x="46" y="204"/><point x="60" y="165"/></polygon><polygon color="-1" filled="true" marked="false"><point x="75" y="45"/><point x="83" y="77"/><point x="71" y="103"/><point x="86" y="114"/><point x="166" y="78"/><point x="135" y="60"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="30" y="136"/><point x="151" y="77"/><point x="226" y="81"/><point x="280" y="119"/><point x="292" y="146"/><point x="292" y="160"/><point x="287" y="170"/><point x="270" y="195"/><point x="195" y="210"/><point x="151" y="212"/><point x="30" y="166"/></polygon><circle color="-16777216" filled="true" marked="false" x="215" y="106" diameter="30"/></shape><shape name="flag" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="60" startY="15" endX="75" endY="300"/><polygon color="-7500403" filled="true" marked="true"><point x="90" y="150"/><point x="270" y="90"/><point x="90" y="30"/></polygon><line color="-7500403" marked="true" startX="75" startY="135" endX="90" endY="135"/><line color="-7500403" marked="true" startX="75" startY="45" endX="90" endY="45"/></shape><shape name="flower" rotatable="false" editableColorIndex="0"><polygon color="-10899396" filled="true" marked="false"><point x="135" y="120"/><point x="165" y="165"/><point x="180" y="210"/><point x="180" y="240"/><point x="150" y="300"/><point x="165" y="300"/><point x="195" y="240"/><point x="195" y="195"/><point x="165" y="135"/></polygon><circle color="-7500403" filled="true" marked="true" x="85" y="132" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="130" y="147" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="192" y="85" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="85" y="40" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="177" y="40" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="177" y="132" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="70" y="85" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="130" y="25" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="96" y="51" diameter="108"/><circle color="-16777216" filled="true" marked="false" x="113" y="68" diameter="74"/><polygon color="-10899396" filled="true" marked="false"><point x="189" y="233"/><point x="219" y="188"/><point x="249" y="173"/><point x="279" y="188"/><point x="234" y="218"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="180" y="255"/><point x="150" y="210"/><point x="105" y="210"/><point x="75" y="240"/><point x="135" y="240"/></polygon></shape><shape name="house" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="45" startY="120" endX="255" endY="285"/><rectangle color="-16777216" filled="true" marked="false" startX="120" startY="210" endX="180" endY="285"/><polygon color="-7500403" filled="true" marked="true"><point x="15" y="120"/><point x="150" y="15"/><point x="285" y="120"/></polygon><line color="-16777216" marked="false" startX="30" startY="120" endX="270" endY="120"/></shape><shape name="leaf" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="210"/><point x="135" y="195"/><point x="120" y="210"/><point x="60" y="210"/><point x="30" y="195"/><point x="60" y="180"/><point x="60" y="165"/><point x="15" y="135"/><point x="30" y="120"/><point x="15" y="105"/><point x="40" y="104"/><point x="45" y="90"/><point x="60" y="90"/><point x="90" y="105"/><point x="105" y="120"/><point x="120" y="120"/><point x="105" y="60"/><point x="120" y="60"/><point x="135" y="30"/><point x="150" y="15"/><point x="165" y="30"/><point x="180" y="60"/><point x="195" y="60"/><point x="180" y="120"/><point x="195" y="120"/><point x="210" y="105"/><point x="240" y="90"/><point x="255" y="90"/><point x="263" y="104"/><point x="285" y="105"/><point x="270" y="120"/><point x="285" y="135"/><point x="240" y="165"/><point x="240" y="180"/><point x="270" y="195"/><point x="240" y="210"/><point x="180" y="210"/><point x="165" y="195"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="195"/><point x="135" y="240"/><point x="120" y="255"/><point x="105" y="255"/><point x="105" y="285"/><point x="135" y="285"/><point x="165" y="240"/><point x="165" y="195"/></polygon></shape><shape name="line" rotatable="true" editableColorIndex="0"><line color="-7500403" marked="true" startX="150" startY="0" endX="150" endY="300"/></shape><shape name="line half" rotatable="true" editableColorIndex="0"><line color="-7500403" marked="true" startX="150" startY="0" endX="150" endY="150"/></shape><shape name="pentagon" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="15"/><point x="15" y="120"/><point x="60" y="285"/><point x="240" y="285"/><point x="285" y="120"/></polygon></shape><shape name="person" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="110" y="5" diameter="80"/><polygon color="-7500403" filled="true" marked="true"><point x="105" y="90"/><point x="120" y="195"/><point x="90" y="285"/><point x="105" y="300"/><point x="135" y="300"/><point x="150" y="225"/><point x="165" y="300"/><point x="195" y="300"/><point x="210" y="285"/><point x="180" y="195"/><point x="195" y="90"/></polygon><rectangle color="-7500403" filled="true" marked="true" startX="127" startY="79" endX="172" endY="94"/><polygon color="-7500403" filled="true" marked="true"><point x="195" y="90"/><point x="240" y="150"/><point x="225" y="180"/><point x="165" y="105"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="105" y="90"/><point x="60" y="150"/><point x="75" y="180"/><point x="135" y="105"/></polygon></shape><shape name="plant" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="135" startY="90" endX="165" endY="300"/><polygon color="-7500403" filled="true" marked="true"><point x="135" y="255"/><point x="90" y="210"/><point x="45" y="195"/><point x="75" y="255"/><point x="135" y="285"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="165" y="255"/><point x="210" y="210"/><point x="255" y="195"/><point x="225" y="255"/><point x="165" y="285"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="180"/><point x="90" y="135"/><point x="45" y="120"/><point x="75" y="180"/><point x="135" y="210"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="165" y="180"/><point x="165" y="210"/><point x="225" y="180"/><point x="255" y="120"/><point x="210" y="135"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="105"/><point x="90" y="60"/><point x="45" y="45"/><point x="75" y="105"/><point x="135" y="135"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="165" y="105"/><point x="165" y="135"/><point x="225" y="105"/><point x="255" y="45"/><point x="210" y="60"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="90"/><point x="120" y="45"/><point x="150" y="15"/><point x="180" y="45"/><point x="165" y="90"/></polygon></shape><shape name="square" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="30" startY="30" endX="270" endY="270"/></shape><shape name="square 2" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="30" startY="30" endX="270" endY="270"/><rectangle color="-16777216" filled="true" marked="false" startX="60" startY="60" endX="240" endY="240"/></shape><shape name="star" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="151" y="1"/><point x="185" y="108"/><point x="298" y="108"/><point x="207" y="175"/><point x="242" y="282"/><point x="151" y="216"/><point x="59" y="282"/><point x="94" y="175"/><point x="3" y="108"/><point x="116" y="108"/></polygon></shape><shape name="target" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/><circle color="-16777216" filled="true" marked="false" x="30" y="30" diameter="240"/><circle color="-7500403" filled="true" marked="true" x="60" y="60" diameter="180"/><circle color="-16777216" filled="true" marked="false" x="90" y="90" diameter="120"/><circle color="-7500403" filled="true" marked="true" x="120" y="120" diameter="60"/></shape><shape name="tree" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="118" y="3" diameter="94"/><rectangle color="-6459832" filled="true" marked="false" startX="120" startY="195" endX="180" endY="300"/><circle color="-7500403" filled="true" marked="true" x="65" y="21" diameter="108"/><circle color="-7500403" filled="true" marked="true" x="116" y="41" diameter="127"/><circle color="-7500403" filled="true" marked="true" x="45" y="90" diameter="120"/><circle color="-7500403" filled="true" marked="true" x="104" y="74" diameter="152"/></shape><shape name="triangle" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="30"/><point x="15" y="255"/><point x="285" y="255"/></polygon></shape><shape name="triangle 2" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="30"/><point x="15" y="255"/><point x="285" y="255"/></polygon><polygon color="-16777216" filled="true" marked="false"><point x="151" y="99"/><point x="225" y="223"/><point x="75" y="224"/></polygon></shape><shape name="truck" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="4" startY="45" endX="195" endY="187"/><polygon color="-7500403" filled="true" marked="true"><point x="296" y="193"/><point x="296" y="150"/><point x="259" y="134"/><point x="244" y="104"/><point x="208" y="104"/><point x="207" y="194"/></polygon><rectangle color="-1" filled="true" marked="false" startX="195" startY="60" endX="195" endY="105"/><polygon color="-16777216" filled="true" marked="false"><point x="238" y="112"/><point x="252" y="141"/><point x="219" y="141"/><point x="218" y="112"/></polygon><circle color="-16777216" filled="true" marked="false" x="234" y="174" diameter="42"/><rectangle color="-7500403" filled="true" marked="true" startX="181" startY="185" endX="214" endY="194"/><circle color="-16777216" filled="true" marked="false" x="144" y="174" diameter="42"/><circle color="-16777216" filled="true" marked="false" x="24" y="174" diameter="42"/><circle color="-7500403" filled="false" marked="true" x="24" y="174" diameter="42"/><circle color="-7500403" filled="false" marked="true" x="144" y="174" diameter="42"/><circle color="-7500403" filled="false" marked="true" x="234" y="174" diameter="42"/></shape><shape name="turtle" rotatable="true" editableColorIndex="0"><polygon color="-10899396" filled="true" marked="false"><point x="215" y="204"/><point x="240" y="233"/><point x="246" y="254"/><point x="228" y="266"/><point x="215" y="252"/><point x="193" y="210"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="195" y="90"/><point x="225" y="75"/><point x="245" y="75"/><point x="260" y="89"/><point x="269" y="108"/><point x="261" y="124"/><point x="240" y="105"/><point x="225" y="105"/><point x="210" y="105"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="105" y="90"/><point x="75" y="75"/><point x="55" y="75"/><point x="40" y="89"/><point x="31" y="108"/><point x="39" y="124"/><point x="60" y="105"/><point x="75" y="105"/><point x="90" y="105"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="132" y="85"/><point x="134" y="64"/><point x="107" y="51"/><point x="108" y="17"/><point x="150" y="2"/><point x="192" y="18"/><point x="192" y="52"/><point x="169" y="65"/><point x="172" y="87"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="85" y="204"/><point x="60" y="233"/><point x="54" y="254"/><point x="72" y="266"/><point x="85" y="252"/><point x="107" y="210"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="119" y="75"/><point x="179" y="75"/><point x="209" y="101"/><point x="224" y="135"/><point x="220" y="225"/><point x="175" y="261"/><point x="128" y="261"/><point x="81" y="224"/><point x="74" y="135"/><point x="88" y="99"/></polygon></shape><shape name="wheel" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="3" y="3" diameter="294"/><circle color="-16777216" filled="true" marked="false" x="30" y="30" diameter="240"/><line color="-7500403" marked="true" startX="150" startY="285" endX="150" endY="15"/><line color="-7500403" marked="true" startX="15" startY="150" endX="285" endY="150"/><circle color="-7500403" filled="true" marked="true" x="120" y="120" diameter="60"/><line color="-7500403" marked="true" startX="216" startY="40" endX="79" endY="269"/><line color="-7500403" marked="true" startX="40" startY="84" endX="269" endY="221"/><line color="-7500403" marked="true" startX="40" startY="216" endX="269" endY="79"/><line color="-7500403" marked="true" startX="84" startY="40" endX="221" endY="269"/></shape><shape name="x" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="270" y="75"/><point x="225" y="30"/><point x="30" y="225"/><point x="75" y="270"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="30" y="75"/><point x="75" y="30"/><point x="270" y="225"/><point x="225" y="270"/></polygon></shape></turtleShapes>
+<!-- linkShapes: skipped (legacy format for link shapes is under-documented publicly; default link shapes are provided by NetLogo itself and do not need to be round-tripped) -->
+</model>

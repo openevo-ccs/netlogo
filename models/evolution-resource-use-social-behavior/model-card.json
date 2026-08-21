@@ -1,0 +1,466 @@
+{
+  "slug": "evolution-resource-use-social-behavior",
+  "world": {
+    "minPxcor": 0,
+    "maxPxcor": 39,
+    "minPycor": 0,
+    "maxPycor": 39,
+    "patchSize": 10.0,
+    "updateMode": 1,
+    "wrappingAllowedX": true,
+    "wrappingAllowedY": true
+  },
+  "globals": [
+    "commons",
+    "commonsResources",
+    "harvestTraits"
+  ],
+  "breeds": {
+    "turtles": {
+      "singular": "turtle",
+      "own": [
+        "harvestPref",
+        "harvest-amount",
+        "punisher?",
+        "aware-of-who",
+        "energy",
+        "harvest",
+        "punished?"
+      ],
+      "builtin": true
+    },
+    "patches": {
+      "singular": "patch",
+      "own": [
+        "resource"
+      ],
+      "builtin": true
+    }
+  },
+  "procedures": {
+    "setup": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "update-color"
+      ]
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "death",
+        "expend-energy",
+        "harvesting",
+        "punish",
+        "recolor",
+        "regrow",
+        "reproduce",
+        "sense-cheaters"
+      ]
+    },
+    "harvesting": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "harvest-commons"
+      ]
+    },
+    "harvest-commons": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "move-away"
+      ]
+    },
+    "move-away": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "sense-cheaters": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "punish": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "expend-energy": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "reproduce": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "mutate"
+      ]
+    },
+    "mutate": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "update-color"
+      ]
+    },
+    "update-color": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "death": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "regrow": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "recolor": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    }
+  },
+  "entry_points": [
+    "go",
+    "setup"
+  ],
+  "parameters": [
+    {
+      "widget": "slider",
+      "variable": "Percent-Sustainables",
+      "display": "Percent-Sustainables",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 20.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Mutation-rate",
+      "display": "Mutation-rate",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 1.0,
+      "step": 0.5,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Number-Agents",
+      "display": "Number-Agents",
+      "min": 0.0,
+      "max": "count patches",
+      "default": 200.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Living-costs",
+      "display": "Living-costs",
+      "min": 0.0,
+      "max": "Harvest-sustainable - 1",
+      "default": 4.0,
+      "step": 0.5,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Death-rate",
+      "display": "Death-rate",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 1.0,
+      "step": 0.5,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Carrying-capacity",
+      "display": "Carrying-capacity",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 100.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Growth-rate",
+      "display": "Growth-rate",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.3,
+      "step": 0.1,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Harvest-sustainable",
+      "display": "Harvest-sustainable",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 7.0,
+      "step": 0.5,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Harvest-greedy",
+      "display": "Harvest-greedy",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 10.0,
+      "step": 0.5,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Perception-accuracy",
+      "display": "Perception-accuracy",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 100.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Percent-Punishers",
+      "display": "Percent-Punishers",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 20.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Costs-punishment",
+      "display": "Costs-punishment",
+      "min": 0.0,
+      "max": 3.0,
+      "default": 0.8,
+      "step": 0.1,
+      "units": null
+    },
+    {
+      "widget": "chooser",
+      "variable": "Punishment",
+      "display": "Punishment",
+      "values": [
+        "kill",
+        "suspend harvest once",
+        "pay fine"
+      ],
+      "default": "suspend harvest once"
+    },
+    {
+      "widget": "slider",
+      "variable": "Fine",
+      "display": "Fine",
+      "min": 1.0,
+      "max": 20.0,
+      "default": 1.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Costs-perception",
+      "display": "Costs-perception",
+      "min": 0.0,
+      "max": 3.0,
+      "default": 0.5,
+      "step": 0.1,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Minimum-punishers",
+      "display": "Minimum-punishers",
+      "min": 1.0,
+      "max": 9.0,
+      "default": 1.0,
+      "step": 1.0,
+      "units": null
+    }
+  ],
+  "outputs": [
+    {
+      "widget": "plot",
+      "display": "Trait frequencies (%)",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Sustainable, punisher",
+          "setup": "",
+          "update": "plotxy ticks (count turtles with [color = green] / count turtles) * 100"
+        },
+        {
+          "display": "Sustainable, not punisher",
+          "setup": "",
+          "update": "plotxy ticks (count turtles with [color = turquoise] / count turtles) * 100"
+        },
+        {
+          "display": "Greedy, punisher",
+          "setup": "",
+          "update": "plotxy ticks ( count turtles with [color = orange] / count turtles) * 100"
+        },
+        {
+          "display": "Greedy, not punisher ",
+          "setup": "",
+          "update": "plotxy ticks ( count turtles with [color = red] / count turtles) * 100"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Average energy",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Sustainable, punisher",
+          "setup": "",
+          "update": "carefully [plot sum [energy] of turtles with [color = green ] / count turtles with [color = green ]][plot 0]"
+        },
+        {
+          "display": "Sustainable, not punisher",
+          "setup": "",
+          "update": "carefully [plot sum [energy] of turtles with [color = turquoise ] / count turtles with [color = turquoise ]][plot 0]"
+        },
+        {
+          "display": "Greedy, punisher",
+          "setup": "",
+          "update": "carefully [plot sum [energy] of turtles with [color = orange ] / count turtles with [color = orange ]][plot 0]"
+        },
+        {
+          "display": "Greedy, not punisher",
+          "setup": "",
+          "update": "carefully [plot sum [energy] of turtles with [color = red ] / count turtles with [color = red ]][plot 0]"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Populations (% of carrying capacity)",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 100.0,
+      "pens": [
+        {
+          "display": "Resource",
+          "setup": "",
+          "update": "plot (sum [resource] of patches / (count patches * Carrying-capacity)) * 100"
+        },
+        {
+          "display": "Agents",
+          "setup": "",
+          "update": "plot (count turtles / count patches) * 100"
+        }
+      ]
+    },
+    {
+      "widget": "monitor",
+      "display": "MSY",
+      "reporter": "Carrying-capacity * Growth-rate / 4"
+    },
+    {
+      "widget": "plot",
+      "display": "Average harvest per iteration",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 5.0,
+      "pens": [
+        {
+          "display": "Sustainble, punisher",
+          "setup": "",
+          "update": "carefully [plot sum [harvest] of turtles with [color = green] / count turtles with [color = green]][plot 0]"
+        },
+        {
+          "display": "Sustainble, not punisher",
+          "setup": "",
+          "update": "carefully [plot sum [harvest] of turtles with [color = turquoise] / count turtles with [color = turquoise]][plot 0]"
+        },
+        {
+          "display": "Greedy, punisher",
+          "setup": "",
+          "update": "carefully [plot sum [harvest] of turtles with [color = orange] / count turtles with [color = orange]][plot 0]"
+        },
+        {
+          "display": "Greedy, not punisher",
+          "setup": "",
+          "update": "carefully [plot sum [harvest] of turtles with [color = red] / count turtles with [color = red]][plot 0]"
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "display": "Start",
+      "kind": "observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "Once",
+      "kind": "observer",
+      "forever": false,
+      "code": "go"
+    },
+    {
+      "display": "Setup",
+      "kind": "observer",
+      "forever": false,
+      "code": "setup"
+    }
+  ],
+  "info_sections": {
+    "Model purpose": "What is the purpose of the model?\n\nThis model simulates the evolution of a population of agents competing for the same resource. Agents have two types of traits - harvesting preference (sustainable or greedy harvesting), and ability to perceive and punish other agents. Punishing agents have the ability to perceive other agents in their environment to some degree and to react to their behavior. They can kill agents with greedy harvesting behavior, stop them from harvesting in the next iteration, or have them pay a penalty fee to their neighbors. Agents have a cost (energy) to pay for both detection and punishment, so this behavior is altruistic. Punishing agents have the ability to coordinate punishment with a minimum number of punishers to share punishment costs. Due to this social perception and social behavior in the population, greedy harvesting behavior can become less advantageous or even disadvantageous, and sustainable harvesting behavior can spread in the population. Concepts like kin selection, frequency-dependent selection , multi-level selection play a role in the outcomes that are observed.",
+    "Entities and variables": "What kinds of entities are in the model? By what state variables, or attributes, are these entities characterized? What are the temporal and spatial resolutions and extents of the model?\n\n## General environment\n\n### Changeable variables\n\n* _Living-costs_: the costs that each agent has to deduct from his energy per iteration for basic survival\n* _Mutation-rate_: The probability with which offspring agents have other traits than their parents\n* _Death-rate_: The probability with which agents die independent of their energy level\n(these variables could be considered both a factor of the environment and a variable of the agents, but we list them here since they do not vary among agents and are rather \u201cimposed\u201d from the environment)\n\n\n## Patches\n\nThere are 40*40 patches in the world. \n\n### Constant patch variables\n(these variables and behaviors are always the same for all of the patches and in each iteration)\n\n* The resources on a patch regrow by a logistic growth function up to the carrying capacity: \nnew resource level = current resource level + (Growth-Rate * current resource level) * (1 - (current resource level / carrying capacity)\n\n\n### Changeable patch variables \n(variables that are changeable by the user on the interface)\n\n* _carrying-capacity_: the maximum amount of resource units on a patch from 1-100\n* _growth rate_: the rate at which resources on patches regrow \nThe maximum sustainable yield is calculated based on carrying capacity and growth rate.\n\n\n### Changing variables during a simulation\n(variables that change as a result of the simulation)\n\n  * actual resource level of a patch in units\n\n## Agents\nAgents are represented as circles. There can be a maximum of 1600 agents in the world (1 per patch).\n\n\n### Constant agent variables and behaviors\n(these variables and behaviors are always the same for all of the agents of this type and in each iteration)\n\n* In each iteration, each agent attempts to harvest resources from the patches it is on as well as the eight neighboring patches. If the amount of resources available is lower than the amount that the agent attempts to harvest, it moves to a neighboring unoccupied patch with the most resources.\n\n\n### Changeable agent variables\n(variables that are changeable by the user on the interface): \n\n* _Harvest-sustainables_: the amount of resource units harvested by sustainable agents\n* _Harvest-greedy_: the amount of resource units harvested by sustainable agents\n* _Perception-accuracy_: the probability with which punishing agents notice greedy agents\n* _Costs-perception_: the costs in units of energy that punishing agents have to pay in each iteration for perceiving other agents\n* _Costs-punishment_: the costs in units of energy that punishing agents have to pay in each iteration for punishing other agents. Costs of punishment are shared between all punishing agents of an agent.\n* _Punishment_: the kind of punishing behavior that punishing agents perform\n* _Minimum-punishers_: the minimum number of other punishing agents that need to be in the neighborhood of a greedy agent so that punishers will indeed punish.\n* _Fine_: if the punishment  is \u201cpay fine\u201d, the fine in energy units that punished agents have to pay (shared between all their neighbors)\n* _Reproduction_: ability of agents to produce offspring\n\n\n### Changing variables during a simulation\n(variables that change as a result of the simulation)\n\n* _harvest preference_: the harvest level preference of the agent (sustainable or greedy) as a trait.\n* _punisher?_: Whether or not the agent has the ability to perceive and punish other agents\n* _harvest-amount_: the actual amount of resource units that is harvested by an agent in the current iteration\n* _aware-of-who_: the greedy agents in the neighborhood that the agent is perceiving\n* _punished?_: Whether or not the agent is being punished\n* _Energy_: the energy level (in resource units) of an agent \n* Offspring have a different harvest amount trait from their parents with a probability of _Mutation-rate_.",
+    "Model Setup": "What is the initial state of the model world when one clicks on Setup? Is initialization always the same, or does it vary among simulations?\n\n* A world with 1600 patches is created.\n* The initial amount of resource units on a patch is set to Carrying-capacity.\n* A number of agents, set by the parameter Number-agents, are randomly distributed on patches (maximum of one agent per patch).\n* A fraction of agents, set by the parameter Percent-sustainables, gets the variable harvest preference set to \u201csustainable\u201d\n* A fraction of agents, set by the parameter Percent-punishers, gets the variable punisher? set to true.\n* The agents are assigned colors based on their combination of traits:\n    * red: greedy, non-punishing\n    * orange: greedy, punishing\n    * blue: sustainable, non-punishing\n    * green: sustainable, punishing\n* The initial level of energy of agents is set at living costs + 1.",
+    "Model Processes": "What happens in each iteration? Which entities do what, and in what order? When are state variables updated?\n\n![Model processes image](https://openevo.eva.mpg.de/wp-content/uploads/NetLogo-model-Evolution-resources-monitoring-punishment-procedures-overview.png)",
+    "Outputs": "What kinds of model outcomes can be observed on the interface? How do they emerge from model parameters, agent behaviors, and interactions?\n\n\n## In the world\nResource levels on patches change as they are being harvested and as they regrow. Agents reproduce and die. Since agents place offspring on neighboring patches and do not move unless there are no more resources, clusters of \u201crelated\u201d agents tend to form.\n \n\n## Output diagrams and monitors\n\n### Populations (% of carrying capacity)\nThe state of the resource and of the agent population in the world as percentage of total carrying capacity; resulting from resource harvesting behavior and resource regrowth, agent reproduction and death\n\n### Trait frequencies\nThe relative frequencies of sustainable and greedy agents in the population, resulting from mutations, different reproduction rates, and death\n\n### Average harvest per iteration \nAverage harvested amounts of agents per iteration by trait, resulting from harvested resource units, minus costs for monitoring and punishing (for punishing agents), minus fines (for punished agents in case of punishment \u201cPay fine\u201d)\n\n### Average energy of agents\nAverage energy levels of agents by trait, resulting from resource harvest, minus living costs and reproduction, minus energy expenditure for moving.",
+    "Concepts and Principles": "Which important concepts or principles are represented in the model?\n\nThe resource is characterized by two ecologically significant parameters:\n\n* the **carrying capacity**: this is the largest possible amount of resources that can be present on a patch / in a certain area. In ecology, carrying capacity is often represented by the letter k. In this model, it is represented by the maximum growth height of the trees. In the real world, carrying capacity is influenced by biotic and abiotic factors like temperature and humidity or availability of other resources.\n* the **resource growth rate**: this is the rate at which a resource grows back from one time step to the next. It is often represented in ecology by the letter r. \n\nThe resource grows along a **logistic (S-shaped, sigmoid) population growth function** according to the following formula: \nResource state at the next point in time = current resource state +  ( r * current resource state) * (1 - current resource state / k ) \n\n**Trait variation**\nTwo types of traits vary in the population: harvesting behavior (sustainable or greedy), and ability to notice and punish other agents (present or not present). New trait variants can be introduced randomly in the population through the parameter mutation rate.\n\n**Reproductive fitness**\nAgents that have higher energy levels produce more offspring. They have higher fitness relative to agents with lower energy levels.\n\n**Inheritance**\nAgents create offspring and inherit their trait variants to their offspring (with some variability based on mutation rate)\n\n**Natural selection**\nThe frequency of harvesting traits in the agent population changes as a result of trait variation, differential reproduction (fitness), and inheritance of traits. \n\n**Kin selection, multi-level selection, frequency-dependent selection, altruism**\nThe behavior of sustainable resource harvesting as well as of punishment is altruistic because these agents harvest lower amounts of resources such that the resource can be sustained, and they pay costs for noticing and punishing greedy harvesting behavior. In order for this trait to spread in the population through natural selection, altruists need to interact (directly and indirectly, see Interactions below) with other altruists. This is made possible in the model by the fact that agents do not move much and place their own offspring on neighboring patches. This way clusters of (related) altruists benefit from the sustaining of the resource, and they do not have to pay high costs for punishment because there are less greedy agents around.  Punishment reduces the fitness benefits of high harvesting levels, promoting the selection of altruistic traits over time.\n\n**Sensing and Information Processing** \nAgents sense their environment in a radius of 1 patch: if a patch is occupied, the resource levels on each patch; as well as whether neighboring agents are greedy (with an accuracy of Perception-accuracy).\nPunishing agents store the number of greedy agents they have noticed (aware-of-who) within one iteration (they \u201cforget\u201d between iterations).\nPunished agents store whether they are being punished from one iteration to the next (so they will be suspended from harvesting in the following iteration)\n\n**Objectives and goal-directed behavior**\nAgents attempt to harvest their predetermined harvest amount (or until there are no more resources) from the patch they are on as well as the 8 neighboring patches.\nIf there aren\u2019t enough resources around, agents move to a neighboring unoccupied patch with the most resources.\nPunishing agents punish greedy agents through the parameters set by the kind of punishment\n\n**Learning and Adaptation**\nAgents do not learn and do not adapt their behavior over their lifetimes.\n\n**Interactions**\nAgents interact directly through noticing each other and punishing each other.\nAgents interact indirectly through competition for limited resources and space, and through their changing of environmental conditions through resource extraction and placing of offspring\n\n**Role of randomness**\n\n* Agents are being distributed randomly in the world at the beginning of a simulation.\n* Agents take on their traits (harvest preference and ability to notice and punish) randomly based on the probability _Percent-sustainables_ and _Percent-punishers_.\n* The order in which agents harvest within one iteration is random.\n* Agents move to a randomly selected patch if several patches fulfill the objectives.\n* The order in which punishing agents notice greedy agents within one iteration is random.\n* Greedy agents get noticed by punishing agents with a probability of _Perception-accuracy_.\n* The order at which greedy agents that have been noticed get punished within one iteration is random.\n* The order in which agents produce offspring within one iteration is random.\n* Agents produce offspring with a probability of  (0.001 * Energy).\n* Agents place offspring on a randomly selected unoccupied neighboring patch.\n* Offspring mutate with a probability of _Mutation-rate_.\n* Agents die with a probability of _Death-rate_.",
+    "Model Teaching Materials": "Teaching materials for this model:\nhttps://openevo.eva.mpg.de/teachingbase/netlogo-evolution-of-resource-use-and-social-behavior-monitoring-and-punishment/",
+    "References and Citation": "For this model:\n\n* Hanisch, S. (2022). Evolution, resources, monitoring and punishment. OpenEvo NetLogo Models. https://openevo.eva.mpg.de/teachingbase/netlogo/\n\nFor the NetLogo-Software:\n\n* Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.",
+    "Licence": "![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)\n\nThis work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. http://creativecommons.org/licenses/by-nc-sa/4.0/"
+  },
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'carrying-capacity' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'costs-perception' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'costs-punishment' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'death-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'fine' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'growth-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'harvest-greedy' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'harvest-sustainable' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'living-costs' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'minimum-punishers' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'mutation-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'number-agents' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'percent-punishers' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'percent-sustainables' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'perception-accuracy' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'punishment' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

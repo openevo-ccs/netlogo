@@ -29,7 +29,10 @@
   "notes": null,
   "files": {
     "htmlApp": "app.html",
-    "nlogoSource": "model.nlogo"
+    "nlogoSource": "model.nlogo",
+    "nlogox": "two-foresters.nlogox",
+    "modelCard": "model-card.json",
+    "agentManifest": "agent-manifest.json"
   },
   "teachingMaterials": {
     "uiOverview": "https://docs.google.com/presentation/d/e/2PACX-1vQgBcJBpLep4rrv5jDuLYgjU0tRqd8750nyjd0l3pjId-x-Sfrx5Oh5Ri9QMDfM5oMtsHk1EAPHK5SK/pub?start=false&loop=false&delayms=3000",

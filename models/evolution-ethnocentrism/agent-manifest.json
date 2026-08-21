@@ -1,0 +1,169 @@
+{
+  "id": "evolution-ethnocentrism",
+  "title": "Evolution of Ethnocentrism",
+  "entry_points": {
+    "setup": "setup-full",
+    "step": "go",
+    "forever_button_display": "Start"
+  },
+  "controls": {
+    "sliders": [
+      {
+        "name": "Living-costs",
+        "min": 0.0,
+        "max": 10.0,
+        "step": 0.5,
+        "default": 2.5
+      },
+      {
+        "name": "Mutation-rate",
+        "min": 0.0,
+        "max": 10.0,
+        "step": 0.5,
+        "default": 0.5
+      },
+      {
+        "name": "Death-rate",
+        "min": 0.0,
+        "max": 10.0,
+        "step": 0.5,
+        "default": 0.5
+      },
+      {
+        "name": "Percent-cooperate-with-same",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 50.0
+      },
+      {
+        "name": "Percent-cooperate-with-different",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 50.0
+      }
+    ],
+    "switches": [],
+    "choosers": [
+      {
+        "name": "Number-ethnicities",
+        "values": [
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0
+        ],
+        "default": 3.0
+      },
+      {
+        "name": "offspring-placement",
+        "values": [
+          "local",
+          "anywhere"
+        ],
+        "default": "local"
+      },
+      {
+        "name": "interaction",
+        "values": [
+          "local",
+          "anywhere"
+        ],
+        "default": "local"
+      }
+    ],
+    "buttons": [
+      {
+        "display": "Start",
+        "code": "go",
+        "forever": true
+      },
+      {
+        "display": "Setup",
+        "code": "setup-full",
+        "forever": false
+      },
+      {
+        "display": "One round",
+        "code": "go",
+        "forever": false
+      }
+    ]
+  },
+  "available_reporters": {},
+  "plot_pens": [
+    {
+      "plot": "Frequency of strategies",
+      "pen": "Altruists",
+      "update_code": "plotxy ticks count turtles with [color = green] / count turtles"
+    },
+    {
+      "plot": "Frequency of strategies",
+      "pen": "Ethnocentrists",
+      "update_code": "if Number-ethnicities > 1 [plotxy ticks count turtles with [color = orange] / count turtles]"
+    },
+    {
+      "plot": "Frequency of strategies",
+      "pen": "Cosmopolitans",
+      "update_code": "if Number-ethnicities > 1 [plotxy ticks count turtles with [color = turquoise] / count turtles]"
+    },
+    {
+      "plot": "Frequency of strategies",
+      "pen": "Selfish",
+      "update_code": "plotxy ticks count turtles with [color = red] / count turtles"
+    },
+    {
+      "plot": "Average energy per strategy",
+      "pen": "Altruists",
+      "update_code": "carefully [plot sum [energy] of turtles with [color = green ] / count turtles with [color = green]][plot 0]"
+    },
+    {
+      "plot": "Average energy per strategy",
+      "pen": "Ethnocentrists",
+      "update_code": "if Number-ethnicities > 1 [carefully [plot sum [energy] of turtles with [color = orange ] / count turtles with [color = orange ]][plot 0]]"
+    },
+    {
+      "plot": "Average energy per strategy",
+      "pen": "Cosmopolitans",
+      "update_code": "if Number-ethnicities > 1 [carefully [plot sum [energy] of turtles with [ color = turquoise ] / count turtles with [ color = turquoise ]][plot 0]]"
+    },
+    {
+      "plot": "Average energy per strategy",
+      "pen": "Selfish",
+      "update_code": "carefully [plot sum [energy] of turtles with [color = red ] / count turtles with [color = red]][plot 0]"
+    },
+    {
+      "plot": "Frequency of ethnicities",
+      "pen": "Circles",
+      "update_code": "plot count turtles with [shape = \\"
+    },
+    {
+      "plot": "Frequency of ethnicities",
+      "pen": "X",
+      "update_code": "plot count turtles with [shape = \\"
+    },
+    {
+      "plot": "Frequency of ethnicities",
+      "pen": "Square",
+      "update_code": "plot count turtles with [shape = \\"
+    },
+    {
+      "plot": "Frequency of ethnicities",
+      "pen": "Triangle",
+      "update_code": "plot count turtles with [shape = \\"
+    },
+    {
+      "plot": "Frequency of ethnicities",
+      "pen": "Empty circle",
+      "update_code": "plot count turtles with [shape = \\"
+    },
+    {
+      "plot": "Frequency of ethnicities",
+      "pen": "Empty square",
+      "update_code": "plot count turtles with [shape = \\"
+    }
+  ]
+}

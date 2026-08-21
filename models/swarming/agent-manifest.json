@@ -1,0 +1,88 @@
+{
+  "id": "swarming",
+  "title": "Swarming",
+  "entry_points": {
+    "setup": "setup",
+    "step": "go",
+    "forever_button_display": "Go"
+  },
+  "controls": {
+    "sliders": [
+      {
+        "name": "Population",
+        "min": 1.0,
+        "max": 1000.0,
+        "step": 1.0,
+        "default": 300.0
+      },
+      {
+        "name": "max-alignment-turn",
+        "min": 0.0,
+        "max": 20.0,
+        "step": 0.25,
+        "default": 5.0
+      },
+      {
+        "name": "max-cohesion-turn",
+        "min": 0.0,
+        "max": 20.0,
+        "step": 0.25,
+        "default": 3.0
+      },
+      {
+        "name": "max-separation-turn",
+        "min": 0.0,
+        "max": 20.0,
+        "step": 0.25,
+        "default": 1.5
+      },
+      {
+        "name": "vision",
+        "min": 0.0,
+        "max": 10.0,
+        "step": 0.5,
+        "default": 5.0
+      },
+      {
+        "name": "minimum-separation",
+        "min": 0.0,
+        "max": 5.0,
+        "step": 0.25,
+        "default": 1.0
+      }
+    ],
+    "switches": [],
+    "choosers": [
+      {
+        "name": "Species",
+        "values": [
+          "fish",
+          "bird",
+          "cow",
+          "human",
+          "abstract"
+        ],
+        "default": "abstract"
+      }
+    ],
+    "buttons": [
+      {
+        "display": "Setup",
+        "code": "setup",
+        "forever": false
+      },
+      {
+        "display": "Go",
+        "code": "go",
+        "forever": true
+      },
+      {
+        "display": "One round",
+        "code": "go",
+        "forever": false
+      }
+    ]
+  },
+  "available_reporters": {},
+  "plot_pens": []
+}

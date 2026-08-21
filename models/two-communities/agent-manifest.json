@@ -1,0 +1,146 @@
+{
+  "id": "two-communities",
+  "title": "Two Communities",
+  "entry_points": {
+    "setup": "setup",
+    "step": "go",
+    "forever_button_display": "Start"
+  },
+  "controls": {
+    "sliders": [
+      {
+        "name": "Harvest-rate-sustainables",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 15.0
+      },
+      {
+        "name": "Growth-rate",
+        "min": 0.0,
+        "max": 3.0,
+        "step": 0.01,
+        "default": 0.1
+      },
+      {
+        "name": "Max-Tree-height",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 100.0
+      },
+      {
+        "name": "Harvest-rate-greedy",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 50.0
+      },
+      {
+        "name": "Sustainables-Comm1",
+        "min": 0.0,
+        "max": 25.0,
+        "step": 1.0,
+        "default": 23.0
+      },
+      {
+        "name": "Sustainables-Comm2",
+        "min": 0.0,
+        "max": 25.0,
+        "step": 1.0,
+        "default": 2.0
+      }
+    ],
+    "switches": [
+      {
+        "name": "Community-forest?",
+        "default": true
+      }
+    ],
+    "choosers": [],
+    "buttons": [
+      {
+        "display": "Setup",
+        "code": "setup",
+        "forever": false
+      },
+      {
+        "display": "Start",
+        "code": "go",
+        "forever": true
+      },
+      {
+        "display": "One Round",
+        "code": "go",
+        "forever": false
+      }
+    ]
+  },
+  "available_reporters": {
+    "sustainables": "average-wealth-sustainables-1",
+    "greedy": "average-wealth-greedys-1",
+    "community_wealth": "sum [wealth] of farmers1 / count farmers1",
+    "total_average_wealth": "sum [wealth] of farmers / count farmers",
+    "sustainables_2": "average-wealth-sustainables-2",
+    "greedy_2": "average-wealth-greedys-2",
+    "community_wealth_2": "sum [wealth] of farmers2 / count farmers2",
+    "total_average_wealth_2": "sum [wealth] of farmers / count farmers"
+  },
+  "plot_pens": [
+    {
+      "plot": "Forest Stock (% of maximum)",
+      "pen": "Community 1",
+      "update_code": "if Community-forest? = true [plotxy ticks (sum [height] of trees-on pasture1 / ( (Max-Tree-height ) * count pasture1)) * 100]"
+    },
+    {
+      "plot": "Forest Stock (% of maximum)",
+      "pen": "Community 2",
+      "update_code": "if Community-forest? = true [plotxy ticks (sum [height] of trees-on pasture2 / ((Max-Tree-height ) * count pasture2)) * 100]"
+    },
+    {
+      "plot": "Forest Stock (% of maximum)",
+      "pen": "Total",
+      "update_code": "if Community-forest? = false [plotxy ticks (sum [height] of trees / ((Max-Tree-height) * count patches)) * 100]"
+    },
+    {
+      "plot": "Community 2 (right): Average accumulated harvest",
+      "pen": "Sustainables",
+      "update_code": "carefully [plot average-wealth-sustainables-2] [plot 0]"
+    },
+    {
+      "plot": "Community 2 (right): Average accumulated harvest",
+      "pen": "Greedy",
+      "update_code": "carefully [plot average-wealth-greedys-2] [plot 0]"
+    },
+    {
+      "plot": "Community 2 (right): Average accumulated harvest",
+      "pen": "Community 2 Avg.",
+      "update_code": "carefully [plot sum [wealth] of farmers2 / count farmers2 ] [plot 0]"
+    },
+    {
+      "plot": "Community 2 (right): Average accumulated harvest",
+      "pen": "Total Avg.",
+      "update_code": "carefully [plot sum [wealth] of farmers / count farmers ] [plot 0]"
+    },
+    {
+      "plot": "Community 1: Average accumulated harvest",
+      "pen": "Sustainables",
+      "update_code": "carefully [plot average-wealth-sustainables-1] [plot 0]"
+    },
+    {
+      "plot": "Community 1: Average accumulated harvest",
+      "pen": "Greedy",
+      "update_code": "carefully [plot average-wealth-greedys-1] [plot 0]"
+    },
+    {
+      "plot": "Community 1: Average accumulated harvest",
+      "pen": "Community 1 Avg.",
+      "update_code": "carefully [plot sum [wealth] of farmers1 / count farmers1 ] [plot 0]"
+    },
+    {
+      "plot": "Community 1: Average accumulated harvest",
+      "pen": "Total Avg.",
+      "update_code": "carefully [plot sum [wealth] of farmers / count farmers ] [plot 0]"
+    }
+  ]
+}

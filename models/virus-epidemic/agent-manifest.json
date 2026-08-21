@@ -1,0 +1,132 @@
+{
+  "id": "virus-epidemic",
+  "title": "Virus Epidemic",
+  "entry_points": {
+    "setup": "setup",
+    "step": "go",
+    "forever_button_display": "Start"
+  },
+  "controls": {
+    "sliders": [
+      {
+        "name": "Duration-of-illness",
+        "min": 0.0,
+        "max": 99.0,
+        "step": 1.0,
+        "default": 4.0
+      },
+      {
+        "name": "Chance-of-recovery",
+        "min": 0.0,
+        "max": 99.0,
+        "step": 1.0,
+        "default": 70.0
+      },
+      {
+        "name": "Chance-of-infection",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 50.0
+      },
+      {
+        "name": "Number-people",
+        "min": 10.0,
+        "max": 600.0,
+        "step": 1.0,
+        "default": 500.0
+      },
+      {
+        "name": "Duration-of-immunity",
+        "min": 0.0,
+        "max": 300.0,
+        "step": 1.0,
+        "default": 16.0
+      },
+      {
+        "name": "Percent-infected",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 1.0
+      },
+      {
+        "name": "Infection-radius",
+        "min": 0.0,
+        "max": 10.0,
+        "step": 1.0,
+        "default": 1.0
+      },
+      {
+        "name": "Percent-vaccinated",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 0.0
+      }
+    ],
+    "switches": [
+      {
+        "name": "Lockdown",
+        "default": false
+      },
+      {
+        "name": "Mandatory-face-masks",
+        "default": false
+      }
+    ],
+    "choosers": [],
+    "buttons": [
+      {
+        "display": "Setup",
+        "code": "setup",
+        "forever": false
+      },
+      {
+        "display": "Start",
+        "code": "go",
+        "forever": true
+      },
+      {
+        "display": "One round",
+        "code": "go",
+        "forever": false
+      },
+      {
+        "display": "New infection",
+        "code": "new-infection",
+        "forever": false
+      }
+    ]
+  },
+  "available_reporters": {
+    "years": "ticks / 52"
+  },
+  "plot_pens": [
+    {
+      "plot": "Population",
+      "pen": "sick",
+      "update_code": "plot count turtles with [ sick? ] / count turtles * 100"
+    },
+    {
+      "plot": "Population",
+      "pen": "healthy",
+      "update_code": "plot count turtles with [ not sick? and not immune? ]  / count turtles * 100"
+    },
+    {
+      "plot": "Population",
+      "pen": "immune",
+      "update_code": "plot count turtles with [ immune? ]  / count turtles * 100"
+    },
+    {
+      "plot": "Population",
+      "pen": "vaccinated",
+      "update_code": "plot count turtles with [vaccinated?]  / count turtles * 100"
+    },
+    {
+      "plot": "Number of deaths through infection",
+      "pen": "default",
+      "update_code": "plot number-dead"
+    }
+  ]
+}

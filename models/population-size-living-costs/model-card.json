@@ -1,0 +1,238 @@
+{
+  "slug": "population-size-living-costs",
+  "world": {
+    "minPxcor": 0,
+    "maxPxcor": 24,
+    "minPycor": 0,
+    "maxPycor": 14,
+    "patchSize": 27.0,
+    "updateMode": 1,
+    "wrappingAllowedX": false,
+    "wrappingAllowedY": false
+  },
+  "globals": [
+    "max-height"
+  ],
+  "breeds": {
+    "trees": {
+      "singular": "tree",
+      "own": [
+        "height"
+      ]
+    },
+    "foresters": {
+      "singular": "forester",
+      "own": [
+        "harvestrate",
+        "harvest",
+        "wealth"
+      ]
+    }
+  },
+  "procedures": {
+    "setup": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "setup-foresters",
+        "setup-trees"
+      ]
+    },
+    "setup-trees": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "setup-foresters": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "cut-trees",
+        "death",
+        "livingcosts",
+        "move",
+        "regrow"
+      ]
+    },
+    "move": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "cut-trees": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "livingcosts": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "death": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "regrow": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "average-wealth-foresters": {
+      "kind": "reporter",
+      "params": [],
+      "calls": []
+    }
+  },
+  "entry_points": [
+    "average-wealth-foresters",
+    "go",
+    "setup"
+  ],
+  "parameters": [
+    {
+      "widget": "slider",
+      "variable": "harvest-rate",
+      "display": "harvest-rate",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 90.0,
+      "step": 0.1,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "living-cost",
+      "display": "living-cost",
+      "min": 0.0,
+      "max": 50.0,
+      "default": 30.0,
+      "step": 0.1,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "number-foresters",
+      "display": "number-foresters",
+      "min": 0.0,
+      "max": 375.0,
+      "default": 2.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "growth-rate-trees",
+      "display": "growth-rate-trees",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 10.0,
+      "step": 1.0,
+      "units": "%"
+    }
+  ],
+  "outputs": [
+    {
+      "widget": "plot",
+      "display": "forest stock (% of maximum)",
+      "xAxis": "model rounds",
+      "yAxis": "forest stock (%)",
+      "yMin": 0.0,
+      "yMax": 100.0,
+      "pens": [
+        {
+          "display": "Gesamt",
+          "setup": "",
+          "update": "plot (sum [height] of trees / ((max-height ) * count patches)) * 100"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Average accumulated wealth of foresters",
+      "xAxis": "model rounds",
+      "yAxis": "wealth",
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Gem\u00e4\u00dfigte",
+          "setup": "",
+          "update": "carefully [plot average-wealth-foresters] [plot 0]"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "forester population",
+      "xAxis": "model rounds",
+      "yAxis": "number-foresters",
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Gesamt",
+          "setup": "",
+          "update": "plot count foresters"
+        }
+      ]
+    },
+    {
+      "widget": "monitor",
+      "display": "total number of foresters",
+      "reporter": "count foresters"
+    },
+    {
+      "widget": "monitor",
+      "display": "forest stock (%)",
+      "reporter": "(sum [height] of trees / ((max-height ) * count patches)) * 100"
+    },
+    {
+      "widget": "monitor",
+      "display": "average wealth",
+      "reporter": "average-wealth-foresters"
+    }
+  ],
+  "controls": [
+    {
+      "display": "Setup",
+      "kind": "observer",
+      "forever": false,
+      "code": "setup"
+    },
+    {
+      "display": "Start",
+      "kind": "observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "One round",
+      "kind": "observer",
+      "forever": false,
+      "code": "go"
+    }
+  ],
+  "info_sections": {
+    "Aim and purpose of the model": "What is the purpose of the model?\n\nThis model simulates a population of resource users who use a shared natural resource, illustrated by the example of a forest. With the help of the model, we can observe how population size (number of foresters), tree growth rate, forester harvest rate, and cost of living are related to each other.",
+    "Entities and variables": "What types of entities are there in the model? What state variables or properties characterize these entities? What are the temporal and spatial resolutions of the model?\n\n\n## General environment\n### Changeable variables\n\n* _Cost of living_: the cost that each forester must deduct from their energy or wealth per model round for basic survival (this variable could be considered both a factor of the environment and a variable of the foresters, but we list it here because this variable is the same for all foresters)\n\n## Patches\nThere are 15*25 = 375 brown patches on the world representing forest area, e.g., one hectare per patch.\n\n\n## Trees\nThere are 375 trees on the world (one tree per patch). The trees could represent actual individual trees or a collection of several trees, e.g., 100 trees per patch.\n\n### Constant variables and behaviors \n(these variables and behaviors are always the same for all agents of this type and in every iteration)\n\n* All trees grow to their maximum height using a logistic growth function: \nnew height = current height + (growth rate * height) * (1 - (height / maximum tree height)\n\n\n### Modifiable variables \n(variables that can be changed by the user on the user interface)\n\n* _Growth rate trees_: the rate at which a tree grows per model round\n\n\n### Variables that change during a simulation \n(variables that change as a result of the simulation)\n\n* Actual tree height in units\n\n## Foresters\nThere are a maximum of 375 foresters in the world.\n\n### Constant variables and behaviors\n (these variables and behaviors are always the same for all agents of this type and in every iteration)\n\n* In each iteration, each forester moves to one of the neighboring patches with the tallest tree on it (if there is more than one tree with the highest height, he randomly selects one of them).\n\n\n### Changeable forester variables \n(variables that can be changed by the user on the user interface)\n \n\n* _Number of foresters_: the number of foresters in the world at the start of a simulation\n* _Harvest rate_: the proportion of a tree that  foresters harvest per model round\n\n\n### Variables that change during a simulation \n(variables that change as a result of the simulation)\n\n* _Harvest amount per model round_: the amount in tree units harvested by a forester in the current iteration\n* _Accumulated wealth_: the total accumulated wealth",
+    "Model setup": "What is the initial state of the model when you click on Setup? Is the initialization always the same or does it vary between simulations?\n\n* A world with 375 patches is created.\n* A tree is placed on each patch, and each tree has the maximum growth height.\n* A number of foresters, determined by the parameter _Number-of-foresters_, are randomly placed on the patches in the world.",
+    "Processes": "What happens in each iteration? Which entities do what and in what order? When are state variables updated?\n\n\n![Model processes image](https://openevo.eva.mpg.de/wp-content/uploads/NetLogo-model-procedure-population-living-costs.png)",
+    "Outputs / Result representation": "What types of model results can be observed? How do they arise from model parameters, agent behavior, and interactions?\n\n\n## In the world\nThe trees change their height by being harvested and growing back. Foresters move around and harvest the trees.\n\n\n## Diagrams and monitors\n\n### Forest condition (% vegetation cover)\nThe condition of the forest in the world as a percentage of the maximum possible stock, resulting from the harvesting behavior of the foresters and the regrowth of the trees.\n\n### Average accumulated wealth of foresters\nThe average wealth of foresters, resulting from the harvesting of resources minus living expenses.\n\n\n### Forester population\nNumber of foresters, which changes during a simulation only through the death of foresters.",
+    "Model information": "Teaching materials for the model:\nhttps://docs.google.com/document/d/1xyE6yQidMVKwD_IvQ7pKE2qk2YPbnK5ym6TqAQ9X24M/edit?usp=sharing\n\n\n## References and citation\n\n\nFor the model itself:\n\n* Hanisch, S. (2022). Use of a community resource (forest). OpenEvo NetLogo models. https://openevo.eva.mpg.de/teachingbase/netlogo\n\nFor the NetLogo software:\n\n* Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.\n\n\n## License\n\n![CC BY-NC-SA 4.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)\n\nThis work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/deed.de"
+  },
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'growth-rate-trees' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'harvest-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'living-cost' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'number-foresters' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

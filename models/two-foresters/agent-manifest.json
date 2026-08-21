@@ -1,0 +1,111 @@
+{
+  "id": "two-foresters",
+  "title": "Two Foresters",
+  "entry_points": {
+    "setup": "setup",
+    "step": "go",
+    "forever_button_display": "Start"
+  },
+  "controls": {
+    "sliders": [
+      {
+        "name": "Percent-cut1",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 50.0
+      },
+      {
+        "name": "Growth-Rate",
+        "min": 0.0,
+        "max": 1.0,
+        "step": 0.01,
+        "default": 0.1
+      },
+      {
+        "name": "Max-Treeheight",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 100.0
+      },
+      {
+        "name": "Percent-cut2",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 90.0
+      }
+    ],
+    "switches": [
+      {
+        "name": "Private-forest?",
+        "default": true
+      }
+    ],
+    "choosers": [],
+    "buttons": [
+      {
+        "display": "Setup",
+        "code": "setup",
+        "forever": false
+      },
+      {
+        "display": "Start",
+        "code": "go",
+        "forever": true
+      },
+      {
+        "display": "One round",
+        "code": "go",
+        "forever": false
+      }
+    ]
+  },
+  "available_reporters": {
+    "forester_1_wealth": "sum [wealth] of farmers1",
+    "forester_2_wealth": "sum [wealth] of farmers2",
+    "forester_1_harvest": "sum [harvest] of farmers1",
+    "forester_2_harvest": "sum [harvest] of farmers2",
+    "forest_1_height": "sum [height] of trees-on forest1 / ( (Max-Treeheight ) * count forest1) * 100",
+    "forest_2_height": "sum [height] of trees-on forest2 / ( (Max-Treeheight) * count forest2) * 100",
+    "total_height": "sum [height] of trees / (Max-Treeheight * count patches) * 100"
+  },
+  "plot_pens": [
+    {
+      "plot": "Forest stock (% of maximum)",
+      "pen": "Forest 1",
+      "update_code": "if Private-forest? [plotxy ticks (sum [height] of trees-on forest1 / ( (Max-Treeheight ) * count forest1)) * 100]"
+    },
+    {
+      "plot": "Forest stock (% of maximum)",
+      "pen": "Forest 2",
+      "update_code": "if Private-forest? [plotxy ticks (sum [height] of trees-on forest2 / ((Max-Treeheight ) * count forest2)) * 100]"
+    },
+    {
+      "plot": "Forest stock (% of maximum)",
+      "pen": "Total average",
+      "update_code": "if Private-forest? = false [plotxy ticks (sum [height] of trees / ((Max-Treeheight ) * count patches)) * 100]"
+    },
+    {
+      "plot": "Accumulated harvest amount",
+      "pen": "Forester 1",
+      "update_code": "plot sum [wealth] of farmers1"
+    },
+    {
+      "plot": "Accumulated harvest amount",
+      "pen": "Forester 2",
+      "update_code": "plot sum [wealth] of farmers2"
+    },
+    {
+      "plot": "Harvest amount per iteration",
+      "pen": "Forester 1",
+      "update_code": "plot sum [harvest] of farmers1"
+    },
+    {
+      "plot": "Harvest amount per iteration",
+      "pen": "Forester 2",
+      "update_code": "plot sum [harvest] of farmers2"
+    }
+  ]
+}

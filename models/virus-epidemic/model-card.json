@@ -1,0 +1,444 @@
+{
+  "slug": "virus-epidemic",
+  "world": {
+    "minPxcor": -19,
+    "maxPxcor": 19,
+    "minPycor": -19,
+    "maxPycor": 19,
+    "patchSize": 13.0,
+    "updateMode": 1,
+    "wrappingAllowedX": true,
+    "wrappingAllowedY": true
+  },
+  "globals": [
+    "%infected",
+    ";;",
+    "what",
+    "%",
+    "of",
+    "the",
+    "population",
+    "is",
+    "infectious",
+    "%immune",
+    ";;",
+    "what",
+    "%",
+    "of",
+    "the",
+    "population",
+    "is",
+    "immune",
+    "lifespan",
+    ";;",
+    "the",
+    "lifespan",
+    "of",
+    "a",
+    "turtle",
+    "chance-reproduce",
+    ";;",
+    "the",
+    "probability",
+    "of",
+    "a",
+    "turtle",
+    "generating",
+    "an",
+    "offspring",
+    "each",
+    "tick",
+    "carrying-capacity",
+    ";;",
+    "the",
+    "number",
+    "of",
+    "turtles",
+    "that",
+    "can",
+    "be",
+    "in",
+    "the",
+    "world",
+    "at",
+    "one",
+    "time",
+    "chance-infection",
+    "number-dead"
+  ],
+  "breeds": {
+    "turtles": {
+      "singular": "turtle",
+      "own": [
+        "sick?",
+        ";;",
+        "if",
+        "true,",
+        "the",
+        "turtle",
+        "is",
+        "infectious",
+        "sick-time",
+        ";;",
+        "how",
+        "long,",
+        "in",
+        "weeks,",
+        "the",
+        "turtle",
+        "has",
+        "been",
+        "infectious",
+        "vaccinated?",
+        ";;",
+        "whether",
+        "vaccinated",
+        "immunity-duration",
+        ";;",
+        "how",
+        "many",
+        "weeks",
+        "immunity",
+        "lasts?",
+        "remaining-immunity",
+        ";;",
+        "how",
+        "many",
+        "weeks",
+        "of",
+        "immunity",
+        "the",
+        "turtle",
+        "has",
+        "left",
+        "immune?",
+        "dying?",
+        ";;",
+        "whether",
+        "dying",
+        "from",
+        "infection",
+        "age"
+      ],
+      "builtin": true
+    }
+  },
+  "procedures": {
+    "setup": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "setup-constants",
+        "setup-turtles",
+        "update-display",
+        "update-global-variables"
+      ]
+    },
+    "setup-constants": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "setup-turtles": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "get-healthy",
+        "get-sick"
+      ]
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "death-from-infection",
+        "get-older",
+        "infect",
+        "move",
+        "recover-or-die",
+        "reproduce",
+        "update-display",
+        "update-global-variables",
+        "update-vaccinated"
+      ]
+    },
+    "get-older": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "move": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "recover-or-die": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "become-immune"
+      ]
+    },
+    "infect": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "get-sick"
+      ]
+    },
+    "get-sick": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "get-healthy": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "become-immune": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "reproduce": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "get-healthy"
+      ]
+    },
+    "update-vaccinated": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "update-global-variables": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "death-from-infection": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "update-display": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "new-infection": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "get-sick"
+      ]
+    }
+  },
+  "entry_points": [
+    "go",
+    "new-infection",
+    "setup"
+  ],
+  "parameters": [
+    {
+      "widget": "slider",
+      "variable": "Duration-of-illness",
+      "display": "Duration-of-illness",
+      "min": 0.0,
+      "max": 99.0,
+      "default": 4.0,
+      "step": 1.0,
+      "units": "weeks"
+    },
+    {
+      "widget": "slider",
+      "variable": "Chance-of-recovery",
+      "display": "Chance-of-recovery",
+      "min": 0.0,
+      "max": 99.0,
+      "default": 70.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Chance-of-infection",
+      "display": "Chance-of-infection",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 50.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Number-people",
+      "display": "Number-people",
+      "min": 10.0,
+      "max": 600.0,
+      "default": 500.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Duration-of-immunity",
+      "display": "Duration-of-immunity",
+      "min": 0.0,
+      "max": 300.0,
+      "default": 16.0,
+      "step": 1.0,
+      "units": "weeks"
+    },
+    {
+      "widget": "slider",
+      "variable": "Percent-infected",
+      "display": "Percent-infected",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 1.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "switch",
+      "variable": "Lockdown",
+      "display": "Lockdown",
+      "default": false,
+      "values": [
+        true,
+        false
+      ]
+    },
+    {
+      "widget": "slider",
+      "variable": "Infection-radius",
+      "display": "Infection-radius",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 1.0,
+      "step": 1.0,
+      "units": "m"
+    },
+    {
+      "widget": "slider",
+      "variable": "Percent-vaccinated",
+      "display": "Percent-vaccinated",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 0.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "switch",
+      "variable": "Mandatory-face-masks",
+      "display": "Mandatory-face-masks",
+      "default": false,
+      "values": [
+        true,
+        false
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "widget": "plot",
+      "display": "Population",
+      "xAxis": "Weeks",
+      "yAxis": "% of the population",
+      "yMin": 0.0,
+      "yMax": 100.0,
+      "pens": [
+        {
+          "display": "sick",
+          "setup": "",
+          "update": "plot count turtles with [ sick? ] / count turtles * 100"
+        },
+        {
+          "display": "healthy",
+          "setup": "",
+          "update": "plot count turtles with [ not sick? and not immune? ]  / count turtles * 100"
+        },
+        {
+          "display": "immune",
+          "setup": "",
+          "update": "plot count turtles with [ immune? ]  / count turtles * 100"
+        },
+        {
+          "display": "vaccinated",
+          "setup": "",
+          "update": "plot count turtles with [vaccinated?]  / count turtles * 100"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Number of deaths through infection",
+      "xAxis": "Weeks",
+      "yAxis": "Number",
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "default",
+          "setup": "",
+          "update": "plot number-dead"
+        }
+      ]
+    },
+    {
+      "widget": "monitor",
+      "display": "Years",
+      "reporter": "ticks / 52"
+    }
+  ],
+  "controls": [
+    {
+      "display": "Setup",
+      "kind": "observer",
+      "forever": false,
+      "code": "setup"
+    },
+    {
+      "display": "Start",
+      "kind": "observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "One round",
+      "kind": "observer",
+      "forever": false,
+      "code": "go"
+    },
+    {
+      "display": "New infection",
+      "kind": "observer",
+      "forever": false,
+      "code": "new-infection"
+    }
+  ],
+  "info_sections": {
+    "What does this model simulate?": "The model simulates the spread of a viral infection in a population. Several factors related to the virus and the course of the disease, as well as measures implemented by the health system, influence the spread of the virus.",
+    "How does the model work?": "## The following processes occur in the model in each round:\n\n* The risk of infection is updated depending on whether a mask mandate is in effect.\n\n* Individuals age by one week. When individuals reach the age of 80, they die.\n\n* If individuals are sick or immune, they increase the duration of their illness and immunity by one week.\n\n* If there is no lockdown, individuals move one step in a random direction.\n\n* When individuals reach the specified duration of illness, they recover with a probability of recovery and become immune. If they do not recover, they die.\n\n* Sick individuals infect other individuals within a radius of infection with a probability of chance-of-infection.\n\n* Healthy individuals produce healthy offspring with a probability of 1%.\n\n* The percentage of vaccinated individuals in the population is updated (depending on the parameter \"percent vaccinated\").\n\n* The color of individuals is adjusted according to their status.\n\n* Clicking on \"New Infection\" will infect a randomly selected person who is neither immune nor currently ill.\n\n\n## Parameters:\n*  Number-people: population size\n\n*  Percent-infected: the percentage of infected people in the initial population\n\n*  Chance-of-infection: the probability that an infected person infects another person\n\n*  Infection-radius: the radius in meters within which one person can infect another person in close proximity (the larger the radius, the faster a virus can spread)\n\n*  Chance-of-recovery: the probability that an infected person will recover (if they do not recover, they will die)\n\n*  Duration-of-illness: the duration of the illness in weeks (one model round represents one week)\n\n*  Duration-of-immunity: the duration of immunity after infection\n\n*  Mandateory-face-masks: whether face masks are mandatory (in this case, the risk of infection is set to 5%)\n\n*  Lockdown: whether a lockdown is in place (in this case, people no longer move about)\n\n*  Percent-vaccinated: the proportion of vaccinated individuals in the population. With vaccination, the duration of immunity is 300 weeks.\n\n\n## Out put diagrams and monitors\n\n* Population: The percentage of infected, healthy, immune, and vaccinated individuals in the population\n\n* Number of ceaths due to infection: The total number of deaths from infection during the simulation",
+    "Possible research questions and assignments": "*  What influence do the parameters of the virus and the course of the disease have on the course of the epidemic?\n\n*  What influence do mandatory mask-wearing, lockdowns, and vaccination rates have on the spread of the virus?\n\n*  Under which parameter settings can one speak of herd immunity?\n\n*  Refute or confirm the following hypothesis: The higher the risk of infection, the more people will die from the virus.\n\nYou are responsible for a country's health system. A novel virus is detected in 1% of the population. Your task is to advise the government on what measures should be taken to contain the spread of the virus and prevent deaths. The virus spreads through the air, and according to current research, the infection rate is 90% with an infection radius of up to 1 meter. The illness lasts 4 weeks, and 10% of those infected have died. People who recover from the infection are immune for 20 weeks.\n\n* The government wants to know how many deaths can be expected after two years if no measures are taken.\n\n*  What measures do you recommend to the government to contain the virus and prevent deaths? Explain your recommendations, also considering the further consequences of the measures.\n\nComputer Science: Change other parameters in the source code, e.g., lifespan, reproductive chances, movement, or maximum population size, and observe how this affects the development of virus epidemic.",
+    "Citation": "For the model:\n\nHanisch, S. (2025). Virus epidemic. https://openevo.eva.mpg.de/teachingbase/netlogo/. Adapted from: Wilensky, U. (1998).  NetLogo Virus - Circle Visualization model.  http://ccl.northwestern.edu/netlogo/models/Virus-CircleVisualization.  Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.\n\nNetLogo-Software:\n\nWilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.\n\n\n## Licence\n\n\n![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)\n\nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License.  To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA."
+  },
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'chance-of-infection' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'chance-of-recovery' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'duration-of-illness' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'duration-of-immunity' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'infection-radius' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'lockdown' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'mandatory-face-masks' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'number-people' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'percent-infected' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'percent-vaccinated' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

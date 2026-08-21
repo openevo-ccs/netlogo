@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<experiments>
+  <experiment name="Two Foresters: Cut Rate vs Regrowth" repetitions="3" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="200"/>
+    <metric>sum [height] of trees</metric>
+    <metric>sum [wealth] of farmers1</metric>
+    <metric>sum [wealth] of farmers2</metric>
+
+    <steppedValueSet variable="Percent-cut1" first="10" step="20" last="90"/>
+    <steppedValueSet variable="Percent-cut2" first="10" step="20" last="90"/>
+    <enumeratedValueSet variable="Private-forest?">
+      <value value="true"/>
+      <value value="false"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>

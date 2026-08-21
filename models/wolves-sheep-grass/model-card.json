@@ -1,0 +1,266 @@
+{
+  "slug": "wolves-sheep-grass",
+  "world": {
+    "minPxcor": -25,
+    "maxPxcor": 25,
+    "minPycor": -25,
+    "maxPycor": 25,
+    "patchSize": 12.55,
+    "updateMode": 1,
+    "wrappingAllowedX": true,
+    "wrappingAllowedY": true
+  },
+  "globals": [
+    "max-sheep"
+  ],
+  "breeds": {
+    "sheep": {
+      "singular": "a-sheep",
+      "own": []
+    },
+    "wolves": {
+      "singular": "wolf",
+      "own": []
+    },
+    "turtles": {
+      "singular": "turtle",
+      "own": [
+        "energy"
+      ],
+      "builtin": true
+    },
+    "patches": {
+      "singular": "patch",
+      "own": [
+        "countdown"
+      ],
+      "builtin": true
+    }
+  },
+  "procedures": {
+    "setup": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "grass"
+      ]
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "death",
+        "eat-grass",
+        "eat-sheep",
+        "grass",
+        "grow-grass",
+        "move",
+        "reproduce-sheep",
+        "reproduce-wolves"
+      ]
+    },
+    "move": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "eat-grass": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "grass"
+      ]
+    },
+    "reproduce-sheep": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "move"
+      ]
+    },
+    "reproduce-wolves": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "move"
+      ]
+    },
+    "eat-sheep": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "death": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "grow-grass": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "grass"
+      ]
+    },
+    "grass": {
+      "kind": "reporter",
+      "params": [],
+      "calls": []
+    }
+  },
+  "entry_points": [
+    "go",
+    "setup"
+  ],
+  "parameters": [
+    {
+      "widget": "slider",
+      "variable": "Number-Sheep",
+      "display": "Number-Sheep",
+      "min": 0.0,
+      "max": 250.0,
+      "default": 100.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Sheep-energy-from-grass",
+      "display": "Sheep-energy-from-grass",
+      "min": 0.0,
+      "max": 50.0,
+      "default": 3.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Sheep-reproduction-rate",
+      "display": "Sheep-reproduction-rate",
+      "min": 1.0,
+      "max": 20.0,
+      "default": 7.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Number-Wolves",
+      "display": "Number-Wolves",
+      "min": 0.0,
+      "max": 250.0,
+      "default": 10.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Wolves-energy-from-sheep",
+      "display": "Wolves-energy-from-sheep",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 12.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Wolves-reproduction-rate",
+      "display": "Wolves-reproduction-rate",
+      "min": 0.0,
+      "max": 20.0,
+      "default": 3.0,
+      "step": 1.0,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Grass-regrowth-time",
+      "display": "Grass-regrowth-time",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 7.0,
+      "step": 1.0,
+      "units": null
+    }
+  ],
+  "outputs": [
+    {
+      "widget": "plot",
+      "display": "Populations",
+      "xAxis": "Model rounds (= iterations)",
+      "yAxis": "Population size",
+      "yMin": 0.0,
+      "yMax": 100.0,
+      "pens": [
+        {
+          "display": "Sheep",
+          "setup": "",
+          "update": "plot count sheep"
+        },
+        {
+          "display": "Wolves",
+          "setup": "",
+          "update": "plot count wolves"
+        },
+        {
+          "display": "Grass",
+          "setup": "",
+          "update": "plot count grass / 4"
+        }
+      ]
+    },
+    {
+      "widget": "monitor",
+      "display": "Sheep",
+      "reporter": "count sheep"
+    },
+    {
+      "widget": "monitor",
+      "display": "Wolves",
+      "reporter": "count wolves"
+    },
+    {
+      "widget": "monitor",
+      "display": "Grass",
+      "reporter": "count grass / 4"
+    }
+  ],
+  "controls": [
+    {
+      "display": "Setup",
+      "kind": "observer",
+      "forever": false,
+      "code": "setup"
+    },
+    {
+      "display": "Start",
+      "kind": "observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "One Round",
+      "kind": "observer",
+      "forever": false,
+      "code": "go"
+    }
+  ],
+  "info_sections": {
+    "What does this model simualte?": "This model simulates a predator-prey system. It consists of three types of organisms: grass, sheep and wolves.",
+    "How does the model work?": "The following processes take place in the model in each model round:\n\n*  Sheep and wolves walk around and use one unit of energy for each step\n\n*  Sheep eat grass in the place where they are currently located and receive a certain amount of energy from it (parameter \"Sheep-energy-from-grass\").\n\n*  Sheep reproduce at a certain reproduction rate (parameter \"Sheep-reproduction-rate\"). The higher the number, the greater the probability that a sheep will produce one offspring. Half of the energy is passed on to the offspring.\n\n*  Wolves eat sheep when they come across them and receive a certain amount of energy from it (parameter \"Wolves-energy-from-sheep\").\n\n*  Wolves reproduce at a certain reproduction rate (parameter \"Wolves-reproduction-rate\"). The higher the number, the greater the probability that a wolf will produce an offspring. Half of the energy is passed on to the offspring.\n\n*  Sheep and wolves die when they run out of energy.\n\n*  After grass is eaten from a place, it grows back after a certain time (parameter \"Grass-regrowth-time\").\n\n## Parameters:\n\n*  Number-sheep: The number of sheep at the start of a simulation\n\n*  Number-wolves: The number of wolves at the start of a simulation\n\n*  Grass-regrowth-time: How long (number of model rounds) the grass takes to grow back\n\n*  Sheep-energy-from-grass: The number of energy units that sheep get from eating grass at a location\n\n*  Wolves-energy-from-sheep: The number of energy units that wolves get from eating a sheep\n\n*  Sheep-reproduction-rate: The probability that sheep reproduce in each model round\n\n*  Wolves-reproduction-rate: The probability that wolves reproduce in each model round\n\n## Output diagrams and output fields\n\nThe \"Populations\" diagram shows the development of the grass, sheep and wolf populations. (Nnumber of sheep, number of wolves, and number of grassy patches / 4)\n\nThere are three output monitors that show the current population sizes of grass, sheep, and wolves.",
+    "Possible research questions and assignments": "What influence does the growth rate of the grass have on the sheep population? (Note - for this, all other parameter settings must be kept constant and only the \"grass growth rate\" parameter must be changed).\n\nWhat influence does the reproduction rate of the sheep/wolves have on the grass, sheep and wolf populations?\n\nUnder which parameter settings is the ecosystem most stable (small fluctuations in population sizes), and under which is it the least stable?\n\nCreate a causal diagram about the processes that are simulated in the model, particularly about the interactions between the grass, the sheep, and the wolves.",
+    "References": "Wilensky, U. & Reisman, K. (1998). Connected Science: Learning Biology through Constructing and Testing Computational Theories -- an Embodied Modeling Approach. International Journal of Complex Systems, M. 234, pp. 1 - 12. (The Wolf-Sheep-Predation model is a slightly extended version of the model described in the paper.)\n\nWilensky, U. & Reisman, K. (2006). Thinking like a Wolf, a Sheep or a Firefly: Learning Biology through Constructing and Testing Computational Theories -- an Embodied Modeling Approach. Cognition & Instruction, 24(2), pp. 171-209. http://ccl.northwestern.edu/papers/wolfsheep.pdf .\n\nWilensky, U., & Rand, W. (2015). An introduction to agent-based modeling: Modeling natural, social and engineered complex systems with NetLogo. Cambridge, MA: MIT Press.\n\nLotka, A. J. (1925). Elements of physical biology. New York: Dover.\n\nVolterra, V. (1926, October 16). Fluctuations in the abundance of a species considered mathematically. Nature, 118, 558\u2013560.\n\nGause, G. F. (1934). The struggle for existence. Baltimore: Williams & Wilkins.\n\n## Citation\n\n\nFor the model: Hanisch, S. (2024). Wolves-Sheep-Grass. https://openevo.eva.mpg.de/teachingbase/netlogo/. Adapted from Wilensky, U. (1997).  NetLogo Wolf Sheep Predation model.  http://ccl.northwestern.edu/netlogo/models/WolfSheepPredation.  Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.\n\nNetLogo-Software: Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.\n\n## COPYRIGHT AND LICENSE\n\n\n![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)\n\nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License.  To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA."
+  },
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'grass-regrowth-time' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'number-sheep' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'number-wolves' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'sheep-energy-from-grass' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'sheep-reproduction-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'wolves-energy-from-sheep' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'wolves-reproduction-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

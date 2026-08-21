@@ -1,0 +1,383 @@
+{
+  "slug": "evolution-competition-forest-resources",
+  "world": {
+    "minPxcor": 0,
+    "maxPxcor": 19,
+    "minPycor": 0,
+    "maxPycor": 9,
+    "patchSize": 27.0,
+    "updateMode": 1,
+    "wrappingAllowedX": false,
+    "wrappingAllowedY": false
+  },
+  "globals": [],
+  "breeds": {
+    "trees": {
+      "singular": "tree",
+      "own": [
+        "height"
+      ]
+    },
+    "foresters": {
+      "singular": "forester",
+      "own": [
+        "harvest-type",
+        "amount",
+        "harvest",
+        "wealth"
+      ]
+    }
+  },
+  "procedures": {
+    "setup": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "setup-forest",
+        "setup-foresters",
+        "setup-trees"
+      ]
+    },
+    "setup-forest": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "setup-trees": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "setup-foresters": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "update-color"
+      ]
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "cut-trees",
+        "death",
+        "livingcosts",
+        "regrow",
+        "reproduce"
+      ]
+    },
+    "cut-trees": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "livingcosts": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "reproduce": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "mutate"
+      ]
+    },
+    "mutate": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "update-color"
+      ]
+    },
+    "death": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "update-color": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "regrow": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "average-wealth-greedys": {
+      "kind": "reporter",
+      "params": [],
+      "calls": []
+    },
+    "average-wealth-modest": {
+      "kind": "reporter",
+      "params": [],
+      "calls": []
+    }
+  },
+  "entry_points": [
+    "average-wealth-greedys",
+    "average-wealth-modest",
+    "go",
+    "setup"
+  ],
+  "parameters": [
+    {
+      "widget": "slider",
+      "variable": "Percent-cut-modest",
+      "display": "Percent-cut-modest",
+      "min": 0.0,
+      "max": "Percent-cut-greedy",
+      "default": 10.0,
+      "step": 0.1,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Growth-rate",
+      "display": "Growth-rate",
+      "min": 0.0,
+      "max": 2.0,
+      "default": 0.2,
+      "step": 0.01,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Max-Treeheight",
+      "display": "Max-Treeheight",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 100.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Percent-cut-greedy",
+      "display": "Percent-cut-greedy",
+      "min": "Percent-cut-modest",
+      "max": 100.0,
+      "default": 20.0,
+      "step": 0.1,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Number-Modest",
+      "display": "Number-Modest",
+      "min": 0.0,
+      "max": "Initial-Number-Foresters",
+      "default": 50.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Living-costs",
+      "display": "Living-costs",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 0.0,
+      "step": 0.5,
+      "units": null
+    },
+    {
+      "widget": "switch",
+      "variable": "Reproduction?",
+      "display": "Reproduction?",
+      "default": false,
+      "values": [
+        true,
+        false
+      ]
+    },
+    {
+      "widget": "slider",
+      "variable": "Initial-Number-Foresters",
+      "display": "Initial-Number-Foresters",
+      "min": 0.0,
+      "max": 50.0,
+      "default": 50.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Mutation-rate",
+      "display": "Mutation-rate",
+      "min": 0.0,
+      "max": 50.0,
+      "default": 0.0,
+      "step": 0.1,
+      "units": null
+    }
+  ],
+  "outputs": [
+    {
+      "widget": "plot",
+      "display": "Forest stock (% of maximum)",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 100.0,
+      "pens": [
+        {
+          "display": "Total",
+          "setup": "",
+          "update": "plot (sum [height] of trees / ((Max-Treeheight ) * count patches)) * 100"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Average Accumulated Wealth",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Modest",
+          "setup": "",
+          "update": "carefully [plot average-wealth-modest] [plot 0]"
+        },
+        {
+          "display": "Greedy",
+          "setup": "",
+          "update": "carefully [plot average-wealth-greedys] [plot 0]"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Trait Frequencies (%)",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 100.0,
+      "pens": [
+        {
+          "display": "Modest",
+          "setup": "",
+          "update": "carefully [plot (count foresters with [harvest-type = \\"
+        },
+        {
+          "display": "Greedy",
+          "setup": "",
+          "update": "carefully [plot (count foresters with [harvest-type = \\"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Forester Population",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Modest",
+          "setup": "",
+          "update": "plot count foresters with [harvest-type = \\"
+        },
+        {
+          "display": "Greedy",
+          "setup": "",
+          "update": "plot count foresters with [harvest-type = \\"
+        },
+        {
+          "display": "Total",
+          "setup": "",
+          "update": "plot count foresters"
+        }
+      ]
+    },
+    {
+      "widget": "monitor",
+      "display": "Average wealth of modest foresters",
+      "reporter": "average-wealth-modest"
+    },
+    {
+      "widget": "monitor",
+      "display": "Average wealth of greedy foresters",
+      "reporter": "average-wealth-greedys"
+    },
+    {
+      "widget": "monitor",
+      "display": "Population (modest)",
+      "reporter": "count foresters with [harvest-type = \\\"modest\\\"]"
+    },
+    {
+      "widget": "monitor",
+      "display": "Population (greedy)",
+      "reporter": "count foresters with [harvest-type = \\\"greedy\\\"]"
+    },
+    {
+      "widget": "monitor",
+      "display": "Population (total)",
+      "reporter": "count foresters"
+    },
+    {
+      "widget": "monitor",
+      "display": "Frequency (modest)",
+      "reporter": "(count foresters with [harvest-type = \\\"modest\\\"] / count foresters) * 100"
+    },
+    {
+      "widget": "monitor",
+      "display": "Frequency (greedy)",
+      "reporter": "(count foresters with [harvest-type = \\\"greedy\\\"] / count foresters) * 100"
+    },
+    {
+      "widget": "monitor",
+      "display": "Forest stock",
+      "reporter": "(sum [height] of trees / ((Max-Treeheight ) * count patches)) * 100"
+    }
+  ],
+  "controls": [
+    {
+      "display": "Setup",
+      "kind": "observer",
+      "forever": false,
+      "code": "setup"
+    },
+    {
+      "display": "Start",
+      "kind": "observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "One round",
+      "kind": "observer",
+      "forever": false,
+      "code": "go"
+    }
+  ],
+  "info_sections": {
+    "Model purpose": "What is the purpose of the model?\n\nThis model simulates the evolution of a population of resource users competing for the same resource, illustrated by the example of a forest. With the help of the model, we can observe that competition for limited resources can lead to the evolution of increasing resource use rates and to the overuse of the resource.",
+    "Entities and variables": "What kinds of entities are in the model? By what state variables, or attributes, are these entities characterized? What are the temporal and spatial resolutions and extents of the model?\n\n## General environment\n\n### Changeable variables\n\n* _Living-costs_: the costs that each agent has to deduct from his energy per iteration for basic survival (this variable could be considered both a factor of the environment and a variable of the forester agents, but we list it here since it does not vary among foresters)\n* _Mutation-rate_: The probability with which offspring have other traits than their parents (this variable could be considered both a factor of the environment and a variable of the forester agents, but we list it here since it does not vary among foresters)\n\n## Patches\n\nThere are 10*20 brown-colored patches in the world, representing an area of forest, e.g. one hectare per patch.\n\n## Trees\nThere are 200 trees in the world (one per patch). The trees could represent actual individual trees, or a collection of several trees, e.g. 100 trees per patch.\n\n### Constant tree variables and behaviors\n(these variables and behaviors are always the same for all of the agents of this type and in each iteration)\n\n* All trees regrow by a logistic growth function up to the maximum tree height: \nnew height = current height + (Growth-Rate * height) * (1 - (height /Max-Treeheight)\n\n### Changeable tree variables\n(variables that are changeable by the user on the interface): \n\n* _maximum tree height_: the maximum height in units that a tree can grow to\n* _tree growth rate_: the rate at which a tree grows per iteration\n\n### Changing variables during a simulation\n(variables that change as a result of the simulation)\n\n  * actual tree height in units\n\n## Foresters\nThere are two types of foresters in the world: greedy (shown in red) or modest (shown in green).\n\n\n### Constant forester variables and behaviors\n(these variables and behaviors are always the same for all of the agents of this type and in each iteration)\n\n* In each iteration, each forester moves to one of the neighboring patches with the highest tree on it (if there is more than one tree with the tallest height, it chooses one of them randomly).\n\n### Changeable forester variables\n(variables that are changeable by the user on the interface): \n\n* _percent cut modest_: the fraction of a tree that modest foresters harvest per iteration\n* _percent cut greedy_: the fraction of a tree that greedy foresters harvest per iteration\n* _Reproduction_: whether or not the foresters produce offspring\n\n\n### Changing variables during a simulation\n(variables that change as a result of the simulation)\n\n* _harvested amount_: the amount of tree units that is harvested by a forester in the current iteration\n* _Accumulated wealth_: the total accumulated wealth (in tree units) that a forester is accumulating during a simulation\n* Offspring have a different harvesting type from their parents with a probability of _Mutation-rate_.",
+    "Model Setup": "What is the initial state of the model world when one clicks on Setup? Is initialization always the same, or does it vary among simulations?\n\n* A world with 200 patches is created.\n* A tree is placed on each patch, and each tree has the maximum growth height.\n* A number of foresters set by _Initial-Number-Foresters_, which can include a number of modest foresters  set by _Number modest_, is placed randomly on the patches in the world.",
+    "Model Processes": "What happens in each iteration? Which entities do what, and in what order? When are state variables updated?\n\n![Model processes image](https://openevo.eva.mpg.de/wp-content/uploads/NetLogo-model-Evolution-forest-procedures-overviews.png)",
+    "Outputs": "What kinds of model outcomes can be observed on the interface? How do they emerge from model parameters, agent behaviors, and interactions?\n\n\n## In the world\nTrees change in height as they are being harvested and as they regrow. Foresters move around and reproduce or die. \n\n## Output diagrams and monitors\n\n### Forest Stock (% of maximum)\nThe state of the forest in the world as a percentage of maximum possible stock, resulting from harvesting behavior of foresters and regrowth of trees\n\n## Average accumulated wealth\nThe average level of wealth of modest and greedy foresters, resulting from resource harvest, minus living costs and reproduction\n\n## Forester population\nThe number of foresters in the world by type and in total, resulting from mutations, reproduction, and death \n\n## Trait frequencies\nThe frequencies of the two forester types in % resulting from mutations, different reproduction rates, and death.",
+    "Concepts and Principles": "Which important concepts or principles are represented in the model?\n\nThe resource is characterized by two ecologically significant parameters:\n\n* the **carrying capacity**: this is the largest possible amount of resources that can be present on a patch / in a certain area. In ecology, carrying capacity is often represented by the letter k. In this model, it is represented by the maximum growth height of the trees. In the real world, carrying capacity is influenced by biotic and abiotic factors like temperature and humidity or availability of other resources.\n* the **resource growth rate**: this is the rate at which a resource grows back from one time step to the next. It is often represented in ecology by the letter r. \n\nThe resource grows along a **logistic (S-shaped, sigmoid) population growth function** according to the following formula: \nResource state at the next point in time = current resource state +  ( r * current resource state) * (1 - current resource state / k ) \n\n**Common-pool resources**\nCommon-pool resources are resources or goods that \nare accessible to all members of a community, so no one can be excluded from using them;\nreduced by the use, such that removal by one user reduces availability to others. Therefore, the resource is limited (there is not an endless amount available), and users can end up competing for the resource.\nExamples of common-pool resources for humans are fish stocks in the ocean or in a lake, public forests, groundwater, air, beach sites, busy roads, busy public parks.\n\n**Trait variation**\nForesters can have one of two variants of harvesting behavior - sustainable or greedy. New trait variants can be introduced randomly in the population through the parameter _mutation rate_.\n\n**Reproductive fitness**\nForesters that harvest more resources and have higher levels of wealth produce more offspring. They have higher fitness relative to foresters with lower levels of wealth.\n\n**Inheritance**\nForesters create offspring and inherit their harvesting behavior/type to their offspring (with some variability based on _mutation rate_)\n\n**Natural selection**\nThe frequency of traits in the forester population changes as a result of trait variation, differential reproduction (fitness), and inheritance of traits. \n\n**Social interactions**\nIn social interactions, the behavior of one individual has outcomes for others in the group. Social interactions can be both intraspecific (between members of one species) and interspecific (between members of different species). Social interactions can be direct (such as reacting to each other, aggression, sharing resources) or indirect (such as when competing for resources or changing shared environmental conditions). \n\nIn this model, foresters interact indirectly by competing for limited forest resources and limited space, or by changing environmental conditions through resource extraction and by placing their offspring on patches.\n\n**Perception and information processing**\nForester agents are aware of tree heights on their neighbor patches and whether patches are empty (i.e. have no forester on them).\nAgents do not store any information (i.e. have no memory).\n\n\n**Preferences and goal-directed behavior**\nForesters move to a patch with the largest tree.\nForesters always harvest the percentage of the tree set by the percent-cut parameter.\n\n**Learning and Adaptation**\nAgents do not learn and do not adapt their behavior over their lifetimes.\n\n**Randomness**\n\n* Foresters are randomly placed on patches at model setup. \n* The order in which foresters move and harvest from the resource within an iteration is random.\n* Foresters move to a random patch if multiple patches match preferences.\n* The order in which foresters reproduce is random.\n* Foresters reproduce with a probability of 0.0005 * wealth (so the higher the level of wealth, the higher the chances of reproducing)\n* Foresters place an offspring on a randomly chosen empty neighboring patch.",
+    "Model Materials": "Teaching materials for this model: https://openevo.eva.mpg.de/teachingbase/netlogo-evolution-and-competition-for-forest-resources/",
+    "References and Citation": "For this model:\n\n* Hanisch, S. (2022). Evolution and forest resource use. OpenEvo NetLogo Models. https://openevo.eva.mpg.de/teachingbase/netlogo/\n\nFor the NetLogo-Software:\n\n* Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.",
+    "Licence": "![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)\n\nThis work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. http://creativecommons.org/licenses/by-nc-sa/4.0/"
+  },
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'growth-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'initial-number-foresters' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'living-costs' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'max-treeheight' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'mutation-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'number-modest' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'percent-cut-greedy' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'percent-cut-modest' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'reproduction?' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

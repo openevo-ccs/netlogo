@@ -1,0 +1,455 @@
+{
+  "slug": "evolution-resource-use-behavior-imitation",
+  "world": {
+    "minPxcor": 0,
+    "maxPxcor": 49,
+    "minPycor": 0,
+    "maxPycor": 24,
+    "patchSize": 12.0,
+    "updateMode": 1,
+    "wrappingAllowedX": false,
+    "wrappingAllowedY": false
+  },
+  "globals": [
+    "carryingcap",
+    "growthrate"
+  ],
+  "breeds": {
+    "turtles": {
+      "singular": "turtle",
+      "own": [
+        "harvest-type",
+        "harvest-amount",
+        "harvest",
+        "energy",
+        "age"
+      ],
+      "builtin": true
+    },
+    "patches": {
+      "singular": "patch",
+      "own": [
+        "resource"
+      ],
+      "builtin": true
+    }
+  },
+  "procedures": {
+    "setup": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "setup-patches",
+        "setup-turtles"
+      ]
+    },
+    "setup-patches": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "setup-turtles": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "death",
+        "get-older",
+        "harvest-patch",
+        "imitate-elder",
+        "imitate-majority",
+        "imitate-minority",
+        "imitate-successful",
+        "livingcosts",
+        "move",
+        "recolor",
+        "regrow",
+        "reproduce",
+        "try-new"
+      ]
+    },
+    "move": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "harvest-patch": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "livingcosts": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "imitate-successful": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "update-color"
+      ]
+    },
+    "imitate-majority": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "update-color"
+      ]
+    },
+    "imitate-minority": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "update-color"
+      ]
+    },
+    "imitate-elder": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "update-color"
+      ]
+    },
+    "try-new": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "update-color"
+      ]
+    },
+    "reproduce": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "update-color": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "death": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "regrow": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "recolor": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "get-older": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "average-energy-greedys": {
+      "kind": "reporter",
+      "params": [],
+      "calls": []
+    },
+    "average-energy-sustainables": {
+      "kind": "reporter",
+      "params": [],
+      "calls": []
+    }
+  },
+  "entry_points": [
+    "average-energy-greedys",
+    "average-energy-sustainables",
+    "go",
+    "setup"
+  ],
+  "parameters": [
+    {
+      "widget": "slider",
+      "variable": "Harvest-sustainables",
+      "display": "Harvest-sustainables",
+      "min": 0.0,
+      "max": 20.0,
+      "default": 7.5,
+      "step": 0.5,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Harvest-greedy",
+      "display": "Harvest-greedy",
+      "min": "harvest-sustainables",
+      "max": 100.0,
+      "default": 10.0,
+      "step": 0.5,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Living-costs",
+      "display": "Living-costs",
+      "min": 0.0,
+      "max": "Harvest-sustainables - 1",
+      "default": 3.0,
+      "step": 0.1,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "behavior-innovation-rate",
+      "display": "behavior-innovation-rate",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 0.0,
+      "step": 0.1,
+      "units": "%"
+    },
+    {
+      "widget": "slider",
+      "variable": "Sustainables",
+      "display": "Sustainables",
+      "min": 0.0,
+      "max": "initial-number-agents",
+      "default": 1.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "Death-rate",
+      "display": "Death-rate",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 1.0,
+      "step": 0.5,
+      "units": "%"
+    },
+    {
+      "widget": "switch",
+      "variable": "Reproduction",
+      "display": "Reproduction",
+      "default": true,
+      "values": [
+        true,
+        false
+      ]
+    },
+    {
+      "widget": "chooser",
+      "variable": "Imitation-bias",
+      "display": "Imitation-bias",
+      "values": [
+        "most successful",
+        "majority",
+        "minority",
+        "most experienced",
+        "parents"
+      ],
+      "default": "parents"
+    },
+    {
+      "widget": "slider",
+      "variable": "Initial-Number-Agents",
+      "display": "Initial-Number-Agents",
+      "min": 1.0,
+      "max": "count patches",
+      "default": 2.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "imitation-likelihood",
+      "display": "imitation-likelihood",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 100.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "chance-agents-move",
+      "display": "chance-agents-move",
+      "min": 0.0,
+      "max": 100.0,
+      "default": 100.0,
+      "step": 1.0,
+      "units": "%"
+    }
+  ],
+  "outputs": [
+    {
+      "widget": "plot",
+      "display": "Populations (% of carrying capacity)",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 100.0,
+      "pens": [
+        {
+          "display": "Resource",
+          "setup": "",
+          "update": "plot (sum [resource] of patches / (carryingcap * count patches)) * 100"
+        },
+        {
+          "display": "Agents",
+          "setup": "",
+          "update": "plot ( count turtles / count patches ) * 100"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Average energy of agents",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Sustainables",
+          "setup": "",
+          "update": "carefully [plot average-energy-sustainables] [plot 0]"
+        },
+        {
+          "display": "Greedy",
+          "setup": "",
+          "update": "carefully [plot average-energy-greedys] [plot 0]"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Trait Frequencies (%)",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 100.0,
+      "pens": [
+        {
+          "display": "Sustainables",
+          "setup": "",
+          "update": "if count turtles > 0 [plot (count turtles with [harvest-type = \\"
+        },
+        {
+          "display": "Greedy",
+          "setup": "",
+          "update": "if count turtles > 0 [plot (count turtles with [harvest-type = \\"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "Agent Population",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "Total",
+          "setup": "",
+          "update": "plot count turtles"
+        },
+        {
+          "display": "Sustainables",
+          "setup": "",
+          "update": "plot count turtles with [harvest-type = \\"
+        },
+        {
+          "display": "Greedy",
+          "setup": "",
+          "update": "plot count turtles with [harvest-type = \\"
+        }
+      ]
+    },
+    {
+      "widget": "monitor",
+      "display": "Average energy of sustainable agents",
+      "reporter": "average-energy-sustainables"
+    },
+    {
+      "widget": "monitor",
+      "display": "Average energy of greedy agents",
+      "reporter": "average-energy-greedys"
+    },
+    {
+      "widget": "monitor",
+      "display": "Total",
+      "reporter": "count turtles"
+    },
+    {
+      "widget": "monitor",
+      "display": "Sustainables",
+      "reporter": "count turtles with [harvest-type = \\\"sustainable\\\"]"
+    },
+    {
+      "widget": "monitor",
+      "display": "Greedy",
+      "reporter": "count turtles with [harvest-type = \\\"greedy\\\"]"
+    },
+    {
+      "widget": "monitor",
+      "display": "Sustainables",
+      "reporter": "(count turtles with [harvest-type = \\\"sustainable\\\"] / count turtles) * 100"
+    },
+    {
+      "widget": "monitor",
+      "display": "Greedy",
+      "reporter": "(count turtles with [harvest-type = \\\"greedy\\\"] / count turtles) * 100"
+    }
+  ],
+  "controls": [
+    {
+      "display": "Setup",
+      "kind": "observer",
+      "forever": false,
+      "code": "setup"
+    },
+    {
+      "display": "Start",
+      "kind": "observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "Once",
+      "kind": "observer",
+      "forever": false,
+      "code": "go"
+    }
+  ],
+  "info_sections": {
+    "Model purpose": "What is the purpose of the model?\n\nThis model simulates the evolution of a population of resource users competing for the same resource. The model includes both biological reproduction and inheritance of behavioral traits and the evolution of behaviors through imitation biases. With the help of the model, we can observe how various imitation biases can differently influence the evolution of behaviors in a population and can lead to the spread of norms and traditions of sustainable or unsustainable resource use.",
+    "Entities and variables": "What kinds of entities are in the model? By what state variables, or attributes, are these entities characterized? What are the temporal and spatial resolutions and extents of the model?\n\n## General environment\n\n### Changeable variables\n\n* _Living-costs_: the costs that each agent has to deduct from his energy per iteration for basic survival\n* _Death-rate_: The probability with which agents die independent of their energy level\n(these variables could be considered both a factor of the environment and a variable of the agents, but we list them here since they do not vary among agents and can be considered to be imposed by the environment)\n\n\n## Patches\n\nThere are 50*25 patches in the world. \n\n### Constant patch variables\n(these variables and behaviors are always the same for all of the patches and in each iteration)\n\n* Carrying capacity per patch : Ressource = 100, Agents = 1\n* Growth rate of the resource = 0.3\n* The resources on a patch regrow by a logistic growth function up to the carrying capacity: \nnew resource level = current resource level + (Growth-Rate * current resource level) * (1 - (current resource level / carrying capacity)\n\n\n### Changing variables during a simulation\n(variables that change as a result of the simulation)\n\n  * actual resource level of a patch in units\n\n## Agents\nAgents are shown as humans and can have one of two resource consumption traits: sustainable (green color) or \u201cgreedy\u201d (red color).\n\n\n### Constant agent variables and behaviors\n(these variables and behaviors are always the same for all of the agents of this type and in each iteration)\n\n* In each iteration, each agent moves to a patch with the most resources within a radius of two patches (reduced by the probability of chance-agents-move).\n* In each iteration, each agent attempts to reproduce (reduced by the probability of 0.001 * energy level).\n* All agents die if they reach the age of 80.\n\n\n\n### Changeable agent variables\n(variables that are changeable by the user on the interface): \n\n* _Harvest-sustainables_:  the amount of resource units harvested per iteration by sustainable agents\n* _Harvest-greedy_: the actual harvesting behavior of sustainable and greedy agents\n* _Reproduction_: ability of agents to produce offspring\n* _Imitation bias_: the kind of rule that agents follow as they imitate other neighboring agents:\n    * imitate the most successful: take on the behavior of the agent with the highest energy level \n    * imitate the majority: take on the behavior of the majority of agents\n    * imitate the minority:  take on the behavior of the minority of agents\n    * imitate most experienced: take on the behavior of the oldest agent\n    * imitate parent: offspring  take on the behavior of their parents (through whatever mechanism - genetic inheritance or behavior imitation)\n* _Imitation likelihood_: the likelihood that agents will imitate others\n* _Behavior innovation rate_: The probability with which agents switch to a new harvesting behavior (this is similar to mutation rate, but agents can switch during their lifetimes)\n* _chance agents move_: the likelihood that agents move around (up to one patch per iteration)\n\n\n\n### Changing variables during a simulation\n(variables that change as a result of the simulation)\n\n*_harvest-type_: agents change their harvest type based on imitation rules and behavior innovation rate\n*_harvested amount_: the amount of resource units that is harvested by an agent in the current iteration\n*_Energy level_: the energy level (in resource units) on an agent \n*_Age_: each agent has a certain age, in each iteration the agent gets older by 0.1 units",
+    "Model Setup": "What is the initial state of the model world when one clicks on Setup? Is initialization always the same, or does it vary among simulations?\n\n* A world with 50*25 patches is created.\n* The parameter carrying capacity is set at 100.\n* The parameter growth rate is set at 0.3\n* The initial amount of resource units on a patch is distributed randomly between 75 and 100.\n* A number of agents, set by the parameter _Number-agents_, are randomly distributed on patches (maximum of one agent per patch).\n* The initial level of energy of agents is set at _living costs_ + 1.\n* The _age_ of each agent is set randomly between 30 and 50.\n* A subset of agents, set by the parameter _Sustainables_, is given the harvest-type \u201csustainable\u201d, the others are given the harvest type \u201cgreedy\u201d; sustainable agents are colored in green, greedy agents are colored in red.",
+    "Model Processes": "What happens in each iteration? Which entities do what, and in what order? When are state variables updated?\n\n![Model processes image](https://openevo.eva.mpg.de/wp-content/uploads/NetLogo-model-evolution-resource-use-behavior-imitation-procedures-overview.png)",
+    "Outputs": "What kinds of model outcomes can be observed on the interface? How do they emerge from model parameters, agent behaviors, and interactions?\n\n\n## In the world\nResource levels on patches change as they are being harvested and as they regrow. Agents move around, reproduce, and die. Depending on imitation bias and degree of agent movement, clusters of norms or traditions can be seen to form.\n \n\n## Output diagrams and monitors\n\n### Populations (% of carrying capacity)\nThe state of the resource and of the agent population in the world as percentage of total carrying capacity; resulting from resource harvesting behavior and resource regrowth, agent reproduction and death\n\n### Agent Population\nThe absolute numbers of sustainable and greedy agents and the total population size, resulting from behavior innovations, reproduction, and death\n\n### Trait frequencies\nThe relative frequencies of sustainable and greedy agents in the population, resulting from imitation, behavioral innovation, different reproduction rates, and death\n\n### Average energy of agents\naverage energy levels of sustainable and greedy agents, resulting from resource harvest, minus living costs and reproduction",
+    "Concepts and Principles": "Which important concepts or principles are represented in the model?\n\nThe resource is characterized by two ecologically significant parameters:\n\n* the **carrying capacity**: this is the largest possible amount of resources that can be present on a patch / in a certain area. In ecology, carrying capacity is often represented by the letter k. In this model, it is represented by the maximum growth height of the trees. In the real world, carrying capacity is influenced by biotic and abiotic factors like temperature and humidity or availability of other resources.\n* the **resource growth rate**: this is the rate at which a resource grows back from one time step to the next. It is often represented in ecology by the letter r. \n\nThe resource grows along a **logistic (S-shaped, sigmoid) population growth function** according to the following formula: \nResource state at the next point in time = current resource state +  ( r * current resource state) * (1 - current resource state / k ) \n\n**Trait variation**\nThere can be two variants of harvesting behavior in the population - sustainable or greedy. New trait variants can be introduced randomly in the population through the parameter _behavior innovation rate_.\n\n**Reproductive fitness**\nAgents that harvest more resources and have higher energy levels produce more offspring. They have higher fitness relative to agents with lower energy levels.\n\n**Trait inheritance and trait transmission**\nAgents create offspring and inherit their harvesting behavior/type to their offspring. In case of other imitation biases, agents also \u201cinherit\u201d the behavior of other agents in their environment by imitating them.\n\n**Natural selection**\nThe frequency of traits in the agent population changes as a result of trait variation, differential reproduction (fitness), and inheritance of traits. \n\n**Cultural selection**\nTraits are preferentially imitated based on the imitation bias, e.g. based on the success in terms of energy levels that the trait brings, or based on the frequency of the trait.\n\n**Norms and traditions**\nThe imitation bias \u201cmajority\u201d can establish norms of behavior in the population or in sub-groups of the population. Similarly, the imitation bias \u201cimitate most experienced\u201d can establish norms and traditions in the population or in sub-groups of the population. \n\n**Sensing and Information Processing** \n* Agents sense their environment in a radius of 2 patches: if a patch is occupied, and the patch with the most resources; \n* Agents sense all the other agents within their neighborhood of 8 patches: their harvesting behavior, their energy levels, and their age.\n* Agents do not store any information (i.e. have no memory).\n\n\n**Objectives and goal-directed behavior**\n* Agents move to an unoccupied patch with the most resources in a radius of 2 patches (depending on _chance-agents-move_)\n* Agents harvest their predetermined harvest amount (or until there are no more resources). \n* Agents imitate other agents based on the rule determined by _imitation-bias_.\n\n**Learning and Adaptation**\nAgents adapt their behavior over their lifetimes through the imitation bias.\n\n\n**Interactions** \n* Agents interact indirectly through competition for limited resources and space, and through their changing of environmental conditions through resource extraction and placing of offspring\n* Agents interact directly through imitating each other.\n\n**Role of randomness** \n\n* Agents are being distributed randomly in the world at the beginning of a simulation.\n* The order in which agents move and harvest within one iteration is random.\n* Agents move with a probability of _chance-agents-move_.\n* Agents move to a randomly selected patch if several patches fulfill the objectives.\n* Agents imitate with a probability of _imitation-likelihood_.\n* Agents switch to a different behavior with a probability of _behavior-innovation-rate_.\n* The order in which agents produce offspring within one iteration is random.\n* Agents produce offspring with a probability of  (0.001 * Energy).\n* Agents place offspring on a randomly selected unoccupied neighboring patch.\n* Agents die with a probability of _Death-rate_.",
+    "Model Teaching Materials": "Teaching materials for this model: https://openevo.eva.mpg.de/teachingbase/evolution-of-resource-use-through-behavior-imitation/",
+    "References and Citation": "For this model:\n \n* Hanisch, S. (2022). Evolution of resource use through behavior imitation. OpenEvo NetLogo Models. https://openevo.eva.mpg.de/teachingbase/netlogo/\n\nFor the NetLogo-Software:\n\n* Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.",
+    "Licence": "![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)\n\nThis work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. http://creativecommons.org/licenses/by-nc-sa/4.0/"
+  },
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'behavior-innovation-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'chance-agents-move' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'death-rate' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'harvest-greedy' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'harvest-sustainables' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'imitation-bias' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'imitation-likelihood' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'initial-number-agents' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'living-costs' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'reproduction' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'sustainables' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

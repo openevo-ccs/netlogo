@@ -1,0 +1,250 @@
+{
+  "slug": "swarming",
+  "world": {
+    "minPxcor": -35,
+    "maxPxcor": 35,
+    "minPycor": -35,
+    "maxPycor": 35,
+    "patchSize": 8.0,
+    "updateMode": 1,
+    "wrappingAllowedX": true,
+    "wrappingAllowedY": true
+  },
+  "globals": [],
+  "breeds": {
+    "turtles": {
+      "singular": "turtle",
+      "own": [
+        "flockmates",
+        ";;",
+        "agentset",
+        "of",
+        "nearby",
+        "turtles",
+        "nearest-neighbor",
+        ";;",
+        "closest",
+        "one",
+        "of",
+        "our",
+        "flockmates"
+      ],
+      "builtin": true
+    }
+  },
+  "procedures": {
+    "setup": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "flock"
+      ]
+    },
+    "flock": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "align",
+        "cohere",
+        "find-flockmates",
+        "find-nearest-neighbor",
+        "separate"
+      ]
+    },
+    "find-flockmates": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "find-nearest-neighbor": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "separate": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "turn-away"
+      ]
+    },
+    "align": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "average-flockmate-heading",
+        "turn-towards"
+      ]
+    },
+    "average-flockmate-heading": {
+      "kind": "reporter",
+      "params": [],
+      "calls": []
+    },
+    "cohere": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "average-heading-towards-flockmates",
+        "turn-towards"
+      ]
+    },
+    "average-heading-towards-flockmates": {
+      "kind": "reporter",
+      "params": [],
+      "calls": []
+    },
+    "turn-towards": {
+      "kind": "command",
+      "params": [
+        "new-heading",
+        "max-turn"
+      ],
+      "calls": [
+        "turn-at-most"
+      ]
+    },
+    "turn-away": {
+      "kind": "command",
+      "params": [
+        "new-heading",
+        "max-turn"
+      ],
+      "calls": [
+        "turn-at-most"
+      ]
+    },
+    "turn-at-most": {
+      "kind": "command",
+      "params": [
+        "turn",
+        "max-turn"
+      ],
+      "calls": []
+    }
+  },
+  "entry_points": [
+    "go",
+    "setup"
+  ],
+  "parameters": [
+    {
+      "widget": "slider",
+      "variable": "Population",
+      "display": "Population",
+      "min": 1.0,
+      "max": 1000.0,
+      "default": 300.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "max-alignment-turn",
+      "display": "max-alignment-turn",
+      "min": 0.0,
+      "max": 20.0,
+      "default": 5.0,
+      "step": 0.25,
+      "units": "degrees"
+    },
+    {
+      "widget": "slider",
+      "variable": "max-cohesion-turn",
+      "display": "max-cohesion-turn",
+      "min": 0.0,
+      "max": 20.0,
+      "default": 3.0,
+      "step": 0.25,
+      "units": "degrees"
+    },
+    {
+      "widget": "slider",
+      "variable": "max-separation-turn",
+      "display": "max-separation-turn",
+      "min": 0.0,
+      "max": 20.0,
+      "default": 1.5,
+      "step": 0.25,
+      "units": "degrees"
+    },
+    {
+      "widget": "slider",
+      "variable": "vision",
+      "display": "vision",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 5.0,
+      "step": 0.5,
+      "units": "patches"
+    },
+    {
+      "widget": "slider",
+      "variable": "minimum-separation",
+      "display": "minimum-separation",
+      "min": 0.0,
+      "max": 5.0,
+      "default": 1.0,
+      "step": 0.25,
+      "units": "patches"
+    },
+    {
+      "widget": "chooser",
+      "variable": "Species",
+      "display": "Species",
+      "values": [
+        "fish",
+        "bird",
+        "cow",
+        "human",
+        "abstract"
+      ],
+      "default": "abstract"
+    }
+  ],
+  "outputs": [],
+  "controls": [
+    {
+      "display": "Setup",
+      "kind": "observer",
+      "forever": false,
+      "code": "setup"
+    },
+    {
+      "display": "Go",
+      "kind": "observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "One round",
+      "kind": "observer",
+      "forever": false,
+      "code": "go"
+    }
+  ],
+  "info_sections": {
+    "What does the model simulate?": "This model simulates the swarming behavior of animals (e.g., birds or fish). The swarms depicted in this model are not initiated or led by specific animals. Rather, each animal follows exactly the same simple rules from which the swarms emerge - hence, the resulting swarms are  an example of the concept of emergence.",
+    "How does the model work?": "An animal/agent follow three rules: \"alignment\", \"separation\", and \"cohesion\".\n\n\"Alignment\" means that an animal tends to turn so that it is moving in the same direction that nearby animals are moving.\n\n\"Separation\" means that an animal will turn to avoid another animal which gets too close.\n\n\"Cohesion\" means that an animal will move towards other nearby animals (unless another animal is too close).\n\nWhen two animals are too close, the \"separation\" rule overrides the other two, which are deactivated until the minimum separation is achieved.\n\nThe three rules affect only the animal's heading.  Each animal always moves forward at the same constant speed.",
+    "How to use the model": "First, determine the number of animals you want in the simulation and set the POPULATION slider to that value. \n\nYou can also set the SPECIES or family of species that is visually represented: fish, birds, cows, humans, or abstract shapes. However, this visual representation does not influence the behavior of the individuals.\n\nPress SETUP to create the animals, and press GO to start the simulation. If you press ONE ROUND, the model will be run for one individual round.\n\nVISION is the distance that each animal can see 360 degrees around it.\n\nMINIMMUM SEPARATION is the minimal distance that is kept between animals. \n\nThe three TURN-ANGLE sliders control the maximum angle an animal can turn as a result of the alignment, separation, and cohesion rules.\n\nThe default settings for the sliders will produce reasonably good flocking behavior.",
+    "Important insights and questions": "Central to the model is the observation that swarms form without leaders.\n\nFurthermore, random processes play no role in the animals' behavior, except for their initial positioning. The animals' behavior and swarm formation are therefore generated solely by the three simple rules.\n\nNote also that every swarm is dynamic: A swarm that has formed does not necessarily keep all its members together. What could be the reason for this?\n\nDoes the simulation lead to a single, unified swarm over a longer period?\n\nAfter a certain runtime of the model, all the animals fly in approximately the same direction. Why?\n\nSometimes an animal separates from its swarm. How does this happen? To observe this phenomenon, you may need to slow down the model or run it step by step.\n\nTo what extent might the three rules of \"alignment,\" \"separation,\" and \"cohesion\" have arisen during the evolution of animal species that live in large groups? What evolutionary advantage does this behavior offer? \n\nCan such swarming behavior be observed in reality in all animal species or families represented in the model (birds, fish, cows and other ruminants, as well as humans)?",
+    "Conducting experiments": "Run several simulations over a specific period (e.g., over 1000 model rounds) without changing the settings. Document he flight direction the swarms take at the end of the simulation (e.g., north or 0\u00b0, northeast or 90\u00b0, etc.). Why is the resulting flight direction of the swarms not the same in every simulation, even though the animals always follow the same rules?\n\nExperiment with the sliders to see if you can achieve tighter, looser, smaller, or larger swarms, more or fewer swarms, more or less swarm splitting and merging, etc. Always try to explain why you observe certain effects.\n\nFor example, change the VISION range to shorter or longer and observe how this affects swarming.\n\nYou can also completely disable one of the three rules by setting its rotation angle to zero. This will allow you to observe the role a rule plays in swarm behavior. Is one rule alone sufficient to generate at least some swarming? What about two rules? What is missing from the resulting behavior of the animals and the swarms if you omit one rule in each case?",
+    "References and citation": "For the model:\n\n* Hanisch, S. (2026). Swarms. https://openevo.eva.mpg.de/teachingbase/netlogo/. Adapted from: Wilensky, U. (1998).  NetLogo Flocking model.  http://ccl.northwestern.edu/netlogo/models/Flocking.  Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.\n\nFor the NetLogo software:\n\n* Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.\n\n## LICENSE\n\n![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)\n\nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License.  To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA."
+  },
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'max-alignment-turn' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'max-cohesion-turn' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'max-separation-turn' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'minimum-separation' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'population' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'species' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'vision' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

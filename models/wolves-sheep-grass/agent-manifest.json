@@ -1,0 +1,103 @@
+{
+  "id": "wolves-sheep-grass",
+  "title": "Wolves-Sheep-Grass",
+  "entry_points": {
+    "setup": "setup",
+    "step": "go",
+    "forever_button_display": "Start"
+  },
+  "controls": {
+    "sliders": [
+      {
+        "name": "Number-Sheep",
+        "min": 0.0,
+        "max": 250.0,
+        "step": 1.0,
+        "default": 100.0
+      },
+      {
+        "name": "Sheep-energy-from-grass",
+        "min": 0.0,
+        "max": 50.0,
+        "step": 1.0,
+        "default": 3.0
+      },
+      {
+        "name": "Sheep-reproduction-rate",
+        "min": 1.0,
+        "max": 20.0,
+        "step": 1.0,
+        "default": 7.0
+      },
+      {
+        "name": "Number-Wolves",
+        "min": 0.0,
+        "max": 250.0,
+        "step": 1.0,
+        "default": 10.0
+      },
+      {
+        "name": "Wolves-energy-from-sheep",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 12.0
+      },
+      {
+        "name": "Wolves-reproduction-rate",
+        "min": 0.0,
+        "max": 20.0,
+        "step": 1.0,
+        "default": 3.0
+      },
+      {
+        "name": "Grass-regrowth-time",
+        "min": 0.0,
+        "max": 100.0,
+        "step": 1.0,
+        "default": 7.0
+      }
+    ],
+    "switches": [],
+    "choosers": [],
+    "buttons": [
+      {
+        "display": "Setup",
+        "code": "setup",
+        "forever": false
+      },
+      {
+        "display": "Start",
+        "code": "go",
+        "forever": true
+      },
+      {
+        "display": "One Round",
+        "code": "go",
+        "forever": false
+      }
+    ]
+  },
+  "available_reporters": {
+    "sheep": "count sheep",
+    "wolves": "count wolves",
+    "grass": "count grass / 4"
+  },
+  "plot_pens": [
+    {
+      "plot": "Populations",
+      "pen": "Sheep",
+      "update_code": "plot count sheep"
+    },
+    {
+      "plot": "Populations",
+      "pen": "Wolves",
+      "update_code": "plot count wolves"
+    },
+    {
+      "plot": "Populations",
+      "pen": "Grass",
+      "update_code": "plot count grass / 4"
+    }
+  ]
+}

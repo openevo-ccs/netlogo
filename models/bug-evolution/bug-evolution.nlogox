@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Converted from legacy .nlogo (originally saved as 'NetLogo 6.3.0') by nlogo_to_nlogox.py. Target format version: 7.0.4. See module docstring for documented conversion assumptions. -->
+<model version="7.0.4" snapToGrid="true">
+<code><source><![CDATA[breed [ preds Pred ]
+
+breed [ bugs bug ]
+
+bugs-own [
+  speed             ;; either 1, 2, 3, 4, 5, or 6
+]
+
+preds-own [
+  nearest-bug
+]
+
+globals [
+  catches-by-speed  ;; a list of total bugs caught, where the list index is the speed minus one
+]
+
+to setup
+  clear-all
+  set-default-shape bugs "bug"
+
+  ask patches [ set pcolor white ]   ;; white background
+  set catches-by-speed n-values 6 [ 0 ]
+  foreach [ 1 2 3 4 5 6 ] [ the-speed ->
+    create-bugs number-bugs-per-speed [ set speed the-speed ]
+  ]
+  ask bugs [
+    setxy random-xcor random-ycor
+    set-color
+  ]
+  ;; the predator breed contains one turtle that is used to represent
+  ;; a predator of the bugs (a bird)
+  create-preds 5 [
+    ifelse Predator = "Bird" [
+      set shape "bird"
+    ]
+      [ set shape "spider"
+    ]
+    setxy random-xcor random-ycor
+    set color black
+    set size 2
+  ]
+  reset-ticks
+end
+
+to go
+  ;; use EVERY to limit the overall speed of the model
+
+    check-caught
+
+    ifelse Predator = "Bird"
+      [ask preds [
+       move-predator
+      set shape "bird"  ]]
+     [ask preds [ set shape "spider"  ]]
+    ;; recolor the bugs in case the user changed SPEED-COLOR-MAP
+    ask bugs [
+      set-color
+      move-bug
+
+    ;; advance the clock without plotting
+
+    ;; plotting takes time, so only plot every 10 ticks
+    ;;if ticks mod 10 = 0 [ update-plots ]
+  ]
+  tick
+end
+
+
+to move-predator
+  rt random 20
+  lt random 20
+  find-nearest-bug
+  set heading towards nearest-bug
+  fd 0.15
+end
+
+
+to move-bug
+  let candidate-predator nobody
+  let target-heading 0
+
+  if bugs-waggle? [ right (random-float 45 - random-float 45) ]
+  fd speed * 0.06
+
+  ifelse Predator = "Bird" [
+    let predators-in-view preds in-cone 2 120
+    ifelse any? predators-in-view [
+      set candidate-predator one-of predators-in-view
+      set target-heading 180 + towards candidate-predator
+      set heading target-heading
+      set label "!"
+    ]
+    [ set label "" ]
+  ]
+  [ set label "" ]
+end
+
+to find-nearest-bug
+  set nearest-bug min-one-of bugs [distance myself]
+end
+
+
+to check-caught
+  let prey [ bugs in-radius (size / 2) ] of one-of preds
+  ;; no prey here? oh well
+  if not any? prey [ stop ]
+  ;; eat only one of the bugs at the mouse location
+  ask one-of prey [
+    let n item (speed - 1) catches-by-speed
+    set catches-by-speed replace-item (speed - 1) catches-by-speed (n + 1)
+    die
+  ]
+  ;; replace the eaten bug with a random offspring from the remaining population
+  ask one-of bugs [ hatch 1 [ rt random 360 ] ]
+end
+
+to-report colors-by-speed
+  ;; report a list of bug colors by speed
+  report [ violet blue green brown orange red ]
+end
+
+to set-color  ;; turtle procedure
+  set color item (speed - 1) colors-by-speed
+end
+
+
+; Copyright 2005 Uri Wilensky.
+; See Info tab for full copyright and license.]]></source></code>
+<widgets><view x="350" y="10" width="537" height="538" minPxcor="-11" maxPxcor="11" minPycor="-11" maxPycor="11" patchSize="23.0" wrappingAllowedX="true" wrappingAllowedY="true" fontSize="10" updateMode="1" showTickCounter="true" frameRate="30.0" tickCounterLabel="Model rounds"/><monitor x="10" y="545" width="177" height="45" precision="0" fontSize="11" display="Total number of caught bugs"><source>sum catches-by-speed</source></monitor><button x="10" y="70" width="92" height="40" forever="false" kind="observer" disableUntilTicks="false" display="Setup"><source>setup</source></button><button x="210" y="70" width="61" height="40" forever="true" kind="observer" disableUntilTicks="true" display="Start"><source>go</source></button><plot x="900" y="275" width="455" height="270" xMin="0.0" xMax="8.0" yMin="0.0" yMax="50.0" autoPlotX="true" autoPlotY="false" legend="false" display="Histogram of the bug population" xAxis="Speed" yAxis="Number of bugs"><setupCode><source></source></setupCode><updateCode><source><![CDATA[;; the HISTOGRAM primitive can't make a multi-colored histogram,\n;; so instead we plot each bar individually\nclear-plot\nforeach [ 1 2 3 4 5 6 ] [ the-speed ->\n  create-temporary-plot-pen (word the-speed)\n  set-plot-pen-mode 1 ; bar mode\n  set-plot-pen-color item (the-speed - 1) colors-by-speed\n  plotxy the-speed count bugs with [ speed = the-speed ]\n]]]></source></updateCode></plot><plot x="10" y="160" width="295" height="185" xMin="0.0" xMax="1000.0" yMin="0.0" yMax="0.5" autoPlotX="true" autoPlotY="false" legend="false" display="Average bug speed" xAxis="Model round" yAxis="Speed"><setupCode><source></source></setupCode><updateCode><source></source></updateCode><pen display="default" interval="1.0" mode="0" color="-16777216" legend="true"><setupCode><source></source></setupCode><updateCode><source>plotxy ticks mean [speed] of bugs</source></updateCode></pen></plot><slider x="10" y="10" width="227" height="33" min="1" max="50" default="50.0" step="1" direction="horizontal" display="number-bugs-per-speed" variable="number-bugs-per-speed"/><plot x="10" y="350" width="295" height="190" xMin="0.0" xMax="8.0" yMin="0.0" yMax="10.0" autoPlotX="true" autoPlotY="false" legend="false" display="Caught bugs by speed" xAxis="Speed" yAxis="Number of bugs"><setupCode><source></source></setupCode><updateCode><source><![CDATA[;; the HISTOGRAM primitive can't make a multi-colored histogram,\n;; so instead we plot each bar individually\nclear-plot\nforeach [ 1 2 3 4 5 6 ] [ the-speed ->\n  create-temporary-plot-pen (word the-speed)\n  set-plot-pen-mode 1 ; bar mode\n  set-plot-pen-color item (the-speed - 1) colors-by-speed\n  plotxy the-speed item (the-speed - 1) catches-by-speed\n]]]></source></updateCode></plot><switch x="10" y="120" width="165" height="33" on="false" display="bugs-waggle?" variable="bugs-waggle?"/><chooser x="245" y="10" width="92" height="45" current="1" display="Predator" variable="Predator"><choice type="string" value="Bird"/><choice type="string" value="Spider"/></chooser><plot x="900" y="10" width="455" height="255" xMin="0.0" xMax="10.0" yMin="0.0" yMax="10.0" autoPlotX="true" autoPlotY="false" legend="true" display="Evolution of the bug population" xAxis="Model round" yAxis="Number of bugs"><setupCode><source></source></setupCode><updateCode><source></source></updateCode><pen display="Speed level 1" interval="1.0" mode="0" color="-14454117" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count bugs with [speed = 1]</source></updateCode></pen><pen display="Speed level 2" interval="1.0" mode="0" color="-8990512" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count bugs with [speed = 2]</source></updateCode></pen><pen display="Speed level 3" interval="1.0" mode="0" color="-10899396" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count bugs with [speed = 3]</source></updateCode></pen><pen display="Speed level 4" interval="1.0" mode="0" color="-1184463" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count bugs with [speed = 4]</source></updateCode></pen><pen display="Speed level 5" interval="1.0" mode="0" color="-955883" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count bugs with [speed = 5]</source></updateCode></pen><pen display="Speed level 6" interval="1.0" mode="0" color="-2674135" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count bugs with [speed = 6]</source></updateCode></pen></plot><button x="110" y="70" width="92" height="40" forever="false" kind="observer" disableUntilTicks="false" display="One round"><source>go</source></button></widgets>
+<info><text>## What does this model simulate?
+
+The model simulates the evolution of speed in a bug population. Bugs are eaten by predators. The predators can be birds or spiders. Depending on the predator species, there is a different selecton pressure on the speed of the bugs.
+
+## How does the model work?
+
+The following processes occur in the model during each round:
+
+* If the predator is a bird, the predators move a certain distance toward the nearest bug.
+
+* Bugs change color to reflect their speed level.
+
+* Bugs move forward, possibly with a random rotation if waggle motion is enabled.
+
+* Predators capture one of the nearest bugs.
+
+* The captured bug dies (disappears from the bug population).
+
+* A randomly selected bug in the population produces offspring.
+
+
+### Parameters:
+
+* Number of bugs per speed: The number of bugs at each speed at the start of a simulation. Since there are six speed levels, the total number of bugs in the population is the value shown here multiplied by six.
+
+* Predator: The type of predator – bird or spider. Birds move around, while spiders remain in one place.
+
+* Waggle?: If this is enabled, the bugs move forward with a random rotation.
+
+
+### Output Diagrams and Monitors
+
+* Average bug speed: Shows the development of the average speed in the total population
+
+* Caught bugs by speed: A histogram (bar chart) showing the number of captured bugs for each speed level.
+
+* Total number of caught bugs: The total number of captured bugs during a simulation.
+
+* Evolution of the bug population: Development of the number of bugs for each speed level
+
+* Histogram of the bug population: A histogram (bar chart) showing the number of bugs in the total population for each speed level.
+
+## Possible research questions and assignments
+
+What influence does the type of predator have on the development of the bug population?
+
+Why does the composition of the bug population change during the simulation?
+
+Explain the process of natural selection using the observable development of the bug population.
+
+Explain the concept of adaptation using the observable distribution of traits (speed levels) in the bug population.
+
+What influence does waggle movement have on the development of the bug population?
+
+Advanced / Computer Science: Change further parameters in the source code, e.g., locomotion or the number of predators, and observe how this affects the development of the bug population.
+ 
+
+### Citation 
+
+For the model: Hanisch, S. (2024). Bug evolution. https://openevo.eva.mpg.de/teachingbase/netlogo/. Adapted from Novak, M. and Wilensky, U. (2005). NetLogo Bug Hunt Speeds model. http://ccl.northwestern.edu/netlogo/models/BugHuntSpeeds. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL
+
+
+NetLogo-Software: Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
+
+## COPYRIGHT AND LICENSE
+
+
+![CC BY-NC-SA 3.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)
+
+This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License.  To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</text></info>
+<turtleShapes><shape name="default" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="5"/><point x="40" y="250"/><point x="150" y="205"/><point x="260" y="250"/></polygon></shape><shape name="airplane" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="0"/><point x="135" y="15"/><point x="120" y="60"/><point x="120" y="105"/><point x="15" y="165"/><point x="15" y="195"/><point x="120" y="180"/><point x="135" y="240"/><point x="105" y="270"/><point x="120" y="285"/><point x="150" y="270"/><point x="180" y="285"/><point x="210" y="270"/><point x="165" y="240"/><point x="180" y="180"/><point x="285" y="195"/><point x="285" y="165"/><point x="180" y="105"/><point x="180" y="60"/><point x="165" y="15"/></polygon></shape><shape name="arrow" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="0"/><point x="0" y="150"/><point x="105" y="150"/><point x="105" y="293"/><point x="195" y="293"/><point x="195" y="150"/><point x="300" y="150"/></polygon></shape><shape name="bird" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="151" y="170"/><point x="136" y="170"/><point x="123" y="229"/><point x="143" y="244"/><point x="156" y="244"/><point x="179" y="229"/><point x="166" y="170"/></polygon><polygon color="-16777216" filled="true" marked="false"><point x="152" y="154"/><point x="137" y="154"/><point x="125" y="213"/><point x="140" y="229"/><point x="159" y="229"/><point x="179" y="214"/><point x="167" y="154"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="151" y="140"/><point x="136" y="140"/><point x="126" y="202"/><point x="139" y="214"/><point x="159" y="214"/><point x="176" y="200"/><point x="166" y="140"/></polygon><polygon color="-16777216" filled="true" marked="false"><point x="151" y="125"/><point x="134" y="124"/><point x="128" y="188"/><point x="140" y="198"/><point x="161" y="197"/><point x="174" y="188"/><point x="166" y="125"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="152" y="86"/><point x="227" y="72"/><point x="286" y="97"/><point x="272" y="101"/><point x="294" y="117"/><point x="276" y="118"/><point x="287" y="131"/><point x="270" y="131"/><point x="278" y="141"/><point x="264" y="138"/><point x="267" y="145"/><point x="228" y="150"/><point x="153" y="147"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="160" y="74"/><point x="159" y="61"/><point x="149" y="54"/><point x="130" y="53"/><point x="139" y="62"/><point x="133" y="81"/><point x="127" y="113"/><point x="129" y="149"/><point x="134" y="177"/><point x="150" y="206"/><point x="168" y="179"/><point x="172" y="147"/><point x="169" y="111"/></polygon><circle color="-16777216" filled="true" marked="false" x="144" y="55" diameter="7"/><polygon color="-16777216" filled="true" marked="false"><point x="129" y="53"/><point x="135" y="58"/><point x="139" y="54"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="148" y="86"/><point x="73" y="72"/><point x="14" y="97"/><point x="28" y="101"/><point x="6" y="117"/><point x="24" y="118"/><point x="13" y="131"/><point x="30" y="131"/><point x="22" y="141"/><point x="36" y="138"/><point x="33" y="145"/><point x="72" y="150"/><point x="147" y="147"/></polygon></shape><shape name="box" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="285"/><point x="285" y="225"/><point x="285" y="75"/><point x="150" y="135"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="150" y="135"/><point x="15" y="75"/><point x="150" y="15"/><point x="285" y="75"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="15" y="75"/><point x="15" y="225"/><point x="150" y="285"/><point x="150" y="135"/></polygon><line color="-16777216" marked="false" startX="150" startY="285" endX="150" endY="135"/><line color="-16777216" marked="false" startX="150" startY="135" endX="15" endY="75"/><line color="-16777216" marked="false" startX="150" startY="135" endX="285" endY="75"/></shape><shape name="bug" rotatable="true" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="96" y="182" diameter="108"/><circle color="-7500403" filled="true" marked="true" x="110" y="127" diameter="80"/><circle color="-7500403" filled="true" marked="true" x="110" y="75" diameter="80"/><line color="-7500403" marked="true" startX="150" startY="100" endX="80" endY="30"/><line color="-7500403" marked="true" startX="150" startY="100" endX="220" endY="30"/></shape><shape name="butterfly" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="165"/><point x="209" y="199"/><point x="225" y="225"/><point x="225" y="255"/><point x="195" y="270"/><point x="165" y="255"/><point x="150" y="240"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="150" y="165"/><point x="89" y="198"/><point x="75" y="225"/><point x="75" y="255"/><point x="105" y="270"/><point x="135" y="255"/><point x="150" y="240"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="139" y="148"/><point x="100" y="105"/><point x="55" y="90"/><point x="25" y="90"/><point x="10" y="105"/><point x="10" y="135"/><point x="25" y="180"/><point x="40" y="195"/><point x="85" y="194"/><point x="139" y="163"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="162" y="150"/><point x="200" y="105"/><point x="245" y="90"/><point x="275" y="90"/><point x="290" y="105"/><point x="290" y="135"/><point x="275" y="180"/><point x="260" y="195"/><point x="215" y="195"/><point x="162" y="165"/></polygon><polygon color="-16777216" filled="true" marked="false"><point x="150" y="255"/><point x="135" y="225"/><point x="120" y="150"/><point x="135" y="120"/><point x="150" y="105"/><point x="165" y="120"/><point x="180" y="150"/><point x="165" y="225"/></polygon><circle color="-16777216" filled="true" marked="false" x="135" y="90" diameter="30"/><line color="-16777216" marked="false" startX="150" startY="105" endX="195" endY="60"/><line color="-16777216" marked="false" startX="150" startY="105" endX="105" endY="60"/></shape><shape name="car" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="300" y="180"/><point x="279" y="164"/><point x="261" y="144"/><point x="240" y="135"/><point x="226" y="132"/><point x="213" y="106"/><point x="203" y="84"/><point x="185" y="63"/><point x="159" y="50"/><point x="135" y="50"/><point x="75" y="60"/><point x="0" y="150"/><point x="0" y="165"/><point x="0" y="225"/><point x="300" y="225"/><point x="300" y="180"/></polygon><circle color="-16777216" filled="true" marked="false" x="180" y="180" diameter="90"/><circle color="-16777216" filled="true" marked="false" x="30" y="180" diameter="90"/><polygon color="-16777216" filled="true" marked="false"><point x="162" y="80"/><point x="132" y="78"/><point x="134" y="135"/><point x="209" y="135"/><point x="194" y="105"/><point x="189" y="96"/><point x="180" y="89"/></polygon><circle color="-7500403" filled="true" marked="true" x="47" y="195" diameter="58"/><circle color="-7500403" filled="true" marked="true" x="195" y="195" diameter="58"/></shape><shape name="circle" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/></shape><shape name="circle 2" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/><circle color="-16777216" filled="true" marked="false" x="30" y="30" diameter="240"/></shape><shape name="cow" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="200" y="193"/><point x="197" y="249"/><point x="179" y="249"/><point x="177" y="196"/><point x="166" y="187"/><point x="140" y="189"/><point x="93" y="191"/><point x="78" y="179"/><point x="72" y="211"/><point x="49" y="209"/><point x="48" y="181"/><point x="37" y="149"/><point x="25" y="120"/><point x="25" y="89"/><point x="45" y="72"/><point x="103" y="84"/><point x="179" y="75"/><point x="198" y="76"/><point x="252" y="64"/><point x="272" y="81"/><point x="293" y="103"/><point x="285" y="121"/><point x="255" y="121"/><point x="242" y="118"/><point x="224" y="167"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="73" y="210"/><point x="86" y="251"/><point x="62" y="249"/><point x="48" y="208"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="25" y="114"/><point x="16" y="195"/><point x="9" y="204"/><point x="23" y="213"/><point x="25" y="200"/><point x="39" y="123"/></polygon></shape><shape name="cylinder" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/></shape><shape name="dot" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="90" y="90" diameter="120"/></shape><shape name="face happy" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="8" y="8" diameter="285"/><circle color="-16777216" filled="true" marked="false" x="60" y="75" diameter="60"/><circle color="-16777216" filled="true" marked="false" x="180" y="75" diameter="60"/><polygon color="-16777216" filled="true" marked="false"><point x="150" y="255"/><point x="90" y="239"/><point x="62" y="213"/><point x="47" y="191"/><point x="67" y="179"/><point x="90" y="203"/><point x="109" y="218"/><point x="150" y="225"/><point x="192" y="218"/><point x="210" y="203"/><point x="227" y="181"/><point x="251" y="194"/><point x="236" y="217"/><point x="212" y="240"/></polygon></shape><shape name="face neutral" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="8" y="7" diameter="285"/><circle color="-16777216" filled="true" marked="false" x="60" y="75" diameter="60"/><circle color="-16777216" filled="true" marked="false" x="180" y="75" diameter="60"/><rectangle color="-16777216" filled="true" marked="false" startX="60" startY="195" endX="240" endY="225"/></shape><shape name="face sad" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="8" y="8" diameter="285"/><circle color="-16777216" filled="true" marked="false" x="60" y="75" diameter="60"/><circle color="-16777216" filled="true" marked="false" x="180" y="75" diameter="60"/><polygon color="-16777216" filled="true" marked="false"><point x="150" y="168"/><point x="90" y="184"/><point x="62" y="210"/><point x="47" y="232"/><point x="67" y="244"/><point x="90" y="220"/><point x="109" y="205"/><point x="150" y="198"/><point x="192" y="205"/><point x="210" y="220"/><point x="227" y="242"/><point x="251" y="229"/><point x="236" y="206"/><point x="212" y="183"/></polygon></shape><shape name="fish" rotatable="false" editableColorIndex="0"><polygon color="-1" filled="true" marked="false"><point x="44" y="131"/><point x="21" y="87"/><point x="15" y="86"/><point x="0" y="120"/><point x="15" y="150"/><point x="0" y="180"/><point x="13" y="214"/><point x="20" y="212"/><point x="45" y="166"/></polygon><polygon color="-1" filled="true" marked="false"><point x="135" y="195"/><point x="119" y="235"/><point x="95" y="218"/><point x="76" y="210"/><point x="46" y="204"/><point x="60" y="165"/></polygon><polygon color="-1" filled="true" marked="false"><point x="75" y="45"/><point x="83" y="77"/><point x="71" y="103"/><point x="86" y="114"/><point x="166" y="78"/><point x="135" y="60"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="30" y="136"/><point x="151" y="77"/><point x="226" y="81"/><point x="280" y="119"/><point x="292" y="146"/><point x="292" y="160"/><point x="287" y="170"/><point x="270" y="195"/><point x="195" y="210"/><point x="151" y="212"/><point x="30" y="166"/></polygon><circle color="-16777216" filled="true" marked="false" x="215" y="106" diameter="30"/></shape><shape name="flag" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="60" startY="15" endX="75" endY="300"/><polygon color="-7500403" filled="true" marked="true"><point x="90" y="150"/><point x="270" y="90"/><point x="90" y="30"/></polygon><line color="-7500403" marked="true" startX="75" startY="135" endX="90" endY="135"/><line color="-7500403" marked="true" startX="75" startY="45" endX="90" endY="45"/></shape><shape name="flower" rotatable="false" editableColorIndex="0"><polygon color="-10899396" filled="true" marked="false"><point x="135" y="120"/><point x="165" y="165"/><point x="180" y="210"/><point x="180" y="240"/><point x="150" y="300"/><point x="165" y="300"/><point x="195" y="240"/><point x="195" y="195"/><point x="165" y="135"/></polygon><circle color="-7500403" filled="true" marked="true" x="85" y="132" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="130" y="147" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="192" y="85" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="85" y="40" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="177" y="40" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="177" y="132" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="70" y="85" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="130" y="25" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="96" y="51" diameter="108"/><circle color="-16777216" filled="true" marked="false" x="113" y="68" diameter="74"/><polygon color="-10899396" filled="true" marked="false"><point x="189" y="233"/><point x="219" y="188"/><point x="249" y="173"/><point x="279" y="188"/><point x="234" y="218"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="180" y="255"/><point x="150" y="210"/><point x="105" y="210"/><point x="75" y="240"/><point x="135" y="240"/></polygon></shape><shape name="house" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="45" startY="120" endX="255" endY="285"/><rectangle color="-16777216" filled="true" marked="false" startX="120" startY="210" endX="180" endY="285"/><polygon color="-7500403" filled="true" marked="true"><point x="15" y="120"/><point x="150" y="15"/><point x="285" y="120"/></polygon><line color="-16777216" marked="false" startX="30" startY="120" endX="270" endY="120"/></shape><shape name="leaf" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="210"/><point x="135" y="195"/><point x="120" y="210"/><point x="60" y="210"/><point x="30" y="195"/><point x="60" y="180"/><point x="60" y="165"/><point x="15" y="135"/><point x="30" y="120"/><point x="15" y="105"/><point x="40" y="104"/><point x="45" y="90"/><point x="60" y="90"/><point x="90" y="105"/><point x="105" y="120"/><point x="120" y="120"/><point x="105" y="60"/><point x="120" y="60"/><point x="135" y="30"/><point x="150" y="15"/><point x="165" y="30"/><point x="180" y="60"/><point x="195" y="60"/><point x="180" y="120"/><point x="195" y="120"/><point x="210" y="105"/><point x="240" y="90"/><point x="255" y="90"/><point x="263" y="104"/><point x="285" y="105"/><point x="270" y="120"/><point x="285" y="135"/><point x="240" y="165"/><point x="240" y="180"/><point x="270" y="195"/><point x="240" y="210"/><point x="180" y="210"/><point x="165" y="195"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="195"/><point x="135" y="240"/><point x="120" y="255"/><point x="105" y="255"/><point x="105" y="285"/><point x="135" y="285"/><point x="165" y="240"/><point x="165" y="195"/></polygon></shape><shape name="line" rotatable="true" editableColorIndex="0"><line color="-7500403" marked="true" startX="150" startY="0" endX="150" endY="300"/></shape><shape name="line half" rotatable="true" editableColorIndex="0"><line color="-7500403" marked="true" startX="150" startY="0" endX="150" endY="150"/></shape><shape name="pentagon" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="15"/><point x="15" y="120"/><point x="60" y="285"/><point x="240" y="285"/><point x="285" y="120"/></polygon></shape><shape name="person" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="110" y="5" diameter="80"/><polygon color="-7500403" filled="true" marked="true"><point x="105" y="90"/><point x="120" y="195"/><point x="90" y="285"/><point x="105" y="300"/><point x="135" y="300"/><point x="150" y="225"/><point x="165" y="300"/><point x="195" y="300"/><point x="210" y="285"/><point x="180" y="195"/><point x="195" y="90"/></polygon><rectangle color="-7500403" filled="true" marked="true" startX="127" startY="79" endX="172" endY="94"/><polygon color="-7500403" filled="true" marked="true"><point x="195" y="90"/><point x="240" y="150"/><point x="225" y="180"/><point x="165" y="105"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="105" y="90"/><point x="60" y="150"/><point x="75" y="180"/><point x="135" y="105"/></polygon></shape><shape name="plant" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="135" startY="90" endX="165" endY="300"/><polygon color="-7500403" filled="true" marked="true"><point x="135" y="255"/><point x="90" y="210"/><point x="45" y="195"/><point x="75" y="255"/><point x="135" y="285"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="165" y="255"/><point x="210" y="210"/><point x="255" y="195"/><point x="225" y="255"/><point x="165" y="285"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="180"/><point x="90" y="135"/><point x="45" y="120"/><point x="75" y="180"/><point x="135" y="210"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="165" y="180"/><point x="165" y="210"/><point x="225" y="180"/><point x="255" y="120"/><point x="210" y="135"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="105"/><point x="90" y="60"/><point x="45" y="45"/><point x="75" y="105"/><point x="135" y="135"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="165" y="105"/><point x="165" y="135"/><point x="225" y="105"/><point x="255" y="45"/><point x="210" y="60"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="90"/><point x="120" y="45"/><point x="150" y="15"/><point x="180" y="45"/><point x="165" y="90"/></polygon></shape><shape name="spider" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="134" y="255"/><point x="104" y="240"/><point x="96" y="210"/><point x="98" y="196"/><point x="114" y="171"/><point x="134" y="150"/><point x="119" y="135"/><point x="119" y="120"/><point x="134" y="105"/><point x="164" y="105"/><point x="179" y="120"/><point x="179" y="135"/><point x="164" y="150"/><point x="185" y="173"/><point x="199" y="195"/><point x="203" y="210"/><point x="194" y="240"/><point x="164" y="255"/></polygon><line color="-7500403" marked="true" startX="167" startY="109" endX="170" endY="90"/><line color="-7500403" marked="true" startX="170" startY="91" endX="156" endY="88"/><line color="-7500403" marked="true" startX="130" startY="91" endX="144" endY="88"/><line color="-7500403" marked="true" startX="133" startY="109" endX="130" endY="90"/><polygon color="-7500403" filled="true" marked="true"><point x="167" y="117"/><point x="207" y="102"/><point x="216" y="71"/><point x="227" y="27"/><point x="227" y="72"/><point x="212" y="117"/><point x="167" y="132"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="164" y="210"/><point x="158" y="194"/><point x="195" y="195"/><point x="225" y="210"/><point x="195" y="285"/><point x="240" y="210"/><point x="210" y="180"/><point x="164" y="180"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="136" y="210"/><point x="142" y="194"/><point x="105" y="195"/><point x="75" y="210"/><point x="105" y="285"/><point x="60" y="210"/><point x="90" y="180"/><point x="136" y="180"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="133" y="117"/><point x="93" y="102"/><point x="84" y="71"/><point x="73" y="27"/><point x="73" y="72"/><point x="88" y="117"/><point x="133" y="132"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="163" y="140"/><point x="214" y="129"/><point x="234" y="114"/><point x="255" y="74"/><point x="242" y="126"/><point x="216" y="143"/><point x="164" y="152"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="161" y="183"/><point x="203" y="167"/><point x="239" y="180"/><point x="268" y="239"/><point x="249" y="171"/><point x="202" y="153"/><point x="163" y="162"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="137" y="140"/><point x="86" y="129"/><point x="66" y="114"/><point x="45" y="74"/><point x="58" y="126"/><point x="84" y="143"/><point x="136" y="152"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="139" y="183"/><point x="97" y="167"/><point x="61" y="180"/><point x="32" y="239"/><point x="51" y="171"/><point x="98" y="153"/><point x="137" y="162"/></polygon></shape><shape name="square" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="30" startY="30" endX="270" endY="270"/></shape><shape name="square 2" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="30" startY="30" endX="270" endY="270"/><rectangle color="-16777216" filled="true" marked="false" startX="60" startY="60" endX="240" endY="240"/></shape><shape name="star" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="151" y="1"/><point x="185" y="108"/><point x="298" y="108"/><point x="207" y="175"/><point x="242" y="282"/><point x="151" y="216"/><point x="59" y="282"/><point x="94" y="175"/><point x="3" y="108"/><point x="116" y="108"/></polygon></shape><shape name="target" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/><circle color="-16777216" filled="true" marked="false" x="30" y="30" diameter="240"/><circle color="-7500403" filled="true" marked="true" x="60" y="60" diameter="180"/><circle color="-16777216" filled="true" marked="false" x="90" y="90" diameter="120"/><circle color="-7500403" filled="true" marked="true" x="120" y="120" diameter="60"/></shape><shape name="tree" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="118" y="3" diameter="94"/><rectangle color="-6459832" filled="true" marked="false" startX="120" startY="195" endX="180" endY="300"/><circle color="-7500403" filled="true" marked="true" x="65" y="21" diameter="108"/><circle color="-7500403" filled="true" marked="true" x="116" y="41" diameter="127"/><circle color="-7500403" filled="true" marked="true" x="45" y="90" diameter="120"/><circle color="-7500403" filled="true" marked="true" x="104" y="74" diameter="152"/></shape><shape name="triangle" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="30"/><point x="15" y="255"/><point x="285" y="255"/></polygon></shape><shape name="triangle 2" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="30"/><point x="15" y="255"/><point x="285" y="255"/></polygon><polygon color="-16777216" filled="true" marked="false"><point x="151" y="99"/><point x="225" y="223"/><point x="75" y="224"/></polygon></shape><shape name="truck" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="4" startY="45" endX="195" endY="187"/><polygon color="-7500403" filled="true" marked="true"><point x="296" y="193"/><point x="296" y="150"/><point x="259" y="134"/><point x="244" y="104"/><point x="208" y="104"/><point x="207" y="194"/></polygon><rectangle color="-1" filled="true" marked="false" startX="195" startY="60" endX="195" endY="105"/><polygon color="-16777216" filled="true" marked="false"><point x="238" y="112"/><point x="252" y="141"/><point x="219" y="141"/><point x="218" y="112"/></polygon><circle color="-16777216" filled="true" marked="false" x="234" y="174" diameter="42"/><rectangle color="-7500403" filled="true" marked="true" startX="181" startY="185" endX="214" endY="194"/><circle color="-16777216" filled="true" marked="false" x="144" y="174" diameter="42"/><circle color="-16777216" filled="true" marked="false" x="24" y="174" diameter="42"/><circle color="-7500403" filled="false" marked="true" x="24" y="174" diameter="42"/><circle color="-7500403" filled="false" marked="true" x="144" y="174" diameter="42"/><circle color="-7500403" filled="false" marked="true" x="234" y="174" diameter="42"/></shape><shape name="turtle" rotatable="true" editableColorIndex="0"><polygon color="-10899396" filled="true" marked="false"><point x="215" y="204"/><point x="240" y="233"/><point x="246" y="254"/><point x="228" y="266"/><point x="215" y="252"/><point x="193" y="210"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="195" y="90"/><point x="225" y="75"/><point x="245" y="75"/><point x="260" y="89"/><point x="269" y="108"/><point x="261" y="124"/><point x="240" y="105"/><point x="225" y="105"/><point x="210" y="105"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="105" y="90"/><point x="75" y="75"/><point x="55" y="75"/><point x="40" y="89"/><point x="31" y="108"/><point x="39" y="124"/><point x="60" y="105"/><point x="75" y="105"/><point x="90" y="105"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="132" y="85"/><point x="134" y="64"/><point x="107" y="51"/><point x="108" y="17"/><point x="150" y="2"/><point x="192" y="18"/><point x="192" y="52"/><point x="169" y="65"/><point x="172" y="87"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="85" y="204"/><point x="60" y="233"/><point x="54" y="254"/><point x="72" y="266"/><point x="85" y="252"/><point x="107" y="210"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="119" y="75"/><point x="179" y="75"/><point x="209" y="101"/><point x="224" y="135"/><point x="220" y="225"/><point x="175" y="261"/><point x="128" y="261"/><point x="81" y="224"/><point x="74" y="135"/><point x="88" y="99"/></polygon></shape><shape name="wheel" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="3" y="3" diameter="294"/><circle color="-16777216" filled="true" marked="false" x="30" y="30" diameter="240"/><line color="-7500403" marked="true" startX="150" startY="285" endX="150" endY="15"/><line color="-7500403" marked="true" startX="15" startY="150" endX="285" endY="150"/><circle color="-7500403" filled="true" marked="true" x="120" y="120" diameter="60"/><line color="-7500403" marked="true" startX="216" startY="40" endX="79" endY="269"/><line color="-7500403" marked="true" startX="40" startY="84" endX="269" endY="221"/><line color="-7500403" marked="true" startX="40" startY="216" endX="269" endY="79"/><line color="-7500403" marked="true" startX="84" startY="40" endX="221" endY="269"/></shape><shape name="x" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="270" y="75"/><point x="225" y="30"/><point x="30" y="225"/><point x="75" y="270"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="30" y="75"/><point x="75" y="30"/><point x="270" y="225"/><point x="225" y="270"/></polygon></shape></turtleShapes>
+<!-- linkShapes: skipped (legacy format for link shapes is under-documented publicly; default link shapes are provided by NetLogo itself and do not need to be round-tripped) -->
+<previewCommands><text>setup
+ask predators [ show-turtle ]
+repeat 15 [ ask bugs [ move-bug ] ]</text></previewCommands>
+</model>

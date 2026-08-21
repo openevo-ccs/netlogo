@@ -9,6 +9,10 @@ Thumbs.db
 # NetLogo-specific
 *.nlogo~
 
+# Python (netlogo-agent-toolkit)
+__pycache__/
+*.pyc
+
 # Defense in depth
 .env
 .env.*

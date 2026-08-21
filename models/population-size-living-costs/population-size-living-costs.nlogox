@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Converted from legacy .nlogo (originally saved as 'NetLogo 6.3.0') by nlogo_to_nlogox.py. Target format version: 7.0.4. See module docstring for documented conversion assumptions. -->
+<model version="7.0.4" snapToGrid="false">
+<code><source><![CDATA[breed [trees tree]
+breed [foresters forester]
+
+foresters-own [
+  harvestrate
+  harvest
+  wealth
+ ]
+
+trees-own [height]
+
+globals [
+  max-height
+ ]
+
+
+;;;;;;;;;;;;;;;;;;;;;;
+;;; Model setup procedures - these are executed when you click on “Setup.”
+;;;;;;;;;;;;;;;;;;;;;;
+
+to setup
+
+  clear-all ;; clear the world
+
+  set max-height 100 ;; set maximal tree hight to 100
+
+  setup-trees
+  setup-foresters
+
+  reset-ticks
+end
+
+to setup-trees
+  ask patches [
+    set pcolor brown + 2
+    sprout-trees 1 [
+    set shape "tree"
+    set color green - 2
+    set height max-height
+    set size ( height / 100 )
+  ]]
+end
+
+
+to setup-foresters
+  ask n-of number-foresters patches
+    [sprout-foresters  1 [
+      set shape "person logger"
+      set size 0.9
+      set color blue ] ]
+end
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;;Procedures - these are performed in each model round ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+to go
+
+  if not any? foresters [stop] ;; stop the simulation when there are no more foresters left in the world
+
+  ask foresters [set harvestrate harvest-rate];; Allocate the set harvest rate to the foresters
+
+  move
+  cut-trees
+
+  livingcosts
+
+  death
+
+  ask trees [ regrow]
+
+  tick
+end
+
+to move ;; foresters move to one of the largest trees within 2 patches.
+ ask foresters [
+    let next-tree max-one-of (trees in-radius 2 with [not any? foresters-here] ) [height]
+    if next-tree != nobody
+      [ move-to next-tree]
+  ]
+end
+
+to cut-trees ;; foresters harvest from the tree from their patch
+  ask foresters [
+    let harvest-tree one-of trees-here
+      set harvest ([height] of harvest-tree * ( harvestrate / 100))
+      set wealth wealth + harvest
+      ask  harvest-tree [set height (height - (height * [harvestrate ] of myself / 100))]
+    ]
+end
+
+to livingcosts ;; foresters pay living costs, which are deducted from their wealth.
+  ask foresters [set wealth wealth - living-cost]
+end
+
+to death ;; foresters die if they don't have enough wealth
+  ask foresters
+  [if wealth <= 0 [die]
+   ]
+end
+
+to regrow ;; trees regrow
+  set height  (height + ((growth-rate-trees / 100 * height) * (1 - (height / ( max-height)  ))))
+  set size height / 100
+end
+
+;;;;;;;;;;;;;
+;;; foresters-variables
+;;;;;;;;;;;;
+
+to-report average-wealth-foresters ;; average wealth of greedy foresters
+  report sum [wealth] of foresters / count foresters
+end]]></source></code>
+<widgets><view x="231" y="10" width="683" height="414" minPxcor="0" maxPxcor="24" minPycor="0" maxPycor="14" patchSize="27.0" wrappingAllowedX="false" wrappingAllowedY="false" fontSize="10" updateMode="1" showTickCounter="true" frameRate="10.0" tickCounterLabel="Modellrunden"/><button x="10" y="10" width="95" height="34" forever="false" kind="observer" disableUntilTicks="false" display="Setup"><source>setup</source></button><button x="10" y="95" width="95" height="34" forever="true" kind="observer" disableUntilTicks="true" display="Start"><source>go</source></button><slider x="10" y="195" width="193" height="33" min="0" max="100" default="90.0" step="0.1" direction="horizontal" display="harvest-rate" variable="harvest-rate" units="%"/><button x="10" y="52" width="96" height="34" forever="false" kind="observer" disableUntilTicks="true" display="One round"><source>go</source></button><plot x="922" y="10" width="428" height="278" xMin="0.0" xMax="10.0" yMin="0.0" yMax="100.0" autoPlotX="true" autoPlotY="false" legend="false" display="forest stock (% of maximum)" xAxis="model rounds" yAxis="forest stock (%)"><setupCode><source></source></setupCode><updateCode><source></source></updateCode><pen display="Gesamt" interval="1.0" mode="0" color="-16777216" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot (sum [height] of trees / ((max-height ) * count patches)) * 100</source></updateCode></pen></plot><plot x="232" y="430" width="469" height="228" xMin="0.0" xMax="10.0" yMin="0.0" yMax="10.0" autoPlotX="true" autoPlotY="false" legend="false" display="Average accumulated wealth of foresters" xAxis="model rounds" yAxis="wealth"><setupCode><source></source></setupCode><updateCode><source></source></updateCode><pen display="Gemäßigte" interval="1.0" mode="0" color="-13345367" legend="true"><setupCode><source></source></setupCode><updateCode><source>carefully [plot average-wealth-foresters] [plot 0]</source></updateCode></pen></plot><slider x="10" y="295" width="193" height="33" min="0" max="50" default="30.0" step="0.1" direction="horizontal" display="living-cost" variable="living-cost"/><plot x="735" y="430" width="441" height="227" xMin="0.0" xMax="10.0" yMin="0.0" yMax="10.0" autoPlotX="true" autoPlotY="false" legend="false" display="forester population" xAxis="model rounds" yAxis="number-foresters"><setupCode><source></source></setupCode><updateCode><source></source></updateCode><pen display="Gesamt" interval="1.0" mode="0" color="-7500403" legend="true"><setupCode><source></source></setupCode><updateCode><source>plot count foresters</source></updateCode></pen></plot><slider x="11" y="147" width="192" height="33" min="0" max="375" default="2.0" step="1" direction="horizontal" display="number-foresters" variable="number-foresters"/><monitor x="737" y="664" width="193" height="57" precision="0" fontSize="14" display="total number of foresters"><source>count foresters</source></monitor><monitor x="923" y="295" width="144" height="57" precision="0" fontSize="14" display="forest stock (%)"><source>(sum [height] of trees / ((max-height ) * count patches)) * 100</source></monitor><monitor x="231" y="664" width="218" height="57" precision="0" fontSize="14" display="average wealth"><source>average-wealth-foresters</source></monitor><slider x="10" y="243" width="194" height="33" min="0" max="100" default="10.0" step="1" direction="horizontal" display="growth-rate-trees" variable="growth-rate-trees" units="%"/></widgets>
+<info><text># Aim and purpose of the model
+What is the purpose of the model?
+
+This model simulates a population of resource users who use a shared natural resource, illustrated by the example of a forest. With the help of the model, we can observe how population size (number of foresters), tree growth rate, forester harvest rate, and cost of living are related to each other.
+
+
+# Entities and variables
+What types of entities are there in the model? What state variables or properties characterize these entities? What are the temporal and spatial resolutions of the model?
+
+
+## General environment
+### Changeable variables
+
+* _Cost of living_: the cost that each forester must deduct from their energy or wealth per model round for basic survival (this variable could be considered both a factor of the environment and a variable of the foresters, but we list it here because this variable is the same for all foresters)
+
+## Patches
+There are 15*25 = 375 brown patches on the world representing forest area, e.g., one hectare per patch.
+
+
+## Trees
+There are 375 trees on the world (one tree per patch). The trees could represent actual individual trees or a collection of several trees, e.g., 100 trees per patch.
+
+### Constant variables and behaviors 
+(these variables and behaviors are always the same for all agents of this type and in every iteration)
+
+* All trees grow to their maximum height using a logistic growth function: 
+new height = current height + (growth rate * height) * (1 - (height / maximum tree height)
+
+
+### Modifiable variables 
+(variables that can be changed by the user on the user interface)
+
+* _Growth rate trees_: the rate at which a tree grows per model round
+
+
+### Variables that change during a simulation 
+(variables that change as a result of the simulation)
+
+* Actual tree height in units
+
+## Foresters
+There are a maximum of 375 foresters in the world.
+
+### Constant variables and behaviors
+ (these variables and behaviors are always the same for all agents of this type and in every iteration)
+
+* In each iteration, each forester moves to one of the neighboring patches with the tallest tree on it (if there is more than one tree with the highest height, he randomly selects one of them).
+
+
+### Changeable forester variables 
+(variables that can be changed by the user on the user interface)
+ 
+
+* _Number of foresters_: the number of foresters in the world at the start of a simulation
+* _Harvest rate_: the proportion of a tree that  foresters harvest per model round
+
+
+### Variables that change during a simulation 
+(variables that change as a result of the simulation)
+
+* _Harvest amount per model round_: the amount in tree units harvested by a forester in the current iteration
+* _Accumulated wealth_: the total accumulated wealth
+
+
+# Model setup
+What is the initial state of the model when you click on Setup? Is the initialization always the same or does it vary between simulations?
+
+* A world with 375 patches is created.
+* A tree is placed on each patch, and each tree has the maximum growth height.
+* A number of foresters, determined by the parameter _Number-of-foresters_, are randomly placed on the patches in the world.
+
+
+# Processes
+What happens in each iteration? Which entities do what and in what order? When are state variables updated?
+
+
+![Model processes image](https://openevo.eva.mpg.de/wp-content/uploads/NetLogo-model-procedure-population-living-costs.png)
+
+# Outputs / Result representation
+What types of model results can be observed? How do they arise from model parameters, agent behavior, and interactions?
+
+
+## In the world
+The trees change their height by being harvested and growing back. Foresters move around and harvest the trees.
+
+
+## Diagrams and monitors
+
+### Forest condition (% vegetation cover)
+The condition of the forest in the world as a percentage of the maximum possible stock, resulting from the harvesting behavior of the foresters and the regrowth of the trees.
+
+### Average accumulated wealth of foresters
+The average wealth of foresters, resulting from the harvesting of resources minus living expenses.
+
+
+### Forester population
+Number of foresters, which changes during a simulation only through the death of foresters.
+
+
+
+# Model information
+
+Teaching materials for the model:
+https://docs.google.com/document/d/1xyE6yQidMVKwD_IvQ7pKE2qk2YPbnK5ym6TqAQ9X24M/edit?usp=sharing
+
+
+## References and citation
+
+
+For the model itself:
+
+* Hanisch, S. (2022). Use of a community resource (forest). OpenEvo NetLogo models. https://openevo.eva.mpg.de/teachingbase/netlogo
+
+For the NetLogo software:
+
+* Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
+
+
+## License
+
+![CC BY-NC-SA 4.0](http://ccl.northwestern.edu/images/creativecommons/byncsa.png)
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/deed.de</text></info>
+<turtleShapes><shape name="default" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="5"/><point x="40" y="250"/><point x="150" y="205"/><point x="260" y="250"/></polygon></shape><shape name="airplane" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="0"/><point x="135" y="15"/><point x="120" y="60"/><point x="120" y="105"/><point x="15" y="165"/><point x="15" y="195"/><point x="120" y="180"/><point x="135" y="240"/><point x="105" y="270"/><point x="120" y="285"/><point x="150" y="270"/><point x="180" y="285"/><point x="210" y="270"/><point x="165" y="240"/><point x="180" y="180"/><point x="285" y="195"/><point x="285" y="165"/><point x="180" y="105"/><point x="180" y="60"/><point x="165" y="15"/></polygon></shape><shape name="arrow" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="0"/><point x="0" y="150"/><point x="105" y="150"/><point x="105" y="293"/><point x="195" y="293"/><point x="195" y="150"/><point x="300" y="150"/></polygon></shape><shape name="box" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="285"/><point x="285" y="225"/><point x="285" y="75"/><point x="150" y="135"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="150" y="135"/><point x="15" y="75"/><point x="150" y="15"/><point x="285" y="75"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="15" y="75"/><point x="15" y="225"/><point x="150" y="285"/><point x="150" y="135"/></polygon><line color="-16777216" marked="false" startX="150" startY="285" endX="150" endY="135"/><line color="-16777216" marked="false" startX="150" startY="135" endX="15" endY="75"/><line color="-16777216" marked="false" startX="150" startY="135" endX="285" endY="75"/></shape><shape name="bug" rotatable="true" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="96" y="182" diameter="108"/><circle color="-7500403" filled="true" marked="true" x="110" y="127" diameter="80"/><circle color="-7500403" filled="true" marked="true" x="110" y="75" diameter="80"/><line color="-7500403" marked="true" startX="150" startY="100" endX="80" endY="30"/><line color="-7500403" marked="true" startX="150" startY="100" endX="220" endY="30"/></shape><shape name="butterfly" rotatable="true" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="165"/><point x="209" y="199"/><point x="225" y="225"/><point x="225" y="255"/><point x="195" y="270"/><point x="165" y="255"/><point x="150" y="240"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="150" y="165"/><point x="89" y="198"/><point x="75" y="225"/><point x="75" y="255"/><point x="105" y="270"/><point x="135" y="255"/><point x="150" y="240"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="139" y="148"/><point x="100" y="105"/><point x="55" y="90"/><point x="25" y="90"/><point x="10" y="105"/><point x="10" y="135"/><point x="25" y="180"/><point x="40" y="195"/><point x="85" y="194"/><point x="139" y="163"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="162" y="150"/><point x="200" y="105"/><point x="245" y="90"/><point x="275" y="90"/><point x="290" y="105"/><point x="290" y="135"/><point x="275" y="180"/><point x="260" y="195"/><point x="215" y="195"/><point x="162" y="165"/></polygon><polygon color="-16777216" filled="true" marked="false"><point x="150" y="255"/><point x="135" y="225"/><point x="120" y="150"/><point x="135" y="120"/><point x="150" y="105"/><point x="165" y="120"/><point x="180" y="150"/><point x="165" y="225"/></polygon><circle color="-16777216" filled="true" marked="false" x="135" y="90" diameter="30"/><line color="-16777216" marked="false" startX="150" startY="105" endX="195" endY="60"/><line color="-16777216" marked="false" startX="150" startY="105" endX="105" endY="60"/></shape><shape name="car" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="300" y="180"/><point x="279" y="164"/><point x="261" y="144"/><point x="240" y="135"/><point x="226" y="132"/><point x="213" y="106"/><point x="203" y="84"/><point x="185" y="63"/><point x="159" y="50"/><point x="135" y="50"/><point x="75" y="60"/><point x="0" y="150"/><point x="0" y="165"/><point x="0" y="225"/><point x="300" y="225"/><point x="300" y="180"/></polygon><circle color="-16777216" filled="true" marked="false" x="180" y="180" diameter="90"/><circle color="-16777216" filled="true" marked="false" x="30" y="180" diameter="90"/><polygon color="-16777216" filled="true" marked="false"><point x="162" y="80"/><point x="132" y="78"/><point x="134" y="135"/><point x="209" y="135"/><point x="194" y="105"/><point x="189" y="96"/><point x="180" y="89"/></polygon><circle color="-7500403" filled="true" marked="true" x="47" y="195" diameter="58"/><circle color="-7500403" filled="true" marked="true" x="195" y="195" diameter="58"/></shape><shape name="circle" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/></shape><shape name="circle 2" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/><circle color="-16777216" filled="true" marked="false" x="30" y="30" diameter="240"/></shape><shape name="cow" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="200" y="193"/><point x="197" y="249"/><point x="179" y="249"/><point x="177" y="196"/><point x="166" y="187"/><point x="140" y="189"/><point x="93" y="191"/><point x="78" y="179"/><point x="72" y="211"/><point x="49" y="209"/><point x="48" y="181"/><point x="37" y="149"/><point x="25" y="120"/><point x="25" y="89"/><point x="45" y="72"/><point x="103" y="84"/><point x="179" y="75"/><point x="198" y="76"/><point x="252" y="64"/><point x="272" y="81"/><point x="293" y="103"/><point x="285" y="121"/><point x="255" y="121"/><point x="242" y="118"/><point x="224" y="167"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="73" y="210"/><point x="86" y="251"/><point x="62" y="249"/><point x="48" y="208"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="25" y="114"/><point x="16" y="195"/><point x="9" y="204"/><point x="23" y="213"/><point x="25" y="200"/><point x="39" y="123"/></polygon></shape><shape name="cylinder" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/></shape><shape name="dot" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="90" y="90" diameter="120"/></shape><shape name="face happy" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="8" y="8" diameter="285"/><circle color="-16777216" filled="true" marked="false" x="60" y="75" diameter="60"/><circle color="-16777216" filled="true" marked="false" x="180" y="75" diameter="60"/><polygon color="-16777216" filled="true" marked="false"><point x="150" y="255"/><point x="90" y="239"/><point x="62" y="213"/><point x="47" y="191"/><point x="67" y="179"/><point x="90" y="203"/><point x="109" y="218"/><point x="150" y="225"/><point x="192" y="218"/><point x="210" y="203"/><point x="227" y="181"/><point x="251" y="194"/><point x="236" y="217"/><point x="212" y="240"/></polygon></shape><shape name="face neutral" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="8" y="7" diameter="285"/><circle color="-16777216" filled="true" marked="false" x="60" y="75" diameter="60"/><circle color="-16777216" filled="true" marked="false" x="180" y="75" diameter="60"/><rectangle color="-16777216" filled="true" marked="false" startX="60" startY="195" endX="240" endY="225"/></shape><shape name="face sad" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="8" y="8" diameter="285"/><circle color="-16777216" filled="true" marked="false" x="60" y="75" diameter="60"/><circle color="-16777216" filled="true" marked="false" x="180" y="75" diameter="60"/><polygon color="-16777216" filled="true" marked="false"><point x="150" y="168"/><point x="90" y="184"/><point x="62" y="210"/><point x="47" y="232"/><point x="67" y="244"/><point x="90" y="220"/><point x="109" y="205"/><point x="150" y="198"/><point x="192" y="205"/><point x="210" y="220"/><point x="227" y="242"/><point x="251" y="229"/><point x="236" y="206"/><point x="212" y="183"/></polygon></shape><shape name="fish" rotatable="false" editableColorIndex="0"><polygon color="-1" filled="true" marked="false"><point x="44" y="131"/><point x="21" y="87"/><point x="15" y="86"/><point x="0" y="120"/><point x="15" y="150"/><point x="0" y="180"/><point x="13" y="214"/><point x="20" y="212"/><point x="45" y="166"/></polygon><polygon color="-1" filled="true" marked="false"><point x="135" y="195"/><point x="119" y="235"/><point x="95" y="218"/><point x="76" y="210"/><point x="46" y="204"/><point x="60" y="165"/></polygon><polygon color="-1" filled="true" marked="false"><point x="75" y="45"/><point x="83" y="77"/><point x="71" y="103"/><point x="86" y="114"/><point x="166" y="78"/><point x="135" y="60"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="30" y="136"/><point x="151" y="77"/><point x="226" y="81"/><point x="280" y="119"/><point x="292" y="146"/><point x="292" y="160"/><point x="287" y="170"/><point x="270" y="195"/><point x="195" y="210"/><point x="151" y="212"/><point x="30" y="166"/></polygon><circle color="-16777216" filled="true" marked="false" x="215" y="106" diameter="30"/></shape><shape name="flag" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="60" startY="15" endX="75" endY="300"/><polygon color="-7500403" filled="true" marked="true"><point x="90" y="150"/><point x="270" y="90"/><point x="90" y="30"/></polygon><line color="-7500403" marked="true" startX="75" startY="135" endX="90" endY="135"/><line color="-7500403" marked="true" startX="75" startY="45" endX="90" endY="45"/></shape><shape name="flower" rotatable="false" editableColorIndex="0"><polygon color="-10899396" filled="true" marked="false"><point x="135" y="120"/><point x="165" y="165"/><point x="180" y="210"/><point x="180" y="240"/><point x="150" y="300"/><point x="165" y="300"/><point x="195" y="240"/><point x="195" y="195"/><point x="165" y="135"/></polygon><circle color="-7500403" filled="true" marked="true" x="85" y="132" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="130" y="147" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="192" y="85" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="85" y="40" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="177" y="40" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="177" y="132" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="70" y="85" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="130" y="25" diameter="38"/><circle color="-7500403" filled="true" marked="true" x="96" y="51" diameter="108"/><circle color="-16777216" filled="true" marked="false" x="113" y="68" diameter="74"/><polygon color="-10899396" filled="true" marked="false"><point x="189" y="233"/><point x="219" y="188"/><point x="249" y="173"/><point x="279" y="188"/><point x="234" y="218"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="180" y="255"/><point x="150" y="210"/><point x="105" y="210"/><point x="75" y="240"/><point x="135" y="240"/></polygon></shape><shape name="house" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="45" startY="120" endX="255" endY="285"/><rectangle color="-16777216" filled="true" marked="false" startX="120" startY="210" endX="180" endY="285"/><polygon color="-7500403" filled="true" marked="true"><point x="15" y="120"/><point x="150" y="15"/><point x="285" y="120"/></polygon><line color="-16777216" marked="false" startX="30" startY="120" endX="270" endY="120"/></shape><shape name="leaf" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="210"/><point x="135" y="195"/><point x="120" y="210"/><point x="60" y="210"/><point x="30" y="195"/><point x="60" y="180"/><point x="60" y="165"/><point x="15" y="135"/><point x="30" y="120"/><point x="15" y="105"/><point x="40" y="104"/><point x="45" y="90"/><point x="60" y="90"/><point x="90" y="105"/><point x="105" y="120"/><point x="120" y="120"/><point x="105" y="60"/><point x="120" y="60"/><point x="135" y="30"/><point x="150" y="15"/><point x="165" y="30"/><point x="180" y="60"/><point x="195" y="60"/><point x="180" y="120"/><point x="195" y="120"/><point x="210" y="105"/><point x="240" y="90"/><point x="255" y="90"/><point x="263" y="104"/><point x="285" y="105"/><point x="270" y="120"/><point x="285" y="135"/><point x="240" y="165"/><point x="240" y="180"/><point x="270" y="195"/><point x="240" y="210"/><point x="180" y="210"/><point x="165" y="195"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="195"/><point x="135" y="240"/><point x="120" y="255"/><point x="105" y="255"/><point x="105" y="285"/><point x="135" y="285"/><point x="165" y="240"/><point x="165" y="195"/></polygon></shape><shape name="line" rotatable="true" editableColorIndex="0"><line color="-7500403" marked="true" startX="150" startY="0" endX="150" endY="300"/></shape><shape name="line half" rotatable="true" editableColorIndex="0"><line color="-7500403" marked="true" startX="150" startY="0" endX="150" endY="150"/></shape><shape name="pentagon" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="15"/><point x="15" y="120"/><point x="60" y="285"/><point x="240" y="285"/><point x="285" y="120"/></polygon></shape><shape name="person" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="110" y="5" diameter="80"/><polygon color="-7500403" filled="true" marked="true"><point x="105" y="90"/><point x="120" y="195"/><point x="90" y="285"/><point x="105" y="300"/><point x="135" y="300"/><point x="150" y="225"/><point x="165" y="300"/><point x="195" y="300"/><point x="210" y="285"/><point x="180" y="195"/><point x="195" y="90"/></polygon><rectangle color="-7500403" filled="true" marked="true" startX="127" startY="79" endX="172" endY="94"/><polygon color="-7500403" filled="true" marked="true"><point x="195" y="90"/><point x="240" y="150"/><point x="225" y="180"/><point x="165" y="105"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="105" y="90"/><point x="60" y="150"/><point x="75" y="180"/><point x="135" y="105"/></polygon></shape><shape name="person farmer" rotatable="false" editableColorIndex="10"><polygon color="-7500403" filled="true" marked="false"><point x="105" y="90"/><point x="120" y="195"/><point x="90" y="285"/><point x="105" y="300"/><point x="135" y="300"/><point x="150" y="225"/><point x="165" y="300"/><point x="195" y="300"/><point x="210" y="285"/><point x="180" y="195"/><point x="195" y="90"/></polygon><polygon color="-1" filled="true" marked="false"><point x="60" y="195"/><point x="90" y="210"/><point x="114" y="154"/><point x="120" y="195"/><point x="180" y="195"/><point x="187" y="157"/><point x="210" y="210"/><point x="240" y="195"/><point x="195" y="90"/><point x="165" y="90"/><point x="150" y="105"/><point x="150" y="150"/><point x="135" y="90"/><point x="105" y="90"/></polygon><circle color="-7500403" filled="true" marked="false" x="110" y="5" diameter="80"/><rectangle color="-7500403" filled="true" marked="false" startX="127" startY="79" endX="172" endY="94"/><polygon color="-13345367" filled="true" marked="true"><point x="120" y="90"/><point x="120" y="180"/><point x="120" y="195"/><point x="90" y="285"/><point x="105" y="300"/><point x="135" y="300"/><point x="150" y="225"/><point x="165" y="300"/><point x="195" y="300"/><point x="210" y="285"/><point x="180" y="195"/><point x="180" y="90"/><point x="172" y="89"/><point x="165" y="135"/><point x="135" y="135"/><point x="127" y="90"/></polygon><polygon color="-13345367" filled="true" marked="true"><point x="116" y="4"/><point x="113" y="21"/><point x="71" y="33"/><point x="71" y="40"/><point x="109" y="48"/><point x="117" y="34"/><point x="144" y="27"/><point x="180" y="26"/><point x="188" y="36"/><point x="224" y="23"/><point x="222" y="14"/><point x="178" y="16"/><point x="167" y="0"/></polygon><line color="-16777216" marked="false" startX="225" startY="90" endX="270" endY="90"/><line color="-16777216" marked="false" startX="225" startY="15" endX="225" endY="90"/><line color="-16777216" marked="false" startX="270" startY="15" endX="270" endY="90"/><line color="-16777216" marked="false" startX="247" startY="15" endX="247" endY="90"/><rectangle color="-6459832" filled="true" marked="false" startX="240" startY="90" endX="255" endY="300"/></shape><shape name="person logger" rotatable="false" editableColorIndex="10"><polygon color="-7500403" filled="true" marked="false"><point x="105" y="90"/><point x="120" y="195"/><point x="90" y="285"/><point x="105" y="300"/><point x="135" y="300"/><point x="150" y="225"/><point x="165" y="300"/><point x="195" y="300"/><point x="210" y="285"/><point x="180" y="195"/><point x="195" y="90"/></polygon><polygon color="-1" filled="true" marked="false"><point x="60" y="195"/><point x="90" y="210"/><point x="114" y="154"/><point x="120" y="195"/><point x="180" y="195"/><point x="187" y="157"/><point x="210" y="210"/><point x="240" y="195"/><point x="195" y="90"/><point x="165" y="90"/><point x="150" y="105"/><point x="150" y="150"/><point x="135" y="90"/><point x="105" y="90"/></polygon><circle color="-7500403" filled="true" marked="false" x="110" y="5" diameter="80"/><rectangle color="-7500403" filled="true" marked="false" startX="127" startY="79" endX="172" endY="94"/><polygon color="-13345367" filled="true" marked="true"><point x="120" y="90"/><point x="120" y="180"/><point x="120" y="195"/><point x="90" y="285"/><point x="105" y="300"/><point x="135" y="300"/><point x="150" y="225"/><point x="165" y="300"/><point x="195" y="300"/><point x="210" y="285"/><point x="180" y="195"/><point x="180" y="90"/><point x="172" y="89"/><point x="165" y="135"/><point x="135" y="135"/><point x="127" y="90"/></polygon><polygon color="-13345367" filled="true" marked="true"><point x="116" y="4"/><point x="113" y="21"/><point x="71" y="33"/><point x="71" y="40"/><point x="109" y="48"/><point x="117" y="34"/><point x="144" y="27"/><point x="180" y="26"/><point x="188" y="36"/><point x="224" y="23"/><point x="222" y="14"/><point x="178" y="16"/><point x="167" y="0"/></polygon><polygon color="-16777216" filled="true" marked="false"><point x="240" y="95"/><point x="230" y="95"/><point x="235" y="60"/><point x="256" y="66"/><point x="296" y="70"/><point x="293" y="122"/><point x="274" y="102"/></polygon><polygon color="-6459832" filled="true" marked="false"><point x="247" y="95"/><point x="224" y="196"/><point x="216" y="226"/><point x="229" y="232"/><point x="260" y="96"/></polygon></shape><shape name="plant" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="135" startY="90" endX="165" endY="300"/><polygon color="-7500403" filled="true" marked="true"><point x="135" y="255"/><point x="90" y="210"/><point x="45" y="195"/><point x="75" y="255"/><point x="135" y="285"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="165" y="255"/><point x="210" y="210"/><point x="255" y="195"/><point x="225" y="255"/><point x="165" y="285"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="180"/><point x="90" y="135"/><point x="45" y="120"/><point x="75" y="180"/><point x="135" y="210"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="165" y="180"/><point x="165" y="210"/><point x="225" y="180"/><point x="255" y="120"/><point x="210" y="135"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="105"/><point x="90" y="60"/><point x="45" y="45"/><point x="75" y="105"/><point x="135" y="135"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="165" y="105"/><point x="165" y="135"/><point x="225" y="105"/><point x="255" y="45"/><point x="210" y="60"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="135" y="90"/><point x="120" y="45"/><point x="150" y="15"/><point x="180" y="45"/><point x="165" y="90"/></polygon></shape><shape name="square" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="30" startY="30" endX="270" endY="270"/></shape><shape name="square 2" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="30" startY="30" endX="270" endY="270"/><rectangle color="-16777216" filled="true" marked="false" startX="60" startY="60" endX="240" endY="240"/></shape><shape name="star" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="151" y="1"/><point x="185" y="108"/><point x="298" y="108"/><point x="207" y="175"/><point x="242" y="282"/><point x="151" y="216"/><point x="59" y="282"/><point x="94" y="175"/><point x="3" y="108"/><point x="116" y="108"/></polygon></shape><shape name="target" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="0" y="0" diameter="300"/><circle color="-16777216" filled="true" marked="false" x="30" y="30" diameter="240"/><circle color="-7500403" filled="true" marked="true" x="60" y="60" diameter="180"/><circle color="-16777216" filled="true" marked="false" x="90" y="90" diameter="120"/><circle color="-7500403" filled="true" marked="true" x="120" y="120" diameter="60"/></shape><shape name="thick line" rotatable="true" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="150" startY="0" endX="150" endY="300"/><rectangle color="-7500403" filled="true" marked="true" startX="135" startY="0" endX="165" endY="300"/></shape><shape name="thicker line" rotatable="true" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="150" startY="0" endX="150" endY="300"/><rectangle color="-7500403" filled="true" marked="true" startX="105" startY="0" endX="195" endY="300"/></shape><shape name="tree" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="118" y="3" diameter="94"/><rectangle color="-6459832" filled="true" marked="false" startX="120" startY="195" endX="180" endY="300"/><circle color="-7500403" filled="true" marked="true" x="65" y="21" diameter="108"/><circle color="-7500403" filled="true" marked="true" x="116" y="41" diameter="127"/><circle color="-7500403" filled="true" marked="true" x="45" y="90" diameter="120"/><circle color="-7500403" filled="true" marked="true" x="104" y="74" diameter="152"/></shape><shape name="triangle" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="30"/><point x="15" y="255"/><point x="285" y="255"/></polygon></shape><shape name="triangle 2" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="150" y="30"/><point x="15" y="255"/><point x="285" y="255"/></polygon><polygon color="-16777216" filled="true" marked="false"><point x="151" y="99"/><point x="225" y="223"/><point x="75" y="224"/></polygon></shape><shape name="truck" rotatable="false" editableColorIndex="0"><rectangle color="-7500403" filled="true" marked="true" startX="4" startY="45" endX="195" endY="187"/><polygon color="-7500403" filled="true" marked="true"><point x="296" y="193"/><point x="296" y="150"/><point x="259" y="134"/><point x="244" y="104"/><point x="208" y="104"/><point x="207" y="194"/></polygon><rectangle color="-1" filled="true" marked="false" startX="195" startY="60" endX="195" endY="105"/><polygon color="-16777216" filled="true" marked="false"><point x="238" y="112"/><point x="252" y="141"/><point x="219" y="141"/><point x="218" y="112"/></polygon><circle color="-16777216" filled="true" marked="false" x="234" y="174" diameter="42"/><rectangle color="-7500403" filled="true" marked="true" startX="181" startY="185" endX="214" endY="194"/><circle color="-16777216" filled="true" marked="false" x="144" y="174" diameter="42"/><circle color="-16777216" filled="true" marked="false" x="24" y="174" diameter="42"/><circle color="-7500403" filled="false" marked="true" x="24" y="174" diameter="42"/><circle color="-7500403" filled="false" marked="true" x="144" y="174" diameter="42"/><circle color="-7500403" filled="false" marked="true" x="234" y="174" diameter="42"/></shape><shape name="turtle" rotatable="true" editableColorIndex="0"><polygon color="-10899396" filled="true" marked="false"><point x="215" y="204"/><point x="240" y="233"/><point x="246" y="254"/><point x="228" y="266"/><point x="215" y="252"/><point x="193" y="210"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="195" y="90"/><point x="225" y="75"/><point x="245" y="75"/><point x="260" y="89"/><point x="269" y="108"/><point x="261" y="124"/><point x="240" y="105"/><point x="225" y="105"/><point x="210" y="105"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="105" y="90"/><point x="75" y="75"/><point x="55" y="75"/><point x="40" y="89"/><point x="31" y="108"/><point x="39" y="124"/><point x="60" y="105"/><point x="75" y="105"/><point x="90" y="105"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="132" y="85"/><point x="134" y="64"/><point x="107" y="51"/><point x="108" y="17"/><point x="150" y="2"/><point x="192" y="18"/><point x="192" y="52"/><point x="169" y="65"/><point x="172" y="87"/></polygon><polygon color="-10899396" filled="true" marked="false"><point x="85" y="204"/><point x="60" y="233"/><point x="54" y="254"/><point x="72" y="266"/><point x="85" y="252"/><point x="107" y="210"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="119" y="75"/><point x="179" y="75"/><point x="209" y="101"/><point x="224" y="135"/><point x="220" y="225"/><point x="175" y="261"/><point x="128" y="261"/><point x="81" y="224"/><point x="74" y="135"/><point x="88" y="99"/></polygon></shape><shape name="wheel" rotatable="false" editableColorIndex="0"><circle color="-7500403" filled="true" marked="true" x="3" y="3" diameter="294"/><circle color="-16777216" filled="true" marked="false" x="30" y="30" diameter="240"/><line color="-7500403" marked="true" startX="150" startY="285" endX="150" endY="15"/><line color="-7500403" marked="true" startX="15" startY="150" endX="285" endY="150"/><circle color="-7500403" filled="true" marked="true" x="120" y="120" diameter="60"/><line color="-7500403" marked="true" startX="216" startY="40" endX="79" endY="269"/><line color="-7500403" marked="true" startX="40" startY="84" endX="269" endY="221"/><line color="-7500403" marked="true" startX="40" startY="216" endX="269" endY="79"/><line color="-7500403" marked="true" startX="84" startY="40" endX="221" endY="269"/></shape><shape name="x" rotatable="false" editableColorIndex="0"><polygon color="-7500403" filled="true" marked="true"><point x="270" y="75"/><point x="225" y="30"/><point x="30" y="225"/><point x="75" y="270"/></polygon><polygon color="-7500403" filled="true" marked="true"><point x="30" y="75"/><point x="75" y="30"/><point x="270" y="225"/><point x="225" y="270"/></polygon></shape></turtleShapes>
+<!-- linkShapes: skipped (legacy format for link shapes is under-documented publicly; default link shapes are provided by NetLogo itself and do not need to be round-tripped) -->
+</model>
