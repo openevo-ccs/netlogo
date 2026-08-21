@@ -130,11 +130,16 @@ def _f(x, cast=float):
 
 
 def extract_from_nlogox(xml_text: str) -> dict:
+    """NOTE: code/text-bearing elements (<code>, <info>, <button>, <monitor>,
+    plot/pen <setup>/<update>, <input>) hold their content as the element's
+    OWN text (ET transparently merges CDATA into .text) -- not a nested
+    <source>/<text>/<value> child. Validated against NetLogo 7.0.4's own
+    bundled sample .nlogox models; see nlogo_to_nlogox.py's docstring."""
     root = ET.fromstring(xml_text)
-    code_el = root.find("code/source")
+    code_el = root.find("code")
     code = code_el.text or "" if code_el is not None else ""
 
-    info_el = root.find("info/text")
+    info_el = root.find("info")
     info = info_el.text or "" if info_el is not None else ""
 
     parameters, outputs, controls = [], [], []
@@ -166,29 +171,29 @@ def extract_from_nlogox(xml_text: str) -> dict:
             choices = []
             for c in w.findall("choice"):
                 v = c.get("value")
-                choices.append(_f(v) if c.get("type") == "number" else v)
+                # numeric chooser choices are type="double" in real 7.0.4
+                # output, not "number" (that's the <input> box vocabulary).
+                choices.append(_f(v) if c.get("type") == "double" else v)
             current = int(w.get("current", "0"))
             parameters.append({
                 "widget": "chooser", "variable": w.get("variable"), "display": w.get("display"),
                 "values": choices, "default": choices[current] if choices else None,
             })
         elif tag == "input":
-            val_el = w.find("value")
             parameters.append({
                 "widget": "input", "variable": w.get("variable"), "display": w.get("display"),
-                "type": w.get("type"), "default": val_el.text if val_el is not None else None,
+                "type": w.get("type"), "default": w.text,
             })
         elif tag == "monitor":
-            src_el = w.find("source")
             outputs.append({
                 "widget": "monitor", "display": w.get("display"),
-                "reporter": (src_el.text or "").strip() if src_el is not None else "",
+                "reporter": (w.text or "").strip(),
             })
         elif tag == "plot":
             pens = []
             for pen in w.findall("pen"):
-                upd = pen.find("updateCode/source")
-                setup = pen.find("setupCode/source")
+                upd = pen.find("update")
+                setup = pen.find("setup")
                 pens.append({
                     "display": pen.get("display"),
                     "setup": (setup.text or "").strip() if setup is not None and setup.text else "",
@@ -201,11 +206,10 @@ def extract_from_nlogox(xml_text: str) -> dict:
                 "pens": pens,
             })
         elif tag == "button":
-            src_el = w.find("source")
             controls.append({
                 "display": w.get("display"), "kind": w.get("kind"),
                 "forever": w.get("forever") == "true",
-                "code": (src_el.text or "").strip() if src_el is not None else "",
+                "code": (w.text or "").strip(),
             })
 
     return {

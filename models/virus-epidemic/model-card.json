@@ -398,25 +398,25 @@
   "controls": [
     {
       "display": "Setup",
-      "kind": "observer",
+      "kind": "Observer",
       "forever": false,
       "code": "setup"
     },
     {
       "display": "Start",
-      "kind": "observer",
+      "kind": "Observer",
       "forever": true,
       "code": "go"
     },
     {
       "display": "One round",
-      "kind": "observer",
+      "kind": "Observer",
       "forever": false,
       "code": "go"
     },
     {
       "display": "New infection",
-      "kind": "observer",
+      "kind": "Observer",
       "forever": false,
       "code": "new-infection"
     }

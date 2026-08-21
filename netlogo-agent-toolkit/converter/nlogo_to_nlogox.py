@@ -8,20 +8,36 @@ Built directly from two primary sources:
   - Pre-7.0.0 field layout: github.com/NetLogo/NetLogo/wiki/Pre-7.0.0-File-Format-(.nlogo)-and-Widget-Format
   - 7.0.0 XML schema:       github.com/NetLogo/NetLogo/wiki/XML-File-Format
 
-This is a from-scratch reimplementation (no NetLogo JVM/desktop app was used
-or is available in this environment) and is meant as the first stage of an
-agent-facing NetLogo toolkit: turn opaque legacy model files into a
+This started as a from-scratch reimplementation with no NetLogo JVM/desktop
+app available to check against; it has since been validated against a real
+NetLogo 7.0.4 engine (see assumption 1 below) and is meant as the first
+stage of an agent-facing NetLogo toolkit: turn opaque legacy model files into a
 well-formed, parseable XML document that downstream tools (model-card
 extraction, experiment validation, widget-aware agents) can consume without
 ever touching the original NetLogo-specific text format.
 
 KNOWN GAPS / DOCUMENTED ASSUMPTIONS (flagged rather than silently guessed):
-  1. The public wiki's <monitor> element lists no attribute or child for the
-     reporter expression a monitor displays, which cannot be right (a monitor
-     with no source is meaningless). We follow the same pattern used for
-     <button>/<plot> code and emit a `source` TEXT child. This is almost
-     certainly what the real writer does; flagged here because we can't
-     verify against NetLogo source in this environment.
+  1. VALIDATED against a real NetLogo 7.0.4 engine (2026-08-21, once a
+     desktop install became available) by diffing against NetLogo's own
+     bundled sample .nlogox models. Three classes of bug found and fixed:
+       a. `kind` (button) and `direction` (slider) are capitalized enum
+          tokens ("Observer"/"Turtle"/"Patch"/"Link",
+          "Horizontal"/"Vertical") — the public wiki documents them
+          lowercase, which real 7.0.4 rejects with `scala.MatchError`.
+       b. Every code/text-bearing element (`<code>`, `<info>`, `<button>`,
+          `<monitor>`, plot/pen `<setup>`/`<update>`, `<note>`, `<input>`)
+          holds its content as the element's OWN text/CDATA — never a
+          nested `<source>`/`<text>`/`<value>` child, contra the pattern
+          the wiki implies by analogy. Confirmed against NetLogo 7.0.4's
+          own "Wolf Sheep Predation.nlogox" and others under its bundled
+          `models/` tree. `<model version="...">` also carries a
+          "NetLogo " prefix (e.g. "NetLogo 7.0.4"), not a bare number.
+       c. Chooser numeric choices use `type="double"`, not `type="number"`
+          (that's the `<input>` box's vocabulary).
+     See `netlogo-agent-toolkit/README.md`'s "Known gaps" section for the
+     full validation writeup, including a `model_card.py` reader bug found
+     at the same time (it round-tripped against this writer's own prior —
+     also wrong — output).
   2. Legacy PLOT format has a single "autoplot?" boolean (x-axis autoscaling
      only); nlogox has separate autoPlotX / autoPlotY. We map the legacy
      value to autoPlotX and set autoPlotY=False, since the old GUI had no
@@ -52,6 +68,13 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 
 SECTION_DIVIDER = "@#$#@#$#@"
+
+# nlogox `kind`/AgentKind values are capitalized (Observer/Turtle/Patch/Link);
+# the legacy .nlogo BUTTON widget's type field is uppercase (OBSERVER/...).
+AGENT_KIND_MAP = {
+    "OBSERVER": "Observer", "TURTLE": "Turtle",
+    "PATCH": "Patch", "LINK": "Link",
+}
 
 SECTION_NAMES = [
     "code", "widgets", "info", "turtle_shapes", "version",
@@ -99,12 +122,17 @@ def _nil_or(tok: str, default: Optional[str] = None) -> Optional[str]:
     return default if tok == "NIL" else tok
 
 
-def xml_text(tag: str, text: str) -> str:
-    """Emit a TEXT child per spec: CDATA if it contains reserved XML chars."""
+def cdata_or_text(text: str) -> str:
+    """Content for an element that holds code/text as its OWN body (no
+    nested wrapper tag) — CDATA if it contains reserved XML chars, escaped
+    text otherwise. This is how real NetLogo 7.0.4 .nlogox files encode
+    <code>, <info>, <button>, <monitor>, plot/pen <setup>/<update>,
+    <note>, and <input> content (validated against NetLogo's own bundled
+    sample models)."""
     if any(c in text for c in "<>&"):
         safe = text.replace("]]>", "]]]]><![CDATA[>")
-        return f"<{tag}><![CDATA[{safe}]]></{tag}>"
-    return f"<{tag}>{sx.escape(text)}</{tag}>"
+        return f"<![CDATA[{safe}]]>"
+    return sx.escape(text)
 
 
 def attr(name: str, value) -> str:
@@ -177,7 +205,9 @@ class Widget:
         display = f[4].strip()
         code = f[5]
         forever = _nlogo_bool(f[6])
-        button_type = f[9].strip().lower()  # OBSERVER/TURTLE/PATCH/LINK
+        # kind is a capitalized enum in real 7.0.4 output (Observer/Turtle/
+        # Patch/Link), not the lowercase form the public wiki documents.
+        button_type = AGENT_KIND_MAP.get(f[9].strip().upper(), "Observer")
         action_key = _nil_or(f[11])
         always_enabled = _numeric_bool(f[14]) if len(f) > 14 else True
         attrs = [
@@ -190,7 +220,7 @@ class Widget:
             attrs.append(attr("display", display))
         if action_key:
             attrs.append(attr("actionKey", action_key))
-        return f"<button {' '.join(attrs)}>{xml_text('source', code)}</button>"
+        return f"<button {' '.join(attrs)}>{cdata_or_text(code)}</button>"
 
     # ---- Slider -----------------------------------------------------------
     def _render_slider(self) -> str:
@@ -201,7 +231,7 @@ class Widget:
         vdefault = float(f[8])
         step = f[9].strip()
         units = _nil_or(f[11])
-        orientation = "horizontal" if f[12].strip().upper() == "HORIZONTAL" else "vertical"
+        orientation = "Horizontal" if f[12].strip().upper() == "HORIZONTAL" else "Vertical"
         attrs = [
             attr("x", left), attr("y", top),
             attr("width", right - left), attr("height", bottom - top),
@@ -248,10 +278,7 @@ class Widget:
         ]
         if display:
             attrs.append(attr("display", display))
-        # See module docstring assumption (1): `source` child inferred by
-        # analogy with <button>/<plot> code children; not explicit in the
-        # public wiki table for <monitor>.
-        return f"<monitor {' '.join(attrs)}>{xml_text('source', source)}</monitor>"
+        return f"<monitor {' '.join(attrs)}>{cdata_or_text(source)}</monitor>"
 
     # ---- Plot -----------------------------------------------------------
     def _render_plot(self) -> str:
@@ -279,9 +306,10 @@ class Widget:
         if yaxis:
             attrs.append(attr("yAxis", yaxis))
 
-        # setupCode/updateCode wrap a `source` TEXT child per spec
-        parts = [f"<setupCode>{xml_text('source', setup_code)}</setupCode>",
-                 f"<updateCode>{xml_text('source', update_code)}</updateCode>"]
+        # <setup>/<update> hold their code as direct text/CDATA content,
+        # not "setupCode"/"updateCode" wrapping a nested <source> child.
+        parts = [f"<setup>{cdata_or_text(setup_code)}</setup>",
+                 f"<update>{cdata_or_text(update_code)}</update>"]
 
         # PENS block: locate the "PENS" marker line (not a fixed index,
         # since the header's field count is stable but blank-line
@@ -307,8 +335,8 @@ class Widget:
             parts.append(
                 f'<pen {attr("display", pdisplay)} {attr("interval", interval)} '
                 f'{attr("mode", mode)} {attr("color", color)} {attr("legend", in_legend)}>'
-                f"<setupCode>{xml_text('source', psetup)}</setupCode>"
-                f"<updateCode>{xml_text('source', pupdate)}</updateCode></pen>"
+                f"<setup>{cdata_or_text(psetup)}</setup>"
+                f"<update>{cdata_or_text(pupdate)}</update></pen>"
             )
         return f"<plot {' '.join(attrs)}>{''.join(parts)}</plot>"
 
@@ -338,7 +366,11 @@ class Widget:
             else:
                 try:
                     float(tok)
-                    choice_xml.append(f'<choice {attr("type", "number")} {attr("value", tok)}/>')
+                    # Chooser numeric choices use type="double" in real
+                    # 7.0.4 output, not "number" (that's the <input> box
+                    # vocabulary) — confirmed against NetLogo's own bundled
+                    # sample models.
+                    choice_xml.append(f'<choice {attr("type", "double")} {attr("value", tok)}/>')
                 except ValueError:
                     choice_xml.append(f'<choice {attr("type", "string")} {attr("value", tok)}/>')
         return f"<chooser {' '.join(attrs)}>{''.join(choice_xml)}</chooser>"
@@ -372,7 +404,7 @@ class Widget:
                  attr("multiline", multiline), attr("type", boxtype)]
         if varname:
             attrs.append(attr("variable", varname))
-        return f"<input {' '.join(attrs)}>{xml_text('value', value)}</input>"
+        return f"<input {' '.join(attrs)}>{cdata_or_text(value)}</input>"
 
     # ---- Note (from legacy TEXTBOX) --------------------------------------
     def _render_textbox(self) -> str:
@@ -391,7 +423,7 @@ class Widget:
             attr("backgroundLight", 0), attr("backgroundDark", 0),
             attr("markdown", False),
         ]
-        return f"<note {' '.join(attrs)}>{xml_text('text', display)}</note>"
+        return f"<note {' '.join(attrs)}>{cdata_or_text(display)}</note>"
 
 
 WIDGET_FIELD_COUNTS = {
@@ -569,7 +601,7 @@ def convert(nlogo_text: str, target_version: str = "7.0.4") -> tuple[str, Conver
     link_shapes_xml = render_link_shapes(sections["link_shapes"])
 
     preview = sections["preview_commands"].strip("\n")
-    preview_xml = f"<previewCommands>{xml_text('text', preview)}</previewCommands>" if preview.strip() else ""
+    preview_xml = f"<previewCommands>{cdata_or_text(preview)}</previewCommands>" if preview.strip() else ""
 
     out = []
     out.append('<?xml version="1.0" encoding="UTF-8"?>')
@@ -577,10 +609,10 @@ def convert(nlogo_text: str, target_version: str = "7.0.4") -> tuple[str, Conver
                f"{original_version!r}) by nlogo_to_nlogox.py. "
                f"Target format version: {target_version}. "
                f"See module docstring for documented conversion assumptions. -->")
-    out.append(f'<model {attr("version", target_version)} {attr("snapToGrid", snap_to_grid)}>')
-    out.append(f"<code>{xml_text('source', code)}</code>")
+    out.append(f'<model {attr("version", f"NetLogo {target_version}")} {attr("snapToGrid", snap_to_grid)}>')
+    out.append(f"<code>{cdata_or_text(code)}</code>")
     out.append(f"<widgets>{''.join(widget_xml_parts)}</widgets>")
-    out.append(f"<info>{xml_text('text', info)}</info>")
+    out.append(f"<info>{cdata_or_text(info)}</info>")
     if turtle_shapes_xml:
         out.append(turtle_shapes_xml)
     if link_shapes_xml:

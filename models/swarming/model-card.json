@@ -211,19 +211,19 @@
   "controls": [
     {
       "display": "Setup",
-      "kind": "observer",
+      "kind": "Observer",
       "forever": false,
       "code": "setup"
     },
     {
       "display": "Go",
-      "kind": "observer",
+      "kind": "Observer",
       "forever": true,
       "code": "go"
     },
     {
       "display": "One round",
-      "kind": "observer",
+      "kind": "Observer",
       "forever": false,
       "code": "go"
     }

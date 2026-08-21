@@ -16,6 +16,8 @@ decompose/agent_manifest.py      Model Card -> AI-agent control-surface manifest
 experiments/validate_experiment.py   BehaviorSpace XML validator against a Model Card
 experiments/fixtures/            synthetic test fixtures for validate_experiment.py
                                   (not real collection artifacts — see their own comments)
+validation/run_smoke_tests.py    runs every model's .nlogox headless against a real
+                                  NetLogo 7 install and reports pass/fail
 runtime/interface.py             abstract tool contract (setup/step/report/...)
 examples/two-foresters/          one worked example: a hand-written reference runtime
                                   implementing runtime/interface.py for Two Foresters
@@ -43,12 +45,14 @@ format (documented at [NetLogo/NetLogo wiki: Pre-7.0.0 File Format](https://gith
 and emits valid NetLogo 7 `.nlogox` XML per the
 [7.0.0 XML schema](https://github.com/NetLogo/NetLogo/wiki/XML-File-Format).
 Runs cleanly across all 14 models in the collection (`batch_process.py`'s summary
-table shows 14/14 converted with no exceptions).
+table shows 14/14 converted with no exceptions), and — as of 2026-08-21 —
+all 14 also compile and run on a real NetLogo 7.0.4 engine (see step 4b).
 
-Documented conversion assumptions (places the public wiki schema is
-ambiguous or silent) are in the module docstring — notably: the wiki's
-`<monitor>` element lists no reporter-source field at all, which can't be
-right, so we infer one by analogy with `<button>`/`<plot>`.
+Documented conversion assumptions (places the public wiki schema turned out
+to be wrong or silent) are in the module docstring — notably: real 7.0.4
+holds every code/text-bearing element's content as the element's own
+text/CDATA (`<button>foo</button>`), not a nested `<source>` child as the
+wiki's per-widget documentation pattern implies by analogy.
 
 **2. Decompose.** `model_card.py` turns the model into a JSON manifest an
 agent can read directly instead of re-deriving structure from raw NetLogo
@@ -99,6 +103,13 @@ real saved experiment pulled from the collection):
   that passes clean, proving the validator discriminates rather than
   rubber-stamping.
 
+**4b. Validate against a real engine.** `validation/run_smoke_tests.py` runs
+every model's `.nlogox` headless against a real NetLogo 7 install
+(`org.nlogo.headless.Main`, bypassing `netlogo-headless.bat`'s quoting bug
+on install paths with spaces). 14/14 compile and run cleanly. See "Known
+gaps" below for what this caught and fixed in both the converter and the
+Model Card reader.
+
 **5. Run (worked example only).** `examples/two-foresters/reference_runtime.py`
 implements the shared `ModelRuntime` contract from `runtime/interface.py`
 (`describe/set_param/setup/step/report/sample_agents/patch_grid/snapshot/
@@ -116,27 +127,43 @@ the other 13 models. Verified:
 
 ## Known gaps
 
-- **No NetLogo 7 install was available to validate `.nlogox` against a real
-  engine.** This is the gap that actually matters and remains open. A NetLogo
-  6.4.0 desktop install *is* present on this machine, but 6.4.0 cannot open the
-  new `.nlogox` format at all (it's NetLogo-7-only) — so it can't validate the
-  converter's output directly, only serve as an oracle for the legacy `.nlogo`
-  source.
-- **A limited real-engine cross-check of the legacy `.nlogo` was attempted and
-  intentionally not pushed further.** NetLogo 6.4.0's bundled JVM launcher
-  script hard-codes JVM flags (`-XX:MaxRAMPercentage=50`, `--add-exports=...`)
-  that assume a bundled Java 11+ runtime; this install's bundled `runtime/bin`
-  is missing its actual `java.exe` (DLLs only), so it silently falls back to
-  the system Java 8, which rejects those flags outright. Borrowing a Java 11
-  JDK from another installed application (Gephi) got the JVM itself launching
-  cleanly, and in the process caught a real bug in this repo's own smoke-test
-  fixture (an XML comment containing `--`, illegal per the XML spec — Xerces
-  and Python's `ElementTree` both correctly rejected it). Past that, NetLogo's
-  headless `--setup-file` loader rejected the (now well-formed) fixture XML
-  for a reason not further diagnosed. Given NetLogo 7 is where OpenEvo's
-  actual direction is headed, further 6.x troubleshooting was deliberately
-  not pursued past this point rather than expanding it into a full 14-model
-  sweep — see `validation/smoke_experiment.xml` for the fixture as it stands.
+- **Resolved 2026-08-21: validated against a real NetLogo 7.0.4 engine.**
+  A NetLogo 7.0.4 desktop install became available; `validation/run_smoke_tests.py`
+  runs every model's `.nlogox` headless (`org.nlogo.headless.Main`, bypassing
+  `netlogo-headless.bat` — its `-D...=^"%BASE_DIR%"` pattern has a real
+  quoting bug on any install path containing a space, e.g. the default
+  `C:\Program Files\NetLogo 7.0.4`: a trailing backslash immediately before a
+  closing quote is parsed as an escaped literal quote, not a terminator,
+  corrupting the rest of the command line). All 14 models now compile and
+  run 20 ticks cleanly.
+  Getting there found and fixed real converter bugs the public wiki schema
+  didn't surface, confirmed by diffing against NetLogo 7.0.4's own bundled
+  sample `.nlogox` models (e.g. `models/Sample Models/Biology/Wolf Sheep
+  Predation.nlogox`):
+    - `kind` (button) and `direction` (slider) are **capitalized** enum
+      tokens (`Observer`/`Turtle`/`Patch`/`Link`, `Horizontal`/`Vertical`) —
+      the wiki documents them lowercase, which 7.0.4 rejects outright with
+      `scala.MatchError`.
+    - Every code/text-bearing element (`<code>`, `<info>`, `<button>`,
+      `<monitor>`, plot/pen `<setup>`/`<update>`, `<note>`, `<input>`) holds
+      its content as the element's **own text/CDATA**, never a nested
+      `<source>`/`<text>`/`<value>` child as the wiki's per-widget analogy
+      implied. `model_card.py`'s extraction had the same wrong assumption
+      (it round-tripped against the converter's own prior — also wrong —
+      output), so fixing the writer without fixing the reader would have
+      silently zeroed out every model's `procedures`/`entry_points`/control
+      `code` fields; both were fixed together.
+    - Chooser numeric choices use `type="double"`, not `type="number"`
+      (that's the `<input>` box's vocabulary).
+    - `<model version="...">` carries a `"NetLogo "` prefix (e.g.
+      `"NetLogo 7.0.4"`), not a bare version number.
+  Separately, headless `--setup-file` does not work as documented in 7.0.4
+  — confirmed against a known-good NetLogo-authored sample model, not just
+  our own output — so `run_smoke_tests.py` embeds a throwaway
+  `<experiments>` block directly in a scratch copy of each `.nlogox` instead
+  (and reads the model's *actual* Setup-button code from `model-card.json`
+  rather than assuming a procedure literally named `setup` — Evolution of
+  Ethnocentrism's Setup button calls `setup-full`).
 - `model_card.py`'s procedure/call-graph parser is regex-based. It has now
   been run clean across all 14 models in the collection (none use
   link-breeds or extension calls), but a model outside this collection using

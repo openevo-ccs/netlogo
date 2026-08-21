@@ -415,19 +415,19 @@
   "controls": [
     {
       "display": "Start",
-      "kind": "observer",
+      "kind": "Observer",
       "forever": true,
       "code": "go"
     },
     {
       "display": "Once",
-      "kind": "observer",
+      "kind": "Observer",
       "forever": false,
       "code": "go"
     },
     {
       "display": "Setup",
-      "kind": "observer",
+      "kind": "Observer",
       "forever": false,
       "code": "setup"
     }
