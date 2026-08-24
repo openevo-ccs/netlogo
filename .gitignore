@@ -16,3 +16,5 @@ __pycache__/
 # Defense in depth
 .env
 .env.*
+# Claude Code project settings — never commit (may hold local tokens)
+.claude/
