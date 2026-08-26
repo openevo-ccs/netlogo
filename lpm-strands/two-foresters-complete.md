@@ -1,5 +1,13 @@
 # LPM Strand: Two Foresters
 
+> **Superseded (2026-08-26)**: this file's well-developed grade-band/content-anchor/competency
+> content (independently verified accurate against the real ConceptBase registry) has been
+> incorporated into the real, linked strand at [two-foresters.md](two-foresters.md) (already
+> `metadata.json`'s `lpmStrand` pointer target — unlike `bug-evolution-complete.md`, this file was
+> never itself the linked strand), which adds the restructuration-theory rationale and the parallel
+> `oe:LearningDependency` claim this draft predates. Left in place rather than deleted, per this
+> ecosystem's general never-delete discipline.
+
 > Status: **Complete** - This strand is fully developed with grade-band progression, content anchor alignment, competency mapping, and assessment.
 
 ## Model
