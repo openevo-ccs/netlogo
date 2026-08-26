@@ -25,8 +25,8 @@ strand means answering, for that model:
 This 5-step process is now operationalized end to end by the
 `netlogo-lpm-integrator` agent (and its underlying
 `skills/netlogo-lpm-integration`) in the sibling
-[`curriculum-agents`](https://github.com/openevo-ccs/curriculum-agents)
-repo — it looks up real competencies against ConceptBase, hands off to
+`curriculum-agents` repo (private, not publicly linkable)
+— it looks up real competencies against ConceptBase, hands off to
 `content-anchor-mapper`/`thinking-tools-kit` for step 2, and produces a
 schema-ready contribution via `oecb-schema-authoring` for step 5, rather
 than each strand being written from scratch. It hasn't yet been run

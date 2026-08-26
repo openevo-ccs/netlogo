@@ -69,8 +69,7 @@ cross-model/extended-learning material goes as it's developed.
 
 Model design, editing, and curriculum integration for this collection are
 supported by dedicated agents/skills in the sibling
-[`curriculum-agents`](https://github.com/openevo-ccs/curriculum-agents)
-repo:
+`curriculum-agents` repo (private, not publicly linkable):
 
 - **`netlogo-modeler`** — designs, builds, and edits models in this repo
   (interface widgets, breeds/patches/procedures, BehaviorSpace
