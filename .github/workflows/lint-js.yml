@@ -1,0 +1,38 @@
+name: Lint explorer JS
+
+# Syntax-checks assets/*.js on every push and PR. Added 2026-08-27 after
+# assets/app.js was found to have been sitting as invalid JS (saved as an
+# escaped string) on the live GitHub Pages site for about a month with
+# nothing catching it — this is the minimal guard against that happening
+# silently again.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: node --check on every assets/*.js file
+        run: |
+          set -e
+          shopt -s nullglob
+          files=(assets/*.js)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No JS files found under assets/ — nothing to check."
+            exit 0
+          fi
+          fail=0
+          for f in "${files[@]}"; do
+            echo "Checking $f"
+            if ! node --check "$f"; then
+              fail=1
+            fi
+          done
+          exit $fail

@@ -20,6 +20,7 @@
     conceptFilter: document.getElementById("filter-concept"),
     gradeFilter: document.getElementById("filter-grade"),
     frame: document.getElementById("model-frame"),
+    frameLoading: document.getElementById("model-frame-loading"),
     details: document.getElementById("details-content"),
     breadcrumbCurrent: document.getElementById("breadcrumb-current")
   };
@@ -256,8 +257,11 @@
     var m = state.models.find(function (x) { return x.slug === slug; });
     if (!m) return;
     state.activeSlug = slug;
+    if (els.frameLoading) {
+      els.frameLoading.classList.remove("hidden");
+    }
     els.frame.src = m.htmlApp;
-    
+
     // Add to recently viewed
     addToRecentlyViewed(slug);
     
@@ -330,7 +334,13 @@
   function init(models) {
     state.models = models;
     populateFilters(models);
-    
+
+    if (els.frame && els.frameLoading) {
+      els.frame.addEventListener("load", function () {
+        els.frameLoading.classList.add("hidden");
+      });
+    }
+
     // Load favorites from localStorage
     try {
       var savedFavorites = localStorage.getItem("netlogo-favorites");
