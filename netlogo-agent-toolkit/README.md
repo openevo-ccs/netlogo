@@ -182,6 +182,72 @@ the other 13 models. Verified:
   already passes this through as a raw string rather than crashing; any
   consumer of `agent-manifest.json`'s `controls.sliders[].max` needs to
   handle a non-numeric value, not assume every bound is a float.
+- **`app.html` (the browser-playable NetLogo Web export in each model's
+  folder) is still a NetLogo 6.1 export, unrelated to this toolkit's `.nlogox`
+  work** — the `.nlogox`/model-card/agent-manifest files are validated
+  against a real NetLogo 7.0.4 engine, but nothing regenerates `app.html`
+  from them. NetLogo 7's "Save As NetLogo Web..." (`org.nlogo.app.tools.
+  NetLogoWebSaver`) is GUI-only, no CLI/headless equivalent exists (confirmed
+  via `NetLogo_Console --help`). A same-process reflective call to it throws
+  `FileNotFoundException` on a jar-packaged resource it expects to read some
+  other way when the real app bootstraps normally. A follow-up attempt to
+  drive the real GUI programmatically via Java Access Bridge + Windows UI
+  Automation got the JVM-side AT stack loading cleanly (`-Djavax.
+  accessibility.assistive_technologies=com.sun.java.accessibility.internal.
+  AccessBridge`, `--add-modules=jdk.accessibility`, `--add-exports=
+  jdk.accessibility/com.sun.java.accessibility.internal=java.desktop`, plus
+  registering `windowsaccessbridge-64.dll` into `System32`) but the native
+  bridge never actually exposed the Swing menu tree to an external UI
+  Automation client (0 descendant elements found even after the JVM-side
+  activation stopped erroring) — the remaining gap is undiagnosed. Re-export
+  is a manual, per-model, GUI click-through for now: open `model.nlogo` (or
+  `.nlogox`) in the real NetLogo 7 desktop app, **File → Save As NetLogo
+  Web...**, save over `app.html` — see the procedure below for how to do
+  that without losing the current 6.x version.
+
+## Upgrading a model's web export to NetLogo 7
+
+Every model keeps **both** web-export versions side by side rather than a
+hard cutover — the enrichment work above (`.nlogox`, model-card, agent
+manifest) doesn't require `app.html` itself to be NetLogo 7, and several
+things depend on today's known-working 6.x export (e.g. the sibling `me-mo`
+repo has already copied `two-foresters/app.html` for an offline demo). The
+convention:
+
+- `app.html` — whichever version is currently the **live default** (what
+  `assets/models.json`'s `htmlApp`, each model's `metadata.json`, and the
+  explorer app actually load). Right now that's still NetLogo 6.1 for every
+  model.
+- `app-legacy6.html` — the NetLogo 6.x export, preserved permanently once a
+  model is upgraded, so nothing that depended on the pre-upgrade version
+  breaks silently.
+
+To upgrade one model once you can do the GUI export (manually, or via a
+future working automation):
+
+1. `cp models/<slug>/app.html models/<slug>/app-legacy6.html` — preserve
+   the current version **before** touching `app.html`.
+2. In the NetLogo 7 desktop app: open `models/<slug>/model.nlogo` (or the
+   validated `.nlogox`), **File → Save As NetLogo Web...**, save over
+   `models/<slug>/app.html`.
+3. Actually open the new `app.html` in a browser and click through it —
+   don't just trust that the export succeeded.
+4. If it works: done. Both files now exist; `app.html` is v7 and is the new
+   live default automatically (nothing else needs to change, since
+   `models.json`/`metadata.json` already point at `app.html` by filename).
+   Consider adding an explicit `htmlAppLegacy` pointer to that model's
+   `metadata.json` and `assets/models.json` entry so the explorer can
+   surface a "classic version" link, if that's wanted.
+5. If it doesn't work: `cp models/<slug>/app-legacy6.html models/<slug>/app.html`
+   to restore the known-good version immediately — never leave a broken
+   `app.html` live — then keep investigating before retrying.
+
+Do this per model, not as a bulk operation — verify each one before moving
+to the next, and don't pre-create `app-legacy6.html` files for models that
+haven't actually been re-exported yet (that's just a same-content duplicate
+until step 2 actually changes `app.html`, and at ~5.3MB per model, doing
+that for all 14 speculatively adds ~75MB of pure duplication to the repo for
+zero new information).
 
 ## History
 

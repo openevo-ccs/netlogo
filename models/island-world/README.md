@@ -3,7 +3,8 @@
 Simulates evolution in spatially structured environments where resources and populations are unevenly distributed. Agents occupy resource areas and can migrate away from poor regions, demonstrating how natural selection, migration, founder effects, and isolation interact to produce sustainable local populations. Extends to human evolutionary history and pathogen virulence evolution.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`island-world.nlogox`](island-world.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 

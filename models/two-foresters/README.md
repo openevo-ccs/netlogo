@@ -3,7 +3,8 @@
 An interactive introduction into concepts of ecology, behavioral ecology, and sustainability with a computer simulation of a simple social-ecological system consisting of just two individuals and a regrowing resource (trees). Learners observe how outcomes vary based on harvest levels, resource regrowth rates, carrying capacity, and whether resources are shared or private.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility — e.g. the `me-mo` app's offline demo was built against this version)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`two-foresters.nlogox`](two-foresters.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 
@@ -22,7 +23,11 @@ An interactive introduction into concepts of ecology, behavioral ecology, and su
 - [`agent-manifest.json`](agent-manifest.json) — control-surface manifest (sliders/switches/buttons, available monitor reporters) for driving a live session programmatically
 
 ## LPM strand
-This model doesn't yet have a dedicated Learning Progression Map (LPM) strand in this repo. See [`lpm-strands/two-foresters.md`](../../lpm-strands/two-foresters.md) to start one, and the [LPM strands overview](../../lpm-strands/README.md) for the development process.
+This model has an in-progress Learning Progression Map (LPM) strand: grade-band progression,
+content-anchor/thinking-tool alignment, competency alignment, and assessment are drafted; a
+formal schema-validated OECB contribution is the remaining step. See
+[`lpm-strands/two-foresters.md`](../../lpm-strands/two-foresters.md), and the
+[LPM strands overview](../../lpm-strands/README.md) for the development process.
 
 ## Source
 - Original page: https://openevo.eva.mpg.de/teachingbase/netlogo-2-foresters/

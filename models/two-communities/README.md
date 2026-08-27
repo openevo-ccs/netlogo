@@ -3,7 +3,8 @@
 A social-ecological system model featuring foresters divided into two communities harvesting from regrowing trees. Demonstrates how outcomes for individuals and communities are influenced by the composition of modest and greedy foresters, and the tension between individual short-term gains and collective long-term welfare.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`two-communities.nlogox`](two-communities.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 
@@ -22,7 +23,10 @@ A social-ecological system model featuring foresters divided into two communitie
 - [`agent-manifest.json`](agent-manifest.json) — control-surface manifest (sliders/switches/buttons, available monitor reporters) for driving a live session programmatically
 
 ## LPM strand
-This model doesn't yet have a dedicated Learning Progression Map (LPM) strand in this repo. See [`lpm-strands/two-communities.md`](../../lpm-strands/two-communities.md) to start one, and the [LPM strands overview](../../lpm-strands/README.md) for the development process.
+This model has an in-progress Learning Progression Map (LPM) strand: grade-band progression,
+content-anchor/thinking-tool alignment, competency alignment, and assessment are drafted — schema
+contribution (step 5) is still pending. See [`lpm-strands/two-communities.md`](../../lpm-strands/two-communities.md)
+and the [LPM strands overview](../../lpm-strands/README.md) for the development process.
 
 ## Source
 - Original page: https://openevo.eva.mpg.de/teachingbase/netlogo-two-communities/

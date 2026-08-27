@@ -3,7 +3,8 @@
 Simulates a population of resource users utilizing a shared natural resource (a forest). Explores relationships between population size (number of foresters), tree growth rate, forester harvest rate, and cost of living.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`population-size-living-costs.nlogox`](population-size-living-costs.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 

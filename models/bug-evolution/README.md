@@ -3,7 +3,8 @@
 Investigates the evolution of running speed in a beetle population. Beetles are eaten by predators (birds or spiders); depending on predator species, there is varying selective pressure on the beetles' speed.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`bug-evolution.nlogox`](bug-evolution.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 

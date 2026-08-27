@@ -3,7 +3,8 @@
 Simulates the spread of a viral infection within a population. Several factors related to the virus, the course of the disease, and measures implemented by the healthcare system influence the spread of the virus.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`virus-epidemic.nlogox`](virus-epidemic.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 

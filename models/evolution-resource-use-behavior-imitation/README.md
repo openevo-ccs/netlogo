@@ -3,7 +3,8 @@
 Adds cultural evolutionary dynamics through behavior imitation to the evolution of resource-use behavior. Simulates several imitation biases (majority, minority, most successful, most experienced, parents), showing how norms and traditions of sustainable or unsustainable resource use can emerge based on imitation bias, innovation rate, and agent mobility.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`evolution-resource-use-behavior-imitation.nlogox`](evolution-resource-use-behavior-imitation.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 

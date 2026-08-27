@@ -19,6 +19,9 @@
   "notes": "Teaching materials listed as in preparation on the source site.",
   "files": {
     "htmlApp": "app.html",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web",
     "nlogoSource": "model.nlogo",
     "nlogox": "swarming.nlogox",
     "modelCard": "model-card.json",

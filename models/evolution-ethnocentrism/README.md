@@ -3,7 +3,8 @@
 Simulates the biological evolution of ethnocentrism in a population made up of multiple ethnicities. Kin selection, frequency-dependent selection, and multilevel selection help explain observable outcomes. Invites reflection on the evolutionary origins of human ethnocentric tendencies, their role in human history, negative impacts in today's globalized world, and ways to overcome them.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`evolution-ethnocentrism.nlogox`](evolution-ethnocentrism.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 

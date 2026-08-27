@@ -3,7 +3,8 @@
 Simulates a social-ecological system with various numbers of individuals and a regrowing resource (trees). Agents are modest (green) or greedy (red) and harvest at different rates; offspring inherit their parent's type with a mutation parameter. Students observe how population and resources fluctuate based on harvest level, living costs, mutation rate, resource regrowth, and carrying capacity.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`evolution-competition-forest-resources.nlogox`](evolution-competition-forest-resources.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 

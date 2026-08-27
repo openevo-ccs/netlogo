@@ -31,6 +31,9 @@
   "notes": null,
   "files": {
     "htmlApp": "app.html",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web",
     "nlogoSource": "model.nlogo",
     "nlogox": "evolution-resource-use-behavior-imitation.nlogox",
     "modelCard": "model-card.json",

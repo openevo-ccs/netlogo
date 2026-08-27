@@ -3,7 +3,8 @@
 Simulates animal swarming behavior (birds, fish) with no individual leader: each animal follows the same simple local rules, from which the swarm emerges. Demonstrates emergence in complex systems.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`swarming.nlogox`](swarming.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 

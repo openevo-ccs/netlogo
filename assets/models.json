@@ -28,6 +28,9 @@
       "Payoff Matrix"
     ],
     "htmlApp": "models/two-foresters/app.html",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/two-foresters/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web",
     "nlogoSource": "models/two-foresters/model.nlogo",
     "modelPage": "models/two-foresters/",
     "lpmStrand": "lpm-strands/two-foresters.md"
@@ -59,7 +62,10 @@
     "htmlApp": "models/two-communities/app.html",
     "nlogoSource": "models/two-communities/model.nlogo",
     "modelPage": "models/two-communities/",
-    "lpmStrand": "lpm-strands/two-communities.md"
+    "lpmStrand": "lpm-strands/two-communities.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/two-communities/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "population-size-living-costs",
@@ -93,7 +99,10 @@
     "htmlApp": "models/population-size-living-costs/app.html",
     "nlogoSource": "models/population-size-living-costs/model.nlogo",
     "modelPage": "models/population-size-living-costs/",
-    "lpmStrand": "lpm-strands/population-size-living-costs.md"
+    "lpmStrand": "lpm-strands/population-size-living-costs.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/population-size-living-costs/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "evolution-competition-forest-resources",
@@ -121,7 +130,10 @@
     "htmlApp": "models/evolution-competition-forest-resources/app.html",
     "nlogoSource": "models/evolution-competition-forest-resources/model.nlogo",
     "modelPage": "models/evolution-competition-forest-resources/",
-    "lpmStrand": "lpm-strands/evolution-competition-forest-resources.md"
+    "lpmStrand": "lpm-strands/evolution-competition-forest-resources.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/evolution-competition-forest-resources/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "evolution-competition-resources-abstract",
@@ -151,7 +163,10 @@
     "htmlApp": "models/evolution-competition-resources-abstract/app.html",
     "nlogoSource": "models/evolution-competition-resources-abstract/model.nlogo",
     "modelPage": "models/evolution-competition-resources-abstract/",
-    "lpmStrand": "lpm-strands/evolution-competition-resources-abstract.md"
+    "lpmStrand": "lpm-strands/evolution-competition-resources-abstract.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/evolution-competition-resources-abstract/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "evolution-resource-use-harvest-efficiency",
@@ -183,7 +198,10 @@
     "htmlApp": "models/evolution-resource-use-harvest-efficiency/app.html",
     "nlogoSource": "models/evolution-resource-use-harvest-efficiency/model.nlogo",
     "modelPage": "models/evolution-resource-use-harvest-efficiency/",
-    "lpmStrand": "lpm-strands/evolution-resource-use-harvest-efficiency.md"
+    "lpmStrand": "lpm-strands/evolution-resource-use-harvest-efficiency.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/evolution-resource-use-harvest-efficiency/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "evolution-resource-use-social-behavior",
@@ -253,7 +271,10 @@
     "htmlApp": "models/evolution-resource-use-behavior-imitation/app.html",
     "nlogoSource": "models/evolution-resource-use-behavior-imitation/model.nlogo",
     "modelPage": "models/evolution-resource-use-behavior-imitation/",
-    "lpmStrand": "lpm-strands/evolution-resource-use-behavior-imitation.md"
+    "lpmStrand": "lpm-strands/evolution-resource-use-behavior-imitation.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/evolution-resource-use-behavior-imitation/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "island-world",
@@ -284,7 +305,10 @@
     "htmlApp": "models/island-world/app.html",
     "nlogoSource": "models/island-world/model.nlogo",
     "modelPage": "models/island-world/",
-    "lpmStrand": "lpm-strands/island-world.md"
+    "lpmStrand": "lpm-strands/island-world.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/island-world/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "evolution-ethnocentrism",
@@ -321,7 +345,10 @@
     "htmlApp": "models/evolution-ethnocentrism/app.html",
     "nlogoSource": "models/evolution-ethnocentrism/model.nlogo",
     "modelPage": "models/evolution-ethnocentrism/",
-    "lpmStrand": "lpm-strands/evolution-ethnocentrism.md"
+    "lpmStrand": "lpm-strands/evolution-ethnocentrism.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/evolution-ethnocentrism/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "bug-evolution",
@@ -345,7 +372,10 @@
     "htmlApp": "models/bug-evolution/app.html",
     "nlogoSource": "models/bug-evolution/model.nlogo",
     "modelPage": "models/bug-evolution/",
-    "lpmStrand": "lpm-strands/bug-evolution.md"
+    "lpmStrand": "lpm-strands/bug-evolution.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/bug-evolution/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "swarming",
@@ -368,7 +398,10 @@
     "htmlApp": "models/swarming/app.html",
     "nlogoSource": "models/swarming/model.nlogo",
     "modelPage": "models/swarming/",
-    "lpmStrand": "lpm-strands/swarming.md"
+    "lpmStrand": "lpm-strands/swarming.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/swarming/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "virus-epidemic",
@@ -393,7 +426,10 @@
     "htmlApp": "models/virus-epidemic/app.html",
     "nlogoSource": "models/virus-epidemic/model.nlogo",
     "modelPage": "models/virus-epidemic/",
-    "lpmStrand": "lpm-strands/virus-epidemic.md"
+    "lpmStrand": "lpm-strands/virus-epidemic.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/virus-epidemic/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "wolves-sheep-grass",
