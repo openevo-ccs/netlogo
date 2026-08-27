@@ -1,5 +1,14 @@
 # LPM strands for the NetLogo model collection
 
+> **⚠️ DRAFT CONCEPT — every strand in this folder.** These strands are synthesized by an LLM
+> across the NetLogo and OpenEvo CCS ecosystem's existing materials (ConceptBase, model-card.json
+> structural data, prior human-authored drafts). **They have not been validated by expert review
+> or empirical classroom testing.** Treat them as a starting point for research and
+> policy-development discussion — not as vetted curriculum ready for classroom deployment. This
+> applies to every strand file here, current and future, regardless of its own "in progress" /
+> "complete" status label, which describes how developed the draft is, not whether it's been
+> validated.
+
 This folder is the working space for developing **Learning Progression Map (LPM) strands** tied
 to each model in [`models/`](../models/) — the sequences of learning objectives, across grade
 bands, that use a given NetLogo model as its computational anchor.
@@ -36,8 +45,8 @@ against any of the strands below — the status table is still accurate.
 
 | Model | Strand status |
 |---|---|
-| [Two Foresters](../models/two-foresters/) | not started — [stub](two-foresters.md) |
-| [Two Communities](../models/two-communities/) | not started — [stub](two-communities.md) |
+| [Two Foresters](../models/two-foresters/) | in progress — grade-band/content-anchor/competency/assessment drafted, schema contribution pending — [strand](two-foresters.md) |
+| [Two Communities](../models/two-communities/) | in progress — grade-band/content-anchor/competency/assessment drafted, schema contribution pending — [strand](two-communities.md) |
 | [Population Size and Living Costs](../models/population-size-living-costs/) | not started — [stub](population-size-living-costs.md) |
 | [Evolution and Competition for Forest Resources](../models/evolution-competition-forest-resources/) | not started — [stub](evolution-competition-forest-resources.md) |
 | [Evolution and Competition for Resources (Abstract)](../models/evolution-competition-resources-abstract/) | not started — [stub](evolution-competition-resources-abstract.md) |

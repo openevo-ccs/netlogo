@@ -1,5 +1,10 @@
 # LPM Strand: Bug Evolution
 
+> **⚠️ DRAFT CONCEPT** — synthesized by an LLM across the NetLogo and OpenEvo CCS ecosystem's
+> existing materials, not validated by expert review or empirical classroom testing. Use as a
+> starting point for research and policy-development discussion, not as vetted curriculum. See
+> [lpm-strands/README.md](README.md).
+
 > Status: **In progress** — grade-band progression, content-anchor/thinking-tool alignment,
 > competency alignment, and assessment are drafted below. Step 5 (a formal, schema-validated
 > OECB LPM contribution against ConceptBase's real `lpm.schema.yaml`) is not done — flagged as

@@ -1,5 +1,10 @@
 # LPM Strand: Two Foresters
 
+> **⚠️ DRAFT CONCEPT** — synthesized by an LLM across the NetLogo and OpenEvo CCS ecosystem's
+> existing materials, not validated by expert review or empirical classroom testing. Use as a
+> starting point for research and policy-development discussion, not as vetted curriculum. See
+> [lpm-strands/README.md](README.md).
+
 > **Superseded (2026-08-26)**: this file's well-developed grade-band/content-anchor/competency
 > content (independently verified accurate against the real ConceptBase registry) has been
 > incorporated into the real, linked strand at [two-foresters.md](two-foresters.md) (already

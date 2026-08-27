@@ -1,5 +1,10 @@
 # LPM Strand: Bug Evolution
 
+> **⚠️ DRAFT CONCEPT** — synthesized by an LLM across the NetLogo and OpenEvo CCS ecosystem's
+> existing materials, not validated by expert review or empirical classroom testing. Use as a
+> starting point for research and policy-development discussion, not as vetted curriculum. See
+> [lpm-strands/README.md](README.md).
+
 > **Superseded (2026-08-07)**: this file was never linked from `models/bug-evolution/metadata.json`'s
 > `lpmStrand` pointer (which points at `bug-evolution.md`) and was not, in fact, the ecosystem's real
 > strand for this model — the git-health/status tooling correctly reported "not started" throughout.
