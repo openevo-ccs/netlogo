@@ -3,7 +3,8 @@
 Simulates renewable resource use and population evolution with two traits: harvest behavior (sustainable vs. greedy) and perception/punishment ability. Punishing agents can perceive others' behaviors and respond by killing greedy harvesters, blocking resource access, or imposing penalties distributed to neighbors, illustrating monitoring and sanctioning as mechanisms for cooperation and sustainable resource management.
 
 ## Try it
-- [Run in your browser](app.html) (NetLogo Web export, self-contained HTML)
+- [Run in your browser](app.html) (NetLogo 7 Web export, self-contained HTML — verified working 2026-08-27, after fixing a malformed-XML bug in the model's embedded BehaviorSpace experiment)
+- [Run the previous version](app-legacy6.html) (NetLogo 6.x Web export, kept for compatibility)
 - [`model.nlogo`](model.nlogo) — open in the desktop [NetLogo](https://ccl.northwestern.edu/netlogo/) application to edit
 - [`evolution-resource-use-social-behavior.nlogox`](evolution-resource-use-social-behavior.nlogox) — NetLogo 7 (.nlogox) export, open with NetLogo 7's desktop app
 

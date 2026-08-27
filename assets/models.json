@@ -236,7 +236,10 @@
     "htmlApp": "models/evolution-resource-use-social-behavior/app.html",
     "nlogoSource": "models/evolution-resource-use-social-behavior/model.nlogo",
     "modelPage": "models/evolution-resource-use-social-behavior/",
-    "lpmStrand": "lpm-strands/evolution-resource-use-social-behavior.md"
+    "lpmStrand": "lpm-strands/evolution-resource-use-social-behavior.md",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "htmlAppLegacy": "models/evolution-resource-use-social-behavior/app-legacy6.html",
+    "htmlAppLegacyVersion": "NetLogo 6.x Web"
   },
   {
     "slug": "evolution-resource-use-behavior-imitation",

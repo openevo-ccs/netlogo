@@ -1628,8 +1628,8 @@ setup-full repeat 150 [ go ]
       <value value="0.5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="punishment">
-      <value value=""suspend harvest once""/>
-      <value value=""kill""/>
+      <value value="&quot;suspend harvest once&quot;"/>
+      <value value="&quot;kill&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="living-costs">
       <value value="10"/>
