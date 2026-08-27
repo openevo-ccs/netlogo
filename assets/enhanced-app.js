@@ -242,12 +242,67 @@
       return;
     }
     
-    list.innerHTML = labNotebookEntry.observations.map(function(obs) {
+    var observationsHtml = labNotebookEntry.observations.map(function(obs) {
       return '<div class="observation-item">' +
         '<div class="observation-time">' + new Date(obs.time).toLocaleTimeString() + '</div>' +
         '<p>' + obs.text + '</p>' +
         '</div>';
     }).join('');
+
+    var screenshotsHtml = (labNotebookEntry.screenshots || []).map(function(shot) {
+      return '<div class="observation-item">' +
+        '<div class="observation-time">' + new Date(shot.time).toLocaleTimeString() + '</div>' +
+        '<img src="' + shot.data + '" alt="Model screenshot" style="max-width:100%;border-radius:4px;">' +
+        '</div>';
+    }).join('');
+
+    list.innerHTML = observationsHtml + screenshotsHtml ||
+      '<p>No observations yet. Start exploring a model and record what you notice!</p>';
+  }
+
+  function captureModelScreenshot() {
+    var iframe = document.getElementById('model-frame');
+    if (!iframe) {
+      alert('No model is currently loaded.');
+      return;
+    }
+
+    var canvas;
+    try {
+      var frameDoc = iframe.contentDocument || iframe.contentWindow.document;
+      canvas = frameDoc.querySelector('canvas');
+    } catch (e) {
+      alert('Could not access the model view to capture it. Make sure a model is loaded and running.');
+      return;
+    }
+
+    if (!canvas) {
+      alert('No model view found to capture yet. Make sure a model is loaded and running.');
+      return;
+    }
+
+    var dataUrl;
+    try {
+      dataUrl = canvas.toDataURL('image/png');
+    } catch (e) {
+      alert('Could not capture the model view: ' + e.message);
+      return;
+    }
+
+    if (!labNotebookEntry) {
+      if (currentModel && window.LabNotebook) {
+        labNotebookEntry = window.LabNotebook.startEntry(currentModel.slug, currentModel.title);
+      } else {
+        alert('Please select a model first.');
+        return;
+      }
+    }
+
+    if (window.LabNotebook) {
+      window.LabNotebook.addScreenshot(dataUrl, currentModel ? currentModel.title : '');
+    }
+
+    displayObservations();
   }
 
   function saveReflections() {
@@ -382,6 +437,7 @@
   window.toggleLabNotebook = toggleLabNotebook;
   window.showNotebookTab = showNotebookTab;
   window.addObservation = addObservation;
+  window.captureModelScreenshot = captureModelScreenshot;
   window.saveReflections = saveReflections;
   window.clearNotebook = clearNotebook;
   window.exportNotebook = exportNotebook;
