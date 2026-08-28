@@ -22,7 +22,18 @@
   var nodesById = {};
   var edges = [];        // {source, target, type:'bipartite'|'model-model'|'concept-concept', weight}
 
-  var physics = { repulsion: 1400, linkStrength: 0.12, linkDistance: 110, damping: 0.85 };
+  var physics = { repulsion: 700, linkStrength: 0.18, linkDistance: 90, damping: 0.8 };
+
+  // Safety bounds independent of the slider ranges: a naive inverse-square
+  // repulsion force explodes as two nodes' distance approaches zero (two
+  // freshly-placed or dragged-together nodes, especially), which is what
+  // "wildly unstable" looked like -- a single huge impulse flinging a node
+  // across the whole viewBox in one frame. MIN_DIST floors the distance used
+  // in the force calculation; MAX_SPEED caps how far anything can move in a
+  // single tick regardless of the computed force. Both apply no matter what
+  // the physics sliders are set to.
+  var MIN_DIST = 16;
+  var MAX_SPEED = 26;
 
   var filters = { grades: null, concepts: null, modelSearch: "" };
   // filters.grades/concepts are Sets populated after data loads (default: all selected)
@@ -325,13 +336,25 @@
   function step() {
     var visibleNodes = nodes.filter(function (n) { return n.visible; });
     var rep = physics.repulsion;
+    var minDist2 = MIN_DIST * MIN_DIST;
 
     for (var i = 0; i < visibleNodes.length; i++) {
       for (var j = i + 1; j < visibleNodes.length; j++) {
         var a = visibleNodes[i], b = visibleNodes[j];
         var dx = b.x - a.x, dy = b.y - a.y;
-        var dist2 = dx * dx + dy * dy || 0.01;
+        var dist2 = dx * dx + dy * dy;
+        // Floor the distance used for the force itself so two nodes landing
+        // on (near) the same point can't produce a near-infinite 1/dist^2
+        // force -- that single-tick impulse was the "wildly unstable" bug.
+        if (dist2 < minDist2) dist2 = minDist2;
         var dist = Math.sqrt(dist2);
+        // When the raw separation is ~0 the direction (dx,dy) is meaningless;
+        // push apart along a stable pseudo-random direction instead of "no
+        // direction at all" so coincident nodes actually separate.
+        if (dx === 0 && dy === 0) {
+          var angle = (i * 37 + j * 13) % 360 * (Math.PI / 180);
+          dx = Math.cos(angle); dy = Math.sin(angle);
+        }
         var force = rep / dist2;
         var fx = (force * dx) / dist, fy = (force * dy) / dist;
         if (!a.pinned) { a.vx -= fx; a.vy -= fy; }
@@ -359,6 +382,16 @@
       n.vy += (cy - n.y) * 0.006;
       n.vx *= physics.damping;
       n.vy *= physics.damping;
+      // Hard safety net independent of whatever the sliders are set to: no
+      // node may move more than MAX_SPEED per tick, so a large transient
+      // force (a drag release next to another node, a sudden filter change)
+      // can't fling anything across the canvas in a single frame.
+      var speed = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
+      if (speed > MAX_SPEED) {
+        var scale = MAX_SPEED / speed;
+        n.vx *= scale;
+        n.vy *= scale;
+      }
       n.x += n.vx;
       n.y += n.vy;
     });

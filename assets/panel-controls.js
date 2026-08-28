@@ -57,24 +57,46 @@
     return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
   }
 
-  function toggleViewerFullscreen() {
-    var wrap = document.getElementById("model-frame-wrap");
-    if (!wrap) return;
-    if (currentFsElement()) {
+  // Generic fullscreen toggle: any panel with a maximize button follows the
+  // same pattern (model viewer, graph explorer, ...) via this one helper
+  // rather than a bespoke function per panel.
+  var fsTargets = []; // [{elId, btnId, label}]
+
+  function toggleFullscreenFor(elId) {
+    var el = document.getElementById(elId);
+    if (!el) return;
+    if (currentFsElement() === el) {
       exitFs();
+    } else if (currentFsElement()) {
+      // Already fullscreened on a different panel -- switch targets.
+      exitFs();
+      requestFs(el);
     } else {
-      requestFs(wrap);
+      requestFs(el);
     }
   }
 
+  function registerFullscreenButton(elId, btnId, label) {
+    fsTargets.push({ elId: elId, btnId: btnId, label: label });
+  }
+
+  function toggleViewerFullscreen() { toggleFullscreenFor("model-frame-wrap"); }
+  function toggleGraphFullscreen() { toggleFullscreenFor("graph-mode"); }
+
+  registerFullscreenButton("model-frame-wrap", "viewer-maximize-btn", "model viewer");
+  registerFullscreenButton("graph-mode", "graph-maximize-btn", "concept graph");
+
   ["fullscreenchange", "webkitfullscreenchange", "MSFullscreenChange"].forEach(function (evt) {
     document.addEventListener(evt, function () {
-      var btn = document.getElementById("viewer-maximize-btn");
-      if (!btn) return;
-      var isFs = !!currentFsElement();
-      btn.textContent = isFs ? "⤡" : "⛶";
-      btn.setAttribute("aria-label", isFs ? "Exit full screen" : "Expand model viewer to full screen");
-      btn.title = btn.getAttribute("aria-label");
+      var current = currentFsElement();
+      fsTargets.forEach(function (t) {
+        var btn = document.getElementById(t.btnId);
+        if (!btn) return;
+        var isFs = current && current.id === t.elId;
+        btn.textContent = isFs ? "⤡" : "⛶";
+        btn.setAttribute("aria-label", isFs ? "Exit full screen" : "Expand " + t.label + " to full screen");
+        btn.title = btn.getAttribute("aria-label");
+      });
     });
   });
 
@@ -90,4 +112,5 @@
   window.toggleSidebar = toggleSidebar;
   window.toggleDetails = toggleDetails;
   window.toggleViewerFullscreen = toggleViewerFullscreen;
+  window.toggleGraphFullscreen = toggleGraphFullscreen;
 })();

@@ -560,7 +560,29 @@
 }
 
 .graph-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
   margin-bottom: var(--space-3);
+}
+
+.graph-header .graph-maximize-btn {
+  /* Overrides .viewer-maximize-btn's absolute positioning (meant for
+     overlaying a canvas) -- here it just sits at the end of the header row. */
+  position: static;
+  flex: 0 0 auto;
+}
+
+#graph-mode:fullscreen,
+#graph-mode:-webkit-full-screen {
+  background: var(--bg-primary);
+  padding: var(--space-5);
+}
+
+#graph-mode:fullscreen .graph-svg,
+#graph-mode:-webkit-full-screen .graph-svg {
+  min-height: 0;
 }
 
 .graph-header h2 {
