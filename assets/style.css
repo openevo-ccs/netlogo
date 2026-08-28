@@ -1,38 +1,45 @@
 :root {
-  /* Primary Colors */
-  --primary: #4F46E5;
-  --primary-hover: #4338CA;
-  --primary-light: #EEF2FF;
-  
-  /* Secondary Colors */
-  --secondary: #10B981;
-  --secondary-hover: #059669;
-  --secondary-light: #D1FAE5;
-  
-  /* Accent Colors */
-  --accent: #F59E0B;
-  --accent-hover: #D97706;
-  --accent-light: #FEF3C7;
-  
-  /* Neutral Colors */
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F9FAFB;
-  --bg-tertiary: #F3F4F6;
-  
-  --text-primary: #111827;
-  --text-secondary: #6B7280;
-  --text-tertiary: #9CA3AF;
-  
-  --border-light: #E5E7EB;
-  --border-medium: #D1D5DB;
-  --border-dark: #9CA3AF;
-  
-  /* Semantic Colors */
-  --success: #10B981;
-  --warning: #F59E0B;
-  --error: #EF4444;
-  --info: #3B82F6;
-  
+  /* Brand colors — OpenEvo teal/gold accents, layered on top of the shared
+     surface/text/border/status tokens vendored from openevo-core's
+     design-system/tokens.css (linked before this file in index.html). This file
+     only defines its own component-level names; it does not redeclare
+     surfaces/text/borders so a future tokens.css update flows straight through. */
+  --primary: #1f7a70;
+  --primary-hover: #145e56;
+  --primary-light: rgba(31, 122, 112, 0.14);
+
+  --secondary: #c9a34e;
+  --secondary-hover: #ab8640;
+  --secondary-light: rgba(201, 163, 78, 0.16);
+
+  --accent: #5fd6c4;
+  --accent-hover: #3dbfac;
+  --accent-light: rgba(95, 214, 196, 0.16);
+
+  /* Mapped onto tokens.css (already light/dark-aware via its own
+     prefers-color-scheme + [data-theme] blocks) */
+  --bg-primary: var(--surface-2);
+  --bg-secondary: var(--page-plane);
+  --bg-tertiary: var(--surface-1);
+  --text-tertiary: var(--text-muted);
+  --border-light: var(--border);
+  --border-medium: var(--border-strong);
+  --border-dark: var(--gridline);
+
+  /* Type scale (previously referenced throughout this file but never defined) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+
+  /* Hero band (header/footer) — dark OpenEvo palette, independent of the light
+     functional surfaces above; sampled from the hero-bg.png artwork itself. */
+  --hero-bg-dark: #0d1220;
+  --hero-ink: #eef6f4;
+  --hero-ink-dim: #b9cbc8;
+
   /* Spacing Scale */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -63,62 +70,9 @@
   --transition-slow: 0.3s ease;
 }
 
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: #1F2937;
-    --bg-secondary: #111827;
-    --bg-tertiary: #374151;
-    
-    --text-primary: #F9FAFB;
-    --text-secondary: #D1D5DB;
-    --text-tertiary: #9CA3AF;
-    
-    --border-light: #374151;
-    --border-medium: #4B5563;
-    --border-dark: #6B7280;
-    
-    --primary-light: #312E81;
-    --secondary-light: #064E3B;
-    --accent-light: #78350F;
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg-primary: #1F2937;
-  --bg-secondary: #111827;
-  --bg-tertiary: #374151;
-  
-  --text-primary: #F9FAFB;
-  --text-secondary: #D1D5DB;
-  --text-tertiary: #9CA3AF;
-  
-  --border-light: #374151;
-  --border-medium: #4B5563;
-  --border-dark: #6B7280;
-  
-  --primary-light: #312E81;
-  --secondary-light: #064E3B;
-  --accent-light: #78350F;
-}
-
-:root[data-theme="light"] {
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F9FAFB;
-  --bg-tertiary: #F3F4F6;
-  
-  --text-primary: #111827;
-  --text-secondary: #6B7280;
-  --text-tertiary: #9CA3AF;
-  
-  --border-light: #E5E7EB;
-  --border-medium: #D1D5DB;
-  --border-dark: #9CA3AF;
-  
-  --primary-light: #EEF2FF;
-  --secondary-light: #D1FAE5;
-  --accent-light: #FEF3C7;
-}
+/* Light/dark theme switching for surfaces, text, and borders is handled entirely
+   by the vendored tokens.css (prefers-color-scheme + [data-theme] toggle) — this
+   file's --bg-*/--text-tertiary/--border-* aliases above just follow it. */
 
 * { box-sizing: border-box; }
 
@@ -138,25 +92,82 @@ body {
   line-height: 1.6;
 }
 
-/* Topbar */
+/* Topbar — hero band, sampled from the same hero-bg.png artwork used across the
+   OpenEvo ecosystem's presentation material, dimmed for text legibility. */
 .topbar {
-  border-bottom: 1px solid var(--border-light);
-  background: var(--bg-primary);
-  padding: var(--space-4) var(--space-6);
-  box-shadow: var(--shadow-sm);
+  position: relative;
+  padding: var(--space-6) var(--space-6) var(--space-5) var(--space-6);
+  background-image:
+    linear-gradient(120deg, rgba(9, 14, 22, 0.88) 0%, rgba(13, 18, 32, 0.82) 55%, rgba(9, 14, 22, 0.92) 100%),
+    url('brand/hero-bg.png');
+  background-size: cover;
+  background-position: center 30%;
+  color: var(--hero-ink);
+  box-shadow: var(--shadow-md);
 }
 
-.topbar-inner h1 {
+.topbar-inner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.topbar-text h1 {
   margin: 0 0 var(--space-1) 0;
   font-size: var(--text-2xl);
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--hero-ink);
 }
 
 .tagline {
   margin: 0;
-  color: var(--text-secondary);
+  color: var(--hero-ink-dim);
   font-size: var(--text-sm);
+  max-width: 60ch;
+}
+
+/* Brand logo row — OpenEvo wordmark + NetLogo attribution */
+.brand-logos {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex: 0 0 auto;
+}
+
+.brand-logos .openevo-logo {
+  height: clamp(28px, 3vw, 36px);
+  width: auto;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.35));
+}
+
+.brand-logos .logo-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.netlogo-credit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--hero-ink-dim);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.netlogo-credit:hover {
+  color: var(--hero-ink);
+}
+
+.netlogo-credit img {
+  height: 22px;
+  width: 22px;
+  border-radius: 6px;
 }
 
 /* Layout */
@@ -404,7 +415,7 @@ body {
 
 .btn-secondary {
   background: var(--secondary);
-  color: white;
+  color: var(--hero-bg-dark);
 }
 
 .btn-secondary:hover {
@@ -469,26 +480,26 @@ body {
 
 .chip-grade {
   background: var(--secondary-light);
-  color: var(--secondary);
+  color: #7a5f28; /* darker than --secondary itself: gold at chip-text size fails
+                     WCAG AA (~2:1) against a light tint background */
 }
 
-/* Footer */
+/* Footer — slim dark band matching the hero header, for a bookend feel */
 .footer {
-  border-top: 1px solid var(--border-light);
   padding: var(--space-4) var(--space-6);
   font-size: var(--text-xs);
-  color: var(--text-secondary);
-  background: var(--bg-primary);
+  color: var(--hero-ink-dim);
+  background: var(--hero-bg-dark);
 }
 
 .footer a {
-  color: var(--primary);
+  color: var(--accent);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 .footer a:hover {
-  color: var(--primary-hover);
+  color: var(--hero-ink);
   text-decoration: underline;
 }
 
