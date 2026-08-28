@@ -25,8 +25,9 @@
     var modelFrameWrap = document.getElementById('model-frame-wrap');
     var comparisonMode = document.getElementById('comparison-mode');
     var assessmentMode = document.getElementById('assessment-mode');
+    var graphMode = document.getElementById('graph-mode');
     var modelList = document.getElementById('model-list');
-    
+
     if (modelFrameWrap) {
       modelFrameWrap.style.display = mode === 'explore' ? 'block' : 'none';
     }
@@ -36,10 +37,16 @@
     if (assessmentMode) {
       assessmentMode.style.display = mode === 'assessment' ? 'block' : 'none';
     }
+    if (graphMode) {
+      graphMode.style.display = mode === 'graph' ? 'flex' : 'none';
+      if (mode === 'graph' && window.GraphExplorer) {
+        window.GraphExplorer.onShow();
+      }
+    }
     if (modelList) {
       modelList.style.display = mode === 'explore' ? 'block' : 'none';
     }
-    
+
     // Hide details panel in non-explore modes
     if (mode !== 'explore') {
       var detailsContent = document.getElementById('details-content');

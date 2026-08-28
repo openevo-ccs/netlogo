@@ -38,35 +38,99 @@
   </nav>
 
   <main class="layout">
-    <aside class="sidebar" aria-label="Model list">
-      <div class="filters">
-        <input id="search" type="search" placeholder="🔍 Search models..." aria-label="Search models">
-        <select id="filter-concept" aria-label="Filter by concept">
-          <option value="">All concepts</option>
-        </select>
-        <select id="filter-grade" aria-label="Filter by grade level">
-          <option value="">All grade levels</option>
-        </select>
+    <aside class="sidebar" id="sidebar-panel" aria-label="Model list">
+      <button class="panel-toggle panel-toggle-left" id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar">‹</button>
+      <div class="sidebar-inner">
+        <div class="filters">
+          <input id="search" type="search" placeholder="🔍 Search models..." aria-label="Search models">
+          <select id="filter-concept" aria-label="Filter by concept">
+            <option value="">All concepts</option>
+          </select>
+          <select id="filter-grade" aria-label="Filter by grade level">
+            <option value="">All grade levels</option>
+          </select>
+        </div>
+
+        <div class="mode-selector">
+          <button class="mode-btn active" data-mode="explore" onclick="setMode('explore')">🔍 Explore</button>
+          <button class="mode-btn" data-mode="compare" onclick="setMode('compare')">⚖️ Compare</button>
+          <button class="mode-btn" data-mode="assessment" onclick="setMode('assessment')">📝 Assess</button>
+          <button class="mode-btn" data-mode="graph" onclick="setMode('graph')">🕸️ Graph</button>
+        </div>
+
+        <ul id="model-list" class="model-list"></ul>
       </div>
-      
-      <div class="mode-selector">
-        <button class="mode-btn active" data-mode="explore" onclick="setMode('explore')">🔍 Explore</button>
-        <button class="mode-btn" data-mode="compare" onclick="setMode('compare')">⚖️ Compare</button>
-        <button class="mode-btn" data-mode="assessment" onclick="setMode('assessment')">📝 Assess</button>
-      </div>
-      
-      <ul id="model-list" class="model-list"></ul>
     </aside>
 
     <section class="viewer" aria-label="Model viewer">
       <div id="model-frame-wrap" class="frame-wrap">
+        <button class="viewer-maximize-btn" id="viewer-maximize-btn" onclick="toggleViewerFullscreen()" aria-label="Expand model viewer to full screen" title="Expand to full screen">⛶</button>
         <iframe id="model-frame" title="NetLogo model" loading="lazy"></iframe>
         <div id="model-frame-loading" class="frame-loading-overlay" aria-live="polite">
           <div class="spinner"></div>
           <p>Loading model…</p>
         </div>
       </div>
-      
+
+      <!-- Network Graph Mode -->
+      <div id="graph-mode" class="graph-mode" style="display:none;">
+        <div class="graph-header">
+          <h2>🕸️ Concept &amp; Model Network</h2>
+          <p>Models and concepts as nodes: thin lines link a model to its concepts; thicker lines link models that share concepts, or concepts that share models. Drag nodes, scroll to zoom, click a node to focus its connections.</p>
+        </div>
+        <div class="graph-layout">
+          <div class="graph-controls">
+            <div class="control-group">
+              <h4>Physics</h4>
+              <label>Repulsion
+                <input type="range" id="graph-repulsion" min="200" max="4000" step="50" value="1400">
+              </label>
+              <label>Link strength
+                <input type="range" id="graph-link-strength" min="0.01" max="1" step="0.01" value="0.12">
+              </label>
+              <label>Link distance
+                <input type="range" id="graph-link-distance" min="30" max="260" step="5" value="110">
+              </label>
+              <label>Damping
+                <input type="range" id="graph-damping" min="0.5" max="0.98" step="0.01" value="0.85">
+              </label>
+              <div class="graph-buttons">
+                <button id="graph-pause-btn" class="btn btn-outline">⏸ Pause</button>
+                <button id="graph-reset-btn" class="btn btn-outline">↺ Reset</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <h4>Edge types</h4>
+              <label class="checkline"><input type="checkbox" id="graph-show-bipartite" checked> Model → concept</label>
+              <label class="checkline"><input type="checkbox" id="graph-show-model-model" checked> Shared-concept model links</label>
+              <label class="checkline"><input type="checkbox" id="graph-show-concept-concept" checked> Shared-model concept links</label>
+            </div>
+            <div class="control-group">
+              <h4>Grade levels</h4>
+              <div id="graph-grade-filters" class="graph-checklist"></div>
+            </div>
+            <div class="control-group">
+              <h4>Concepts</h4>
+              <input type="search" id="graph-concept-search" placeholder="Search concepts…">
+              <div id="graph-concept-filters" class="graph-checklist"></div>
+            </div>
+            <div class="control-group">
+              <h4>Models</h4>
+              <input type="search" id="graph-model-search" placeholder="Search models…">
+              <div id="graph-model-filters" class="graph-checklist"></div>
+            </div>
+          </div>
+          <div class="graph-canvas-wrap">
+            <svg id="graph-svg" class="graph-svg"></svg>
+            <div id="graph-tooltip" class="graph-tooltip"></div>
+            <div class="graph-legend">
+              <span><i class="legend-dot legend-model"></i> Model</span>
+              <span><i class="legend-dot legend-concept"></i> Concept</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Comparison Mode -->
       <div id="comparison-mode" class="comparison-mode" style="display:none;">
         <div class="comparison-header">
@@ -104,9 +168,11 @@
       </div>
     </section>
 
-    <aside class="details" aria-label="Model details">
+    <aside class="details" id="details-panel" aria-label="Model details">
+      <button class="panel-toggle panel-toggle-right" id="details-toggle" onclick="toggleDetails()" aria-label="Collapse details panel" title="Collapse details panel">›</button>
+      <div class="details-inner">
       <div id="details-content"></div>
-      
+
       <!-- Lab Notebook Panel -->
       <div id="lab-notebook-panel" class="lab-notebook-panel" style="display:none;">
         <div class="lab-notebook-header">
@@ -161,6 +227,7 @@
           <button class="btn" onclick="exportNotebook()">Export Notebook</button>
         </div>
       </div>
+      </div>
     </aside>
   </main>
 
@@ -176,5 +243,7 @@
   <script src="assets/lab-notebook.js"></script>
   <script src="assets/assessment.js"></script>
   <script src="assets/enhanced-app.js"></script>
+  <script src="assets/panel-controls.js"></script>
+  <script src="assets/graph-explorer.js"></script>
 </body>
 </html>

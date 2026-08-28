@@ -98,7 +98,7 @@ body {
   position: relative;
   padding: var(--space-6) var(--space-6) var(--space-5) var(--space-6);
   background-image:
-    linear-gradient(120deg, rgba(9, 14, 22, 0.88) 0%, rgba(13, 18, 32, 0.82) 55%, rgba(9, 14, 22, 0.92) 100%),
+    linear-gradient(120deg, rgba(14, 30, 34, 0.62) 0%, rgba(20, 34, 46, 0.55) 55%, rgba(14, 30, 34, 0.68) 100%),
     url('brand/hero-bg.png');
   background-size: cover;
   background-position: center 30%;
@@ -139,9 +139,14 @@ body {
 }
 
 .brand-logos .openevo-logo {
+  /* The wordmark's own ink is dark navy, not white — a light backing plate
+     keeps it legible regardless of how the hero art falls behind it. */
   height: clamp(28px, 3vw, 36px);
   width: auto;
-  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.35));
+  background: rgba(255, 255, 255, 0.92);
+  padding: 5px 12px;
+  border-radius: 999px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
 }
 
 .brand-logos .logo-divider {
@@ -179,9 +184,17 @@ body {
   min-height: 0;
 }
 
+.layout.sidebar-collapsed { grid-template-columns: 40px minmax(0, 1fr) 340px; }
+.layout.details-collapsed { grid-template-columns: 320px minmax(0, 1fr) 40px; }
+.layout.sidebar-collapsed.details-collapsed { grid-template-columns: 40px minmax(0, 1fr) 40px; }
+
 @media (max-width: 1024px) {
   .layout {
     grid-template-columns: 280px minmax(0, 1fr);
+  }
+  .layout.sidebar-collapsed,
+  .layout.sidebar-collapsed.details-collapsed {
+    grid-template-columns: 40px minmax(0, 1fr);
   }
   .details {
     display: none;
@@ -189,7 +202,8 @@ body {
 }
 
 @media (max-width: 768px) {
-  .layout {
+  .layout,
+  .layout.sidebar-collapsed {
     grid-template-columns: 1fr;
   }
   .sidebar {
@@ -199,6 +213,7 @@ body {
 
 /* Sidebar */
 .sidebar, .details {
+  position: relative;
   background: var(--bg-primary);
   border-right: 1px solid var(--border-light);
   overflow-y: auto;
@@ -208,6 +223,55 @@ body {
 .details {
   border-right: none;
   border-left: 1px solid var(--border-light);
+}
+
+/* Collapsible sidebar/details panels — collapsed state shrinks the aside to
+   a thin strip holding just the toggle button; content is hidden rather than
+   scaled down, since 40px isn't enough room to render it usefully. */
+.sidebar.collapsed,
+.details.collapsed {
+  padding: var(--space-3) 0;
+  overflow: visible;
+}
+
+.sidebar.collapsed .sidebar-inner,
+.details.collapsed .details-inner {
+  display: none;
+}
+
+.panel-toggle {
+  position: absolute;
+  top: var(--space-3);
+  z-index: 5;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-medium);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  box-shadow: var(--shadow-sm);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.panel-toggle:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Anchored to each panel's own inner edge (never straddling the border into
+   the neighboring grid cell) so it can't overlap the viewer's own maximize
+   button when the details panel collapses down to a 40px strip. */
+.panel-toggle-left {
+  right: var(--space-2);
+}
+
+.panel-toggle-right {
+  left: var(--space-2);
 }
 
 /* Filters */
@@ -236,14 +300,14 @@ body {
 
 /* Mode Selector */
 .mode-selector {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
 }
 
 .mode-btn {
-  flex: 1;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-3) var(--space-2);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-md);
   background: var(--bg-secondary);
@@ -329,6 +393,43 @@ body {
   border: none;
   display: block;
   background: #fff;
+}
+
+.viewer-maximize-btn {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 6;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-medium);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.viewer-maximize-btn:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+#model-frame-wrap:fullscreen,
+#model-frame-wrap:-webkit-full-screen {
+  background: var(--bg-primary);
+  display: flex;
+}
+
+#model-frame-wrap:fullscreen #model-frame,
+#model-frame-wrap:-webkit-full-screen #model-frame {
+  height: 100vh;
+  min-height: 0;
 }
 
 .frame-loading-overlay {
