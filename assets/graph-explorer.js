@@ -201,6 +201,9 @@
       g.addEventListener("pointerleave", hideTooltip);
       g.addEventListener("pointerdown", function (evt) { startDrag(n, evt); });
       g.addEventListener("click", function (evt) { evt.stopPropagation(); focusNode(n); });
+      if (n.kind === "model") {
+        g.addEventListener("dblclick", function (evt) { evt.stopPropagation(); openInExplorer(n); });
+      }
     });
 
     els.svg.addEventListener("click", function () { focusNode(null); });
@@ -213,12 +216,72 @@
   function showTooltip(n) {
     var extra;
     if (n.kind === "model") {
-      extra = (n.model.concepts || []).length + " concept(s) · " + (n.model.grades || []).join(", ");
+      extra = (n.model.concepts || []).length + " concept(s) · " + (n.model.grades || []).join(", ") +
+        "<br><em>Double-click to open in Explore</em>";
     } else {
       extra = n.modelSlugs.length + " model(s): " + n.modelSlugs.join(", ");
     }
     els.tooltip.innerHTML = "<strong>" + n.label + "</strong><br>" + extra;
     els.tooltip.classList.add("visible");
+  }
+
+  // Double-clicking a model node proves the NetLogo-7 bridge end to end,
+  // not just the mode switch: after the model loads, attach the bridge from
+  // its own agent-manifest.json, nudge one control via setVar(), then read a
+  // reporter back via report() -- a real round trip over the live
+  // postMessage channel, not a canned value.
+  function openInExplorer(n) {
+    if (!window.setMode || !window.selectModel || !window.NetLogoBridge) return;
+    window.setMode("explore");
+    window.selectModel(n.model.slug);
+
+    var frame = document.getElementById("model-frame");
+    if (!frame) return;
+
+    window.NetLogoBridge.loadManifest(n.model.slug).then(function (manifest) {
+      window.NetLogoBridge.attachFromManifest(frame, n.model.slug, manifest, function onReady() {
+        // available_reporters typically reference breeds/turtles that don't
+        // exist until setup has actually run (a fresh NetLogo Web model
+        // starts with an empty world) -- run it first, same as pressing the
+        // model's own Setup button, before touching sliders or reporters.
+        var setupCode = (manifest.entry_points && manifest.entry_points.setup) || "setup";
+        window.NetLogoBridge.run(n.model.slug, setupCode);
+
+        var slider = manifest.controls && manifest.controls.sliders && manifest.controls.sliders[0];
+        var reporterEntries = Object.entries(manifest.available_reporters || {});
+
+        var afterSetup = new Promise(function (resolve) { setTimeout(resolve, 500); });
+
+        afterSetup.then(function () {
+          if (!slider) return null;
+          var testValue = clamp(slider.default + slider.step, slider.min, slider.max);
+          window.NetLogoBridge.setVar(n.model.slug, slider.name, testValue);
+          return new Promise(function (resolve) { setTimeout(function () { resolve(testValue); }, 300); });
+        }).then(function (testValue) {
+          if (!reporterEntries.length) return;
+          var firstKey = reporterEntries[0][0], firstCode = reporterEntries[0][1];
+          window.NetLogoBridge.report(n.model.slug, firstCode).then(function (value) {
+            renderBridgeStatus(n.model, slider, testValue, firstKey, value);
+          });
+        });
+      });
+    }).catch(function (err) {
+      console.warn("[graph-explorer] bridge demo failed:", err);
+    });
+  }
+
+  function renderBridgeStatus(model, slider, testValue, reporterKey, reporterValue) {
+    var details = document.getElementById("details-content");
+    if (!details) return;
+    var box = document.createElement("div");
+    box.className = "bridge-status";
+    var setLine = slider
+      ? "set <code>" + slider.name + "</code> → <code>" + testValue + "</code>, then "
+      : "";
+    box.innerHTML = "🔌 <strong>Live NetLogo bridge:</strong> " + setLine +
+      "<code>" + reporterKey + "</code> = <code>" + JSON.stringify(reporterValue) + "</code>" +
+      "<div class=\"bridge-status-sub\">Read over the real postMessage channel, driven by this model's own agent-manifest.json.</div>";
+    details.appendChild(box);
   }
 
   function positionTooltip(evt) {

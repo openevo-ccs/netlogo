@@ -379,6 +379,7 @@
   window.clearFilters = clearFilters;
   window.navigateTo = navigateTo;
   window.toggleFavorite = toggleFavorite;
+  window.selectModel = selectModel;
 
   fetch("assets/models.json")
     .then(function (r) { return r.json(); })

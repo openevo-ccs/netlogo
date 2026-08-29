@@ -585,6 +585,28 @@
   min-height: 0;
 }
 
+/* Bridge demo result, appended into the details panel from a graph-node
+   double-click (assets/graph-explorer.js's openInExplorer/renderBridgeStatus) */
+.bridge-status {
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  border: 1px solid var(--primary-light);
+  background: var(--primary-light);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.bridge-status code {
+  background: var(--bg-primary);
+}
+
+.bridge-status-sub {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
 .graph-header h2 {
   margin: 0 0 var(--space-1) 0;
   font-size: var(--text-xl);
