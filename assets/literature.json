@@ -1,0 +1,774 @@
+[
+  {
+    "id": "OE-LITERATURE-aslan-wilensky-2016",
+    "slug": "aslan-wilensky-2016",
+    "title": "Restructuration in Practice: Challenging a Pop-Culture Evolutionary Theory through Agent Based Modeling",
+    "authorsShort": "Aslan & Wilensky",
+    "year": 2016,
+    "venue": "Proceedings of the Constructionism 2016 Conference",
+    "doi": "",
+    "domains": [
+      "Evolution Education",
+      "Agent-Based Modeling",
+      "Learning Sciences"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/aslan-wilensky-2016.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-goldstone-wilensky-2008",
+    "slug": "goldstone-wilensky-2008",
+    "title": "Promoting Transfer by Grounding Complex Systems Principles",
+    "authorsShort": "Goldstone & Wilensky",
+    "year": 2008,
+    "venue": "Journal of the Learning Sciences",
+    "doi": "10.1080/10508400802394898",
+    "domains": [
+      "Learning Sciences",
+      "Complex Systems",
+      "Transfer of Learning"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/goldstone-wilensky-2008.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-resnick-1996",
+    "slug": "resnick-1996",
+    "title": "Beyond the Centralized Mindset",
+    "authorsShort": "Resnick",
+    "year": 1996,
+    "venue": "Journal of the Learning Sciences",
+    "doi": "10.1207/S15327809JLS0501_1",
+    "domains": [
+      "Learning Sciences",
+      "Complex Systems",
+      "Decentralized Causal Reasoning"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/resnick-1996.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-tullis-goldstone-2017",
+    "slug": "tullis-goldstone-2017",
+    "title": "Instruction in Computer Modeling Can Support Broad Application of Complex Systems Knowledge",
+    "authorsShort": "Tullis & Goldstone",
+    "year": 2017,
+    "venue": "Frontiers in Education",
+    "doi": "10.3389/feduc.2017.00004",
+    "domains": [
+      "Learning Sciences",
+      "Complex Systems",
+      "Computational Thinking",
+      "Transfer of Learning"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/tullis-goldstone-2017.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-weintrop-2016",
+    "slug": "weintrop-2016",
+    "title": "Defining Computational Thinking for Mathematics and Science Classrooms",
+    "authorsShort": "Weintrop et al.",
+    "year": 2016,
+    "venue": "Journal of Science Education and Technology",
+    "doi": "10.1007/s10956-015-9581-5",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking",
+      "Science Education",
+      "Mathematics Education"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-grover-pea-2013",
+        "relation": "extends"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/weintrop-2016.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-wilensky-2020",
+    "slug": "wilensky-2020",
+    "title": "Restructuration Theory and Agent-Based Modeling: Reformulating Knowledge Domains through Computational Representations",
+    "authorsShort": "Wilensky",
+    "year": 2020,
+    "venue": "Designing Constructionist Futures: The Art, Theory, and Practice of Learning Designs",
+    "doi": "10.7551/mitpress/12091.003.0037",
+    "domains": [
+      "Learning Sciences",
+      "Agent-Based Modeling",
+      "Constructionism"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/wilensky-2020.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-wilensky-papert-2010",
+    "slug": "wilensky-papert-2010",
+    "title": "Restructurations: Reformulations of knowledge disciplines through new representational forms",
+    "authorsShort": "Wilensky & Papert",
+    "year": 2010,
+    "venue": "Proceedings of the Constructionism 2010 Conference",
+    "doi": "",
+    "domains": [
+      "Learning Sciences",
+      "Constructionism",
+      "Philosophy of Representation"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/wilensky-papert-2010.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-ayala-2008",
+    "slug": "ayala-2008",
+    "title": "Science, evolution, and creationism",
+    "authorsShort": "Ayala",
+    "year": 2008,
+    "venue": "Proceedings of the National Academy of Sciences",
+    "doi": "10.1073/pnas.0711608105",
+    "domains": [
+      "Nature of Science",
+      "Evolution Education",
+      "Science Policy"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-lombrozo-2008",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/ayala-2008.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-berkman-2008",
+    "slug": "berkman-2008",
+    "title": "Evolution and Creationism in America's Classrooms: A National Portrait",
+    "authorsShort": "Berkman et al.",
+    "year": 2008,
+    "venue": "PLoS Biology",
+    "doi": "10.1371/journal.pbio.0060124",
+    "domains": [
+      "Evolution Education",
+      "Science Policy"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-ayala-2008",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/berkman-2008.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-buchan-2020",
+    "slug": "buchan-2020",
+    "title": "A RCT for assessment of active human-centred learning finds teacher-centric non-human teaching of evolution optimal",
+    "authorsShort": "Buchan et al.",
+    "year": 2020,
+    "venue": "npj Science of Learning",
+    "doi": "10.1038/s41539-020-00078-0",
+    "domains": [
+      "Evolutionary Biology",
+      "Education"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/buchan-2020.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-gormley-birdsall-france-2026",
+    "slug": "gormley-birdsall-france-2026",
+    "title": "Learning Progressions: A Novel Tool for Planning, Teaching and Assessing in Science Education",
+    "authorsShort": "Gormley et al.",
+    "year": 2026,
+    "venue": "New Zealand Journal of Educational Studies",
+    "doi": "10.1007/s40841-026-00469-8",
+    "domains": [
+      "Science Education",
+      "Learning Progressions",
+      "Evolution Education"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/gormley-birdsall-france-2026.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-hammann-nehm-2020",
+    "slug": "hammann-nehm-2020",
+    "title": "Teleology and evolution education: introduction to the special issue",
+    "authorsShort": "Hammann & Nehm",
+    "year": 2020,
+    "venue": "Evolution: Education and Outreach",
+    "doi": "10.1186/s12052-020-00130-y",
+    "domains": [
+      "Evolutionary Biology",
+      "Education",
+      "Philosophy of Biology"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-kampourakis-2020",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/hammann-nehm-2020.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-hanisch-2021",
+    "slug": "hanisch-2021",
+    "title": "Causal Mapping as a Teaching Tool for Reflecting on Causation in Human Evolution",
+    "authorsShort": "Hanisch & Eirdosh",
+    "year": 2021,
+    "venue": "Science &amp; Education",
+    "doi": "10.1007/s11191-020-00157-z",
+    "domains": [
+      "Evolutionary Biology",
+      "Anthropology",
+      "Education"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/hanisch-2021.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-hanisch-2023",
+    "slug": "hanisch-2023",
+    "title": "Teaching for the Interdisciplinary Understanding of Evolutionary Concepts",
+    "authorsShort": "Hanisch & Eirdosh",
+    "year": 2023,
+    "venue": "Synthese Library",
+    "doi": "10.1007/978-3-031-33358-3_8",
+    "domains": [
+      "Evolutionary Biology",
+      "Education"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-hanisch-2021",
+        "relation": "extends"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/hanisch-2023.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-kampourakis-2020",
+    "slug": "kampourakis-2020",
+    "title": "Students’ “teleological misconceptions” in evolution education: why the underlying design stance, not teleology per se, is the problem",
+    "authorsShort": "Kampourakis",
+    "year": 2020,
+    "venue": "Evolution: Education and Outreach",
+    "doi": "10.1186/s12052-019-0116-z",
+    "domains": [
+      "Evolutionary Biology",
+      "Education"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-hanisch-2025",
+        "relation": "contradicts"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/kampourakis-2020.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-lombrozo-2008",
+    "slug": "lombrozo-2008",
+    "title": "The Importance of Understanding the Nature of Science for Accepting Evolution",
+    "authorsShort": "Lombrozo et al.",
+    "year": 2008,
+    "venue": "Evolution: Education and Outreach",
+    "doi": "10.1007/s12052-008-0061-8",
+    "domains": [
+      "Nature of Science",
+      "Evolution Education"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/lombrozo-2008.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-mead-2017",
+    "slug": "mead-2017",
+    "title": "Teaching genetics prior to teaching evolution improves evolution understanding but not acceptance",
+    "authorsShort": "Mead et al.",
+    "year": 2017,
+    "venue": "PLOS Biology",
+    "doi": "10.1371/journal.pbio.2002255",
+    "domains": [
+      "Evolutionary Biology",
+      "Education"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/mead-2017.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-nehm-2022",
+    "slug": "nehm-2022",
+    "title": "Evolution Education and Outreach — Important Things to Know About How to Teach About Evolution",
+    "authorsShort": "Nehm & Kampourakis",
+    "year": 2022,
+    "venue": "",
+    "doi": "",
+    "domains": [
+      "Evolutionary Biology",
+      "Education"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-kampourakis-2020",
+        "relation": "extends"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/nehm-2022.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-petrosino-lucero-mann-2015",
+    "slug": "petrosino-lucero-mann-2015",
+    "title": "Decentralized thinking and understanding of evolution in K-12 evolution education",
+    "authorsShort": "Petrosino et al.",
+    "year": 2015,
+    "venue": "Evolution: Education and Outreach",
+    "doi": "10.1186/s12052-014-0028-x",
+    "domains": [
+      "Evolution Education",
+      "Decentralized Causal Reasoning",
+      "Learning Sciences"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/petrosino-lucero-mann-2015.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-hanisch-2025",
+    "slug": "hanisch-2025",
+    "title": "Understanding agency in evolutionary explanations: an assessment tool for biology education",
+    "authorsShort": "Hanisch et al.",
+    "year": 2025,
+    "venue": "Journal of Biological Education",
+    "doi": "10.1080/00219266.2025.2486963",
+    "domains": [
+      "Evolutionary Biology",
+      "Education"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-kampourakis-2020",
+        "relation": "contradicts"
+      },
+      {
+        "id": "OE-LITERATURE-hanisch-2021",
+        "relation": "extends"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/hanisch-2025.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-barr-stephenson-2011",
+    "slug": "barr-stephenson-2011",
+    "title": "Bringing Computational Thinking to K-12: What is Involved and What is the Role of the Computer Science Education Community?",
+    "authorsShort": "Barr & Stephenson",
+    "year": 2011,
+    "venue": "ACM Inroads",
+    "doi": "10.1145/1929887.1929905",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking",
+      "K-12 Education"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-wing-2006",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/barr-stephenson-2011.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-brennan-resnick-2012",
+    "slug": "brennan-resnick-2012",
+    "title": "New frameworks for studying and assessing the development of computational thinking",
+    "authorsShort": "Brennan & Resnick",
+    "year": 2012,
+    "venue": "Proceedings of the 2012 Annual Meeting of the American Educational Research Association (AERA), Vancouver, BC, Canada",
+    "doi": "",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking",
+      "Educational Assessment"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-wing-2006",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/brennan-resnick-2012.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-denning-2017",
+    "slug": "denning-2017",
+    "title": "Remaining trouble spots with computational thinking",
+    "authorsShort": "Denning",
+    "year": 2017,
+    "venue": "Communications of the ACM",
+    "doi": "10.1145/2998438",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-wing-2006",
+        "relation": "criticises"
+      },
+      {
+        "id": "OE-LITERATURE-wing-2008",
+        "relation": "criticises"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/denning-2017.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-denning-tedre-2019",
+    "slug": "denning-tedre-2019",
+    "title": "Computational Thinking",
+    "authorsShort": "Denning & Tedre",
+    "year": 2019,
+    "venue": "MIT Press Essential Knowledge series",
+    "doi": "10.7551/mitpress/11740.001.0001",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-wing-2006",
+        "relation": "related"
+      },
+      {
+        "id": "OE-LITERATURE-denning-2017",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/denning-tedre-2019.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-grover-pea-2013",
+    "slug": "grover-pea-2013",
+    "title": "Computational Thinking in K-12: A Review of the State of the Field",
+    "authorsShort": "Grover & Pea",
+    "year": 2013,
+    "venue": "Educational Researcher",
+    "doi": "10.3102/0013189X12463051",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking",
+      "K-12 Education"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-wing-2006",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/grover-pea-2013.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-lye-koh-2014",
+    "slug": "lye-koh-2014",
+    "title": "Review on teaching and learning of computational thinking through programming: What is next for K-12?",
+    "authorsShort": "Lye & Koh",
+    "year": 2014,
+    "venue": "Computers in Human Behavior",
+    "doi": "10.1016/j.chb.2014.09.012",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking",
+      "K-12 Education"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-grover-pea-2013",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/lye-koh-2014.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-roman-gonzalez-2017",
+    "slug": "roman-gonzalez-2017",
+    "title": "Which cognitive abilities underlie computational thinking? Criterion validity of the Computational Thinking Test",
+    "authorsShort": "Román-González et al.",
+    "year": 2017,
+    "venue": "Computers in Human Behavior",
+    "doi": "10.1016/j.chb.2016.08.047",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking",
+      "Educational Assessment"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-shute-2017",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/roman-gonzalez-2017.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-shute-2017",
+    "slug": "shute-2017",
+    "title": "Demystifying computational thinking",
+    "authorsShort": "Shute et al.",
+    "year": 2017,
+    "venue": "Educational Research Review",
+    "doi": "10.1016/j.edurev.2017.09.003",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking",
+      "Educational Assessment"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-grover-pea-2013",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/shute-2017.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-wing-2006",
+    "slug": "wing-2006",
+    "title": "Computational Thinking",
+    "authorsShort": "Wing",
+    "year": 2006,
+    "venue": "Communications of the ACM",
+    "doi": "10.1145/1118178.1118215",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-wing-2008",
+        "relation": "related"
+      },
+      {
+        "id": "OE-LITERATURE-grover-pea-2013",
+        "relation": "related"
+      },
+      {
+        "id": "OE-LITERATURE-brennan-resnick-2012",
+        "relation": "related"
+      },
+      {
+        "id": "OE-LITERATURE-shute-2017",
+        "relation": "related"
+      },
+      {
+        "id": "OE-LITERATURE-denning-tedre-2019",
+        "relation": "related"
+      },
+      {
+        "id": "OE-LITERATURE-barr-stephenson-2011",
+        "relation": "related"
+      },
+      {
+        "id": "OE-LITERATURE-denning-2017",
+        "relation": "criticises"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/wing-2006.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-wing-2008",
+    "slug": "wing-2008",
+    "title": "Computational thinking and thinking about computing",
+    "authorsShort": "Wing",
+    "year": 2008,
+    "venue": "Philosophical Transactions of the Royal Society A - Mathematical, Physical and Engineering Sciences",
+    "doi": "10.1098/rsta.2008.0118",
+    "domains": [
+      "Computer Science Education",
+      "Computational Thinking"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-wing-2006",
+        "relation": "extends"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/wing-2008.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-falandays-2023",
+    "slug": "falandays-2023",
+    "title": "All intelligence is collective intelligence",
+    "authorsShort": "Falandays et al.",
+    "year": 2023,
+    "venue": "Journal of Multiscale Neuroscience",
+    "doi": "10.56280/1564736810",
+    "domains": [
+      "cognitive science",
+      "collective intelligence",
+      "cultural evolution",
+      "biology",
+      "artificial intelligence"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/falandays-2023.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-mesoudi-2011",
+    "slug": "mesoudi-2011",
+    "title": "Cultural evolution",
+    "authorsShort": "Mesoudi",
+    "year": 2011,
+    "venue": "",
+    "doi": "",
+    "domains": [],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/mesoudi-2011.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-muthukrishna-2020",
+    "slug": "muthukrishna-2020",
+    "title": "Beyond Western, Educated, Industrial, Rich, and Democratic (WEIRD) Psychology: Measuring and Mapping Scales of Cultural and Psychological Distance",
+    "authorsShort": "Muthukrishna et al.",
+    "year": 2020,
+    "venue": "Psychological Science",
+    "doi": "10.1177/0956797620916782",
+    "domains": [
+      "Cross-Cultural Psychology",
+      "Cultural Evolution"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/muthukrishna-2020.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-richerson-2016",
+    "slug": "richerson-2016",
+    "title": "Cultural group selection plays an essential role in explaining human cooperation: A sketch of the evidence",
+    "authorsShort": "Richerson et al.",
+    "year": 2016,
+    "venue": "Behavioral and Brain Sciences",
+    "doi": "10.1017/s0140525x1400106x",
+    "domains": [
+      "Cultural Evolution",
+      "Cooperation"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/richerson-2016.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-richerson-2019",
+    "slug": "richerson-2019",
+    "title": "An integrated Bayesian theory of phenotypic flexibility",
+    "authorsShort": "Richerson",
+    "year": 2019,
+    "venue": "Behavioural Processes",
+    "doi": "10.1016/j.beproc.2018.02.002",
+    "domains": [
+      "Cultural Evolution",
+      "Bayesian Cognition",
+      "Phenotypic Flexibility"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/richerson-2019.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-hardin-1968",
+    "slug": "hardin-1968",
+    "title": "The Tragedy of the Commons",
+    "authorsShort": "Hardin",
+    "year": 1968,
+    "venue": "Science",
+    "doi": "10.1126/science.162.3859.1243",
+    "domains": [
+      "Commons Governance",
+      "Social Dilemmas",
+      "Environmental Policy"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/hardin-1968.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-ostrom-1990",
+    "slug": "ostrom-1990",
+    "title": "Governing the Commons",
+    "authorsShort": "Ostrom",
+    "year": 1990,
+    "venue": "Cambridge University Press",
+    "doi": "10.1017/cbo9780511807763",
+    "domains": [
+      "Commons Governance",
+      "Institutional Economics",
+      "Collective Action"
+    ],
+    "related": [],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/ostrom-1990.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-basurto-ostrom-2009",
+    "slug": "basurto-ostrom-2009",
+    "title": "Beyond the tragedy of the Commons",
+    "authorsShort": "Basurto & Ostrom",
+    "year": 2009,
+    "venue": "Economics and Policy of Energy and the Environment",
+    "doi": "10.3280/EFE2009-001004",
+    "domains": [
+      "Commons Governance",
+      "Social Dilemmas",
+      "Institutional Economics"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-hardin-1968",
+        "relation": "criticises"
+      },
+      {
+        "id": "OE-LITERATURE-ostrom-1990",
+        "relation": "extends"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/basurto-ostrom-2009.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-wilson-ostrom-cox-2013",
+    "slug": "wilson-ostrom-cox-2013",
+    "title": "Generalizing the core design principles for the efficacy of groups",
+    "authorsShort": "Wilson et al.",
+    "year": 2013,
+    "venue": "Journal of Economic Behavior & Organization",
+    "doi": "10.1016/j.jebo.2012.12.010",
+    "domains": [
+      "Commons Governance",
+      "Multilevel Selection",
+      "Institutional Economics",
+      "Cooperation"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-ostrom-1990",
+        "relation": "extends"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/wilson-ostrom-cox-2013.yaml"
+  },
+  {
+    "id": "OE-LITERATURE-powers-1986",
+    "slug": "powers-1986",
+    "title": "The Commons Game: Teaching Students about Social Dilemmas",
+    "authorsShort": "Powers",
+    "year": 1986,
+    "venue": "The Journal of Environmental Education",
+    "doi": "10.1080/00958964.1986.9941402",
+    "domains": [
+      "Environmental Education",
+      "Social Dilemmas",
+      "Commons Governance"
+    ],
+    "related": [
+      {
+        "id": "OE-LITERATURE-hardin-1968",
+        "relation": "related"
+      }
+    ],
+    "githubUrl": "https://github.com/openevo-ccs/literaturebase/blob/main/records/powers-1986.yaml"
+  }
+]

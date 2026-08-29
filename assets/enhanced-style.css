@@ -754,6 +754,26 @@
   stroke-width: 1.5;
 }
 
+.graph-svg .gnode-literature circle {
+  fill: #2c3a63;
+  stroke: #1c2740;
+  stroke-width: 1.5;
+}
+
+.graph-svg .gnode-literature text {
+  font-size: 8px;
+}
+
+/* A concept with no grounding literature yet -- hollow/dashed rather than
+   solid, so the gap the roadmap already flagged is visible in the graph
+   itself, not just in a status table. */
+.graph-svg .gnode-ungrounded circle {
+  fill: var(--bg-primary);
+  stroke: var(--secondary);
+  stroke-width: 2;
+  stroke-dasharray: 3 2;
+}
+
 .graph-svg .gnode text {
   font-size: 10px;
   font-family: var(--font, inherit);
@@ -787,6 +807,17 @@
 .graph-svg .gedge.gedge-concept-concept {
   stroke: var(--secondary);
   opacity: 0.55;
+}
+
+.graph-svg .gedge.gedge-lit-concept {
+  stroke: #2c3a63;
+  opacity: 0.4;
+  stroke-dasharray: 2 2;
+}
+
+.graph-svg .gedge.gedge-lit-lit {
+  stroke: #2c3a63;
+  opacity: 0.6;
 }
 
 .graph-svg .gedge.dimmed {
@@ -842,6 +873,7 @@
 
 .legend-dot.legend-model { background: var(--primary); }
 .legend-dot.legend-concept { background: var(--secondary); }
+.legend-dot.legend-literature { background: #2c3a63; }
 
 @media (max-width: 1024px) {
   .graph-layout {

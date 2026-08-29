@@ -18,9 +18,9 @@
   var paused = false;
   var animHandle = null;
 
-  var nodes = [];       // {id, kind:'model'|'concept', label, r, x, y, vx, vy, model?}
+  var nodes = [];       // {id, kind:'model'|'concept'|'literature', label, r, x, y, vx, vy, model?}
   var nodesById = {};
-  var edges = [];        // {source, target, type:'bipartite'|'model-model'|'concept-concept', weight}
+  var edges = [];        // {source, target, type:'bipartite'|'model-model'|'concept-concept'|'lit-concept'|'lit-lit', weight}
 
   var physics = { repulsion: 700, linkStrength: 0.18, linkDistance: 90, damping: 0.8 };
 
@@ -49,10 +49,12 @@
 
   function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 
-  function buildGraphData(models) {
+  function buildGraphData(models, literature, literatureLinks) {
     nodes = [];
     nodesById = {};
     edges = [];
+    literature = literature || [];
+    literatureLinks = literatureLinks || {};
 
     var conceptModels = {}; // conceptName -> [slug,...]
 
@@ -86,7 +88,8 @@
         id: id, kind: "concept", label: c, r: r,
         x: VIEW_W / 2 + Math.cos(angle) * ringR,
         y: VIEW_H / 2 + Math.sin(angle) * ringR,
-        vx: 0, vy: 0, modelSlugs: conceptModels[c]
+        vx: 0, vy: 0, modelSlugs: conceptModels[c],
+        grounded: !!(literatureLinks[c] && literatureLinks[c].length)
       };
       nodes.push(node);
       nodesById[id] = node;
@@ -121,6 +124,55 @@
       }
     }
 
+    // Literature nodes -- one per LiteratureBase record in the vendored
+    // snapshot (assets/literature.json), positioned in an outer ring beyond
+    // the concept ring so the layers read as concentric.
+    var litRingR = Math.min(VIEW_W, VIEW_H) * 0.62;
+    var litAngleStep = (Math.PI * 2) / Math.max(1, literature.length);
+    literature.forEach(function (lit, i) {
+      var id = "l:" + lit.id;
+      var angle = i * litAngleStep;
+      var node = {
+        id: id, kind: "literature", label: lit.authorsShort + " " + lit.year, r: 6,
+        x: VIEW_W / 2 + Math.cos(angle) * litRingR,
+        y: VIEW_H / 2 + Math.sin(angle) * litRingR,
+        vx: 0, vy: 0, lit: lit
+      };
+      nodes.push(node);
+      nodesById[id] = node;
+    });
+
+    // Literature -> concept edges, from the hand-curated crosswalk
+    // (assets/literature-links.json) -- NOT string-matched against
+    // LiteratureBase's own `domains`, see that file's own header comment.
+    Object.keys(literatureLinks).forEach(function (conceptName) {
+      if (!nodesById["c:" + conceptName]) return; // concept not in this collection
+      (literatureLinks[conceptName] || []).forEach(function (litId) {
+        var litNode = nodes.find(function (n) { return n.kind === "literature" && n.lit.id === litId; });
+        if (!litNode) return;
+        edges.push({ source: litNode.id, target: "c:" + conceptName, type: "lit-concept", weight: 1 });
+      });
+    });
+
+    // Literature <-> literature edges, straight from each record's own
+    // typed `related[]` relations (already hand-curated in LiteratureBase
+    // itself -- e.g. Basurto & Ostrom 2009 "criticises" Hardin 1968) rather
+    // than inferred here.
+    literature.forEach(function (lit) {
+      (lit.related || []).forEach(function (rel) {
+        var targetNode = nodes.find(function (n) { return n.kind === "literature" && n.lit.id === rel.id; });
+        if (!targetNode) return;
+        edges.push({ source: "l:" + lit.id, target: targetNode.id, type: "lit-lit", weight: 1, relation: rel.relation });
+      });
+    });
+
+    // Size literature/concept nodes by realized degree now that all edges exist.
+    nodes.forEach(function (n) {
+      if (n.kind !== "literature") return;
+      var degree = edges.filter(function (e) { return e.source === n.id || e.target === n.id; }).length;
+      n.r = clamp(5 + degree * 1.4, 5, 16);
+    });
+
     filters.grades = new Set();
     models.forEach(function (m) { (m.grades || []).forEach(function (g) { filters.grades.add(g); }); });
     filters.allGrades = Array.from(filters.grades).sort();
@@ -138,6 +190,9 @@
       if (grades.length === 0) return filters.selectedGrades.size === filters.allGrades.length;
       return grades.some(function (g) { return filters.selectedGrades.has(g); });
     }
+    if (node.kind === "literature") {
+      return !!(els.showLiterature && els.showLiterature.checked);
+    }
     // concept node
     return filters.selectedConcepts.has(node.label);
   }
@@ -146,6 +201,7 @@
     if (type === "bipartite") return els.showBipartite.checked;
     if (type === "model-model") return els.showModelModel.checked;
     if (type === "concept-concept") return els.showConceptConcept.checked;
+    if (type === "lit-concept" || type === "lit-lit") return !!(els.showLiterature && els.showLiterature.checked);
     return true;
   }
 
@@ -179,7 +235,9 @@
 
     nodes.forEach(function (n) {
       var g = document.createElementNS(SVG_NS, "g");
-      g.setAttribute("class", "gnode gnode-" + n.kind);
+      var cls = "gnode gnode-" + n.kind;
+      if (n.kind === "concept" && !n.grounded) cls += " gnode-ungrounded";
+      g.setAttribute("class", cls);
       g.dataset.id = n.id;
 
       var circle = document.createElementNS(SVG_NS, "circle");
@@ -203,6 +261,11 @@
       g.addEventListener("click", function (evt) { evt.stopPropagation(); focusNode(n); });
       if (n.kind === "model") {
         g.addEventListener("dblclick", function (evt) { evt.stopPropagation(); openInExplorer(n); });
+      } else if (n.kind === "literature") {
+        g.addEventListener("dblclick", function (evt) {
+          evt.stopPropagation();
+          window.open(n.lit.githubUrl, "_blank", "noopener");
+        });
       }
     });
 
@@ -218,11 +281,23 @@
     if (n.kind === "model") {
       extra = (n.model.concepts || []).length + " concept(s) · " + (n.model.grades || []).join(", ") +
         "<br><em>Double-click to open in Explore</em>";
+    } else if (n.kind === "literature") {
+      extra = escapeHtml(n.lit.title) + "<br>" + escapeHtml(n.lit.venue || "") +
+        "<br><em>Double-click to view on GitHub</em>";
+    } else if (!n.grounded) {
+      extra = n.modelSlugs.length + " model(s): " + n.modelSlugs.join(", ") +
+        "<br><em>No grounding literature yet</em>";
     } else {
       extra = n.modelSlugs.length + " model(s): " + n.modelSlugs.join(", ");
     }
-    els.tooltip.innerHTML = "<strong>" + n.label + "</strong><br>" + extra;
+    els.tooltip.innerHTML = "<strong>" + escapeHtml(n.kind === "literature" ? n.lit.authorsShort + " (" + n.lit.year + ")" : n.label) + "</strong><br>" + extra;
     els.tooltip.classList.add("visible");
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
   }
 
   // Double-clicking a model node proves the NetLogo-7 bridge end to end,
@@ -511,6 +586,7 @@
     els.showBipartite = q("graph-show-bipartite");
     els.showModelModel = q("graph-show-model-model");
     els.showConceptConcept = q("graph-show-concept-concept");
+    els.showLiterature = q("graph-show-literature");
     els.gradeFilters = q("graph-grade-filters");
     els.conceptFilters = q("graph-concept-filters");
     els.conceptSearch = q("graph-concept-search");
@@ -541,6 +617,15 @@
     [els.showBipartite, els.showModelModel, els.showConceptConcept].forEach(function (cb) {
       cb.addEventListener("change", syncFocusClasses);
     });
+    if (els.showLiterature) {
+      // Literature nodes' visibility (unlike edges) is cached on n.visible,
+      // not re-evaluated every frame -- needs an explicit refresh so newly
+      // shown/hidden literature nodes actually appear/disappear.
+      els.showLiterature.addEventListener("change", function () {
+        refreshVisibility();
+        syncFocusClasses();
+      });
+    }
 
     renderChecklist(els.gradeFilters, filters.allGrades, filters.selectedGrades, refreshVisibility);
 
@@ -567,10 +652,13 @@
   // ---------- Public API ----------
 
   function init() {
-    fetch("assets/models.json")
-      .then(function (r) { return r.json(); })
-      .then(function (models) {
-        buildGraphData(models);
+    Promise.all([
+      fetch("assets/models.json").then(function (r) { return r.json(); }),
+      fetch("assets/literature.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }),
+      fetch("assets/literature-links.json").then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
+    ]).then(function (results) {
+        var models = results[0], literature = results[1], literatureLinks = results[2];
+        buildGraphData(models, literature, literatureLinks);
         refreshVisibility();
         buildDom();
         wireControls();

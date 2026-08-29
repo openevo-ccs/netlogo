@@ -77,7 +77,7 @@
         <div class="graph-header">
           <div>
             <h2>🕸️ Concept &amp; Model Network</h2>
-            <p>Models and concepts as nodes: thin lines link a model to its concepts; thicker lines link models that share concepts, or concepts that share models. Drag nodes, scroll to zoom, click a node to focus its connections.</p>
+            <p>Models and concepts as nodes: thin lines link a model to its concepts; thicker lines link models that share concepts, or concepts that share models. Turn on the literature layer to see which concepts are grounded in real research — a dashed outline means no grounding literature yet. Drag nodes, scroll to zoom, double-click a model or literature node to open it, click any node to focus its connections.</p>
           </div>
           <button class="viewer-maximize-btn graph-maximize-btn" id="graph-maximize-btn" onclick="toggleGraphFullscreen()" aria-label="Expand concept graph to full screen" title="Expand to full screen">⛶</button>
         </div>
@@ -107,6 +107,7 @@
               <label class="checkline"><input type="checkbox" id="graph-show-bipartite" checked> Model → concept</label>
               <label class="checkline"><input type="checkbox" id="graph-show-model-model" checked> Shared-concept model links</label>
               <label class="checkline"><input type="checkbox" id="graph-show-concept-concept" checked> Shared-model concept links</label>
+              <label class="checkline"><input type="checkbox" id="graph-show-literature"> 🔬 Literature layer</label>
             </div>
             <div class="control-group">
               <h4>Grade levels</h4>
@@ -129,6 +130,7 @@
             <div class="graph-legend">
               <span><i class="legend-dot legend-model"></i> Model</span>
               <span><i class="legend-dot legend-concept"></i> Concept</span>
+              <span><i class="legend-dot legend-literature"></i> Literature</span>
             </div>
           </div>
         </div>

@@ -1,0 +1,112 @@
+{
+  "$comment": "Curated crosswalk: OpenEvo NetLogo model concept -> grounding LiteratureBase record id(s). Hand-authored, not string-matched -- LiteratureBase's own domains vocabulary and this repo's concept tags evolved independently and don't line up reliably by exact text (see MEMORY.md netlogo_roadmap_decisions.md for the audit this is built from). A concept with no entry here has no known grounding literature yet -- that's a real gap the graph explorer surfaces visually, not an omission to silently fill with a weak match. Local to this repo for now; may migrate to an openevo-graph literature-annotation layer (ccs-graph/nodes/literature/*.yaml's connected_curricular_nodes pattern) if/when netlogo's concepts get federated into that graph.",
+  "Cooperation": [
+    "OE-LITERATURE-hardin-1968",
+    "OE-LITERATURE-ostrom-1990",
+    "OE-LITERATURE-basurto-ostrom-2009",
+    "OE-LITERATURE-wilson-ostrom-cox-2013",
+    "OE-LITERATURE-powers-1986"
+  ],
+  "Social dilemma": [
+    "OE-LITERATURE-hardin-1968",
+    "OE-LITERATURE-ostrom-1990",
+    "OE-LITERATURE-basurto-ostrom-2009",
+    "OE-LITERATURE-powers-1986"
+  ],
+  "Sustainable resource use": [
+    "OE-LITERATURE-hardin-1968",
+    "OE-LITERATURE-ostrom-1990",
+    "OE-LITERATURE-basurto-ostrom-2009",
+    "OE-LITERATURE-wilson-ostrom-cox-2013"
+  ],
+  "Common Pool Resource": [
+    "OE-LITERATURE-ostrom-1990",
+    "OE-LITERATURE-basurto-ostrom-2009",
+    "OE-LITERATURE-wilson-ostrom-cox-2013"
+  ],
+  "Common pool resources": [
+    "OE-LITERATURE-ostrom-1990",
+    "OE-LITERATURE-basurto-ostrom-2009",
+    "OE-LITERATURE-wilson-ostrom-cox-2013"
+  ],
+  "Multilevel Selection": [
+    "OE-LITERATURE-wilson-ostrom-cox-2013",
+    "OE-LITERATURE-richerson-2016",
+    "OE-LITERATURE-richerson-2019",
+    "OE-LITERATURE-lit-mesoudi-2011"
+  ],
+  "Multilevel selection": [
+    "OE-LITERATURE-wilson-ostrom-cox-2013",
+    "OE-LITERATURE-richerson-2016",
+    "OE-LITERATURE-richerson-2019",
+    "OE-LITERATURE-lit-mesoudi-2011"
+  ],
+  "Group selection": [
+    "OE-LITERATURE-wilson-ostrom-cox-2013",
+    "OE-LITERATURE-richerson-2016",
+    "OE-LITERATURE-richerson-2019"
+  ],
+  "Kin selection": [
+    "OE-LITERATURE-richerson-2016",
+    "OE-LITERATURE-lit-mesoudi-2011"
+  ],
+  "Frequency-dependent selection": [
+    "OE-LITERATURE-lit-mesoudi-2011",
+    "OE-LITERATURE-muthukrishna-2020"
+  ],
+  "Cultural evolution": [
+    "OE-LITERATURE-richerson-2016",
+    "OE-LITERATURE-richerson-2019",
+    "OE-LITERATURE-lit-mesoudi-2011",
+    "OE-LITERATURE-muthukrishna-2020"
+  ],
+  "Evolution": [
+    "OE-LITERATURE-kampourakis-2020",
+    "OE-LITERATURE-hammann-nehm-2020",
+    "OE-LITERATURE-hanisch-2021",
+    "OE-LITERATURE-hanisch-2023",
+    "OE-LITERATURE-hanisch-2025",
+    "OE-LITERATURE-nehm-2022",
+    "OE-LITERATURE-ayala-2008",
+    "OE-LITERATURE-berkman-2008",
+    "OE-LITERATURE-buchan-2020",
+    "OE-LITERATURE-gormley-birdsall-france-2026",
+    "OE-LITERATURE-lombrozo-2008",
+    "OE-LITERATURE-mead-2017",
+    "OE-LITERATURE-petrosino-lucero-mann-2015",
+    "OE-LITERATURE-aslan-wilensky-2016"
+  ],
+  "Natural selection": [
+    "OE-LITERATURE-kampourakis-2020",
+    "OE-LITERATURE-hammann-nehm-2020",
+    "OE-LITERATURE-hanisch-2021",
+    "OE-LITERATURE-hanisch-2023",
+    "OE-LITERATURE-hanisch-2025",
+    "OE-LITERATURE-nehm-2022",
+    "OE-LITERATURE-aslan-wilensky-2016"
+  ],
+  "Complex systems": [
+    "OE-LITERATURE-goldstone-wilensky-2008",
+    "OE-LITERATURE-resnick-1996",
+    "OE-LITERATURE-wilensky-2020",
+    "OE-LITERATURE-wilensky-papert-2010",
+    "OE-LITERATURE-tullis-goldstone-2017",
+    "OE-LITERATURE-weintrop-2016",
+    "OE-LITERATURE-denning-2017",
+    "OE-LITERATURE-denning-tedre-2019",
+    "OE-LITERATURE-grover-pea-2013",
+    "OE-LITERATURE-wing-2006",
+    "OE-LITERATURE-wing-2008",
+    "OE-LITERATURE-barr-stephenson-2011",
+    "OE-LITERATURE-brennan-resnick-2012",
+    "OE-LITERATURE-lye-koh-2014",
+    "OE-LITERATURE-roman-gonzalez-2017",
+    "OE-LITERATURE-shute-2017"
+  ],
+  "Emergence": [
+    "OE-LITERATURE-resnick-1996"
+  ],
+  "Collective behavior": [
+    "OE-LITERATURE-resnick-1996"
+  ]
+}
