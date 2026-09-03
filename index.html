@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OpenEvo NetLogo Models — Explorer</title>
-<meta name="description" content="Browse and run the OpenEvo collection of NetLogo agent-based models on evolution, cooperation, and sustainability, with integrated assessments, thinking tools, and learning progressions.">
+<meta name="description" content="Browse and run the OpenEvo collection of NetLogo agent-based models on evolution, cooperation, and sustainability, with a concept &amp; model network graph, thinking tools, and learning progressions.">
 <link rel="icon" type="image/png" href="assets/brand/openevo-logo.png">
 <link rel="stylesheet" href="assets/brand/tokens.css">
 <link rel="stylesheet" href="assets/style.css">
@@ -15,7 +15,7 @@
     <div class="topbar-inner">
       <div class="topbar-text">
         <h1>OpenEvo NetLogo Models</h1>
-        <p class="tagline">Agent-based models of evolution, cooperation &amp; sustainability — explore, run, assess, and connect to LPM strands.</p>
+        <p class="tagline">Agent-based models of evolution, cooperation &amp; sustainability — explore, run, and connect to LPM strands.</p>
       </div>
       <div class="brand-logos">
         <img class="openevo-logo" src="assets/brand/openevo-logo.png" alt="OpenEvo">
@@ -28,13 +28,13 @@
     </div>
   </header>
 
-  <!-- Breadcrumb Navigation -->
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="#" onclick="navigateTo('home')">Home</a>
-    <span class="separator">›</span>
-    <a href="#" onclick="navigateTo('models')">Models</a>
-    <span class="separator">›</span>
-    <span id="breadcrumb-current">Explore</span>
+  <!-- App Menu Bar: primary navigation between view modes -->
+  <nav class="app-menubar" aria-label="Primary">
+    <a href="#" class="app-menubar-home" onclick="navigateTo('home'); return false;" title="Reset filters and return to the model list">🏠 Home</a>
+    <div class="app-tabs" role="tablist" aria-label="View mode">
+      <button class="app-tab active" data-mode="explore" role="tab" aria-selected="true" onclick="setMode('explore')">🔍 Explore</button>
+      <button class="app-tab" data-mode="graph" role="tab" aria-selected="false" onclick="setMode('graph')">🕸️ Graph</button>
+    </div>
   </nav>
 
   <main class="layout">
@@ -49,13 +49,6 @@
           <select id="filter-grade" aria-label="Filter by grade level">
             <option value="">All grade levels</option>
           </select>
-        </div>
-
-        <div class="mode-selector">
-          <button class="mode-btn active" data-mode="explore" onclick="setMode('explore')">🔍 Explore</button>
-          <button class="mode-btn" data-mode="compare" onclick="setMode('compare')">⚖️ Compare</button>
-          <button class="mode-btn" data-mode="assessment" onclick="setMode('assessment')">📝 Assess</button>
-          <button class="mode-btn" data-mode="graph" onclick="setMode('graph')">🕸️ Graph</button>
         </div>
 
         <ul id="model-list" class="model-list"></ul>
@@ -136,41 +129,6 @@
         </div>
       </div>
 
-      <!-- Comparison Mode -->
-      <div id="comparison-mode" class="comparison-mode" style="display:none;">
-        <div class="comparison-header">
-          <h2>Compare Models</h2>
-          <p>Select a comparison sequence to explore related models side-by-side.</p>
-        </div>
-        <div class="comparison-selector">
-          <select id="comparison-sequence" onchange="loadComparison()">
-            <option value="">-- Choose a comparison sequence --</option>
-            <option value="cooperation">Cooperation Progression</option>
-            <option value="evolution">Evolution Mechanisms</option>
-            <option value="resources">Resource Management</option>
-          </select>
-        </div>
-        <div id="comparison-content"></div>
-      </div>
-      
-      <!-- Assessment Mode -->
-      <div id="assessment-mode" class="assessment-container" style="display:none;">
-        <div class="assessment-header">
-          <h2>Integrated Causal Reasoning Assessments</h2>
-          <p>Select an assessment to test your understanding of model concepts.</p>
-        </div>
-        <div class="assessment-selector">
-          <select id="assessment-select" onchange="loadAssessment()">
-            <option value="">-- Choose an assessment --</option>
-            <option value="assessments/evolution-ethnocentrism.json">Evolution of Ethnocentrism</option>
-            <option value="assessments/two-foresters.json">Two Foresters</option>
-            <option value="assessments/bug-evolution.json">Bug Evolution</option>
-            <option value="assessments/two-communities.json">Two Communities</option>
-            <option value="assessments/island-world.json">Island World</option>
-          </select>
-        </div>
-        <div id="assessment-content"></div>
-      </div>
     </section>
 
     <aside class="details" id="details-panel" aria-label="Model details">

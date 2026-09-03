@@ -1,8 +1,10 @@
 /**
  * Enhanced App JavaScript for NetLogo Explorer
  *
- * Adds comparison mode, assessment integration, lab notebook,
- * and thinking tools to the base explorer.
+ * Adds lab notebook and thinking tools to the base explorer, plus
+ * mode switching between the live Explore and Graph views. (Compare
+ * and Assess were removed from the live UI but their data/logic stay
+ * in the repo — see comparisonSequences below and assets/assessment.js.)
  */
 
 (function() {
@@ -15,27 +17,22 @@
   // Mode switching
   function setMode(mode) {
     currentMode = mode;
-    
-    // Update mode buttons
-    document.querySelectorAll('.mode-btn').forEach(function(btn) {
-      btn.classList.toggle('active', btn.dataset.mode === mode);
+
+    // Update header tabs
+    document.querySelectorAll('.app-tab').forEach(function(btn) {
+      var isActive = btn.dataset.mode === mode;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
-    
+
     // Show/hide appropriate sections
     var modelFrameWrap = document.getElementById('model-frame-wrap');
-    var comparisonMode = document.getElementById('comparison-mode');
-    var assessmentMode = document.getElementById('assessment-mode');
     var graphMode = document.getElementById('graph-mode');
     var modelList = document.getElementById('model-list');
+    var filters = document.querySelector('.filters');
 
     if (modelFrameWrap) {
       modelFrameWrap.style.display = mode === 'explore' ? 'block' : 'none';
-    }
-    if (comparisonMode) {
-      comparisonMode.style.display = mode === 'compare' ? 'block' : 'none';
-    }
-    if (assessmentMode) {
-      assessmentMode.style.display = mode === 'assessment' ? 'block' : 'none';
     }
     if (graphMode) {
       graphMode.style.display = mode === 'graph' ? 'flex' : 'none';
@@ -45,6 +42,9 @@
     }
     if (modelList) {
       modelList.style.display = mode === 'explore' ? 'block' : 'none';
+    }
+    if (filters) {
+      filters.style.display = mode === 'explore' ? 'flex' : 'none';
     }
 
     // Hide details panel in non-explore modes
