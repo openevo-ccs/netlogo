@@ -1,6 +1,6 @@
 /**
  * Panel chrome: collapsible sidebar/details panels and a full-screen toggle
- * for the model viewer. Independent of app.js/enhanced-app.js's model state.
+ * for the model viewer. Independent of app.js's model state.
  */
 (function () {
   "use strict";

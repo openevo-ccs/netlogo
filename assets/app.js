@@ -1,3 +1,9 @@
+/**
+ * NetLogo Explorer — model browser, details panel, and the Digital Lab
+ * Notebook. (Compare and Assess are being redesigned as teacher-facing
+ * features — see the LPM/UI roadmap — so their previous hard-coded data/
+ * logic was removed here rather than carried forward unreachable.)
+ */
 (function () {
   "use strict";
 
@@ -14,6 +20,8 @@
     favorites: new Set()
   };
 
+  var labNotebookEntry = null;
+
   var els = {
     list: document.getElementById("model-list"),
     search: document.getElementById("search"),
@@ -24,6 +32,10 @@
     details: document.getElementById("details-content"),
     breadcrumbCurrent: document.getElementById("breadcrumb-current")
   };
+
+  function getCurrentModel() {
+    return state.models.find(function (m) { return m.slug === state.activeSlug; }) || null;
+  }
 
   function uniqueSorted(values) {
     return Array.from(new Set(values)).sort(function (a, b) {
@@ -67,13 +79,13 @@
   function renderList() {
     state.filtered = state.models.filter(matchesFilters);
     els.list.innerHTML = "";
-    
+
     // Group models by category
     var sections = {
       recent: { title: "🕐 Recently Viewed", models: [] },
       all: { title: "📁 All Models", models: [] }
     };
-    
+
     // Add recently viewed models
     state.recentlyViewed.forEach(function(slug) {
       var model = state.models.find(function(m) { return m.slug === slug; });
@@ -81,24 +93,24 @@
         sections.recent.models.push(model);
       }
     });
-    
+
     // Add all filtered models
     state.filtered.forEach(function(m) {
       if (sections.recent.models.indexOf(m) === -1) {
         sections.all.models.push(m);
       }
     });
-    
+
     // Render sections
     Object.keys(sections).forEach(function(sectionKey) {
       var section = sections[sectionKey];
       if (section.models.length === 0) return;
-      
+
       var sectionHeader = document.createElement("div");
       sectionHeader.className = "section-header";
       sectionHeader.innerHTML = "<h3>" + section.title + "</h3>";
       els.list.appendChild(sectionHeader);
-      
+
       section.models.forEach(function(m) {
         var li = document.createElement("li");
         li.className = "model-item" + (m.slug === state.activeSlug ? " active" : "");
@@ -108,11 +120,11 @@
 
         var h3 = document.createElement("h3");
         h3.textContent = m.title;
-        
+
         var meta = document.createElement("div");
         meta.className = "meta-line";
         meta.textContent = (m.grades || []).join(", ");
-        
+
         var description = document.createElement("p");
         description.className = "model-description";
         description.textContent = m.description.substring(0, 80) + (m.description.length > 80 ? "..." : "");
@@ -206,6 +218,13 @@
         ". Having trouble? Try the <a href=\"" + m.htmlAppLegacy + "\" target=\"_blank\" rel=\"noopener\">" +
         (m.htmlAppLegacyVersion || "previous version") + "</a>.";
       els.details.appendChild(versionNote);
+    } else if (m.htmlAppVersion) {
+      var versionNoteOnly = document.createElement("p");
+      versionNoteOnly.className = "version-note";
+      versionNoteOnly.style.fontSize = "0.85em";
+      versionNoteOnly.style.opacity = "0.75";
+      versionNoteOnly.textContent = "Running " + m.htmlAppVersion + ".";
+      els.details.appendChild(versionNoteOnly);
     }
 
     var conceptsTitle = document.createElement("div");
@@ -256,18 +275,20 @@
   function selectModel(slug) {
     var m = state.models.find(function (x) { return x.slug === slug; });
     if (!m) return;
+    var changed = state.activeSlug !== slug;
     state.activeSlug = slug;
+    if (changed) {
+      // Each newly selected model starts its own notebook entry.
+      labNotebookEntry = null;
+    }
     if (els.frameLoading) {
       els.frameLoading.classList.remove("hidden");
     }
     els.frame.src = m.htmlApp;
 
-    // Add to recently viewed
     addToRecentlyViewed(slug);
-    
-    // Update breadcrumb
     updateBreadcrumb(m.title);
-    
+
     renderList();
     renderDetails(m);
     if (history.replaceState) {
@@ -276,14 +297,11 @@
   }
 
   function addToRecentlyViewed(slug) {
-    // Remove if already exists
     var index = state.recentlyViewed.indexOf(slug);
     if (index > -1) {
       state.recentlyViewed.splice(index, 1);
     }
-    // Add to beginning
     state.recentlyViewed.unshift(slug);
-    // Keep only last 5
     if (state.recentlyViewed.length > 5) {
       state.recentlyViewed.pop();
     }
@@ -295,7 +313,6 @@
     } else {
       state.favorites.add(slug);
     }
-    // Save to localStorage
     try {
       localStorage.setItem("netlogo-favorites", JSON.stringify(Array.from(state.favorites)));
     } catch (e) {
@@ -326,10 +343,259 @@
         els.breadcrumbCurrent.textContent = "Explore";
       }
     } else if (page === "models") {
-      // Scroll to model list
       els.list.scrollIntoView({ behavior: "smooth" });
     }
   }
+
+  // ---------------------------------------------------------------------
+  // Mode switching (Explore / Graph)
+  // ---------------------------------------------------------------------
+
+  function setMode(mode) {
+    document.querySelectorAll('.app-tab').forEach(function(btn) {
+      var isActive = btn.dataset.mode === mode;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    var modelFrameWrap = document.getElementById('model-frame-wrap');
+    var graphMode = document.getElementById('graph-mode');
+    var modelList = document.getElementById('model-list');
+    var filters = document.querySelector('.filters');
+
+    if (modelFrameWrap) {
+      modelFrameWrap.style.display = mode === 'explore' ? 'block' : 'none';
+    }
+    if (graphMode) {
+      graphMode.style.display = mode === 'graph' ? 'flex' : 'none';
+      if (mode === 'graph' && window.GraphExplorer) {
+        window.GraphExplorer.onShow();
+      }
+    }
+    if (modelList) {
+      modelList.style.display = mode === 'explore' ? 'block' : 'none';
+    }
+    if (filters) {
+      filters.style.display = mode === 'explore' ? 'flex' : 'none';
+    }
+
+    if (mode !== 'explore') {
+      var detailsContent = document.getElementById('details-content');
+      if (detailsContent) {
+        detailsContent.innerHTML = '';
+      }
+    } else {
+      // Returning to Explore: repopulate the details panel for whichever
+      // model is still active, rather than leaving it blank until the next click.
+      var current = getCurrentModel();
+      if (current) renderDetails(current);
+    }
+  }
+
+  // ---------------------------------------------------------------------
+  // Digital Lab Notebook
+  // ---------------------------------------------------------------------
+
+  function toggleLabNotebook() {
+    var panel = document.getElementById('lab-notebook-panel');
+    if (panel) {
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    }
+  }
+
+  function showNotebookTab(tabName, evt) {
+    document.querySelectorAll('.notebook-section').forEach(function(section) {
+      section.classList.remove('active');
+    });
+    document.querySelectorAll('.notebook-tab').forEach(function(tab) {
+      tab.classList.remove('active');
+    });
+
+    var section = document.getElementById('notebook-' + tabName);
+    if (section) {
+      section.classList.add('active');
+    }
+
+    if (evt && evt.target) {
+      evt.target.classList.add('active');
+    }
+  }
+
+  function ensureNotebookEntry() {
+    if (labNotebookEntry) return labNotebookEntry;
+    var current = getCurrentModel();
+    if (!current) {
+      alert('Please select a model first.');
+      return null;
+    }
+    if (window.LabNotebook) {
+      labNotebookEntry = window.LabNotebook.startEntry(current.slug, current.title);
+    }
+    return labNotebookEntry;
+  }
+
+  function addObservation() {
+    var input = document.getElementById('observation-input');
+    if (!input) return;
+
+    var text = input.value.trim();
+    if (!text) {
+      alert('Please enter an observation.');
+      return;
+    }
+
+    if (!ensureNotebookEntry()) return;
+
+    var current = getCurrentModel();
+    if (window.LabNotebook) {
+      window.LabNotebook.addObservation(text, {
+        model: current ? current.slug : null,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    input.value = '';
+    displayObservations();
+  }
+
+  function displayObservations() {
+    var list = document.getElementById('observations-list');
+    if (!list) return;
+
+    if (!labNotebookEntry) {
+      list.innerHTML = '<p>No observations yet. Start exploring a model and record what you notice!</p>';
+      return;
+    }
+
+    var observationsHtml = labNotebookEntry.observations.map(function(obs) {
+      return '<div class="observation-item">' +
+        '<div class="observation-time">' + new Date(obs.time).toLocaleTimeString() + '</div>' +
+        '<p>' + obs.text + '</p>' +
+        '</div>';
+    }).join('');
+
+    var screenshotsHtml = (labNotebookEntry.screenshots || []).map(function(shot) {
+      return '<div class="observation-item">' +
+        '<div class="observation-time">' + new Date(shot.time).toLocaleTimeString() + '</div>' +
+        '<img src="' + shot.data + '" alt="Model screenshot" style="max-width:100%;border-radius:4px;">' +
+        '</div>';
+    }).join('');
+
+    list.innerHTML = observationsHtml + screenshotsHtml ||
+      '<p>No observations yet. Start exploring a model and record what you notice!</p>';
+  }
+
+  function captureModelScreenshot() {
+    var iframe = document.getElementById('model-frame');
+    if (!iframe) {
+      alert('No model is currently loaded.');
+      return;
+    }
+
+    var canvas;
+    try {
+      var frameDoc = iframe.contentDocument || iframe.contentWindow.document;
+      canvas = frameDoc.querySelector('canvas');
+    } catch (e) {
+      alert('Could not access the model view to capture it. Make sure a model is loaded and running.');
+      return;
+    }
+
+    if (!canvas) {
+      alert('No model view found to capture yet. Make sure a model is loaded and running.');
+      return;
+    }
+
+    var dataUrl;
+    try {
+      dataUrl = canvas.toDataURL('image/png');
+    } catch (e) {
+      alert('Could not capture the model view: ' + e.message);
+      return;
+    }
+
+    if (!ensureNotebookEntry()) return;
+
+    var current = getCurrentModel();
+    if (window.LabNotebook) {
+      window.LabNotebook.addScreenshot(dataUrl, current ? current.title : '');
+    }
+
+    displayObservations();
+  }
+
+  function saveReflections() {
+    if (!ensureNotebookEntry()) return;
+
+    if (window.LabNotebook) {
+      var patterns = document.getElementById('reflection-patterns');
+      var surprises = document.getElementById('reflection-surprises');
+      var questions = document.getElementById('reflection-questions');
+      var connections = document.getElementById('reflection-connections');
+
+      if (patterns) window.LabNotebook.addReflection('patterns', patterns.value);
+      if (surprises) window.LabNotebook.addReflection('surprises', surprises.value);
+      if (questions) window.LabNotebook.addReflection('questions', questions.value);
+      if (connections) window.LabNotebook.addReflection('connections', connections.value);
+    }
+
+    alert('Reflections saved!');
+  }
+
+  function clearNotebook() {
+    if (confirm('Are you sure you want to clear all notebook entries?')) {
+      if (window.LabNotebook) {
+        window.LabNotebook.clearAll();
+      }
+      labNotebookEntry = null;
+
+      var observationInput = document.getElementById('observation-input');
+      var patterns = document.getElementById('reflection-patterns');
+      var surprises = document.getElementById('reflection-surprises');
+      var questions = document.getElementById('reflection-questions');
+      var connections = document.getElementById('reflection-connections');
+
+      if (observationInput) observationInput.value = '';
+      if (patterns) patterns.value = '';
+      if (surprises) surprises.value = '';
+      if (questions) questions.value = '';
+      if (connections) connections.value = '';
+
+      displayObservations();
+    }
+  }
+
+  function exportNotebook() {
+    if (!window.LabNotebook) return;
+
+    var data = window.LabNotebook.exportAll();
+    var blob = new Blob([data], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'lab-notebook-' + new Date().toISOString().split('T')[0] + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function openThinkingTool(toolName) {
+    var toolUrls = {
+      'tinbergen': 'thinking-tools/tinbergen-questions.html',
+      'causal-mapping': 'thinking-tools/causal-mapping.html',
+      'payoff-matrix': 'thinking-tools/payoff-matrix.html'
+    };
+
+    var url = toolUrls[toolName];
+    if (url) {
+      window.open(url, '_blank', 'width=900,height=700');
+    } else {
+      alert('Thinking tool not yet available: ' + toolName);
+    }
+  }
+
+  // ---------------------------------------------------------------------
+  // Boot
+  // ---------------------------------------------------------------------
 
   function init(models) {
     state.models = models;
@@ -341,7 +607,6 @@
       });
     }
 
-    // Load favorites from localStorage
     try {
       var savedFavorites = localStorage.getItem("netlogo-favorites");
       if (savedFavorites) {
@@ -350,7 +615,7 @@
     } catch (e) {
       console.error("Failed to load favorites:", e);
     }
-    
+
     renderList();
 
     var initialSlug = (location.hash || "").replace("#", "") || (models[0] && models[0].slug);
@@ -364,7 +629,7 @@
         renderList();
       }, 300);
     });
-    
+
     els.conceptFilter.addEventListener("change", function (e) {
       state.concept = e.target.value;
       renderList();
@@ -375,11 +640,19 @@
     });
   }
 
-  // Make functions globally available
   window.clearFilters = clearFilters;
   window.navigateTo = navigateTo;
   window.toggleFavorite = toggleFavorite;
   window.selectModel = selectModel;
+  window.setMode = setMode;
+  window.toggleLabNotebook = toggleLabNotebook;
+  window.showNotebookTab = showNotebookTab;
+  window.addObservation = addObservation;
+  window.captureModelScreenshot = captureModelScreenshot;
+  window.saveReflections = saveReflections;
+  window.clearNotebook = clearNotebook;
+  window.exportNotebook = exportNotebook;
+  window.openThinkingTool = openThinkingTool;
 
   fetch("assets/models.json")
     .then(function (r) { return r.json(); })

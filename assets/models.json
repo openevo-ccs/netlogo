@@ -457,6 +457,7 @@
       "Computer Model"
     ],
     "htmlApp": "models/wolves-sheep-grass/app.html",
+    "htmlAppVersion": "NetLogo 6.x Web",
     "nlogoSource": "models/wolves-sheep-grass/model.nlogo",
     "modelPage": "models/wolves-sheep-grass/",
     "lpmStrand": "lpm-strands/wolves-sheep-grass.md"

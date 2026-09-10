@@ -696,3 +696,476 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Digital Lab Notebook */
+.lab-notebook-panel {
+  background: var(--bg-primary);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  max-height: 600px;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease;
+}
+
+.lab-notebook-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.lab-notebook-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.notebook-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.notebook-tab {
+  padding: 10px 20px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-medium);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.notebook-tab:hover {
+  background: var(--bg-tertiary);
+}
+
+.notebook-tab.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.notebook-section {
+  display: none;
+}
+
+.notebook-section.active {
+  display: block;
+}
+
+.observation-input {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border: 2px solid var(--border-medium);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1em;
+  resize: vertical;
+  margin-bottom: 15px;
+}
+
+.observation-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.observations-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.observation-item {
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border-left: 3px solid var(--primary);
+}
+
+.observation-time {
+  font-size: 0.85em;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+}
+
+.reflection-section {
+  margin-bottom: 20px;
+}
+
+.reflection-section h4 {
+  margin: 0 0 10px 0;
+  color: var(--text-primary);
+}
+
+.reflection-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  border: 2px solid var(--border-medium);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95em;
+  resize: vertical;
+}
+
+.notebook-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 2px solid var(--border-light);
+}
+
+@media print {
+  .notebook-actions {
+    display: none;
+  }
+}
+
+/* Network Graph Mode */
+.graph-mode {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  animation: fadeIn 0.3s ease;
+}
+
+.graph-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.graph-header .graph-maximize-btn {
+  /* Overrides .viewer-maximize-btn's absolute positioning (meant for
+     overlaying a canvas) -- here it just sits at the end of the header row. */
+  position: static;
+  flex: 0 0 auto;
+}
+
+#graph-mode:fullscreen,
+#graph-mode:-webkit-full-screen {
+  background: var(--bg-primary);
+  padding: var(--space-5);
+}
+
+#graph-mode:fullscreen .graph-svg,
+#graph-mode:-webkit-full-screen .graph-svg {
+  min-height: 0;
+}
+
+/* Bridge demo result, appended into the details panel from a graph-node
+   double-click (assets/graph-explorer.js's openInExplorer/renderBridgeStatus) */
+.bridge-status {
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  border: 1px solid var(--primary-light);
+  background: var(--primary-light);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.bridge-status code {
+  background: var(--bg-primary);
+}
+
+.bridge-status-sub {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.graph-header h2 {
+  margin: 0 0 var(--space-1) 0;
+  font-size: var(--text-xl);
+  color: var(--text-primary);
+}
+
+.graph-header p {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  max-width: 80ch;
+}
+
+.graph-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: var(--space-4);
+  min-height: 0;
+}
+
+.graph-controls {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-right: var(--space-2);
+}
+
+.control-group {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.control-group h4 {
+  margin: 0 0 var(--space-2) 0;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+
+.control-group label {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.control-group label input[type="range"] {
+  display: block;
+  width: 100%;
+  accent-color: var(--primary);
+}
+
+.control-group .checkline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.control-group .checkline input {
+  accent-color: var(--primary);
+}
+
+.graph-buttons {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.graph-buttons .btn {
+  flex: 1;
+  padding: var(--space-2) var(--space-2);
+  font-size: var(--text-xs);
+}
+
+.control-group input[type="search"] {
+  width: 100%;
+  padding: var(--space-2);
+  margin-bottom: var(--space-2);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: var(--text-xs);
+  box-sizing: border-box;
+}
+
+.graph-checklist {
+  max-height: 160px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.graph-checklist label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.graph-checklist input {
+  accent-color: var(--primary);
+}
+
+.graph-canvas-wrap {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.graph-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 50vh;
+  display: block;
+  cursor: grab;
+}
+
+.graph-svg:active {
+  cursor: grabbing;
+}
+
+.graph-svg .gnode-model circle {
+  fill: var(--primary);
+  stroke: var(--primary-hover);
+  stroke-width: 1.5;
+}
+
+.graph-svg .gnode-concept circle {
+  fill: var(--secondary);
+  stroke: var(--secondary-hover);
+  stroke-width: 1.5;
+}
+
+.graph-svg .gnode-literature circle {
+  fill: #2c3a63;
+  stroke: #1c2740;
+  stroke-width: 1.5;
+}
+
+.graph-svg .gnode-literature text {
+  font-size: 8px;
+}
+
+/* A concept with no grounding literature yet -- hollow/dashed rather than
+   solid, so the gap the roadmap already flagged is visible in the graph
+   itself, not just in a status table. */
+.graph-svg .gnode-ungrounded circle {
+  fill: var(--bg-primary);
+  stroke: var(--secondary);
+  stroke-width: 2;
+  stroke-dasharray: 3 2;
+}
+
+.graph-svg .gnode text {
+  font-size: 10px;
+  font-family: var(--font, inherit);
+  fill: var(--text-primary);
+  paint-order: stroke;
+  stroke: var(--bg-primary);
+  stroke-width: 3px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.graph-svg .gnode {
+  cursor: pointer;
+}
+
+.graph-svg .gnode.dimmed {
+  opacity: 0.15;
+}
+
+.graph-svg .gedge {
+  stroke: var(--border-dark);
+  fill: none;
+  pointer-events: none;
+}
+
+.graph-svg .gedge.gedge-model-model {
+  stroke: var(--primary);
+  opacity: 0.55;
+}
+
+.graph-svg .gedge.gedge-concept-concept {
+  stroke: var(--secondary);
+  opacity: 0.55;
+}
+
+.graph-svg .gedge.gedge-lit-concept {
+  stroke: #2c3a63;
+  opacity: 0.4;
+  stroke-dasharray: 2 2;
+}
+
+.graph-svg .gedge.gedge-lit-lit {
+  stroke: #2c3a63;
+  opacity: 0.6;
+}
+
+.graph-svg .gedge.dimmed {
+  opacity: 0.05;
+}
+
+.graph-tooltip {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+  background: var(--hero-bg-dark, #0d1220);
+  color: #eef6f4;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  max-width: 240px;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.graph-tooltip.visible {
+  opacity: 1;
+}
+
+.graph-legend {
+  position: absolute;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  display: flex;
+  gap: var(--space-3);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.graph-legend span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-dot.legend-model { background: var(--primary); }
+.legend-dot.legend-concept { background: var(--secondary); }
+.legend-dot.legend-literature { background: #2c3a63; }
+
+@media (max-width: 1024px) {
+  .graph-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .graph-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: 220px;
+  }
+  .control-group {
+    flex: 1 1 200px;
+  }
+}

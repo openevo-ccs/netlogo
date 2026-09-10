@@ -8,7 +8,6 @@
 <link rel="icon" type="image/png" href="assets/brand/openevo-logo.png">
 <link rel="stylesheet" href="assets/brand/tokens.css">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="assets/enhanced-style.css">
 </head>
 <body>
   <header class="topbar">
@@ -144,9 +143,9 @@
         </div>
         
         <div class="notebook-tabs">
-          <button class="notebook-tab active" onclick="showNotebookTab('observations')">Observations</button>
-          <button class="notebook-tab" onclick="showNotebookTab('reflections')">Reflections</button>
-          <button class="notebook-tab" onclick="showNotebookTab('thinking-tools')">Thinking Tools</button>
+          <button class="notebook-tab active" onclick="showNotebookTab('observations', event)">Observations</button>
+          <button class="notebook-tab" onclick="showNotebookTab('reflections', event)">Reflections</button>
+          <button class="notebook-tab" onclick="showNotebookTab('thinking-tools', event)">Thinking Tools</button>
         </div>
         
         <div id="notebook-observations" class="notebook-section active">
@@ -204,8 +203,6 @@
 
   <script src="assets/app.js"></script>
   <script src="assets/lab-notebook.js"></script>
-  <script src="assets/assessment.js"></script>
-  <script src="assets/enhanced-app.js"></script>
   <script src="assets/panel-controls.js"></script>
   <script src="assets/model-bridge.js"></script>
   <script src="assets/graph-explorer.js"></script>

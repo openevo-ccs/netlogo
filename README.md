@@ -19,12 +19,14 @@ netlogo/
 ├── assets/                  # explorer app's JS/CSS + generated models.json index
 ├── models/
 │   └── <model-slug>/
-│       ├── app.html               # self-contained NetLogo Web HTML export — runs in any browser;
-│       │                          #   currently NetLogo 6.x for every model. When a model is
-│       │                          #   upgraded to a NetLogo 7 Web export, its prior version is
-│       │                          #   kept as app-legacy6.html rather than dropped — see
-│       │                          #   netlogo-agent-toolkit/README.md's "Upgrading a model's web
-│       │                          #   export to NetLogo 7" for the procedure.
+│       ├── app.html               # self-contained NetLogo Web HTML export — runs in any browser.
+│       │                          #   14 of 15 models are upgraded to NetLogo 7 Web exports (prior
+│       │                          #   version kept as app-legacy6.html rather than dropped);
+│       │                          #   wolves-sheep-grass is still on its original NetLogo 6.x
+│       │                          #   export, pending a re-export blocked on NetLogo 7's "Save as
+│       │                          #   NetLogo Web" not being cleanly scriptable outside its GUI —
+│       │                          #   see netlogo-agent-toolkit/README.md's "Upgrading a model's
+│       │                          #   web export to NetLogo 7" for the procedure.
 │       ├── model.nlogo            # the model's source, extracted from the HTML export —
 │       │                          #   open with desktop NetLogo (https://ccl.northwestern.edu/netlogo/)
 │       ├── <model-slug>.nlogox    # NetLogo 7 XML export, converted from model.nlogo
