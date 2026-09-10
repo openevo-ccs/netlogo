@@ -59,9 +59,17 @@ netlogo/
 | [Swarming](models/swarming/) | Complex systems, emergence | 9-12 |
 | [Virus Epidemic](models/virus-epidemic/) | Epidemiology, public health | 6-8, 9-12 |
 | [Wolves-Sheep-Grass](models/wolves-sheep-grass/) | Predator-prey, ecosystem dynamics | 6-8, 9-12, teacher ed |
+| [BeeSmart Hive Finding](models/beesmart-hive-finding/) | Swarm intelligence, collective/quorum decision-making, complex systems | 9-12, UG |
 
 Each model page links out to any OpenEvo-authored teaching materials (lesson plans, UI-overview
 slide decks) that exist for it on the source site.
+
+**Licensing note:** every model above is redistributed from OpenEvo/TeachingBase under CC BY-SA
+(see [Attribution & license](#attribution--license) below) **except BeeSmart Hive Finding**,
+which is sourced directly from the official NetLogo Models Library and keeps its own original
+CC BY-NC-SA 3.0 license (NonCommercial clause) — see
+[its own README](models/beesmart-hive-finding/README.md#license--read-before-reusing) before
+reusing it.
 
 ## LPM strands & extended learning
 

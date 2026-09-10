@@ -1,0 +1,637 @@
+{
+  "slug": "beesmart-hive-finding",
+  "world": {
+    "minPxcor": -32,
+    "maxPxcor": 32,
+    "minPycor": -24,
+    "maxPycor": 24,
+    "patchSize": 11.0,
+    "updateMode": 1,
+    "wrappingAllowedX": false,
+    "wrappingAllowedY": false
+  },
+  "globals": [
+    "color-list",
+    ";",
+    "colors",
+    "for",
+    "hives,",
+    "which",
+    "keeps",
+    "consistency",
+    "among",
+    "the",
+    "hive",
+    "colors,",
+    "plot",
+    ";",
+    "pens",
+    "colors,",
+    "and",
+    "committed",
+    "bees'",
+    "colors",
+    "quality-list",
+    ";",
+    "quality",
+    "of",
+    "hives",
+    ";",
+    "visualization:",
+    "show-dance-path?",
+    ";",
+    "dance",
+    "path",
+    "is",
+    "the",
+    "circular",
+    "patter",
+    "with",
+    "a",
+    "zigzag",
+    "line",
+    "in",
+    "the",
+    "middle.",
+    ";",
+    "when",
+    "large",
+    "amount",
+    "of",
+    "bees",
+    "dance,",
+    "the",
+    "patterns",
+    "overlaps",
+    "each",
+    "other,",
+    ";",
+    "which",
+    "makes",
+    "them",
+    "hard",
+    "to",
+    "distinguish.",
+    "turn",
+    "show-dance-path?",
+    "off",
+    "can",
+    ";",
+    "clear",
+    "existing",
+    "patterns",
+    "scouts-visible?",
+    ";",
+    "you",
+    "can",
+    "hide",
+    "scouts",
+    "and",
+    "only",
+    "look",
+    "at",
+    "the",
+    "dance",
+    "patterns",
+    "to",
+    "avoid",
+    ";",
+    "distraction",
+    "from",
+    "bees'",
+    "dancing",
+    "movements",
+    "watch-dance-task",
+    ";",
+    "a",
+    "list",
+    "of",
+    "tasks",
+    "discover-task",
+    "inspect-hive-task",
+    "go-home-task",
+    "dance-task",
+    "re-visit-task",
+    "pipe-task",
+    "take-off-task"
+  ],
+  "breeds": {
+    "sites": {
+      "singular": "site",
+      "own": [
+        "quality",
+        "discovered?",
+        "scouts-on-site"
+      ]
+    },
+    "scouts": {
+      "singular": "scout",
+      "own": [
+        "my-home",
+        ";",
+        "a",
+        "bee's",
+        "original",
+        "position",
+        "next-task",
+        ";",
+        "the",
+        "code",
+        "block",
+        "a",
+        "bee",
+        "is",
+        "running",
+        "task-string",
+        ";",
+        "the",
+        "behavior",
+        "a",
+        "bee",
+        "is",
+        "displaying",
+        "bee-timer",
+        ";",
+        "a",
+        "timer",
+        "keeping",
+        "track",
+        "of",
+        "the",
+        "length",
+        "of",
+        "the",
+        "current",
+        "state",
+        ";",
+        "or",
+        "the",
+        "waiting",
+        "time",
+        "before",
+        "entering",
+        "next",
+        "state",
+        "target",
+        ";",
+        "the",
+        "hive",
+        "that",
+        "a",
+        "bee",
+        "is",
+        "currently",
+        "focusing",
+        "on",
+        "exploring",
+        "interest",
+        ";",
+        "a",
+        "bee's",
+        "interest",
+        "in",
+        "the",
+        "target",
+        "hive",
+        "trips",
+        ";",
+        "times",
+        "a",
+        "bee",
+        "has",
+        "visited",
+        "the",
+        "target",
+        "initial-scout?",
+        ";",
+        "true",
+        "if",
+        "it",
+        "is",
+        "an",
+        "initial",
+        "scout,",
+        "who",
+        "explores",
+        "the",
+        "unknown",
+        "horizons",
+        "no-discovery?",
+        ";",
+        "true",
+        "if",
+        "it",
+        "is",
+        "an",
+        "initial",
+        "scout",
+        "and",
+        "fails",
+        "to",
+        "discover",
+        "any",
+        "hive",
+        "site",
+        ";",
+        "on",
+        "its",
+        "initial",
+        "exploration",
+        "on-site?",
+        ";",
+        "true",
+        "if",
+        "it's",
+        "inspecting",
+        "a",
+        "hive",
+        "site",
+        "piping?",
+        ";",
+        "a",
+        "bee",
+        "starts",
+        "to",
+        "\"pipe\"",
+        "when",
+        "the",
+        "decision",
+        "of",
+        "the",
+        "best",
+        "hive",
+        "is",
+        "made.",
+        ";",
+        "true",
+        "if",
+        "a",
+        "be",
+        "observes",
+        "more",
+        "bees",
+        "on",
+        "a",
+        "certain",
+        "hive",
+        "site",
+        "than",
+        "the",
+        ";",
+        "quorum",
+        "or",
+        "when",
+        "it",
+        "observes",
+        "other",
+        "bees",
+        "piping",
+        ";",
+        "dance",
+        "related",
+        "variables:",
+        "dist-to-hive",
+        ";",
+        "the",
+        "distance",
+        "between",
+        "the",
+        "swarm",
+        "and",
+        "the",
+        "hive",
+        "that",
+        "a",
+        "bee",
+        "is",
+        "exploring",
+        "circle-switch",
+        ";",
+        "when",
+        "making",
+        "a",
+        "waggle",
+        "dance,",
+        "a",
+        "bee",
+        "alternates",
+        "left",
+        "and",
+        "right",
+        "to",
+        "make",
+        ";",
+        "the",
+        "figure",
+        "\"8\".",
+        "circle-switch",
+        "alternates",
+        "between",
+        "1",
+        "and",
+        "-1",
+        "to",
+        "tell",
+        ";",
+        "a",
+        "bee",
+        "which",
+        "direction",
+        "to",
+        "turn.",
+        "temp-x-dance",
+        ";",
+        "initial",
+        "position",
+        "of",
+        "a",
+        "dance",
+        "temp-y-dance"
+      ]
+    }
+  },
+  "procedures": {
+    "setup": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "setup-bees",
+        "setup-hives",
+        "setup-tasks"
+      ]
+    },
+    "setup-hives": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "setup-bees": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "setup-tasks": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "dance",
+        "discover",
+        "go-home",
+        "inspect-hive",
+        "pipe",
+        "re-visit",
+        "take-off",
+        "watch-dance"
+      ]
+    },
+    "watch-dance": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "dance",
+        "discover",
+        "move-around",
+        "pipe",
+        "re-visit"
+      ]
+    },
+    "discover": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "go",
+        "proceed"
+      ]
+    },
+    "inspect-hive": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "discover",
+        "re-visit"
+      ]
+    },
+    "go-home": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "dance",
+        "discover",
+        "pipe",
+        "proceed"
+      ]
+    },
+    "dance": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "go",
+        "make-semicircle",
+        "waggle"
+      ]
+    },
+    "re-visit": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "proceed"
+      ]
+    },
+    "pipe": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "move-around",
+        "watch-dance"
+      ]
+    },
+    "take-off": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "go": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "plot-on-site-scouts"
+      ]
+    },
+    "make-semicircle": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "dance"
+      ]
+    },
+    "waggle": {
+      "kind": "command",
+      "params": [],
+      "calls": [
+        "dance"
+      ]
+    },
+    "proceed": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "move-around": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "plot-on-site-scouts": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "show-hide-dance-path": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    },
+    "show-hide-scouts": {
+      "kind": "command",
+      "params": [],
+      "calls": []
+    }
+  },
+  "entry_points": [
+    "setup",
+    "show-hide-dance-path",
+    "show-hide-scouts"
+  ],
+  "parameters": [
+    {
+      "widget": "slider",
+      "variable": "hive-number",
+      "display": "hive-number",
+      "min": 4.0,
+      "max": 10.0,
+      "default": 10.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "initial-percentage",
+      "display": "initial-percentage",
+      "min": 5.0,
+      "max": 25.0,
+      "default": 12.0,
+      "step": 1.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "initial-explore-time",
+      "display": "initial-explore-time",
+      "min": 100.0,
+      "max": 300.0,
+      "default": 200.0,
+      "step": 10.0,
+      "units": null
+    },
+    {
+      "widget": "slider",
+      "variable": "quorum",
+      "display": "quorum",
+      "min": 0.0,
+      "max": 50.0,
+      "default": 33.0,
+      "step": 1.0,
+      "units": null
+    }
+  ],
+  "outputs": [
+    {
+      "widget": "plot",
+      "display": "piping-scouts",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "default",
+          "setup": "",
+          "update": "plot count scouts with [piping?]"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "on-site",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": []
+    },
+    {
+      "widget": "plot",
+      "display": "watching v.s. working",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": [
+        {
+          "display": "watching bees",
+          "setup": "",
+          "update": "plot count scouts with [task-string = \"watching-dance\"]"
+        },
+        {
+          "display": "working bees",
+          "setup": "",
+          "update": "plot count scouts - count scouts with [task-string = \"watching-dance\"]"
+        }
+      ]
+    },
+    {
+      "widget": "plot",
+      "display": "committed",
+      "xAxis": null,
+      "yAxis": null,
+      "yMin": 0.0,
+      "yMax": 10.0,
+      "pens": []
+    }
+  ],
+  "controls": [
+    {
+      "display": "Setup",
+      "kind": "Observer",
+      "forever": false,
+      "code": "setup"
+    },
+    {
+      "display": "Go",
+      "kind": "Observer",
+      "forever": true,
+      "code": "go"
+    },
+    {
+      "display": "Show/Hide Dance Path",
+      "kind": "Observer",
+      "forever": false,
+      "code": "show-hide-dance-path"
+    },
+    {
+      "display": "Show/Hide Scouts",
+      "kind": "Observer",
+      "forever": false,
+      "code": "show-hide-scouts"
+    }
+  ],
+  "info_sections": {},
+  "lineage": [],
+  "concepts": [],
+  "lint_warnings": [
+    "Widget-bound variable 'hive-number' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'initial-explore-time' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'initial-percentage' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error).",
+    "Widget-bound variable 'quorum' is not in the explicit `globals [...]` block (NetLogo auto-declares interface globals, so this is expected, not an error)."
+  ]
+}

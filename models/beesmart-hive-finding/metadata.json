@@ -1,0 +1,47 @@
+{
+  "slug": "beesmart-hive-finding",
+  "title": "BeeSmart Hive Finding",
+  "description": "Shows the swarm intelligence of honeybees during their hive-finding process: a small population of scout bees explores the surroundings, advertises candidate hive sites through waggle dances of varying enthusiasm, and the swarm converges on the best available site once a quorum of bees is reached at that site — with no central coordinator.",
+  "concepts": [
+    "Swarm intelligence",
+    "Collective/quorum decision-making",
+    "Complex systems"
+  ],
+  "subjects": [
+    "Biology",
+    "Computer Science",
+    "STEM"
+  ],
+  "grades": [
+    "9-12",
+    "Undergraduate"
+  ],
+  "materialTypes": [
+    "Computer Model"
+  ],
+  "notes": "This is the first model in a larger 'BeeSmart' computational-modeling curricular unit (per the model's own Info tab); later models in that unit (a HubNet participatory-simulation variant, 'Multiple Check World', 'Debate World') are referenced as 'coming soon' on the source site and are not included here. Unlike the rest of this collection (redistributed from OpenEvo/TeachingBase under CC BY-SA), this model is sourced directly from the official NetLogo Models Library and keeps its own original CC BY-NC-SA 3.0 license — see the license block below and this model's README.md before reusing it commercially.",
+  "files": {
+    "htmlApp": "app.html",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "nlogoSource": "model.nlogo",
+    "nlogox": "beesmart-hive-finding.nlogox",
+    "modelCard": "model-card.json",
+    "agentManifest": "agent-manifest.json"
+  },
+  "teachingMaterials": {
+    "uiOverview": null,
+    "lessonPlan": null,
+    "related": []
+  },
+  "lpmStrand": "lpm-strands/beesmart-hive-finding.md",
+  "source": {
+    "page": "http://ccl.northwestern.edu/netlogo/models/BeeSmartHiveFinding",
+    "nlogoxExport": "http://ccl.northwestern.edu/netlogo/models/models/Sample%20Models/Biology/BeeSmart%20Hive%20Finding.nlogox",
+    "attribution": "Guo, Y. and Wilensky, U. (2014). NetLogo BeeSmart Hive Finding model. http://ccl.northwestern.edu/netlogo/models/BeeSmartHiveFinding. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.",
+    "netlogoSoftwareCitation": "Wilensky, U. (1999). NetLogo. http://ccl.northwestern.edu/netlogo/. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.",
+    "copyright": "Copyright 2014 Uri Wilensky.",
+    "license": "CC BY-NC-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/3.0/",
+    "licenseNote": "Differs from this collection's usual CC BY-SA (no NC clause) blanket license — this model is redistributed as-is from the official NetLogo Models Library, not from OpenEvo/TeachingBase, and keeps its original NonCommercial term. Commercial licenses are available by contacting uri@northwestern.edu or netlogo-commercial-admin@ccl.northwestern.edu (both addresses given on the model's own citation/info page)."
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "assessmentId": "OE-ASSESS-BEESMARTHIVEFINDING-001",
+  "modelSlug": "beesmart-hive-finding",
+  "title": "Integrated Causal Reasoning Assessment: BeeSmart Hive Finding",
+  "description": "Assesses student understanding of decentralized, quorum-based collective decision-making, distinguishing centralized/leader-driven and majority-vote explanations from the model's actual mechanism of quality-linked waggle-dance recruitment, declining interest, and a local quorum threshold.",
+  "gradeBand": "9-12, Undergraduate",
+  "estimatedDuration": "15-20 minutes",
+  "competencies": [
+    { "id": "OE-SANDBOX-CONCEPT-000008", "label": "Decentralized Causal Reasoning", "vocabulary": "OE-INTERDISCIPLINARY-v1.0.0" },
+    { "id": "OE-COMPETENCY-openevo-core-competencies-dcr-comp", "label": "Decentralized Causal Reasoning: Computational Systems", "vocabulary": "OPENEVO-CORE-COMPETENCIES" },
+    { "id": "OE-CONCEPT-oe-interdisciplinary-collective-intelligence", "label": "Collective Intelligence", "vocabulary": "OE-INTERDISCIPLINARY-v1.0.0" }
+  ],
+  "vignette": {
+    "title": "Two Candidate Nest Sites",
+    "text": "A swarm sets `hive-number` to 10 candidate sites, `initial-percentage` to 12% (about 12 of the 100 scouts fly out first), `initial-explore-time` to 200 ticks, and `quorum` to 33. Early on, Site B (moderate quality) is discovered first and quickly attracts a crowd -- for many ticks it has more scouts on it than any other site, including Site A (higher quality), which is discovered a little later by only two or three scouts.\n\nBy the end of the run, the swarm has committed to Site A, not Site B. A student named Marcus says: 'That's strange -- Site B had way more bees on it for most of the run. The swarm should have picked whichever site the most bees were already visiting.'",
+    "context": {
+      "setting": "A swarm of 100 scout bees choosing among hive-number candidate nest sites of varying quality, based on the model's documented mechanism (models/beesmart-hive-finding/README.md, model-card.json)",
+      "keyVariables": [
+        "hive-number (number of candidate sites)",
+        "initial-percentage (share of scouts that explore first)",
+        "initial-explore-time (ticks initial scouts search before giving up)",
+        "quorum (number of scouts at one site that triggers piping/commitment)",
+        "Waggle-dance strength (longer/more enthusiastic for higher-quality sites)",
+        "Declining interest (a site's advertised interest drops a little on each repeat visit)"
+      ]
+    }
+  },
+  "items": [
+    {
+      "itemId": "BSHF-001",
+      "type": "multiple-choice",
+      "question": "Is Marcus's explanation -- that the swarm should pick whichever site already has the most bees -- consistent with how this model actually works?",
+      "options": [
+        { "id": "A", "text": "Yes -- whichever site accumulates the most visiting scouts first is the site the swarm commits to, since more visitors means more support.", "reasoningType": "dichotomized", "misconception": "Majority-count/first-mover framing: treats raw scout count as the decision rule, ignoring that dance strength (and therefore recruitment rate) is tied to site quality, not just to how many scouts happen to be there already." },
+        { "id": "B", "text": "No -- a scout's waggle dance is longer and more enthusiastic for a higher-quality site, so Site A can recruit new scouts faster per visit even while starting from fewer bees, and each site's advertised interest also declines a little on every repeat visit, so Site B's early lead doesn't lock in the outcome.", "reasoningType": "integrated", "explanation": "Recognizes that the model's dance-strength-by-quality and declining-interest-per-revisit mechanisms mean early popularity is not the same as sustained recruitment rate -- a genuinely lower-recruiting site can be overtaken." },
+        { "id": "C", "text": "No -- the sites don't actually have different qualities in this model; the outcome is entirely random.", "reasoningType": "dichotomized", "misconception": "Denies a real, documented model mechanism (site `quality`, set at setup, drives dance length) in favor of treating the outcome as pure chance." },
+        { "id": "D", "text": "It's impossible to know without knowing each individual bee's personal preference.", "reasoningType": "dichotomized", "misconception": "Introduces an unmodeled cause (bee 'preference') the model doesn't implement; every scout follows the same quality-linked dance-and-recruit rule." }
+      ],
+      "correctAnswer": "B",
+      "scoring": { "integrated": ["B"], "dichotomized": ["A", "C", "D"], "partial": [] },
+      "competencyTarget": "Distinguishing quality-linked, declining-interest recruitment dynamics from a simple majority-count/first-mover rule"
+    },
+    {
+      "itemId": "BSHF-002",
+      "type": "multiple-choice",
+      "question": "No single bee in the model ever visits every candidate site and compares them side by side. Given that, how does the swarm as a whole end up committing to the higher-quality site?",
+      "options": [
+        { "id": "A", "text": "One especially experienced scout must effectively act as a leader, comparing the options and directing the others.", "reasoningType": "dichotomized", "misconception": "Centralized-mindset framing: invents a leader/comparer role the model's procedures don't implement -- every scout runs the identical discover/inspect/dance/re-visit task set." },
+        { "id": "B", "text": "The comparison happens without any single bee doing it: each scout only ever knows about the one site it last visited, but because dance strength scales with that site's own quality, higher-quality sites recruit new scouts faster in aggregate -- the 'comparison' is an emergent property of many local, quality-linked recruitment events, not a judgment any one bee makes.", "reasoningType": "integrated", "explanation": "Correctly locates the comparison at the population level (differential recruitment rates), not inside any individual bee's cognition." },
+        { "id": "C", "text": "The bees must be communicating the full ranked list of all sites to each other somehow.", "reasoningType": "dichotomized", "misconception": "Overattributes representational capacity to individual bees -- the model's own scout variables (my-home, next-task, target, interest, trips) show a bee tracks only its own current target site, not a ranked list of all sites." },
+        { "id": "D", "text": "It doesn't -- the model's outcome has nothing to do with site quality at all.", "reasoningType": "dichotomized", "misconception": "Denies the documented quality-to-dance-strength link entirely." }
+      ],
+      "correctAnswer": "B",
+      "scoring": { "integrated": ["B"], "dichotomized": ["A", "C", "D"], "partial": [] },
+      "competencyTarget": "Explaining a system-level comparison as an emergent aggregate of local, quality-linked interactions, with no bee performing the comparison itself"
+    },
+    {
+      "itemId": "BSHF-003",
+      "type": "multiple-choice",
+      "question": "The `quorum` slider is set to 33. What does reaching a quorum of 33 at one site actually trigger, according to the model's own mechanism?",
+      "options": [
+        { "id": "A", "text": "It means all 100 scout bees have now personally inspected that site.", "reasoningType": "dichotomized", "misconception": "Confuses the quorum threshold (a count of scouts currently gathered at one site) with total-population agreement or universal inspection." },
+        { "id": "B", "text": "Once roughly 33 scouts are gathered at one site, those scouts begin to 'pipe' -- a signal that spreads through the swarm -- and once every bee is piping, the whole swarm commits to that site and the model stops; no external vote or count is taken by any controller.", "reasoningType": "integrated", "explanation": "Correctly describes the quorum-to-piping-to-commitment sequence as the model actually implements it: a local threshold at one site triggering a spreading signal, not a global tally overseen by any single agent." },
+        { "id": "C", "text": "It means the site with 33 scouts must be the highest-quality site available among all the candidates.", "reasoningType": "dichotomized", "misconception": "Assumes quorum count is itself proof of objective quality ranking, rather than an emergent threshold that quality only influences the rate of reaching." },
+        { "id": "D", "text": "It stops new scouts from being recruited to any other site for the rest of the run.", "reasoningType": "dichotomized", "misconception": "Invents an inhibitory rule (suppressing other sites once one reaches quorum) that this simplified model version does not implement -- piping spreads commitment, but the model doesn't model active cross-inhibition of rival sites the way the real biological 'stop signal' does." }
+      ],
+      "correctAnswer": "B",
+      "scoring": { "integrated": ["B"], "dichotomized": ["A", "C", "D"], "partial": [] },
+      "competencyTarget": "Correctly explaining the quorum-threshold-to-piping-to-commitment mechanism"
+    },
+    {
+      "itemId": "BSHF-004",
+      "type": "multiple-choice",
+      "question": "The model only simulates 100 'scout' bees, not a full honeybee swarm (which can number in the tens of thousands). A student says: 'This model must be showing how the whole colony votes on a new home.' Is that an accurate description of what the model represents?",
+      "options": [
+        { "id": "A", "text": "Yes -- every bee in the colony is shown participating equally in the decision.", "reasoningType": "dichotomized", "misconception": "Misreads the model's own documented simplification: it deliberately shows only the scout subpopulation (a real 3-5% of a full swarm), not the whole colony, because non-scout bees simply follow once a decision is made." },
+        { "id": "B", "text": "Not quite -- the model deliberately represents only the scout bees, a small subset of the real swarm that does the searching, advertising, and quorum-sensing; the much larger number of non-scout bees are left out of the model because, in the real system, they simply follow the scouts to whichever site is chosen rather than taking part in the decision themselves.", "reasoningType": "integrated", "explanation": "Correctly identifies scouts as a deliberately simplified subpopulation standing in for the decision-making process, distinct from the full colony, and names this as a stated model simplification rather than treating the model as a literal one-bee-to-one-bee representation." },
+        { "id": "C", "text": "Yes, but only because the model would run too slowly with more bees -- it's purely a performance limitation, not a meaningful simplification.", "reasoningType": "dichotomized", "misconception": "Misattributes the scouts-only design to a technical/performance constraint rather than the model's own stated pedagogical and biological rationale (scouts are the real decision-making subgroup)." },
+        { "id": "D", "text": "No -- since only scouts are shown, the model isn't really about swarm decision-making at all.", "reasoningType": "dichotomized", "misconception": "Overcorrects into dismissing the model's validity, rather than recognizing that scouts are the biologically real locus of the decision even though most of the colony isn't separately modeled." }
+      ],
+      "correctAnswer": "B",
+      "scoring": { "integrated": ["B"], "dichotomized": ["A", "C", "D"], "partial": [] },
+      "competencyTarget": "Evaluating what a model does and does not represent, distinguishing a stated simplification from a limitation or an invalidation"
+    },
+    {
+      "itemId": "BSHF-005",
+      "type": "multiple-choice",
+      "question": "A class wants to use the honeybee nest-site decision as an analogy for how their own class should choose a field-trip destination from several options. Which statement most accurately maps the bee mechanism onto a human group decision, including where the analogy breaks down?",
+      "options": [
+        { "id": "A", "text": "It's a perfect match -- the bees are just voting democratically, like a class show-of-hands, and the destination with the most votes wins.", "reasoningType": "dichotomized", "misconception": "False equivalence: treats waggle-dance recruitment (quality-weighted, declining-interest, threshold-triggered) as literally the same process as a one-bee-one-vote tally, erasing the real mechanistic differences." },
+        { "id": "B", "text": "The core transferable idea is that a group can converge on a shared choice through repeated, quality-weighted local interactions and a threshold for commitment, without anyone centrally tallying votes or a leader deciding -- but the analogy breaks down where human deliberation involves things the model has no equivalent for, such as explicit spoken argument, changing one's mind through discussion, or unequal social influence between people.", "reasoningType": "integrated", "explanation": "States both what maps (decentralized, threshold-triggered convergence via locally-weighted recruitment) and explicitly names where the analogy breaks down (no verbal argument, discussion, or unequal influence in the bee model), following the Analogy Mapping pattern of naming both correspondence and departure." },
+        { "id": "C", "text": "The analogy doesn't work at all, since bees are insects and have nothing in common with human group decisions.", "reasoningType": "dichotomized", "misconception": "False uniqueness bias: dismisses any structural correspondence at all, rather than evaluating which specific features do or don't transfer." },
+        { "id": "D", "text": "It's a perfect match because in both cases, whichever option is objectively best always wins out in the end.", "reasoningType": "dichotomized", "misconception": "Overgeneralizes the model's typical/designed outcome into a universal guarantee, ignoring that the model itself is stochastic (site discovery order, initial scout allocation) and that human deliberation has no equivalent guarantee either." }
+      ],
+      "correctAnswer": "B",
+      "scoring": { "integrated": ["B"], "dichotomized": ["A", "C", "D"], "partial": [] },
+      "competencyTarget": "Building an analogy map that names both what transfers and where the analogy breaks down, avoiding both false equivalence and false uniqueness bias"
+    }
+  ],
+  "scoringGuide": {
+    "integratedReasoning": {
+      "description": "Student explains the swarm's nest-site choice as an emergent outcome of many local, quality-weighted waggle-dance recruitment events and a local quorum threshold, with no bee or external agent ever comparing all sites or directing the outcome; accurately states what the model does and does not represent (scouts only, not the whole colony); and builds analogies to human decision-making that name explicit correspondences and explicit points of breakdown.",
+      "indicators": [
+        "Distinguishes quality-linked, declining-interest recruitment dynamics from a simple majority-count/first-mover rule",
+        "Explains the system-level 'comparison' between sites as an emergent aggregate of local interactions, not a judgment any one bee makes",
+        "Correctly describes the quorum-to-piping-to-commitment sequence as a local threshold triggering a spreading signal, not a global tally",
+        "Accurately states the model's own scouts-only simplification as a deliberate, biologically grounded design choice, not a technical shortcut or invalidation",
+        "Names both what does and does not transfer when analogizing the mechanism to a human group decision process"
+      ]
+    },
+    "dichotomizedReasoning": {
+      "description": "Student attributes the outcome to a leader/comparer bee, a simple majority-count or first-mover rule, an unmodeled cause (personality, full ranked communication), or treats the model's scouts-only simplification as either a full colony vote or a mere technical limitation; analogizes to human decision-making with either false equivalence (treats waggle-dance recruitment as literally a vote) or false uniqueness bias (denies any correspondence at all).",
+      "indicators": [
+        "Frames the outcome in terms of majority count or which site had bees on it first",
+        "Invents a leader, comparer, or fully-informed bee the model's procedures don't implement",
+        "Confuses the quorum threshold with universal inspection or objective quality proof",
+        "Misreads the scouts-only design as either full-colony representation or a pure performance shortcut",
+        "Either treats the bee mechanism and human voting as identical, or denies the analogy has any legitimate correspondence"
+      ]
+    }
+  },
+  "teachingNotes": {
+    "commonMisconceptions": [
+      "Majority-count/first-mover bias: assuming whichever site accumulates visitors first or fastest is the one the swarm will choose (BSHF-001)",
+      "Centralized-mindset/leader bias: assuming a single experienced or lead bee must be comparing sites and directing the others, the same 'leader bird' non-example named in ConceptBase's OE-SANDBOX-CONCEPT-000008 (BSHF-002)",
+      "Quorum-as-universal-agreement: confusing the local quorum threshold (roughly 33 scouts at one site) with total-population agreement or an objective quality proof (BSHF-003)",
+      "Scouts-as-whole-colony: treating the model's 100 scout bees as a literal one-to-one representation of an entire swarm, rather than the model's own stated simplification to the real decision-making subgroup (BSHF-004)",
+      "False equivalence or false uniqueness bias when analogizing waggle-dance quorum sensing to human group decision-making, rather than naming both the correspondence and the breakdown (BSHF-005)"
+    ],
+    "suggestedActivities": [
+      "Run the model multiple times at the default settings (hive-number 10, initial-percentage 12, initial-explore-time 200, quorum 33) and record which site wins each run, discussing why the outcome varies between runs despite identical settings (stochastic site placement and scout allocation)",
+      "Lower quorum toward 0 and re-run: discuss the documented speed-versus-accuracy trade-off in swarm decision-making (a lower quorum commits faster but is more vulnerable to a mediocre site winning by early chance recruitment)",
+      "Use Causal Mapping to diagram the loop: scout discovers site -> inspects quality -> dances (strength set by quality) -> recruits new scouts -> repeat visits -> per-visit interest decline -> quorum reached at one site -> piping -> swarm commitment -- with no arrow from a 'leader' or 'vote-counter' node",
+      "Use Analogies & Analogy Mapping to compare this mechanism explicitly to one human group decision process (a class vote, a jury, a hiring committee), naming at least one feature that maps and one that doesn't"
+    ],
+    "connectionsToOtherModels": [
+      "swarming: a pure leaderless-emergence model (flocking) with no decision/choice content -- compares emergent coordination without a discrete collective choice",
+      "bug-evolution / island-world: same decentralized-causal-reasoning competency target (OE-SANDBOX-CONCEPT-000008), applied to population-level natural selection rather than a real-time collective decision"
+    ]
+  },
+  "metadata": {
+    "created": "2026-09-01",
+    "author": "OpenEvo CCS Lab",
+    "license": "CC BY-NC-SA 3.0 (matches this model's own license -- see models/beesmart-hive-finding/README.md; NOT the CC BY-SA 4.0 used by most of this repo's other assessment files, since this vignette is derived directly from the BeeSmart model's own mechanics)",
+    "version": "0.1.0",
+    "basedOn": "EvoFlex assessment pattern (Hanisch, Eirdosh, Gonzalez Galli, Hartelt, Perez & Cupo, 2025), generalized per the integrated-causal-reasoning-assessment skill",
+    "groundingNote": "This vignette is grounded directly in the model's own documented mechanics (models/beesmart-hive-finding/README.md 'How it works' and model-card.json's breed/procedure structure: quality-linked dance strength, declining interest per revisit, quorum-triggered piping and commitment, and the scouts-only population simplification) -- it was NOT verified against an actually-executed run of the model, since (per this model's own README) app.html has not yet been click-through tested in a live browser and no local NetLogo/tools/netlogo-mcp session was available when this assessment was written. Treat the vignette's described run (Site B's early lead, Site A's eventual win) as a mechanics-derived illustration of the model's documented dynamics, not a confirmed observed output, until someone runs the model and checks it."
+  }
+}

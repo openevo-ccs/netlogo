@@ -1,0 +1,83 @@
+{
+  "id": "beesmart-hive-finding",
+  "title": "BeeSmart Hive Finding",
+  "entry_points": {
+    "setup": "setup",
+    "step": "go",
+    "forever_button_display": "Go"
+  },
+  "controls": {
+    "sliders": [
+      {
+        "name": "hive-number",
+        "min": 4.0,
+        "max": 10.0,
+        "step": 1.0,
+        "default": 10.0
+      },
+      {
+        "name": "initial-percentage",
+        "min": 5.0,
+        "max": 25.0,
+        "step": 1.0,
+        "default": 12.0
+      },
+      {
+        "name": "initial-explore-time",
+        "min": 100.0,
+        "max": 300.0,
+        "step": 10.0,
+        "default": 200.0
+      },
+      {
+        "name": "quorum",
+        "min": 0.0,
+        "max": 50.0,
+        "step": 1.0,
+        "default": 33.0
+      }
+    ],
+    "switches": [],
+    "choosers": [],
+    "buttons": [
+      {
+        "display": "Setup",
+        "code": "setup",
+        "forever": false
+      },
+      {
+        "display": "Go",
+        "code": "go",
+        "forever": true
+      },
+      {
+        "display": "Show/Hide Dance Path",
+        "code": "show-hide-dance-path",
+        "forever": false
+      },
+      {
+        "display": "Show/Hide Scouts",
+        "code": "show-hide-scouts",
+        "forever": false
+      }
+    ]
+  },
+  "available_reporters": {},
+  "plot_pens": [
+    {
+      "plot": "piping-scouts",
+      "pen": "default",
+      "update_code": "plot count scouts with [piping?]"
+    },
+    {
+      "plot": "watching v.s. working",
+      "pen": "watching bees",
+      "update_code": "plot count scouts with [task-string = \"watching-dance\"]"
+    },
+    {
+      "plot": "watching v.s. working",
+      "pen": "working bees",
+      "update_code": "plot count scouts - count scouts with [task-string = \"watching-dance\"]"
+    }
+  ]
+}

@@ -460,5 +460,34 @@
     "nlogoSource": "models/wolves-sheep-grass/model.nlogo",
     "modelPage": "models/wolves-sheep-grass/",
     "lpmStrand": "lpm-strands/wolves-sheep-grass.md"
+  },
+  {
+    "slug": "beesmart-hive-finding",
+    "title": "BeeSmart Hive Finding",
+    "description": "Shows the swarm intelligence of honeybees during their hive-finding process: scout bees explore for candidate hive sites, advertise them to the swarm through waggle dances of varying enthusiasm, and the swarm converges on the best available site once a quorum is reached — with no central coordinator.",
+    "concepts": [
+      "Swarm intelligence",
+      "Collective/quorum decision-making",
+      "Complex systems"
+    ],
+    "subjects": [
+      "Biology",
+      "Computer Science",
+      "STEM"
+    ],
+    "grades": [
+      "9-12",
+      "Undergraduate"
+    ],
+    "materialTypes": [
+      "Computer Model"
+    ],
+    "htmlApp": "models/beesmart-hive-finding/app.html",
+    "htmlAppVersion": "NetLogo 7 Web",
+    "nlogoSource": "models/beesmart-hive-finding/model.nlogo",
+    "modelPage": "models/beesmart-hive-finding/",
+    "lpmStrand": "lpm-strands/beesmart-hive-finding.md",
+    "license": "CC BY-NC-SA 3.0",
+    "licenseNote": "Sourced from the official NetLogo Models Library, not OpenEvo/TeachingBase — keeps its own CC BY-NC-SA 3.0 license, unlike the rest of this collection (CC BY-SA). See its README before commercial reuse."
   }
 ]
