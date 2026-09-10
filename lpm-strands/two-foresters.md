@@ -7,7 +7,7 @@
 
 > Status: **In progress** — grade-band progression, content-anchor/thinking-tool alignment,
 > competency alignment, and assessment are drafted below. Step 5 (a formal, schema-validated
-> OECB LPM contribution against ConceptBase's real `lpm.schema.yaml`) is not done — flagged as
+> LPM contribution to ConceptBase, validated against its real `lpm.schema.yaml`) is not done — flagged as
 > the natural next step, not claimed as complete. See
 > [lpm-strands/README.md](README.md) for the full 5-step process this strand follows.
 >
@@ -19,6 +19,13 @@
 > [bug-evolution.md](bug-evolution.md) on 2026-08-07. Unlike Bug Evolution's case,
 > `metadata.json`'s `lpmStrand` pointer already correctly pointed at this file, not the orphaned
 > `-complete.md` draft — one fewer broken link to fix here.
+>
+> **2026-08-29 pass**: added a real International Curriculum Grounding section (US NGSS + a
+> candidate Sachsen Gymnasium G/R/W reading, see below) and cited 5 newly-added LiteratureBase
+> commons-dilemma records, alongside the existing OpenEvo/ConceptBase competency alignment (which
+> stays separate). This does not change the status above — it adds external grounding on top of
+> still-unvalidated AI synthesis, the same discipline the evolution-themed models' 2026-08-29 pass
+> applied (see [README.md](README.md)).
 
 ## Model
 - [Run the model](../models/two-foresters/app.html)
@@ -156,6 +163,103 @@ mechanisms; connects model to real-world problems; understands evolution of coop
 articulate what the base model's absence of communication/negotiation/punishment mechanisms
 demonstrates about minimal conditions for a social dilemma to arise.
 
+## International Curriculum Grounding
+
+Added this pass (2026-08-29) — real US and German curriculum data, distinct from the OpenEvo/
+ConceptBase competency alignment below (which stays the internal alignment layer). Also closes a
+real gap this session found: this model's own concept tags (`Cooperation`, `Social dilemma`,
+`Sustainable resource use` in `metadata.json`) were already linked in the graph explorer's
+`assets/literature-links.json` to 5 real LiteratureBase records with no supporting text anywhere —
+citing them here connects the graph to actual strand content.
+
+**US — NGSS (Next Generation Science Standards).** Real DCI/performance-expectation codes, picked
+for what this specific model's interface lets a student manipulate and observe:
+
+- **HS-ESS3-3** — "Create a computational simulation to illustrate the relationships among
+  management of natural resources, the sustainability of human populations, and biodiversity."
+  About as direct a match as a standard can be to what this model literally is — two harvest-rate
+  sliders and a forest-stock plot *are* the computational simulation the standard names.
+- **HS-ESS3-4** — "Evaluate or refine a technological solution that reduces impacts of human
+  activities on natural systems." Fits the Grades 9-12 band's "design institutional solutions"
+  activity directly, with the honest caveat (already in that band's text above) that the base
+  model implements none of those solutions itself — a student's proposed fix is evaluated against
+  the model's own mechanics, not built into them.
+- **AP Environmental Science** — the College Board's course framework is well known to include a
+  named "Tragedy of the Commons" topic within its resource-management content. This session could
+  not confirm the exact current unit/topic number against a primary CED source, so it is named
+  here, not cited by code — the same discipline the evolution-themed models' NGSS grounding pass
+  applied to codes it couldn't verify.
+- **C3 Framework (Social Studies)** — checked directly: C3 is registered in `openevo-graph`'s
+  standards crosswalk index but has zero loaded standards content (`standardsLoaded: false`), so
+  no specific Dimension 2 (Economics) indicator code is cited. The Framework's general inquiry
+  structure around scarcity, choice, and economic decision-making is a real conceptual fit for
+  this model's harvest-rate dilemma — noted by name only.
+
+**Germany — Sachsen Gymnasium Gemeinschaftskunde/Rechtserziehung/Wirtschaft (G/R/W).** From a real
+pilot in the sibling `deutsche_lp` repo
+(`docs/2026-08-25-sachsen-grw-latent-connections-pilot.md`, 2026-08-25) — **candidate
+latent-connection readings of real Lehrplan content, `status: candidate`, not official curriculum
+equivalences.** The Lehrplan text quoted below is real and independently primary-sourced by that
+pilot; the pedagogical argument connecting it to this model is a proposed reading layered on top,
+scored with the pilot's own two-lens (OpenEvo design concept + Didaktische Rekonstruktion)
+discipline, not asserted as settled:
+
+- **Strongest fit — Klassenstufe 10, Lernbereich 1, "Wirtschaft und Wirtschaftsordnung in der
+  Bundesrepublik Deutschland"** (25 Ustd., p.14): *"Die Schüler erwerben Wissen über...
+  idealtypische Vorstellungen des Wirtschaftens... die Bedeutung und Interdependenz zentraler
+  ökonomischer Akteure vor dem Hintergrund ihrer Entscheidungsoptionen erfassen."* The pilot's own
+  argument (scored "strong" on both lenses) is that evolved fairness/reciprocity — the
+  cross-cultural ultimatum-game literature (Henrich et al.) — explains the gap between the
+  idealtypische (rational-actor) model taught here and how real economic actors behave. Two
+  Foresters is a clean, minimal instance of exactly this gap: each forester's harvest-rate slider
+  *is* an "Entscheidungsoption," and the model lets a class test directly whether two idealized
+  rational actors, each maximizing only their own harvest, actually produce the idealtypische
+  prediction — or whether real classroom intuitions about fairness and restraint (which the model
+  doesn't itself encode, since foresters don't communicate or reciprocate) diverge from it.
+- **Weaker, forward-looking fit — the subject's own foundational "didaktische Grundsätze"** (p.2,
+  whole-subject framing): *"Macht, Herrschaft, Ideologie, Interesse, Konflikt, Konsens, Recht,
+  Frieden, Staat, Institutionen, Verhandlung, Regelung sowie Bedürfnis, Knappheit, Nutzen oder
+  Wettbewerb sind zentrale politische Kategorien."* Scored "moderate" by the pilot itself. This fits
+  Two Foresters more weakly than it fits Two Communities or Population Size and Living Costs,
+  precisely *because* the base model has no institutions, negotiation, or regulation mechanism at
+  all (a point this strand's Grades 9-12 band already makes) — the model is closer to the
+  pre-institutional "Konflikt"/"Wettbewerb"/"Knappheit" state this vocabulary names than to the
+  "Institutionen"/"Verhandlung"/"Regelung" machinery built to manage it. Worth using as a bridge
+  question rather than a direct match: what would need to be added to this two-agent world before
+  it needed any of G/R/W's institutional vocabulary at all?
+- **Not confirmed**: no specific Klassenstufe/grade-band figure beyond what's quoted above should
+  be treated as settled; the pilot itself flags candidate 3 as needing narrowing to a specific
+  Lernbereich, not yet done.
+
+**LiteratureBase.** Five real, DOI-verified commons-dilemma records were added to LiteratureBase
+this session and already linked to this model's `metadata.json` concept tags in the graph
+explorer's `assets/literature-links.json` (`Cooperation`, `Social dilemma`, `Sustainable resource
+use`) — cited here to close that loop:
+
+- Hardin, G. (1968). The Tragedy of the Commons. *Science*, 162(3859), 1243-1248.
+  (`OE-LITERATURE-hardin-1968`) — the canonical starting citation for the private-vs-shared framing
+  this model's own private/shared-forest switch literalizes. Cited with the caveat its own
+  LiteratureBase record carries: widely critiqued since (see Basurto & Ostrom below), not an
+  endorsement of Hardin's original privatization/regulation prescription.
+- Ostrom, E. (1990). *Governing the Commons*. Cambridge University Press.
+  (`OE-LITERATURE-ostrom-1990`) — already cited below; now a real LiteratureBase record, not a
+  bare citation.
+- Basurto, X., & Ostrom, E. (2009). Beyond the tragedy of the Commons. *Economics and Policy of
+  Energy and the Environment*, (1), 35-60. (`OE-LITERATURE-basurto-ostrom-2009`) — a direct
+  critique of Hardin, relevant to the Grades 9-12 band's "evaluate different solutions to
+  dilemmas" activity: self-governance as a real empirically-documented third option beyond
+  privatization or external regulation, neither of which this base model implements either.
+- Powers, R. B. (1986). The Commons Game: Teaching Students about Social Dilemmas. *The Journal of
+  Environmental Education*, 17(2), 4-10. (`OE-LITERATURE-powers-1986`) — a published, evaluated
+  classroom commons-dilemma simulation; the most direct precedent for *teaching* (not just
+  theorizing) this model's dilemma.
+- Wilson, D. S., Ostrom, E., & Cox, M. E. (2013). Generalizing the core design principles for the
+  efficacy of groups. *Journal of Economic Behavior & Organization*, 90, S21-S32.
+  (`OE-LITERATURE-wilson-ostrom-cox-2013`) — a multilevel-selection reading of Ostrom's design
+  principles; a weaker fit for Two Foresters specifically (only two agents, no group-level
+  selection process) than for Two Communities, noted here for completeness rather than as a
+  primary citation.
+
 ## Content Anchor Alignment
 
 **Primary:**
@@ -263,14 +367,24 @@ Real, DOI-verified sources (LiteratureBase `OE-LITERATURE-` ids where applicable
 - Resnick, M. (1996). Beyond the centralized mindset. Journal of the Learning Sciences, 5(1), 1-22.
   (`OE-LITERATURE-resnick-1996`)
 - Ostrom, E. (1990). *Governing the Commons*. Cambridge University Press.
+  (`OE-LITERATURE-ostrom-1990` — added to LiteratureBase 2026-08-29, now a real DOI-verified
+  record, not a bare citation.)
 - Axelrod, R. (1984). *The Evolution of Cooperation*. Basic Books.
 - Hardin, G. (1968). The tragedy of the commons. *Science*, 162(3859), 1243-1248.
+  (`OE-LITERATURE-hardin-1968` — added to LiteratureBase 2026-08-29.)
+- Basurto, X., & Ostrom, E. (2009). Beyond the tragedy of the Commons. *Economics and Policy of
+  Energy and the Environment*, (1), 35-60. (`OE-LITERATURE-basurto-ostrom-2009`)
+- Powers, R. B. (1986). The Commons Game: Teaching Students about Social Dilemmas. *The Journal of
+  Environmental Education*, 17(2), 4-10. (`OE-LITERATURE-powers-1986`)
+- Wilson, D. S., Ostrom, E., & Cox, M. E. (2013). Generalizing the core design principles for the
+  efficacy of groups. *Journal of Economic Behavior & Organization*, 90, S21-S32.
+  (`OE-LITERATURE-wilson-ostrom-cox-2013`)
 - Hanisch, S. (2022). Two foresters. OpenEvo NetLogo Models.
   https://openevo.eva.mpg.de/teachingbase/netlogo/ — the model's own author/source.
 
 ## Schema-Ready Contribution
 
-**Not done.** A formal OECB LPM contribution against ConceptBase's real `lpm.schema.yaml` (step 5 of
+**Not done.** A formal LPM contribution to ConceptBase, validated against its real `lpm.schema.yaml` (step 5 of
 the 5-step process) is the natural next step, not claimed here.
 
 ---

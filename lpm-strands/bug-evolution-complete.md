@@ -279,7 +279,7 @@ This strand explores natural selection through a simple, intuitive model: beetle
 
 ## Schema-Ready Contribution
 
-This strand is ready to be authored as a formal OECB contribution.
+This strand is ready to be authored as a formal ConceptBase contribution.
 
 ## References
 

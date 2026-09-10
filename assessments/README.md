@@ -9,7 +9,7 @@ Each assessment file (`<model-slug>.json`) contains:
 - **Vignette**: A scenario describing the model's phenomenon
 - **Items**: Multiple-choice questions diagnosing integrated vs. dichotomized reasoning
 - **Scoring**: Rubric mapping responses to reasoning patterns
-- **Competencies**: Links to OECB competencies being assessed
+- **Competencies**: Links to ConceptBase competencies being assessed
 
 ## Assessment Pattern
 

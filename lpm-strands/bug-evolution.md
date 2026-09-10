@@ -7,9 +7,15 @@
 
 > Status: **In progress** — grade-band progression, content-anchor/thinking-tool alignment,
 > competency alignment, and assessment are drafted below. Step 5 (a formal, schema-validated
-> OECB LPM contribution against ConceptBase's real `lpm.schema.yaml`) is not done — flagged as
+> LPM contribution to ConceptBase, validated against its real `lpm.schema.yaml`) is not done — flagged as
 > the natural next step, not claimed as complete. See
 > [lpm-strands/README.md](README.md) for the full 5-step process this strand follows.
+>
+> **2026-08-29 pass**: added a real International Curriculum Grounding section (US NGSS +
+> Sachsen Gymnasium Biologie, see below) alongside the existing OpenEvo/ConceptBase competency
+> alignment, and verified a competency gap against the real, unmerged `conceptbase`
+> `extend-bio-core-evolution-mechanisms` branch. This does not change the status above — it adds
+> external grounding on top of still-unvalidated AI synthesis.
 >
 > **Note on `bug-evolution-complete.md`**: an earlier, unlinked draft (dated 2025-01-09,
 > `metadata.json`'s `lpmStrand` pointer never updated to point at it) sat alongside this stub with
@@ -136,6 +142,65 @@ limitations; applications to medicine, agriculture, conservation.
 3. Compare model predictions with empirical studies (antibiotic resistance, pesticide resistance)
 4. Write research reports connecting model findings to the restructuration-theory rationale above
 
+## International Curriculum Grounding
+
+Added this pass (2026-08-29) — real US and German curriculum data, distinct from the OpenEvo/
+ConceptBase competency alignment below (which stays the internal alignment layer).
+
+**US — NGSS (Next Generation Science Standards).** Real DCI/performance-expectation codes,
+picked for what this specific model's interface lets a student manipulate and observe (not a
+generic "evolution unit" match):
+
+- **MS-LS4-4** — "Construct an explanation based on evidence that describes how genetic
+  variations of traits in a population increase some individuals' probability of surviving and
+  reproducing in a specific environment." Direct match: the model's predation-pressure slider is
+  exactly this "specific environment" variable, and the speed-frequency plot is the evidence.
+- **MS-LS4-6** — "Use mathematical representations to support explanations of how natural
+  selection may lead to increases and decreases of specific traits in populations over time."
+  Direct match: the model's own trait-frequency-over-time output.
+- **HS-LS4-2** — "...evolution primarily results from four factors: (1) the potential for a
+  species to increase in number, (2) heritable genetic variation..., (3) competition for limited
+  resources, and (4) the proliferation of those organisms that are better able to survive and
+  reproduce..." All four factors are literally the model's mechanism (reproduction, mutation,
+  predation-driven differential survival).
+- **HS-LS4-3** — "Apply concepts of statistics and probability to support explanations that
+  organisms with an advantageous heritable trait tend to increase in proportion to organisms
+  lacking this trait." Matches the Undergraduate band's BehaviorSpace/statistical-analysis
+  activities directly.
+- **LS2.A (Interdependent Relationships in Ecosystems), HS-LS2-1** — predator-prey population
+  dynamics as an ecosystem-scale carrying-capacity question, for the predator-species-choice
+  (bird vs. spider) angle specifically.
+
+**Germany — Sachsen Gymnasium Biologie** (from `EvoMentor/importers/fwu_sn_fine_grained_candidates.json`,
+real FWU MEM SPARQL-sourced Lernziel/Kompetenz entries; coverage status is
+`fine-grained-content-staged-untagged` per `deutsche_lp/land/sachsen/lp/records/crosswalk.yaml` —
+**grade band unspecified in the current staged data**, so no Klassenstufe is claimed below):
+
+- *"Zusammenwirken von Mutation, Rekombination, Selektion und Isolation als ausgewählte Faktoren
+  der Synthetischen Evolutionstheorie"* (the interaction of mutation, recombination, selection,
+  and isolation as factors of the Synthetic Theory of Evolution) —
+  `https://lp-sachsen.org/resource/lernziel-lerninhalt-7649-1` (also `-7649-2`). Direct match:
+  mutation and selection are literally this model's two evolutionary mechanisms.
+- *"Kennen von Prinzipien der Evolution von Organismen"* (knowing principles of the evolution of
+  organisms) — `https://lp-sachsen.org/resource/lernziel-lerninhalt-7646-1` (also `-7646-2`).
+- *"Koevolution"* (coevolution) —
+  `https://lp-sachsen.org/resource/lernziel-lerninhalt-126030-1` and `-126103-1`. This is a
+  stronger-than-generic match: the model is explicitly a predator-prey system (beetle speed vs.
+  bird/spider predation pressure), i.e. a coevolutionary dynamic, not just single-species
+  selection — a framing the current strand text above doesn't yet name explicitly. Worth
+  surfacing to students directly: ask what would happen to predator speed/strategy if predators
+  also evolved in the model (they don't, currently — a good discussion/extension prompt, and a
+  candidate for `netlogo-modeler` if a future revision adds evolving predators).
+- *"Kennen von Belegen für die Evolution"* / *"...der Organismen"* (knowing evidence for
+  evolution) — `-7660-1`/`-7660-2`, `-7854-1`/`-7854-2` — general evidentiary grounding for the
+  Undergraduate band's real-world-comparison activities (antibiotic/pesticide resistance).
+
+**Gap flagged, not papered over**: this model's core mechanism is predator-driven differential
+survival, but there is no "Coevolution" or "Predator-Prey Coevolution" concept in ConceptBase
+main or in the pending `extend-bio-core-evolution-mechanisms` branch (see Competency Alignment
+below) — only the German Sachsen data names it. If OpenEvo wants an internal competency for this,
+it doesn't exist yet.
+
 ## Content Anchor Alignment
 
 **Primary:**
@@ -187,6 +252,14 @@ Verified against the real ConceptBase registry (`conceptbase_search`, 2026-08-07
   performance indicator: can describe the model as agent-level rules producing an emergent
   population-level pattern, and name that as the model's own pedagogical mechanism.
 
+**Gap, not yet in ConceptBase main**: verified this pass (2026-08-29) against the
+`conceptbase-wt-bio-core-evolution-extension` worktree — a real, un-merged, no-PR-yet branch
+(`extend-bio-core-evolution-mechanisms`) proposes a BIO-CORE-v1.2.0 vocabulary extending 16 to 43
+concepts, including **Trade-offs** (`OE-CONCEPT-000128`) and **Coevolution** is not among them
+either (checked directly; absent from both main and the pending branch). Trade-offs would be a
+direct match for this strand's speed-vs-energy-cost Payoff Matrices activity once/if that branch
+merges — cite as pending, not as an existing ConceptBase concept.
+
 ## Assessment
 
 **Assessment file:** [assessments/bug-evolution.json](../assessments/bug-evolution.json) — a real,
@@ -235,7 +308,7 @@ unpublished OpenEvo teachingbase page that motivated the search for this literat
 
 ## Schema-Ready Contribution
 
-**Not done.** A formal OECB LPM contribution against ConceptBase's real `lpm.schema.yaml` (step 5 of
+**Not done.** A formal LPM contribution to ConceptBase, validated against its real `lpm.schema.yaml` (step 5 of
 the 5-step process) is the natural next step, not claimed here — consistent with this plan's own
 discipline of stating what a pass does and doesn't establish.
 

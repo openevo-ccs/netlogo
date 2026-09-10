@@ -1,5 +1,15 @@
 # LPM Strand: Evolution of Ethnocentrism
 
+> **Superseded (2026-08-29)**: this file was never linked from `models/evolution-ethnocentrism/metadata.json`'s
+> `lpmStrand` pointer (which points at `evolution-ethnocentrism.md`) and was not, in fact, the
+> ecosystem's real strand for this model. Its well-developed grade-band/content-anchor/competency
+> content (independently re-verified accurate against the real ConceptBase registry this pass) has
+> been incorporated into the real, linked strand at
+> [evolution-ethnocentrism.md](evolution-ethnocentrism.md), which adds a real International
+> Curriculum Grounding section (US NGSS + Sachsen Gymnasium Biologie) and a competency-gap check
+> against the ConceptBase `extend-bio-core-evolution-mechanisms` branch that this draft predates.
+> Left in place rather than deleted, per this ecosystem's general never-delete discipline.
+
 > Status: **Complete** - This strand is fully developed with grade-band progression, content anchor alignment, competency mapping, and assessment.
 
 ## Model
@@ -313,7 +323,7 @@ This strand explores the biological evolution of ethnocentric behavior through a
 
 ## Schema-Ready Contribution
 
-This strand is ready to be authored as a formal OECB contribution following the strand/substrand schema. Key elements:
+This strand is ready to be authored as a formal ConceptBase contribution following the strand/substrand schema. Key elements:
 
 - Strand ID: OE-STRAND-XXX (to be assigned)
 - Substrands for each grade band (6-8, 9-12, UG)

@@ -7,7 +7,7 @@
 
 > Status: **In progress** — grade-band progression, content-anchor/thinking-tool alignment,
 > competency alignment, and assessment are drafted below. Step 5 (a formal, schema-validated
-> OECB LPM contribution against ConceptBase's real `lpm.schema.yaml`) is not done — flagged as
+> LPM contribution to ConceptBase, validated against its real `lpm.schema.yaml`) is not done — flagged as
 > the natural next step, not claimed as complete. See
 > [lpm-strands/README.md](README.md) for the full 5-step process this strand follows.
 >
@@ -21,6 +21,13 @@
 > 5-item assessment before this strand was written — the same pre-existing-draft pattern
 > `bug-evolution.md` and `two-foresters.md` found for their own models. This strand verifies and
 > incorporates it rather than duplicating the effort.
+>
+> **2026-08-29 pass**: added a real International Curriculum Grounding section (US NGSS + a
+> candidate Sachsen Gymnasium G/R/W reading, see below) and cited 5 newly-added LiteratureBase
+> commons-dilemma records, alongside the existing OpenEvo/ConceptBase competency alignment (which
+> stays separate). This does not change the status above — it adds external grounding on top of
+> still-unvalidated AI synthesis, the same discipline the evolution-themed models' 2026-08-29 pass
+> applied (see [README.md](README.md)).
 
 ## Model
 - [Run the model](../models/two-communities/app.html)
@@ -96,7 +103,7 @@ is a different (and arguably harder) instance of the same decentralized-causal-s
 shift. Writing a dedicated Two-Communities-specific `learningdependency` record that states this
 distinction formally, rather than silently reusing the Two Foresters record's `precedesConcept`, would
 be the correct next TheoryBase contribution — flagged here as a finding, not built as part of this
-pass (the same discipline this strand's own step-5 status note applies to a formal OECB contribution).
+pass (the same discipline this strand's own step-5 status note applies to a formal ConceptBase contribution).
 
 Grounded further in `cross-domain-construct:decentralized-causal-reasoning-domain-generality`
 (TheoryBase, `OE-CROSSDOMAINCONSTRUCT-decentralized-causal-reasoning-domain-generality`), whose
@@ -207,6 +214,102 @@ vs. individual-strategy effects.
 3. Write a short analysis connecting the model's Ostrom-relevant design gaps (no monitoring, no
    sanctioning, no communication) to what would need to be added to represent a fuller common-pool-
    resource governance scenario.
+
+## International Curriculum Grounding
+
+Added this pass (2026-08-29) — real US and German curriculum data, distinct from the OpenEvo/
+ConceptBase competency alignment below (which stays the internal alignment layer). Also closes a
+real gap this session found: this model's own concept tags (`Common Pool Resource`, `Cooperation`,
+`Social dilemma`, `Sustainable resource use` in `metadata.json`) were already linked in the graph
+explorer's `assets/literature-links.json` to real LiteratureBase records with no supporting text
+anywhere — citing them here connects the graph to actual strand content.
+
+**US — NGSS (Next Generation Science Standards).** Real DCI/performance-expectation codes, picked
+for what this specific model's interface lets a student manipulate and observe. This model's
+lowest grade band is 6-8 (unlike Two Foresters' 3-5), which fits the middle-school ESS3 standards
+directly, not just as a stretch down from the high-school ones:
+
+- **MS-ESS3-3** — "Apply scientific principles to design a method for monitoring and minimizing a
+  human impact on the environment." Fits the Grades 6-8 band's activity of comparing the
+  `Community-forest?` fence (a monitoring/boundary design) against one shared 50-farmer forest.
+- **HS-ESS3-3** — "Create a computational simulation to illustrate the relationships among
+  management of natural resources, the sustainability of human populations, and biodiversity."
+  Direct match: the model's composition sliders and forest-stock plot, run for two communities in
+  parallel, are exactly this comparison.
+- **HS-ESS3-4** — "Evaluate or refine a technological solution that reduces impacts of human
+  activities on natural systems." Fits the Undergraduate band's evaluation of Ostrom's design
+  principles against what the base model does and doesn't implement (a fence exists; monitoring,
+  sanctioning, and communication do not).
+- **AP Environmental Science** — the College Board's course framework is well known to include a
+  named "Tragedy of the Commons" topic within its resource-management content; this session could
+  not confirm the current exact unit/topic number against a primary CED source, so it is named
+  here, not cited by code.
+- **C3 Framework (Social Studies)** — checked directly: C3 is registered in `openevo-graph`'s
+  standards crosswalk index but has zero loaded standards content (`standardsLoaded: false`), so
+  no specific Dimension 2 (Economics) indicator code is cited. Its general collective-action/
+  institutions inquiry structure is a real conceptual fit — noted by name only.
+
+**Germany — Sachsen Gymnasium Gemeinschaftskunde/Rechtserziehung/Wirtschaft (G/R/W).** From a real
+pilot in the sibling `deutsche_lp` repo
+(`docs/2026-08-25-sachsen-grw-latent-connections-pilot.md`, 2026-08-25) — **candidate
+latent-connection readings of real Lehrplan content, `status: candidate`, not official curriculum
+equivalences.** The Lehrplan text quoted below is real and independently primary-sourced by that
+pilot; the pedagogical argument connecting it to this model is a proposed reading layered on top,
+not asserted as settled:
+
+- **Strongest fit for this model — the subject's own foundational "didaktische Grundsätze"** (p.2,
+  whole-subject framing, Klassenstufen 7-10 and Jahrgangsstufen 11-12): *"Macht, Herrschaft,
+  Ideologie, Interesse, Konflikt, Konsens, Recht, Frieden, Staat, Institutionen, Verhandlung,
+  Regelung sowie Bedürfnis, Knappheit, Nutzen oder Wettbewerb sind zentrale politische
+  Kategorien."* The pilot's own argument, self-scored "moderate" overall but explicitly noted as
+  **"close to the literal core of the Governing the Commons anchor"**: human reliance on
+  institutions for large-scale non-kin cooperation (Henrich, Boyd & Richerson, Tomasello on human
+  ultrasociality) explains *why* a functioning society needs exactly this vocabulary. Two
+  Communities is a stronger match for this reading than Two Foresters is, precisely because it
+  *has* a literal "Institution" in its mechanics — the `Community-forest?` fence — giving a class
+  something concrete to point at when asking what "Institutionen," "Regelung," and "Knappheit"
+  mean structurally, not just definitionally.
+- **Secondary fit — Klassenstufe 10, Lernbereich 1, "Wirtschaft und Wirtschaftsordnung in der
+  Bundesrepublik Deutschland"** (25 Ustd., p.14): *"Die Schüler erwerben Wissen über...
+  idealtypische Vorstellungen des Wirtschaftens... die Bedeutung und Interdependenz zentraler
+  ökonomischer Akteure vor dem Hintergrund ihrer Entscheidungsoptionen erfassen."* Scored "strong"
+  by the pilot for its Two-Foresters-style individual-decision framing; applies more weakly here,
+  since no individual farmer in this model has an "Entscheidungsoption" at all (harvest rate is
+  fixed by type) — worth using specifically to teach the *limits* of the idealtypische
+  rational-actor model: this model's "greedy" farmers aren't individually choosing rational
+  self-interest each round, they're a fixed population-level parameter, which is itself a useful
+  contrast to draw explicitly with students.
+- **Not confirmed**: no specific Klassenstufe/grade-band figure beyond what's quoted above should
+  be treated as settled; the pilot itself flags this candidate as needing narrowing to a specific
+  Lernbereich (Kl.7 LB1 "Leben in der Gesellschaft" or Kl.8 LB1 "Politische Prozesse in der
+  Kommune" are named as candidates, neither read in Lernbereich-level detail by that pilot).
+
+**LiteratureBase.** Five real, DOI-verified commons-dilemma records were added to LiteratureBase
+this session and already linked to this model's `metadata.json` concept tags in the graph
+explorer's `assets/literature-links.json` (`Common Pool Resource`, `Cooperation`, `Social
+dilemma`, `Sustainable resource use`) — cited here to close that loop:
+
+- Ostrom, E. (1990). *Governing the Commons*. Cambridge University Press.
+  (`OE-LITERATURE-ostrom-1990`) — this model's single most direct citation: the design-principles
+  program (boundary rules, monitoring, graduated sanctions) the Undergraduate band's activities
+  evaluate the base model against.
+- Hardin, G. (1968). The Tragedy of the Commons. *Science*, 162(3859), 1243-1248.
+  (`OE-LITERATURE-hardin-1968`) — the canonical framing this model's `Community-forest?` switch
+  literalizes (one shared vs. two bounded commons); cited with its own record's caveat that it's
+  now widely critiqued, including by Ostrom herself.
+- Basurto, X., & Ostrom, E. (2009). Beyond the tragedy of the Commons. *Economics and Policy of
+  Energy and the Environment*, (1), 35-60. (`OE-LITERATURE-basurto-ostrom-2009`) — direct critique
+  of Hardin, relevant to the model's own gap (no monitoring/sanctioning/communication) the
+  Undergraduate band names as a real extension point rather than an existing feature.
+- Wilson, D. S., Ostrom, E., & Cox, M. E. (2013). Generalizing the core design principles for the
+  efficacy of groups. *Journal of Economic Behavior & Organization*, 90, S21-S32.
+  (`OE-LITERATURE-wilson-ostrom-cox-2013`) — a multilevel-selection reading of Ostrom's design
+  principles, directly relevant to this strand's own Undergraduate-band note connecting
+  composition-driven outcomes to frequency-dependent selection / evolutionary game theory.
+- Powers, R. B. (1986). The Commons Game: Teaching Students about Social Dilemmas. *The Journal of
+  Environmental Education*, 17(2), 4-10. (`OE-LITERATURE-powers-1986`) — a published, evaluated
+  classroom commons-dilemma simulation; the most direct precedent for *teaching* this model's
+  dilemma, not just theorizing it.
 
 ## Content Anchor Alignment
 
@@ -368,16 +471,23 @@ Real, DOI-verified sources (LiteratureBase `OE-LITERATURE-` ids where applicable
   Understanding agency in evolutionary explanations: an assessment tool for biology education.
   Journal of Biological Education, 60(3), 341-370. (`OE-LITERATURE-hanisch-2025` — the canonical,
   Crossref-verified record; the assessment pattern `assessments/two-communities.json` is based on.)
-- Ostrom, E. (1990). *Governing the Commons*. Cambridge University Press. (not yet a LiteratureBase
-  record — cited as `two-foresters.md` also cites it, bare.)
-- Hardin, G. (1968). The tragedy of the commons. *Science*, 162(3859), 1243-1248. (not yet a
-  LiteratureBase record.)
+- Ostrom, E. (1990). *Governing the Commons*. Cambridge University Press.
+  (`OE-LITERATURE-ostrom-1990` — added to LiteratureBase 2026-08-29, no longer a bare citation.)
+- Hardin, G. (1968). The tragedy of the commons. *Science*, 162(3859), 1243-1248.
+  (`OE-LITERATURE-hardin-1968` — added to LiteratureBase 2026-08-29.)
+- Basurto, X., & Ostrom, E. (2009). Beyond the tragedy of the Commons. *Economics and Policy of
+  Energy and the Environment*, (1), 35-60. (`OE-LITERATURE-basurto-ostrom-2009`)
+- Wilson, D. S., Ostrom, E., & Cox, M. E. (2013). Generalizing the core design principles for the
+  efficacy of groups. *Journal of Economic Behavior & Organization*, 90, S21-S32.
+  (`OE-LITERATURE-wilson-ostrom-cox-2013`)
+- Powers, R. B. (1986). The Commons Game: Teaching Students about Social Dilemmas. *The Journal of
+  Environmental Education*, 17(2), 4-10. (`OE-LITERATURE-powers-1986`)
 - Hanisch, S. (2022). Two forest communities. OpenEvo NetLogo Models.
   https://openevo.eva.mpg.de/teachingbase/netlogo/ — the model's own author/source.
 
 ## Schema-Ready Contribution
 
-**Not done.** A formal OECB LPM contribution against ConceptBase's real `lpm.schema.yaml` (step 5 of
+**Not done.** A formal LPM contribution to ConceptBase, validated against its real `lpm.schema.yaml` (step 5 of
 the 5-step process) is the natural next step, not claimed here — consistent with `two-foresters.md`'s
 and `bug-evolution.md`'s own discipline on this point.
 

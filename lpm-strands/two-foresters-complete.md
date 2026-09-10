@@ -271,7 +271,7 @@ This strand explores the fundamental social dilemma of cooperation through the s
 
 ## Schema-Ready Contribution
 
-This strand is ready to be authored as a formal OECB contribution following the strand/substrand schema.
+This strand is ready to be authored as a formal ConceptBase contribution following the strand/substrand schema.
 
 ## References
 

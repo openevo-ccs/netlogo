@@ -25,7 +25,7 @@ An interactive introduction into concepts of ecology, behavioral ecology, and su
 ## LPM strand
 This model has an in-progress Learning Progression Map (LPM) strand: grade-band progression,
 content-anchor/thinking-tool alignment, competency alignment, and assessment are drafted; a
-formal schema-validated OECB contribution is the remaining step. See
+formal schema-validated ConceptBase contribution is the remaining step. See
 [`lpm-strands/two-foresters.md`](../../lpm-strands/two-foresters.md), and the
 [LPM strands overview](../../lpm-strands/README.md) for the development process.
 

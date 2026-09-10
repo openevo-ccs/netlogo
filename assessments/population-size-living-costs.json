@@ -1,0 +1,148 @@
+{
+  "assessmentId": "OE-ASSESS-POPULATIONSIZELIVINGCOSTS-001",
+  "modelSlug": "population-size-living-costs",
+  "title": "Integrated Causal Reasoning Assessment: Population Size and Living Costs",
+  "description": "Assesses student understanding of population-density effects on a shared resource, distinguishing dispositional/individual-blame reasoning from density-dependent, feedback-driven reasoning about a common-pool resource.",
+  "gradeBand": "6-8",
+  "estimatedDuration": "10-15 minutes",
+  "competencies": [
+    { "id": "OE-CONCEPT-oe-interdisciplinary-cooperation", "label": "Cooperation", "vocabulary": "OE-INTERDISCIPLINARY-v1.0.0" },
+    { "id": "OE-SANDBOX-CONCEPT-000008", "label": "Decentralized Causal Reasoning", "vocabulary": "OE-INTERDISCIPLINARY-v1.0.0" }
+  ],
+  "vignette": {
+    "title": "The Growing Forestry Cooperative",
+    "text": "A forestry cooperative shares one 375-hectare forest. Every forester follows the exact same rule: harvest 40% of the tallest nearby tree each round, and pay a fixed living cost out of savings every round. When the cooperative has 20 foresters, the forest stays healthy and everyone's savings grow steadily.\n\nOver several years the cooperative grows to 150 foresters. Nobody's harvest rule changes -- every forester, old and new, still harvests exactly 40% of the tallest nearby tree and pays the same living cost. But now the forest stock declines sharply, many foresters' savings go negative, and the forester-population count itself starts falling as bankrupt foresters drop out.\n\nA student named Priya says: 'The forest is dying because the new foresters must be harvesting more selfishly than the original 20 were.'",
+    "context": {
+      "setting": "One shared 375-hectare forest, harvested by a population of foresters who all follow an identical, unchanging harvest-rate and living-cost rule",
+      "keyVariables": [
+        "Number of foresters (population size / density)",
+        "Harvest rate (identical for every forester, held fixed)",
+        "Living cost (identical for every forester, held fixed)",
+        "Tree growth rate (fixed regrowth capacity of the shared forest)",
+        "Forester death (occurs when accumulated wealth runs out -- the only way population size changes after setup)"
+      ]
+    }
+  },
+  "items": [
+    {
+      "itemId": "PSLC-001",
+      "type": "multiple-choice",
+      "question": "Is Priya's explanation -- that the new foresters must be harvesting more selfishly -- consistent with how the model works?",
+      "options": [
+        { "id": "A", "text": "Yes -- more foresters harvesting the same shared forest must mean some of them are being greedier than the original group.", "reasoningType": "dichotomized", "misconception": "Individual-blame/dispositional framing: assumes a behavior change must explain a changed outcome, when the model holds every forester's rule fixed and identical." },
+        { "id": "B", "text": "No -- every forester's harvest-rate and living-cost rule is identical and unchanged; the forest declined because 150 foresters harvesting the same fixed-growth resource take far more, in total, than the forest can regrow, even though no individual is behaving any differently.", "reasoningType": "integrated", "explanation": "Recognizes that population size/density, not individual character or rule changes, is the causal lever this model isolates -- the same behavior rule produces different collective outcomes depending on how many agents share the resource." },
+        { "id": "C", "text": "No -- the forest declined because the growth rate of the trees changed as more foresters arrived.", "reasoningType": "dichotomized", "misconception": "Invents an ecological cause (changing growth rate) the model doesn't actually implement; growth-rate-trees is a fixed parameter the student didn't change." },
+        { "id": "D", "text": "It's impossible to tell without knowing each forester's personality.", "reasoningType": "dichotomized", "misconception": "Over-individualized thinking that ignores the predictive power of population size alone, the same pattern the Two Communities assessment's TC-005 item targets for composition." }
+      ],
+      "correctAnswer": "B",
+      "scoring": { "integrated": ["B"], "dichotomized": ["A", "C", "D"], "partial": [] },
+      "competencyTarget": "Distinguishing population-density effects from individual-behavior-change explanations"
+    },
+    {
+      "itemId": "PSLC-002",
+      "type": "multiple-choice",
+      "question": "In the model, the forester-population count itself starts falling once the forest is depleted, even though the student never directly reduces the number-foresters slider. What causes this?",
+      "options": [
+        { "id": "A", "text": "The experimenter must be removing foresters manually as the simulation runs.", "reasoningType": "dichotomized", "misconception": "Assumes an external controller changes population, missing that the model's own procedures (living costs deducted each round, death when wealth runs out) drive this." },
+        { "id": "B", "text": "As the forest depletes, foresters harvest less value per round, living costs exceed harvest income, savings go negative, and those foresters die -- population size is itself an emergent, density-dependent outcome of the resource dynamics, not a value the experimenter directly controls after setup.", "reasoningType": "integrated", "explanation": "Recognizes the model's real feedback loop: population size affects the forest, and the depleted forest feeds back to reduce population size, with no designed controller managing either side." },
+        { "id": "C", "text": "Trees are somehow attacking foresters directly in the model.", "reasoningType": "dichotomized", "misconception": "Misreads the mechanism -- death results from an economic feedback (living costs vs. harvest income), not any direct tree-forester interaction." },
+        { "id": "D", "text": "The population count is just a display error and doesn't reflect anything real happening in the model.", "reasoningType": "dichotomized", "misconception": "Dismisses a real, documented model mechanism (`death` procedure) as an artifact." }
+      ],
+      "correctAnswer": "B",
+      "scoring": { "integrated": ["B"], "dichotomized": ["A", "C", "D"], "partial": [] },
+      "competencyTarget": "Recognizing population size as an emergent, feedback-driven outcome rather than a fixed experimenter-set value"
+    },
+    {
+      "itemId": "PSLC-003",
+      "type": "multiple-choice",
+      "question": "The cooperative's leaders propose: 'Let's fix this by telling every forester to harvest a smaller percentage of each tree.' Based on the model, what is the most complete response?",
+      "options": [
+        { "id": "A", "text": "That would definitely fix it completely, since the amount each person takes is the whole problem.", "reasoningType": "dichotomized", "misconception": "Treats the per-forester harvest rate as the only lever, ignoring that population size interacts with it -- the same fixed lower rate could still be unsustainable at a high enough population." },
+        { "id": "B", "text": "That wouldn't help at all, since the real problem is entirely the number of foresters, not the harvest rate.", "reasoningType": "dichotomized", "misconception": "Overcorrects into treating population size as the only lever, when harvest-rate, living-cost, and growth-rate-trees all interact with it in the model." },
+        { "id": "C", "text": "Lowering the harvest rate could help, but whether it's enough depends on how it interacts with the number of foresters and the forest's growth rate -- the same lower rate that's sustainable for 20 foresters might still be unsustainable for 150.", "reasoningType": "integrated", "explanation": "Recognizes that harvest-rate, population size, and growth-rate-trees are interacting parameters, not independent levers that can be evaluated one at a time." },
+        { "id": "D", "text": "It doesn't matter what rule they choose, since 150 foresters are naturally too many for any forest.", "reasoningType": "dichotomized", "misconception": "Treats population size alone as deterministic, ignoring that regrowth rate and harvest rate jointly set what population a given forest can sustain." }
+      ],
+      "correctAnswer": "C",
+      "scoring": { "integrated": ["C"], "dichotomized": ["A", "B", "D"], "partial": [] },
+      "competencyTarget": "Understanding interacting parameters rather than isolating a single causal lever"
+    },
+    {
+      "itemId": "PSLC-004",
+      "type": "multiple-choice",
+      "question": "A student who has also used the Two Foresters and Two Communities models says: 'This model shows the same thing those two did, just with more agents.' Is that accurate?",
+      "options": [
+        { "id": "A", "text": "Yes -- more agents is the only real difference; all three models are otherwise identical.", "reasoningType": "dichotomized", "misconception": "Assumes agent count is the only variable that matters, missing that each model isolates a genuinely different causal lever." },
+        { "id": "B", "text": "No -- Two Foresters lets each of two agents set their own individual harvest rate, Two Communities fixes two types' rates but varies how many farmers are each type, and this model fixes one identical rate for everyone and instead varies the total population size sharing one resource -- three different causal levers behind the same underlying dilemma.", "reasoningType": "integrated", "explanation": "Correctly distinguishes individual-authorship-driven, composition-driven, and density/scale-driven versions of the same commons dilemma." },
+        { "id": "C", "text": "No -- this model is unrelated to the other two since it doesn't involve cooperation at all.", "reasoningType": "dichotomized", "misconception": "Wrongly concludes the models are unrelated just because this one lacks heterogeneous strategies; the individual-vs-collective tension is still present with a uniform strategy." },
+        { "id": "D", "text": "Yes -- and this makes it strictly more realistic and therefore the better model to use.", "reasoningType": "dichotomized", "misconception": "Confuses agent count with realism or pedagogical value, the same misconception the Two Communities assessment's TC-004 item targets." }
+      ],
+      "correctAnswer": "B",
+      "scoring": { "integrated": ["B"], "dichotomized": ["A", "C", "D"], "partial": [] },
+      "competencyTarget": "Comparing distinct causal levers across structurally related models"
+    },
+    {
+      "itemId": "PSLC-005",
+      "type": "multiple-choice",
+      "question": "If the cooperative doubles both its population (from 75 to 150 foresters) and, separately, doubles the forest's tree-growth rate, what would you predict?",
+      "options": [
+        { "id": "A", "text": "The two changes will exactly cancel out, since doubling population and doubling growth rate are opposite and equal effects.", "reasoningType": "dichotomized", "misconception": "Assumes a simple linear/additive relationship between population size and regrowth capacity, ignoring the model's logistic (nonlinear) regrowth function." },
+        { "id": "B", "text": "Population size matters much more than growth rate, so the forest will collapse regardless of the growth-rate change.", "reasoningType": "dichotomized", "misconception": "Prematurely ranks one parameter as dominant without reasoning through how they jointly determine total harvest versus total regrowth." },
+        { "id": "C", "text": "It depends on whether the new total regrowth capacity (using the logistic growth function, which grows fastest at intermediate tree heights and slows near maximum height) can still keep pace with the new total harvest demand from twice as many foresters -- this isn't guaranteed just because both numbers doubled.", "reasoningType": "integrated", "explanation": "Recognizes the model's regrowth is a nonlinear (logistic) function of current tree height, not a simple multiplier, so two proportional changes don't necessarily offset each other." },
+        { "id": "D", "text": "Growth rate doesn't actually affect the outcome, only population size does.", "reasoningType": "dichotomized", "misconception": "Ignores growth-rate-trees as a real, documented parameter in the model's regrowth function." }
+      ],
+      "correctAnswer": "C",
+      "scoring": { "integrated": ["C"], "dichotomized": ["A", "B", "D"], "partial": [] },
+      "competencyTarget": "Reasoning about nonlinear (logistic) resource dynamics under simultaneous parameter changes"
+    }
+  ],
+  "scoringGuide": {
+    "integratedReasoning": {
+      "description": "Student recognizes population size/density as an emergent, feedback-driven, and interacting causal lever distinct from individual behavior change, and reasons about the model's nonlinear (logistic) regrowth dynamics rather than assuming linear or single-cause relationships.",
+      "indicators": [
+        "Distinguishes population-density effects from individual-behavior-change explanations",
+        "Recognizes population size itself as an emergent outcome of the model's own feedback loop, not a fixed experimenter-set value",
+        "Reasons about interacting parameters (harvest rate, population size, growth rate) rather than isolating one",
+        "Correctly compares this model's causal lever against Two Foresters' and Two Communities'",
+        "Reasons about nonlinear (logistic) regrowth rather than assuming proportional/linear relationships"
+      ]
+    },
+    "dichotomizedReasoning": {
+      "description": "Student relies on individual-blame or dispositional explanations, treats population size as externally fixed, isolates a single causal lever, or assumes linear/proportional relationships between parameters.",
+      "indicators": [
+        "Frames declining outcomes in terms of individual character or behavior change",
+        "Treats population size as something only the experimenter sets, missing the model's own death/feedback mechanism",
+        "Evaluates one parameter (harvest rate, or population size) as the sole cause",
+        "Assumes agent count is the only difference between structurally distinct models",
+        "Assumes linear/proportional relationships where the model's mechanics are nonlinear"
+      ]
+    }
+  },
+  "teachingNotes": {
+    "commonMisconceptions": [
+      "Individual blame: attributing a shared resource's decline to a change in individual character or behavior, when every agent's rule is identical and fixed",
+      "Fixed-population assumption: not recognizing that population size itself changes during a run, driven by an economic feedback (living costs exceeding harvest income), not by direct experimenter control after setup",
+      "Single-lever isolation: evaluating harvest rate, population size, or growth rate independently rather than as interacting parameters",
+      "More-agents-means-more-realistic: assuming this model is just a scaled-up copy of Two Foresters/Two Communities rather than a model isolating a genuinely different causal lever (density/scale)",
+      "Linear-effects assumption: expecting proportional changes in population or growth rate to produce proportional (rather than logistic/nonlinear) changes in outcome"
+    ],
+    "suggestedActivities": [
+      "Run the model at several number-foresters values (e.g. 10, 50, 100, 200, 350) with harvest-rate, living-cost, and growth-rate-trees held fixed, and graph forest-stock and forester-population outcomes against population size",
+      "Compare this model directly against Two Foresters and Two Communities to identify each model's distinct causal lever (individual authorship vs. composition vs. density/scale)",
+      "Use causal mapping to diagram the model's population <-> forest feedback loop explicitly, including the death mechanism",
+      "Discuss real-world examples of population-density effects on shared resources (fisheries, groundwater basins, grazing commons, urban water supply)"
+    ],
+    "connectionsToOtherModels": [
+      "two-foresters: individual-authorship-driven version of the same underlying dilemma",
+      "two-communities: composition-driven version of the same underlying dilemma",
+      "evolution-competition-forest-resources: adds evolutionary dynamics to resource competition"
+    ]
+  },
+  "metadata": {
+    "created": "2026-08-29",
+    "author": "OpenEvo CCS Lab",
+    "license": "CC BY-SA 4.0",
+    "version": "1.0.0",
+    "basedOn": "EvoFlex assessment pattern (Hanisch et al., 2025), generalized per the integrated-causal-reasoning-assessment skill",
+    "groundingNote": "This vignette is grounded directly in the model's own documented mechanics and parameter ranges (models/population-size-living-costs/model-card.json: logistic tree-regrowth function, harvest/living-cost/death procedures, 375-patch/tree world) -- it was not verified against an actually-executed BehaviorSpace run this session. A live parameter sweep (see the strand's Teacher-education-band activity) is recommended as a follow-up verification step before treating the vignette's described outcome as an empirically confirmed model run rather than a mechanics-derived prediction."
+  }
+}
