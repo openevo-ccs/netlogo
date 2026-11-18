@@ -255,7 +255,7 @@ Verified against the real ConceptBase registry (`conceptbase_search`, 2026-08-07
 **Gap, not yet in ConceptBase main**: verified this pass (2026-08-29) against the
 `conceptbase-wt-bio-core-evolution-extension` worktree — a real, un-merged, no-PR-yet branch
 (`extend-bio-core-evolution-mechanisms`) proposes a BIO-CORE-v1.2.0 vocabulary extending 16 to 43
-concepts, including **Trade-offs** (`OE-CONCEPT-000128`) and **Coevolution** is not among them
+concepts, including **Trade-offs** (`OE-CONCEPT-bio-core-trade-offs`) and **Coevolution** is not among them
 either (checked directly; absent from both main and the pending branch). Trade-offs would be a
 direct match for this strand's speed-vs-energy-cost Payoff Matrices activity once/if that branch
 merges — cite as pending, not as an existing ConceptBase concept.

@@ -172,8 +172,8 @@ staged data**):
 "multi-level selection," and "frequency-dependent selection" as the mechanisms behind its
 outcomes — but **none of the three** exist as concepts in ConceptBase main. All three exist as
 *proposed, unmerged* entries in the `extend-bio-core-evolution-mechanisms` branch of the
-`conceptbase` repo (verified this pass; no PR opened): `OE-CONCEPT-000126` (Kin Selection),
-`OE-CONCEPT-000125` (Multilevel Selection), `OE-CONCEPT-000121` (Frequency-Dependent Selection),
+`conceptbase` repo (verified this pass; no PR opened): `OE-CONCEPT-bio-core-kin-selection` (Kin Selection),
+`OE-CONCEPT-bio-core-multilevel-selection` (Multilevel Selection), `OE-CONCEPT-bio-core-frequency-dependent-selection` (Frequency-Dependent Selection),
 all `BIO-CORE-v1.2.0`. This is the strand in this set where that gap matters most, since the model
 literally cannot be fully competency-tagged against ConceptBase main without them.
 
