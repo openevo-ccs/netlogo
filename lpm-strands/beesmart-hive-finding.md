@@ -317,13 +317,13 @@ Two real, distinct sources exist in this ecosystem — both checked directly thi
 **ConceptBase concepts** (verified against `conceptbase/registry/concept/*.json` directly,
 2026-09-01 — the same alignment layer the other 11 "in progress" strands use):
 
-- **`OE-SANDBOX-CONCEPT-000008` (Decentralized Causal Reasoning, `OE-INTERDISCIPLINARY-v1.0.0`)** —
+- **`OE-SANDBOX-CONCEPT-oe-interdisciplinary-decentralized-causal-reasoning` (Decentralized Causal Reasoning, `OE-INTERDISCIPLINARY-v1.0.0`)** —
   an unusually precise match: this concept's own `nonExamples[]` field already names "attributing a
   flock's coordinated turn to a 'leader bird' signaling the others" as the exact misconception this
   model's own mechanism directly contradicts. Performance indicator: explains the swarm's site
   choice as the aggregate result of many local, quality-weighted waggle-dance interactions, with no
   leader or vote-counter.
-- **`OE-SANDBOX-CONCEPT-000009` (Agent-Based Modeling, `OE-INTERDISCIPLINARY-v1.0.0`)** —
+- **`OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling` (Agent-Based Modeling, `OE-INTERDISCIPLINARY-v1.0.0`)** —
   performance indicator: describes the model as agent-level rules (discover/dance/re-visit/pipe)
   producing an emergent, population-level collective choice, and names that as the model's own
   pedagogical mechanism. Note: this concept's `examples[]` currently names only a bug-evolution
@@ -387,7 +387,7 @@ ABM distinction (see the header note above).
 ## Assessment
 
 **Assessment file:** [assessments/beesmart-hive-finding.json](../assessments/beesmart-hive-finding.json)
-(`OE-ASSESS-BEESMARTHIVEFINDING-001`) — newly built this pass, grade band 9-12/Undergraduate, a
+(`OE-ASSESS-bee-smart-hive-finding`) — newly built this pass, grade band 9-12/Undergraduate, a
 5-item integrated-causal-reasoning assessment following the EvoFlex-derived pattern this
 collection's other assessment files use. Its vignette ("Two Candidate Nest Sites") is grounded
 directly in the model's own documented mechanics (`README.md`'s "How it works," `model-card.json`'s
@@ -436,7 +436,7 @@ grounded in, not this repo's usual CC BY-SA 4.0 (see the file's own `metadata.li
   restructuration-theory-ecosystem-enrichment plan's "Decentralized Self" thread). This model adds
   what `swarming` doesn't have: a discrete, quorum-triggered collective **choice** among options,
   not just continuous coordinated movement.
-- **bug-evolution** / **island-world** — same core `OE-SANDBOX-CONCEPT-000008` (Decentralized
+- **bug-evolution** / **island-world** — same core `OE-SANDBOX-CONCEPT-oe-interdisciplinary-decentralized-causal-reasoning` (Decentralized
   Causal Reasoning) competency target, applied to population-level natural/multilevel selection
   rather than a real-time collective decision; a useful three-way comparison of what "decentralized"
   means across different timescales and mechanisms (generational selection vs. one-shot consensus).

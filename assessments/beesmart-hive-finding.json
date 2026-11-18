@@ -1,12 +1,12 @@
 {
-  "assessmentId": "OE-ASSESS-BEESMARTHIVEFINDING-001",
+  "assessmentId": "OE-ASSESS-bee-smart-hive-finding",
   "modelSlug": "beesmart-hive-finding",
   "title": "Integrated Causal Reasoning Assessment: BeeSmart Hive Finding",
   "description": "Assesses student understanding of decentralized, quorum-based collective decision-making, distinguishing centralized/leader-driven and majority-vote explanations from the model's actual mechanism of quality-linked waggle-dance recruitment, declining interest, and a local quorum threshold.",
   "gradeBand": "9-12, Undergraduate",
   "estimatedDuration": "15-20 minutes",
   "competencies": [
-    { "id": "OE-SANDBOX-CONCEPT-000008", "label": "Decentralized Causal Reasoning", "vocabulary": "OE-INTERDISCIPLINARY-v1.0.0" },
+    { "id": "OE-SANDBOX-CONCEPT-oe-interdisciplinary-decentralized-causal-reasoning", "label": "Decentralized Causal Reasoning", "vocabulary": "OE-INTERDISCIPLINARY-v1.0.0" },
     { "id": "OE-COMPETENCY-openevo-core-competencies-dcr-comp", "label": "Decentralized Causal Reasoning: Computational Systems", "vocabulary": "OPENEVO-CORE-COMPETENCIES" },
     { "id": "OE-CONCEPT-oe-interdisciplinary-collective-intelligence", "label": "Collective Intelligence", "vocabulary": "OE-INTERDISCIPLINARY-v1.0.0" }
   ],
@@ -122,7 +122,7 @@
   "teachingNotes": {
     "commonMisconceptions": [
       "Majority-count/first-mover bias: assuming whichever site accumulates visitors first or fastest is the one the swarm will choose (BSHF-001)",
-      "Centralized-mindset/leader bias: assuming a single experienced or lead bee must be comparing sites and directing the others, the same 'leader bird' non-example named in ConceptBase's OE-SANDBOX-CONCEPT-000008 (BSHF-002)",
+      "Centralized-mindset/leader bias: assuming a single experienced or lead bee must be comparing sites and directing the others, the same 'leader bird' non-example named in ConceptBase's OE-SANDBOX-CONCEPT-oe-interdisciplinary-decentralized-causal-reasoning (BSHF-002)",
       "Quorum-as-universal-agreement: confusing the local quorum threshold (roughly 33 scouts at one site) with total-population agreement or an objective quality proof (BSHF-003)",
       "Scouts-as-whole-colony: treating the model's 100 scout bees as a literal one-to-one representation of an entire swarm, rather than the model's own stated simplification to the real decision-making subgroup (BSHF-004)",
       "False equivalence or false uniqueness bias when analogizing waggle-dance quorum sensing to human group decision-making, rather than naming both the correspondence and the breakdown (BSHF-005)"
@@ -135,7 +135,7 @@
     ],
     "connectionsToOtherModels": [
       "swarming: a pure leaderless-emergence model (flocking) with no decision/choice content -- compares emergent coordination without a discrete collective choice",
-      "bug-evolution / island-world: same decentralized-causal-reasoning competency target (OE-SANDBOX-CONCEPT-000008), applied to population-level natural selection rather than a real-time collective decision"
+      "bug-evolution / island-world: same decentralized-causal-reasoning competency target (OE-SANDBOX-CONCEPT-oe-interdisciplinary-decentralized-causal-reasoning), applied to population-level natural selection rather than a real-time collective decision"
     ]
   },
   "metadata": {

@@ -306,10 +306,10 @@ Verified against the real ConceptBase registry (`conceptbase_search`, 2026-08-26
   strategic choices (their own harvest-rate parameter) that affect outcomes; performance indicators:
   recognize forester decision-making, understand how individual choices aggregate into collective
   outcomes, analyze the role of agency in a dilemma with no built-in coordination mechanism.
-- **OE-SANDBOX-CONCEPT-000008 (Decentralized Causal Reasoning, OE-INTERDISCIPLINARY-v1.0.0)** — new
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-decentralized-causal-reasoning (Decentralized Causal Reasoning, OE-INTERDISCIPLINARY-v1.0.0)** — new
   this pass: performance indicator: explains the forest's fate as the aggregate of two independent,
   non-communicating harvest decisions, with no negotiated joint plan, leader, or coordinator.
-- **OE-SANDBOX-CONCEPT-000009 (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — new this pass:
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — new this pass:
   performance indicator: can describe the model as two independent parameter-driven agents producing
   an emergent collective pattern, and name that as the model's own pedagogical mechanism.
 - Two concepts named in `metadata.json`'s free-text `concepts[]` (`Complex systems`, `Sustainable
@@ -317,7 +317,7 @@ Verified against the real ConceptBase registry (`conceptbase_search`, 2026-08-26
   claimed as covered by the above; `Social dilemma` is covered via Cooperation Games/Governing the
   Commons above, not a standalone concept.
 
-Restructuration (`OE-SANDBOX-CONCEPT-000007`) deliberately **not** added here: this strand's own
+Restructuration (`OE-SANDBOX-CONCEPT-oe-interdisciplinary-restructuration`) deliberately **not** added here: this strand's own
 theoretical-rationale section argues the *mechanism* is restructuration theory, but the concept a
 learner is meant to come away understanding is decentralized causal reasoning about cooperation, not
 restructuration theory itself as content — the same distinction `bug-evolution.md` draws by listing

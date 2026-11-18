@@ -357,11 +357,11 @@ Verified against the real ConceptBase registry (direct inspection of
   even though every forester follows an identical strategy; performance indicator: explain how a
   shared resource can decline purely from population scale, with no change in any individual's
   behavior.
-- **OE-SANDBOX-CONCEPT-000008 (Decentralized Causal Reasoning, OE-INTERDISCIPLINARY-v1.0.0)** —
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-decentralized-causal-reasoning (Decentralized Causal Reasoning, OE-INTERDISCIPLINARY-v1.0.0)** —
   performance indicator: explains both the forest's decline *and* the forester population's own
   decline as emergent, feedback-driven outcomes of population size interacting with a fixed-capacity
   resource, with no designed controller regulating either.
-- **OE-SANDBOX-CONCEPT-000009 (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — performance
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — performance
   indicator: can describe the model as many identical-rule agents whose *number*, not their
   individual rule, produces an emergent collective and population-level pattern. Note: this
   concept's own `examples[]` field currently names only Two Foresters as its cooperation-domain
@@ -387,7 +387,7 @@ Verified against the real ConceptBase registry (direct inspection of
   resource use** (already flagged as gaps by `two-communities.md`'s and `two-foresters.md`'s own
   passes) — none claimed as covered above.
 
-Restructuration (`OE-SANDBOX-CONCEPT-000007`) deliberately **not** added here, for the same reason
+Restructuration (`OE-SANDBOX-CONCEPT-oe-interdisciplinary-restructuration`) deliberately **not** added here, for the same reason
 `two-foresters.md` and `two-communities.md` omit it: this strand's theoretical-rationale section
 argues the *mechanism* is restructuration theory, but the concept a learner is meant to come away
 understanding is density-dependent causal reasoning about a shared resource, not restructuration
@@ -396,7 +396,7 @@ theory itself as content.
 ## Assessment
 
 **Assessment file:** [assessments/population-size-living-costs.json](../assessments/population-size-living-costs.json)
-(`OE-ASSESS-POPULATIONSIZELIVINGCOSTS-001`) — newly built this pass (2026-08-29), grade band 6-8, a
+(`OE-ASSESS-population-size-living-costs`) — newly built this pass (2026-08-29), grade band 6-8, a
 5-item integrated-causal-reasoning assessment following the same EvoFlex-derived pattern
 `assessments/two-foresters.json` and `assessments/two-communities.json` use. Its vignette ("The
 Growing Forestry Cooperative") is grounded directly in the model's own documented mechanics — the

@@ -216,7 +216,7 @@ ethnocentrism/in-group bias specifically.
 ## Assessment
 
 **Assessment file:** [assessments/evolution-ethnocentrism.json](../assessments/evolution-ethnocentrism.json) —
-`OE-ASSESS-ETHNOCENTRISM-001`, a real, already-built integrated-causal-reasoning assessment using
+`OE-ASSESS-ethnocentrism`, a real, already-built integrated-causal-reasoning assessment using
 a "Two Communities of River Valley" vignette (Red/Blue ethnic groups, differing cooperation
 traditions, a town-council policy change), scored against verified real competencies
 (`OE-CONCEPT-oe-interdisciplinary-cooperation`, `OE-CONCEPT-oe-interdisciplinary-agency`,
