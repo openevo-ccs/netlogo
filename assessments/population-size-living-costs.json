@@ -1,5 +1,5 @@
 {
-  "assessmentId": "OE-ASSESS-POPULATIONSIZELIVINGCOSTS-001",
+  "assessmentId": "OE-ASSESS-population-size-living-costs",
   "modelSlug": "population-size-living-costs",
   "title": "Integrated Causal Reasoning Assessment: Population Size and Living Costs",
   "description": "Assesses student understanding of population-density effects on a shared resource, distinguishing dispositional/individual-blame reasoning from density-dependent, feedback-driven reasoning about a common-pool resource.",
@@ -7,7 +7,7 @@
   "estimatedDuration": "10-15 minutes",
   "competencies": [
     { "id": "OE-CONCEPT-oe-interdisciplinary-cooperation", "label": "Cooperation", "vocabulary": "OE-INTERDISCIPLINARY-v1.0.0" },
-    { "id": "OE-SANDBOX-CONCEPT-000008", "label": "Decentralized Causal Reasoning", "vocabulary": "OE-INTERDISCIPLINARY-v1.0.0" }
+    { "id": "OE-SANDBOX-CONCEPT-oe-interdisciplinary-decentralized-causal-reasoning", "label": "Decentralized Causal Reasoning", "vocabulary": "OE-INTERDISCIPLINARY-v1.0.0" }
   ],
   "vignette": {
     "title": "The Growing Forestry Cooperative",

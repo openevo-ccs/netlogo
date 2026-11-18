@@ -17,7 +17,7 @@
 > demo centered on Two Foresters, so a visitor who wants to go deeper has somewhere real to click.
 >
 > **Note on the existing assessment file**: [assessments/two-communities.json](../assessments/two-communities.json)
-> (`OE-ASSESS-TWOCOMMUNITIES-001`, dated 2025-01-09) already existed as a real, schema-consistent
+> (`OE-ASSESS-two-communities`, dated 2025-01-09) already existed as a real, schema-consistent
 > 5-item assessment before this strand was written — the same pre-existing-draft pattern
 > `bug-evolution.md` and `two-foresters.md` found for their own models. This strand verifies and
 > incorporates it rather than duplicating the effort.
@@ -394,11 +394,11 @@ Verified against the real ConceptBase registry (direct inspection of
   the *experimenter's* structural control (population composition) from any individual farmer's own
   (minimal, fixed) agency — a nuance this model makes available that Two Foresters, where each
   forester's own rate *is* individually authored, does not.
-- **OE-SANDBOX-CONCEPT-000008 (Decentralized Causal Reasoning, OE-INTERDISCIPLINARY-v1.0.0)** —
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-decentralized-causal-reasoning (Decentralized Causal Reasoning, OE-INTERDISCIPLINARY-v1.0.0)** —
   performance indicator: explains a community's forest fate as the aggregate, frequency-dependent
   result of population composition, with no individual farmer's decision, and no farmer's "character,"
   driving the outcome.
-- **OE-SANDBOX-CONCEPT-000009 (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — performance
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — performance
   indicator: can describe the model as many fixed-rule agents whose *proportions*, not their
   individual rules, produce an emergent collective pattern. Note: this concept's own `examples[]`
   field currently names only Two Foresters as its cooperation-domain instantiation
@@ -412,7 +412,7 @@ Verified against the real ConceptBase registry (direct inspection of
   `Social dilemma` is covered via Cooperation Games/Governing the Commons, not a standalone concept,
   the same judgment `two-foresters.md` made for its own `metadata.json` concepts.
 
-Restructuration (`OE-SANDBOX-CONCEPT-000007`) deliberately **not** added here, for the same reason
+Restructuration (`OE-SANDBOX-CONCEPT-oe-interdisciplinary-restructuration`) deliberately **not** added here, for the same reason
 `two-foresters.md` omits it: this strand's theoretical-rationale section argues the *mechanism* is
 restructuration theory, but the concept a learner is meant to come away understanding is decentralized/
 compositional causal reasoning about a shared resource, not restructuration theory itself as content.
@@ -420,7 +420,7 @@ compositional causal reasoning about a shared resource, not restructuration theo
 ## Assessment
 
 **Assessment file:** [assessments/two-communities.json](../assessments/two-communities.json)
-(`OE-ASSESS-TWOCOMMUNITIES-001`) — a real, already-built 5-item integrated-causal-reasoning
+(`OE-ASSESS-two-communities`) — a real, already-built 5-item integrated-causal-reasoning
 assessment, grade band 6-8, diagnosing integrated vs. dichotomized reasoning about group composition
 and collective outcomes. Its vignette ("The Two Villages," Green Valley vs. Blue Hill) is a real
 configuration this model can reproduce directly: two 20-family (in the model, 25-farmer) villages

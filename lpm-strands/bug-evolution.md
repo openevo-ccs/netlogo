@@ -242,13 +242,13 @@ Verified against the real ConceptBase registry (`conceptbase_search`, 2026-08-07
 - **OE-CONCEPT-oe-interdisciplinary-agency (Agency, OE-INTERDISCIPLINARY-v1.0.0)** — beetles don't "choose" to evolve;
   performance indicators: distinguish individual agency from population-level evolution, avoid
   anthropomorphizing beetles, understand evolution has no goals.
-- **OE-SANDBOX-CONCEPT-000007 (Restructuration, OE-INTERDISCIPLINARY-v1.0.0)** — new this pass:
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-restructuration (Restructuration, OE-INTERDISCIPLINARY-v1.0.0)** — new this pass:
   performance indicator: can articulate why authoring/running the model's agent rules is a different
   kind of learning experience than reading the aggregate outcome in a textbook.
-- **OE-SANDBOX-CONCEPT-000008 (Decentralized Causal Reasoning, OE-INTERDISCIPLINARY-v1.0.0)** — new
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-decentralized-causal-reasoning (Decentralized Causal Reasoning, OE-INTERDISCIPLINARY-v1.0.0)** — new
   this pass: performance indicator: explains the population-level speed change as an aggregate of
   many local survival/reproduction events, with no leader/designer/goal.
-- **OE-SANDBOX-CONCEPT-000009 (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — new this pass:
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — new this pass:
   performance indicator: can describe the model as agent-level rules producing an emergent
   population-level pattern, and name that as the model's own pedagogical mechanism.
 
@@ -263,7 +263,7 @@ merges — cite as pending, not as an existing ConceptBase concept.
 ## Assessment
 
 **Assessment file:** [assessments/bug-evolution.json](../assessments/bug-evolution.json) — a real,
-already-built 5-item integrated-causal-reasoning assessment (`OE-ASSESS-BUGEVOLUTION-001`), based on
+already-built 5-item integrated-causal-reasoning assessment (`OE-ASSESS-bug-evolution`), based on
 the EvoFlex assessment pattern (Hanisch, Eirdosh, González Galli, Hartelt, Pérez & Cupo, 2026),
 diagnosing integrated vs. dichotomized reasoning about teleology, Lamarckism, progressionism,
 individual- vs. population-level thinking, and trade-offs/context-dependence. No changes needed —

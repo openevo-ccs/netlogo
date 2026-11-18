@@ -192,7 +192,7 @@ Verified against the real ConceptBase registry (`d:/dev/openevo-ccs-lab/conceptb
 - **OE-CONCEPT-oe-interdisciplinary-selection (Selection, OE-INTERDISCIPLINARY-v1.0.0)** — this
   concept's own definition set spans biology and culture; performance indicator: articulate
   selection as differential persistence of variants generally, not only a biology-specific idea.
-- **OE-SANDBOX-CONCEPT-000009 (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — performance
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — performance
   indicator: describe how a spatial/agent-level rule set (limited sensing radius, reactive
   migration) produces the emergent population-level pattern of trait divergence.
 
@@ -202,7 +202,7 @@ Verified against the real ConceptBase registry (`d:/dev/openevo-ccs-lab/conceptb
 ## Assessment
 
 **Assessment file:** [assessments/island-world.json](../assessments/island-world.json) —
-`OE-ASSESS-ISLANDWORLD-001`, a real, already-built 5-item integrated-causal-reasoning assessment
+`OE-ASSESS-island-world`, a real, already-built 5-item integrated-causal-reasoning assessment
 using an "Archipelago" vignette (island mammals, migration, founder effects), scored against
 verified real competencies (`OE-CONCEPT-bio-core-natural-selection`,
 `OE-CONCEPT-bio-core-adaptation`, `OE-CONCEPT-oe-interdisciplinary-agency`).

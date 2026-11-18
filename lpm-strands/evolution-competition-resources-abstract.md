@@ -161,7 +161,7 @@ Verified against the real ConceptBase registry (`d:/dev/openevo-ccs-lab/conceptb
   resource/agent population as the direct object of study; performance indicator: read and
   interpret the "Populations (% of carrying capacity)" plot correctly.
 - **OE-CONCEPT-bio-core-fitness (Fitness, BIO-CORE-v1.0.0)**.
-- **OE-SANDBOX-CONCEPT-000009 (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — performance
+- **OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling (Agent-Based Modeling, OE-INTERDISCIPLINARY-v1.0.0)** — performance
   indicator: explain why changing `Agents-Appearance` doesn't change the underlying simulated
   mechanism (surface representation vs. model logic).
 
