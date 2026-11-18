@@ -184,8 +184,8 @@ behavior`, this model's own documentation names **kin selection, multilevel sele
 frequency-dependent selection** as the mechanisms behind its outcomes, and **none of the three**
 exist as concepts in ConceptBase main. All three exist as *proposed, unmerged* entries in the
 `extend-bio-core-evolution-mechanisms` branch of the `conceptbase` repo (verified this pass; no PR
-opened): `OE-CONCEPT-000126` (Kin Selection), `OE-CONCEPT-000125` (Multilevel Selection),
-`OE-CONCEPT-000121` (Frequency-Dependent Selection), all `BIO-CORE-v1.2.0`. There is also no
+opened): `OE-CONCEPT-bio-core-kin-selection` (Kin Selection), `OE-CONCEPT-bio-core-multilevel-selection` (Multilevel Selection),
+`OE-CONCEPT-bio-core-frequency-dependent-selection` (Frequency-Dependent Selection), all `BIO-CORE-v1.2.0`. There is also no
 ConceptBase concept for "ethnocentrism" or "in-group/out-group bias" specifically, in either main
 or the pending branch.
 

@@ -171,7 +171,7 @@ staged data**):
 effect** are both named explicitly in the model's own `info_sections` text, but neither exists as
 a concept in ConceptBase main. Both exist as *proposed, unmerged* entries in the
 `extend-bio-core-evolution-mechanisms` branch of the `conceptbase` repo (no PR opened as of this
-pass): `OE-CONCEPT-000125` (Multilevel Selection) and `OE-CONCEPT-000124` (Founder Effect), both
+pass): `OE-CONCEPT-bio-core-multilevel-selection` (Multilevel Selection) and `OE-CONCEPT-bio-core-founder-effect` (Founder Effect), both
 `BIO-CORE-v1.2.0`. Treat these as pending, not as citable ConceptBase concepts, until that branch
 merges.
 
