@@ -1,0 +1,84 @@
+# Connections between this model and records in the other OpenEvo bases.
+# Ids only. The words in label and why are plain-language text written for visitors.
+# Run scripts/check_connections.py after any change (see CONTRIBUTING.md).
+model: two-foresters
+status: draft
+reviewed: false
+note: Suggested by an AI session from the model's description and the base records. No expert has checked these links yet.
+
+anchors:
+  - id: computer-models
+    label: Computer Models
+    why: A small system with two people and one forest that students can run again and again.
+  - id: governing-the-commons
+    label: Governing the Commons
+    why: Two people share a resource that regrows, which is the smallest version of a commons.
+  - id: cooperation-games
+    label: Cooperation Games
+    why: Each forester's best choice depends on what the other forester does.
+
+thinkingTools:
+  - id: payoff-matrices
+    label: Payoff Matrices
+    why: Students can tabulate what each forester gains for each pair of choices.
+  - id: causal-mapping
+    label: Causal Mapping
+    why: Harvest, regrowth and the stock of trees feed back on each other, and a map shows the loop.
+  - id: analogy-mapping
+    label: Analogy Mapping
+    why: Students can compare the forest with a fishery, a well or the climate.
+
+concepts:
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-social-dilemma
+    label: Social dilemma
+    why: What is best for one forester in the short run can leave both worse off.
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-tragedy-of-the-commons
+    label: Tragedy of the commons
+    why: Greedy harvesting can use up a shared resource faster than it regrows.
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-social-ecological-system-ses-framework
+    label: Social-ecological system
+    why: The forest and the foresters' choices form one connected system.
+  - id: OE-CONCEPT-oe-interdisciplinary-cooperation
+    label: Cooperation
+    why: Both foresters do better when each takes a modest share.
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling
+    label: Agent-based modeling
+    why: Each forester follows a simple harvest rule, and the outcome comes from how the rules meet.
+
+competencies:
+  - id: OE-COMPETENCY-openevo-foundational-competencies-cooperation
+    label: Working together toward shared goals
+    why: Students test what it takes for two parties to keep a shared resource going.
+  - id: OE-COMPETENCY-openevo-core-competencies-systems
+    label: Systems thinking
+    why: Students follow how harvest, regrowth and the stock of trees affect each other over time.
+
+theories:
+  - id: OE-THEORY-commons-dilemma
+    label: The commons dilemma
+    why: The standard account of why shared resources get overused and what changes the outcome.
+  - id: OE-PROPOSITION-commons-dilemma-misaligned-interests
+    label: Interests that partly line up and partly clash
+    why: The dilemma appears when individual and shared interests are neither the same nor opposite, as with the two foresters.
+  - id: OE-LEARNINGDEPENDENCY-abm-decentralized-reasoning-precedes-icr-cooperation-social-dilemma
+    label: Individual-rules thinking may come first
+    why: A claim in our theory work that this kind of model helps learners explain cooperation and social dilemmas. The claim is still being tested.
+  - id: OE-THEORY-restructuration-theory
+    label: Restructuration (Wilensky and Papert)
+    why: An idea that is hard to grasp in the abstract can be easier when students see individuals following rules.
+
+literature:
+  - id: OE-LITERATURE-hardin-1968
+    label: Hardin (1968), The tragedy of the commons
+    why: The classic statement of the problem the model shows.
+  - id: OE-LITERATURE-ostrom-1990
+    label: Ostrom (1990), Governing the commons
+    why: Shows how real communities keep shared resources going.
+  - id: OE-LITERATURE-goldstone-wilensky-2008
+    label: Goldstone and Wilensky (2008), Promoting transfer
+    why: Evidence on how simulations help students carry a principle to new cases.
+
+teachingbase:
+  - id: two-foresters
+    label: Two Foresters on TeachingBase
+    why: The model's teaching page, with the lesson plan and slides.

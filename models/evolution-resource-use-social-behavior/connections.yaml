@@ -1,0 +1,72 @@
+# Connections between this model and records in the other OpenEvo bases.
+# Ids only. The words in label and why are plain-language text written for visitors.
+# Run scripts/check_connections.py after any change (see CONTRIBUTING.md).
+model: evolution-resource-use-social-behavior
+status: draft
+reviewed: false
+note: Suggested by an AI session from the model's description and the base records. No expert has checked these links yet.
+
+anchors:
+  - id: computer-models
+    label: Computer Models
+    why: Students watch harvest behavior and punishment evolve in a population over many generations.
+  - id: governing-the-commons
+    label: Governing the Commons
+    why: Monitoring and punishing greedy harvesters is one way real groups protect a shared resource.
+
+thinkingTools:
+  - id: causal-mapping
+    label: Causal Mapping
+    why: A map shows how harvesting, punishment, resource stock and reproduction loop back on each other.
+
+concepts:
+  - id: OE-CONCEPT-oe-interdisciplinary-cooperation
+    label: Cooperation
+    why: Sustainable harvesters help the whole group, and punishers help keep it that way.
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-tragedy-of-the-commons
+    label: Tragedy of the commons
+    why: Greedy harvesters can use up the resource unless something holds them back.
+  - id: OE-CONCEPT-bio-core-multilevel-selection
+    label: Selection at more than one level
+    why: Greedy harvesters do better inside a group while groups with sustainable harvesters last longer.
+  - id: OE-CONCEPT-bio-core-group-selection
+    label: Group selection
+    why: Groups that keep their resource going can outlast groups that do not.
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling
+    label: Agent-based modeling
+    why: Each agent follows its own harvest and punishment rules, and the group pattern comes out of those rules.
+
+competencies:
+  - id: OE-COMPETENCY-openevo-foundational-competencies-multi-level-selection-reasoning
+    label: Reasoning about selection at several levels
+    why: Students weigh what helps an individual against what helps its group.
+  - id: OE-COMPETENCY-openevo-foundational-competencies-model-based-reasoning-evolution
+    label: Reasoning with models in evolution
+    why: Students use a computer model to test ideas and to see where the model is too simple.
+
+theories:
+  - id: OE-THEORY-commons-dilemma
+    label: The commons dilemma
+    why: The standard account of why shared resources get overused and what changes the outcome.
+  - id: OE-THEORY-core-design-principles-for-cooperation
+    label: Design principles for cooperating groups
+    why: Monitoring and graduated sanctions are among the conditions that help groups manage a shared resource.
+  - id: OE-LEARNINGDEPENDENCY-abm-decentralized-reasoning-precedes-icr-cooperation-social-dilemma
+    label: Individual-rules thinking may come first
+    why: A claim in our theory work that this kind of model helps learners explain cooperation and social dilemmas. The claim is still being tested.
+
+literature:
+  - id: OE-LITERATURE-ostrom-1990
+    label: Ostrom (1990), Governing the commons
+    why: Shows how real communities monitor and sanction to keep shared resources going.
+  - id: OE-LITERATURE-wilson-ostrom-cox-2013
+    label: Wilson, Ostrom and Cox (2013), Core design principles
+    why: Sets out the design principles behind groups that cooperate well.
+  - id: OE-LITERATURE-hardin-1968
+    label: Hardin (1968), The tragedy of the commons
+    why: The classic statement of the problem the model shows.
+
+teachingbase:
+  - id: netlogo-evolution-of-resource-use-and-social-behavior-monitoring-and-punishment
+    label: Resource use and social behavior on TeachingBase
+    why: The model's teaching page.

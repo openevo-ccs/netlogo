@@ -1,0 +1,69 @@
+# Connections between this model and records in the other OpenEvo bases.
+# Ids only. The words in label and why are plain-language text written for visitors.
+# Run scripts/check_connections.py after any change (see CONTRIBUTING.md).
+model: bug-evolution
+status: draft
+reviewed: false
+note: Suggested by an AI session from the model's description and the base records. No expert has checked these links yet.
+
+anchors:
+  - id: computer-models
+    label: Computer Models
+    why: Students watch natural selection happen in a population of individual beetles.
+
+thinkingTools:
+  - id: causal-mapping
+    label: Causal Mapping
+    why: Students can map how speed, predators and survival depend on each other.
+  - id: tinbergens-questions
+    label: Tinbergen's Questions
+    why: The model keeps two questions apart, what speed is for and how the beetle population came to be fast.
+
+concepts:
+  - id: OE-CONCEPT-bio-core-natural-selection
+    label: Natural selection
+    why: Predators catch slower beetles more often, so faster beetles leave more offspring.
+  - id: OE-CONCEPT-bio-core-adaptation
+    label: Adaptation
+    why: Running speed is a trait that helps beetles survive.
+  - id: OE-CONCEPT-bio-core-selection-pressure
+    label: Selection pressure
+    why: Birds and spiders hunt in different ways, so they push beetle speed in different amounts.
+  - id: OE-CONCEPT-oe-interdisciplinary-variation
+    label: Variation
+    why: Beetles in the population differ in how fast they run.
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling
+    label: Agent-based modeling
+    why: Each beetle and each predator follows its own simple rules, and the population pattern comes out of that.
+
+competencies:
+  - id: OE-COMPETENCY-openevo-foundational-competencies-mechanistic-reasoning-natural-selection
+    label: Explaining natural selection step by step
+    why: Students trace how differences, survival and inheritance together change a population.
+  - id: OE-COMPETENCY-openevo-foundational-competencies-model-based-reasoning-evolution
+    label: Reasoning with models in evolution
+    why: Students use a computer model to test ideas and to see where the model is too simple.
+
+theories:
+  - id: OE-THEORY-restructuration-theory
+    label: Restructuration (Wilensky and Papert)
+    why: An idea that is hard as a population-level formula can be easier when students see individuals following rules.
+  - id: OE-LEARNINGDEPENDENCY-abm-decentralized-reasoning-precedes-icr-natural-selection
+    label: Individual-rules thinking may come first
+    why: A claim in our theory work that this kind of model helps learners reach a full explanation of natural selection. The claim is still being tested.
+
+literature:
+  - id: OE-LITERATURE-wilensky-papert-2010
+    label: Wilensky and Papert (2010), Restructurations
+    why: The idea behind building models of individuals to teach population-level ideas.
+  - id: OE-LITERATURE-aslan-wilensky-2016
+    label: Aslan and Wilensky (2016), Restructuration in practice
+    why: Uses an agent-based model to take apart a popular misunderstanding of evolution.
+  - id: OE-LITERATURE-goldstone-wilensky-2008
+    label: Goldstone and Wilensky (2008), Promoting transfer
+    why: Evidence on how simulations help students carry a principle to new cases.
+
+teachingbase:
+  - id: netlogo-bug-evolution
+    label: Bug Evolution on TeachingBase
+    why: The model's teaching page.

@@ -35,7 +35,12 @@ netlogo/
 │       ├── agent-manifest.json    # AI-agent control-surface manifest (sliders/switches/buttons,
 │       │                          #   available monitor reporters) — see netlogo-agent-toolkit/
 │       ├── metadata.json          # structured metadata: concepts, subjects, grades, links
+│       ├── connections.yaml       # (5 of 15 models so far) ids of related records in the other
+│       │                          #   bases, with plain-language labels; see CONTRIBUTING.md
 │       └── README.md
+├── scripts/
+│   └── check_connections.py # checks every connections.yaml against the bases, writes
+│                            #   assets/connections.json
 ├── netlogo-agent-toolkit/   # generates the three machine-readable files above, for every model
 │                            #   (see netlogo-agent-toolkit/README.md)
 └── lpm-strands/

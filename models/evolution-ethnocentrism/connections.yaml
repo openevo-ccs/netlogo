@@ -1,0 +1,75 @@
+# Connections between this model and records in the other OpenEvo bases.
+# Ids only. The words in label and why are plain-language text written for visitors.
+# Run scripts/check_connections.py after any change (see CONTRIBUTING.md).
+model: evolution-ethnocentrism
+status: draft
+reviewed: false
+note: Suggested by an AI session from the model's description and the base records. No expert has checked these links yet.
+
+anchors:
+  - id: computer-models
+    label: Computer Models
+    why: Students watch ethnocentric behavior rise or fall in a population made of several ethnic groups.
+  - id: cultural-diversity
+    label: Cultural Diversity
+    why: The model invites reflection on in-group favoritism across human groups, with care about what it can and cannot say.
+  - id: cooperation-games
+    label: Cooperation Games
+    why: Agents choose how often to help others in their own group and in other groups, and the model shows which choices spread.
+
+thinkingTools:
+  - id: causal-mapping
+    label: Causal Mapping
+    why: A map shows how helping, group markers and reproduction depend on each other.
+  - id: noticing-tool
+    label: Noticing Tool
+    why: Students can notice their own reactions to the results and ask where those reactions come from.
+
+concepts:
+  - id: OE-CONCEPT-oe-interdisciplinary-cooperation
+    label: Cooperation
+    why: Agents decide whether to help, and the model shows when each choice pays off.
+  - id: OE-CONCEPT-bio-core-kin-selection
+    label: Kin selection
+    why: Helping others who share your traits can spread those traits.
+  - id: OE-CONCEPT-bio-core-frequency-dependent-selection
+    label: Frequency-dependent selection
+    why: How well a strategy does depends on how common it already is.
+  - id: OE-CONCEPT-bio-core-multilevel-selection
+    label: Selection at more than one level
+    why: Selection between individuals and between groups can pull in different directions.
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling
+    label: Agent-based modeling
+    why: Each agent follows simple rules about whom to help, and the group pattern comes out of those rules.
+
+competencies:
+  - id: OE-COMPETENCY-openevo-foundational-competencies-multi-level-selection-reasoning
+    label: Reasoning about selection at several levels
+    why: Students weigh what helps an individual against what helps its group.
+  - id: OE-COMPETENCY-openevo-foundational-competencies-intercultural
+    label: Working across cultures
+    why: The follow-up discussion connects the model to how people treat those outside their own group.
+
+theories:
+  - id: OE-PROPOSITION-symbolic-marking-scales-cooperation
+    label: Group markers and cooperation
+    why: Shared markers such as a color or a symbol can let cooperation reach beyond people who know each other, which is also how the model's agents tell who is in their group.
+  - id: OE-THEORY-restructuration-theory
+    label: Restructuration (Wilensky and Papert)
+    why: An idea that is hard to grasp in the abstract can be easier when students see individuals following rules.
+
+literature:
+  - id: OE-LITERATURE-richerson-2016
+    label: Richerson and others (2016), Cultural group selection and cooperation
+    why: Evidence that selection between groups helps explain human cooperation.
+  - id: OE-LITERATURE-mesoudi-2011
+    label: Mesoudi (2011), Cultural evolution
+    why: A book-length account of how culture changes by selection and copying.
+
+teachingbase:
+  - id: netlogo-evolution-of-ethnocentrism
+    label: Evolution of Ethnocentrism on TeachingBase
+    why: The model's teaching page.
+  - id: cognitive-biases-functions-ethnocentrismblindspot
+    label: Cognitive biases, ethnocentrism and the blind spot
+    why: A related lesson on how in-group bias shapes what people notice.

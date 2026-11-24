@@ -33,13 +33,13 @@
     "OE-LITERATURE-wilson-ostrom-cox-2013",
     "OE-LITERATURE-richerson-2016",
     "OE-LITERATURE-richerson-2019",
-    "OE-LITERATURE-lit-mesoudi-2011"
+    "OE-LITERATURE-mesoudi-2011"
   ],
   "Multilevel selection": [
     "OE-LITERATURE-wilson-ostrom-cox-2013",
     "OE-LITERATURE-richerson-2016",
     "OE-LITERATURE-richerson-2019",
-    "OE-LITERATURE-lit-mesoudi-2011"
+    "OE-LITERATURE-mesoudi-2011"
   ],
   "Group selection": [
     "OE-LITERATURE-wilson-ostrom-cox-2013",
@@ -48,16 +48,16 @@
   ],
   "Kin selection": [
     "OE-LITERATURE-richerson-2016",
-    "OE-LITERATURE-lit-mesoudi-2011"
+    "OE-LITERATURE-mesoudi-2011"
   ],
   "Frequency-dependent selection": [
-    "OE-LITERATURE-lit-mesoudi-2011",
+    "OE-LITERATURE-mesoudi-2011",
     "OE-LITERATURE-muthukrishna-2020"
   ],
   "Cultural evolution": [
     "OE-LITERATURE-richerson-2016",
     "OE-LITERATURE-richerson-2019",
-    "OE-LITERATURE-lit-mesoudi-2011",
+    "OE-LITERATURE-mesoudi-2011",
     "OE-LITERATURE-muthukrishna-2020"
   ],
   "Evolution": [
