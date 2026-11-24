@@ -20,6 +20,31 @@ collection; if it's sourced elsewhere (e.g. the official NetLogo Models Library)
 license and say so explicitly in both `assets/models.json` (`license`/`licenseNote` fields) and the
 model's own `README.md` — see `models/beesmart-hive-finding/README.md` for the pattern.
 
+## Connecting a model to the other bases
+
+Each model can list its related records in `models/<slug>/connections.yaml`: content anchors and
+thinking tools (openevo-graph), concepts (ConceptBase), competencies (CompetencyBase), theories
+(TheoryBase), papers (LiteratureBase) and TeachingBase pages. An entry holds the record's id plus a
+short `label` and `why` written in plain words for visitors. Do not paste text from the bases into
+the file.
+
+After any change, run:
+
+```
+python scripts/check_connections.py
+```
+
+The script looks for the base repos as sibling folders of this repo (or pass `--bases-dir`), fails
+if an id has vanished or been renamed, and rewrites `assets/connections.json`. The explorer and the
+OpenEvo.net build read that file. Commit the yaml and the json together. `--check` reports without
+writing.
+
+A new connections file starts with `status: draft` and `reviewed: false`. Set `reviewed: true` only
+together with `reviewedBy` and `reviewedOn` once a person has checked the links.
+
+Records from QuestionBase, MethodsBase and QuoteBase are not yet cleared to be named in this public
+repo, so the script refuses those sections for now.
+
 ## Developing an LPM strand
 
 Follow the 5-step process in [`lpm-strands/README.md`](lpm-strands/README.md). A strand isn't

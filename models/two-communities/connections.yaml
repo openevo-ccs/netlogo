@@ -1,0 +1,78 @@
+# Connections between this model and records in the other OpenEvo bases.
+# Ids only. The words in label and why are plain-language text written for visitors.
+# Run scripts/check_connections.py after any change (see CONTRIBUTING.md).
+model: two-communities
+status: draft
+reviewed: false
+note: Suggested by an AI session from the model's description and the base records. No expert has checked these links yet.
+
+anchors:
+  - id: computer-models
+    label: Computer Models
+    why: Students vary the mix of modest and greedy foresters and watch what happens to each community.
+  - id: governing-the-commons
+    label: Governing the Commons
+    why: Two communities draw on one regrowing forest, so the group's rules and mix of people matter.
+
+thinkingTools:
+  - id: payoff-matrices
+    label: Payoff Matrices
+    why: Students can tabulate the short-term gain and long-term cost of modest and greedy harvesting.
+  - id: causal-mapping
+    label: Causal Mapping
+    why: A map shows how the mix of foresters, harvest and tree regrowth depend on each other.
+
+concepts:
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-social-dilemma
+    label: Social dilemma
+    why: Individual short-term gain pulls against the community's long-term welfare.
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-tragedy-of-the-commons
+    label: Tragedy of the commons
+    why: Enough greedy foresters can use up the forest for everyone.
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-social-ecological-system-ses-framework
+    label: Social-ecological system
+    why: The communities and the forest form one connected system.
+  - id: OE-CONCEPT-oe-interdisciplinary-cooperation
+    label: Cooperation
+    why: Communities with more modest foresters keep the forest and their harvest for longer.
+  - id: OE-SANDBOX-CONCEPT-oe-interdisciplinary-agent-based-modeling
+    label: Agent-based modeling
+    why: Each forester follows a simple harvest rule, and the community results come out of those rules.
+
+competencies:
+  - id: OE-COMPETENCY-openevo-foundational-competencies-cooperation
+    label: Working together toward shared goals
+    why: Students test what it takes for groups to keep a shared resource going.
+  - id: OE-COMPETENCY-openevo-core-competencies-systems
+    label: Systems thinking
+    why: Students follow how individual choices add up to community and forest outcomes.
+
+theories:
+  - id: OE-THEORY-commons-dilemma
+    label: The commons dilemma
+    why: The standard account of why shared resources get overused and what changes the outcome.
+  - id: OE-THEORY-core-design-principles-for-cooperation
+    label: Design principles for cooperating groups
+    why: A set of conditions that help groups manage a shared resource, which students can compare with what they see in the model.
+  - id: OE-LEARNINGDEPENDENCY-abm-decentralized-reasoning-precedes-icr-cooperation-social-dilemma
+    label: Individual-rules thinking may come first
+    why: A claim in our theory work that this kind of model helps learners explain cooperation and social dilemmas. The claim is still being tested.
+
+literature:
+  - id: OE-LITERATURE-hardin-1968
+    label: Hardin (1968), The tragedy of the commons
+    why: The classic statement of the problem the model shows.
+  - id: OE-LITERATURE-ostrom-1990
+    label: Ostrom (1990), Governing the commons
+    why: Shows how real communities keep shared resources going.
+  - id: OE-LITERATURE-basurto-ostrom-2009
+    label: Basurto and Ostrom (2009), Beyond the tragedy of the commons
+    why: Argues that outcomes depend on how a community is set up, which the two-community mix lets students explore.
+  - id: OE-LITERATURE-wilson-ostrom-cox-2013
+    label: Wilson, Ostrom and Cox (2013), Core design principles
+    why: Sets out the design principles behind groups that cooperate well.
+
+teachingbase:
+  - id: netlogo-two-communities
+    label: Two Communities on TeachingBase
+    why: The model's teaching page.
