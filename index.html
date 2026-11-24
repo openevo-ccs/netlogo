@@ -36,7 +36,14 @@
     </div>
   </nav>
 
-  <main class="layout">
+  <!-- Phone and tablet: one pane at a time (Models, Run, About) -->
+  <div class="pane-tabs" id="pane-tabs" role="tablist" aria-label="Page section">
+    <button type="button" role="tab" data-pane="models" aria-selected="false" onclick="setPane('models')">Models</button>
+    <button type="button" role="tab" data-pane="run" aria-selected="true" onclick="setPane('run')">Run</button>
+    <button type="button" role="tab" data-pane="about" aria-selected="false" onclick="setPane('about')">About</button>
+  </div>
+
+  <main class="layout" id="layout" data-pane="run">
     <aside class="sidebar" id="sidebar-panel" aria-label="Model list">
       <button class="panel-toggle panel-toggle-left" id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Collapse sidebar" title="Collapse sidebar">‹</button>
       <div class="sidebar-inner">
@@ -55,9 +62,18 @@
     </aside>
 
     <section class="viewer" aria-label="Model viewer">
+      <div class="viewer-bar" id="viewer-bar">
+        <span class="crumbs"><a href="#" onclick="navigateTo('home'); setPane('models'); return false;">Models</a> <span aria-hidden="true">›</span> <strong id="breadcrumb-current">Explore</strong></span>
+        <span class="viewer-bar-license" id="viewer-license"></span>
+        <span class="viewer-hint">Swipe sideways to see the whole model, or use the full-screen button.</span>
+      </div>
       <div id="model-frame-wrap" class="frame-wrap">
         <button class="viewer-maximize-btn" id="viewer-maximize-btn" onclick="toggleViewerFullscreen()" aria-label="Expand model viewer to full screen" title="Expand to full screen">⛶</button>
-        <iframe id="model-frame" title="NetLogo model" loading="lazy"></iframe>
+        <div class="frame-scroll" id="model-frame-scroll">
+          <div class="frame-sizer" id="model-frame-sizer">
+            <iframe id="model-frame" title="NetLogo model" loading="lazy"></iframe>
+          </div>
+        </div>
         <div id="model-frame-loading" class="frame-loading-overlay" aria-live="polite">
           <div class="spinner"></div>
           <p>Loading model…</p>
@@ -69,7 +85,7 @@
         <div class="graph-header">
           <div>
             <h2>🕸️ Concept &amp; Model Network</h2>
-            <p>Models and concepts as nodes: thin lines link a model to its concepts; thicker lines link models that share concepts, or concepts that share models. Turn on the literature layer to see which concepts are grounded in real research — a dashed outline means no grounding literature yet. Drag nodes, scroll to zoom, double-click a model or literature node to open it, click any node to focus its connections.</p>
+            <p>Models and concepts as nodes: thin lines link a model to its concepts; thicker lines link models that share concepts, or concepts that share models. Turn on the literature layer to see which concepts are grounded in published research — a dashed outline means no grounding literature yet. Drag nodes, scroll to zoom, double-click a model or literature node to open it, click any node to focus its connections.</p>
           </div>
           <button class="viewer-maximize-btn graph-maximize-btn" id="graph-maximize-btn" onclick="toggleGraphFullscreen()" aria-label="Expand concept graph to full screen" title="Expand to full screen">⛶</button>
         </div>
@@ -178,10 +194,8 @@
         </div>
         
         <div id="notebook-thinking-tools" class="notebook-section">
-          <p>Select a thinking tool to use:</p>
-          <button class="btn" onclick="openThinkingTool('tinbergen')">Tinbergen's Questions</button>
-          <button class="btn" onclick="openThinkingTool('causal-mapping')">Causal Mapping</button>
-          <button class="btn" onclick="openThinkingTool('payoff-matrix')">Payoff Matrix</button>
+          <p>Pick a thinking tool to help you make sense of what you see in the model.</p>
+          <div id="thinking-tools-list" class="thinking-tools-list"></div>
         </div>
         
         <div class="notebook-actions">
@@ -195,12 +209,25 @@
 
   <footer class="footer">
     <p>
-      Models sourced from <a href="https://openevo.eva.mpg.de/teachingbase/netlogo/" target="_blank" rel="noopener">OpenEvo TeachingBase</a>,
-      OpenEvo CCS Lab — CC BY-SA.
-      Repository: <a href="https://github.com/openevo-ccs/netlogo" target="_blank" rel="noopener">github.com/openevo-ccs/netlogo</a>.
+      Models from <a href="https://openevo.eva.mpg.de/teachingbase/netlogo/" target="_blank" rel="noopener">OpenEvo TeachingBase</a>
+      and the OpenEvo CCS Lab, shared under CC BY-SA 4.0 unless a model's own page names a different licence
+      (BeeSmart Hive Finding is CC BY-NC-SA 3.0, so no commercial use).
+      Source files: <a href="https://github.com/openevo-ccs/netlogo" target="_blank" rel="noopener">github.com/openevo-ccs/netlogo</a>.
     </p>
   </footer>
 
+  <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+  <dialog id="assessment-dialog" class="assessment-dialog" aria-label="Check your thinking">
+    <div class="assessment-dialog-bar">
+      <strong>Check your thinking</strong>
+      <button type="button" class="btn btn-outline" onclick="closeAssessment()">Close</button>
+    </div>
+    <p class="draft-banner">These questions are drafts. No expert has reviewed them yet, so use them for practice and discussion and not for grading.</p>
+    <div id="assessment-host"></div>
+  </dialog>
+
+  <script src="assets/assessment.js"></script>
   <script src="assets/app.js"></script>
   <script src="assets/lab-notebook.js"></script>
   <script src="assets/panel-controls.js"></script>
