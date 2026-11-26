@@ -1,0 +1,19 @@
+forest,block ticks,exploration points,foresters,r (median),sign agree (mean)
+shared,25,5,60,0.2,0.66
+shared,25,10,60,0.44,0.71
+shared,25,20,60,0.62,0.6
+shared,50,5,60,0.12,0.73
+shared,50,10,60,0.31,0.84
+shared,50,20,60,0.77,0.69
+shared,100,5,60,0.19,0.87
+shared,100,10,60,0.3,0.95
+shared,100,20,60,0.81,0.87
+private,25,5,60,0.21,0.66
+private,25,10,60,0.55,0.73
+private,25,20,60,0.74,0.7
+private,50,5,60,0.23,0.73
+private,50,10,60,0.39,0.85
+private,50,20,60,0.76,0.74
+private,100,5,60,0.28,0.82
+private,100,10,60,0.32,0.96
+private,100,20,60,0.8,0.89
